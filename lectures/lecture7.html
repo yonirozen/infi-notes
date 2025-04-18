@@ -17,6 +17,9 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Shared Dark Mode CSS -->
+    <link rel="stylesheet" href="../styles/dark-mode.css">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
@@ -929,352 +932,354 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Shared Dark Mode JavaScript -->
+    <script src="../scripts/dark-mode.js"></script>
 
-     <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
-     <script>
-         // --- Global Chart References ---
-         let stepFunctionChart = null;
+    <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+    <script>
+        // --- Global Chart References ---
+        let stepFunctionChart = null;
 
-        // --- Function to get current theme colors from CSS Variables ---
-        function getChartColors() {
-            const style = getComputedStyle(document.documentElement);
-            const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
+       // --- Function to get current theme colors from CSS Variables ---
+       function getChartColors() {
+           const style = getComputedStyle(document.documentElement);
+           const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
 
-            return {
-                axisColor: getColor('--chart-axis-color', '#333333'),
-                gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
-                textColor: getColor('--text-color', '#343a40'),
-                primaryColor: getColor('--primary-color', '#0a5a8d'),
-                accentColor: getColor('--accent-color', '#f0ad4e'),
-                fillColor1: 'rgba(10, 90, 141, 0.3)', // Fill for first step
-                fillColor2: 'rgba(240, 173, 78, 0.3)', // Fill for second step (using accent variation)
-                bgColor: getColor('--card-bg', '#ffffff')
-            };
-        }
+           return {
+               axisColor: getColor('--chart-axis-color', '#333333'),
+               gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
+               textColor: getColor('--text-color', '#343a40'),
+               primaryColor: getColor('--primary-color', '#0a5a8d'),
+               accentColor: getColor('--accent-color', '#f0ad4e'),
+               fillColor1: 'rgba(10, 90, 141, 0.3)', // Fill for first step
+               fillColor2: 'rgba(240, 173, 78, 0.3)', // Fill for second step (using accent variation)
+               bgColor: getColor('--card-bg', '#ffffff')
+           };
+       }
 
-        // --- Function to render Step Function Chart ---
-        function renderStepFunctionChart() {
-            const ctx = document.getElementById('stepFunctionChart')?.getContext('2d');
-            if (!ctx) return;
+       // --- Function to render Step Function Chart ---
+       function renderStepFunctionChart() {
+           const ctx = document.getElementById('stepFunctionChart')?.getContext('2d');
+           if (!ctx) return;
 
-            const colors = getChartColors();
+           const colors = getChartColors();
 
-            // Data points representing the steps
-            const dataPoints = [
-                { x: 0, y: 1 },
-                { x: 1, y: 1 }, // End of first step
-                { x: 1, y: 2 }, // Start of second step (use NaN or separate dataset for discontinuity)
-                { x: 2, y: 2 }  // End of second step
-            ];
-             // Create data for Chart.js. Use 'stepped: true' or manage segments carefully.
-             // Using segments for better control over discontinuity:
-             const dataset1 = [ {x: 0, y: 1}, {x: 1, y: 1} ];
-             const dataset2 = [ {x: 1, y: 2}, {x: 2, y: 2} ];
+           // Data points representing the steps
+           const dataPoints = [
+               { x: 0, y: 1 },
+               { x: 1, y: 1 }, // End of first step
+               { x: 1, y: 2 }, // Start of second step (use NaN or separate dataset for discontinuity)
+               { x: 2, y: 2 }  // End of second step
+           ];
+            // Create data for Chart.js. Use 'stepped: true' or manage segments carefully.
+            // Using segments for better control over discontinuity:
+            const dataset1 = [ {x: 0, y: 1}, {x: 1, y: 1} ];
+            const dataset2 = [ {x: 1, y: 2}, {x: 2, y: 2} ];
 
 
-            const data = {
-                datasets: [
-                    {
-                        label: 'f(x) = 1',
-                        data: dataset1,
-                        borderColor: colors.primaryColor,
-                        backgroundColor: colors.fillColor1,
-                        borderWidth: 2.5,
-                        pointRadius: [4, 0], // Solid start, open end conceptually (though visually hard)
-                        pointBorderColor: colors.primaryColor,
-                        pointBackgroundColor: colors.bgColor, // For open circle look
-                        stepped: 'before', // Or handle manually
-                        fill: { // Fill under the step
-                            target: 'origin', // Fill down to y=0
-                            above: colors.fillColor1,
-                         }
-                    },
-                    {
-                        label: 'f(x) = 2',
-                        data: dataset2,
-                        borderColor: colors.accentColor,
-                        backgroundColor: colors.fillColor2,
-                        borderWidth: 2.5,
-                        pointRadius: [4, 4], // Open start, solid end conceptually
-                        pointBorderColor: colors.accentColor,
-                        pointBackgroundColor: [colors.bgColor, colors.accentColor], // Open/Solid
-                        stepped: 'before', // Or handle manually
-                        fill: {
-                            target: 'origin',
-                            above: colors.fillColor2,
+           const data = {
+               datasets: [
+                   {
+                       label: 'f(x) = 1',
+                       data: dataset1,
+                       borderColor: colors.primaryColor,
+                       backgroundColor: colors.fillColor1,
+                       borderWidth: 2.5,
+                       pointRadius: [4, 0], // Solid start, open end conceptually (though visually hard)
+                       pointBorderColor: colors.primaryColor,
+                       pointBackgroundColor: colors.bgColor, // For open circle look
+                       stepped: 'before', // Or handle manually
+                       fill: { // Fill under the step
+                           target: 'origin', // Fill down to y=0
+                           above: colors.fillColor1,
                         }
-                    }
-                ]
-            };
+                   },
+                   {
+                       label: 'f(x) = 2',
+                       data: dataset2,
+                       borderColor: colors.accentColor,
+                       backgroundColor: colors.fillColor2,
+                       borderWidth: 2.5,
+                       pointRadius: [4, 4], // Open start, solid end conceptually
+                       pointBorderColor: colors.accentColor,
+                       pointBackgroundColor: [colors.bgColor, colors.accentColor], // Open/Solid
+                       stepped: 'before', // Or handle manually
+                       fill: {
+                           target: 'origin',
+                           above: colors.fillColor2,
+                       }
+                   }
+               ]
+           };
 
 
-            const options = {
-                responsive: true,
-                maintainAspectRatio: true,
-                aspectRatio: 1.8, // Adjust aspect ratio
-                plugins: {
-                    tooltip: {
-                        enabled: true,
-                        mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                             label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) { label += ': '; }
-                                label += `(${context.parsed.x.toFixed(2)}, ${context.parsed.y.toFixed(2)})`;
-                                return label;
-                            },
-                             title: () => null // No title needed for single points
-                        }
-                    },
-                    legend: {
-                        display: false // Can hide legend if steps are clear
+           const options = {
+               responsive: true,
+               maintainAspectRatio: true,
+               aspectRatio: 1.8, // Adjust aspect ratio
+               plugins: {
+                   tooltip: {
+                       enabled: true,
+                       mode: 'index',
+                       intersect: false,
+                       callbacks: {
+                            label: function(context) {
+                               let label = context.dataset.label || '';
+                               if (label) { label += ': '; }
+                               label += `(${context.parsed.x.toFixed(2)}, ${context.parsed.y.toFixed(2)})`;
+                               return label;
+                           },
+                            title: () => null // No title needed for single points
+                       }
+                   },
+                   legend: {
+                       display: false // Can hide legend if steps are clear
+                   }
+               },
+               scales: {
+                   x: {
+                       type: 'linear',
+                       min: -0.1, max: 2.1,
+                       title: { display: true, text: 'x', color: colors.textColor },
+                       grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
+                       ticks: { color: colors.textColor, stepSize: 0.5 }
+                   },
+                   y: {
+                       min: 0, max: 2.5,
+                       title: { display: true, text: 'f(x)', color: colors.textColor },
+                       grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
+                       ticks: { color: colors.textColor, stepSize: 0.5 }
+                   }
+               },
+               elements: {
+                    line: {
+                        tension: 0 // Straight lines for steps
                     }
                 },
-                scales: {
-                    x: {
-                        type: 'linear',
-                        min: -0.1, max: 2.1,
-                        title: { display: true, text: 'x', color: colors.textColor },
-                        grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
-                        ticks: { color: colors.textColor, stepSize: 0.5 }
-                    },
-                    y: {
-                        min: 0, max: 2.5,
-                        title: { display: true, text: 'f(x)', color: colors.textColor },
-                        grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
-                        ticks: { color: colors.textColor, stepSize: 0.5 }
-                    }
-                },
-                elements: {
-                     line: {
-                         tension: 0 // Straight lines for steps
-                     }
-                 },
-                 // Custom drawing for open/closed circles at discontinuity? (Requires plugin or more complex setup)
-            };
+                // Custom drawing for open/closed circles at discontinuity? (Requires plugin or more complex setup)
+           };
 
-            if (stepFunctionChart) stepFunctionChart.destroy(); // Destroy previous instance
-            stepFunctionChart = new Chart(ctx, { type: 'line', data: data, options: options });
+           if (stepFunctionChart) stepFunctionChart.destroy(); // Destroy previous instance
+           stepFunctionChart = new Chart(ctx, { type: 'line', data: data, options: options });
+       }
+
+       // --- Function to render all charts ---
+        function renderAllCharts() {
+            renderStepFunctionChart();
         }
 
-        // --- Function to render all charts ---
-         function renderAllCharts() {
-             renderStepFunctionChart();
-         }
+       // --- Scroll nav to show active link ---
+       function scrollToActiveLink() {
+           const navList = document.querySelector('#main-nav ul');
+           const activeLink = navList?.querySelector('a.active');
+           if (!activeLink || !navList) return;
 
-        // --- Scroll nav to show active link ---
-        function scrollToActiveLink() {
-            const navList = document.querySelector('#main-nav ul');
-            const activeLink = navList?.querySelector('a.active');
-            if (!activeLink || !navList) return;
+           const navListRect = navList.getBoundingClientRect();
+           const activeLinkRect = activeLink.getBoundingClientRect();
 
-            const navListRect = navList.getBoundingClientRect();
-            const activeLinkRect = activeLink.getBoundingClientRect();
+            // Check if active link is outside the visible area of the navList
+            const isVisible =
+               activeLinkRect.left >= navListRect.left &&
+               activeLinkRect.right <= navListRect.right;
 
-             // Check if active link is outside the visible area of the navList
-             const isVisible =
-                activeLinkRect.left >= navListRect.left &&
-                activeLinkRect.right <= navListRect.right;
+           if (!isVisible) {
+                // Calculate scroll position to center the link
+                const scrollLeftTarget = navList.scrollLeft + activeLinkRect.left - navListRect.left - (navListRect.width / 2) + (activeLinkRect.width / 2);
 
-            if (!isVisible) {
-                 // Calculate scroll position to center the link
-                 const scrollLeftTarget = navList.scrollLeft + activeLinkRect.left - navListRect.left - (navListRect.width / 2) + (activeLinkRect.width / 2);
+                navList.scrollTo({
+                   left: scrollLeftTarget,
+                   behavior: 'smooth'
+               });
+            }
+       }
 
-                 navList.scrollTo({
-                    left: scrollLeftTarget,
-                    behavior: 'smooth'
-                });
-             }
-        }
-
-        // --- General Setup on DOMContentLoaded ---
-         document.addEventListener('DOMContentLoaded', function() {
-             // --- 1. KaTeX Rendering ---
-              try {
-                   renderMathInElement(document.body, {
-                      delimiters: [
-                          {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')} // Allow single $
-                      ],
-                      // Custom wrapper logic using div.math / span.math for block/inline
-                      trust: true, // Allows rendering potentially complex html generated by katex
-                      strict: (errorCode) => (errorCode === 'unicodeTextInMathMode' ? 'ignore' : 'warn'), // Less strict error handling, ignore unicode in math
-                      output: 'htmlAndMathml', // Better accessibility
-                      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'],
-                      ignoredClasses: ['no-math'],
-                      throwOnError: false,
-                       preProcess: (math) => {
-                            // Remove specific problematic characters if needed before rendering
-                           // Example: math = math.replace(/[\u202A-\u202E]/g, ''); // Remove embedding controls if they cause issues
-                           return math.replace(/\\\\/g, '\\'); // Fix double backslashes common from copy-paste
-                       }
-                   });
-                  // Ensure display math is correctly wrapped
-                  document.querySelectorAll('.katex-display').forEach(displayMath => {
-                      const parent = displayMath.parentElement;
-                      // If parent is not div.math, wrap it
-                      if (!parent || parent.tagName !== 'DIV' || !parent.classList.contains('math')) {
-                          const divMath = document.createElement('div');
-                          divMath.className = 'math';
-                          divMath.setAttribute('dir', 'ltr');
-                           // Insert the wrapper before the original display math element
-                           displayMath.parentNode.insertBefore(divMath, displayMath);
-                           // Move the display math element inside the wrapper
-                           divMath.appendChild(displayMath);
-                       }
-                       // Ensure the div.math parent is inside a formula-block
-                       const mathParent = displayMath.closest('div.math');
-                       if (mathParent && (!mathParent.parentElement || !mathParent.parentElement.classList.contains('formula-block'))) {
-                            const formulaBlock = document.createElement('div');
-                            formulaBlock.className = 'formula-block';
-                            mathParent.parentNode.insertBefore(formulaBlock, mathParent);
-                            formulaBlock.appendChild(mathParent);
-                        }
-                   });
-                   // Ensure inline math has the right class and dir
-                   document.querySelectorAll('.katex').forEach(inlineMath => {
-                       // Only target inline math (which is typically wrapped in a span by KaTeX)
-                       if (inlineMath.tagName === 'SPAN' && !inlineMath.classList.contains('katex-display')) {
-                           // Add .math class if missing
-                           if (!inlineMath.classList.contains('math')) {
-                               inlineMath.classList.add('math');
-                            }
-                            // Ensure dir="ltr"
-                           inlineMath.setAttribute('dir', 'ltr');
-                        }
-                   });
-
-              } catch (error) {
-                  console.error("KaTeX auto-rendering failed:", error);
-              }
-
-              // --- 2. Active Navigation Link Highlighting ---
-              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
-              const sections = document.querySelectorAll('main section');
-              const navElement = document.querySelector('nav');
-              const navHeight = navElement ? navElement.offsetHeight : 60;
-
-             function changeActiveLink() {
-                 let currentSectionId = '';
-                 const scrollPosition = window.scrollY;
-
-                 // Find the section currently in view or the last one passed
-                 for (let i = sections.length - 1; i >= 0; i--) {
-                     const section = sections[i];
-                     // Adjust offset slightly more to trigger link activation a bit earlier when scrolling down
-                     const sectionTop = section.offsetTop - navHeight - 70;
-
-                     if (scrollPosition >= sectionTop) {
-                         currentSectionId = section.getAttribute('id');
-                         break; // Found the current or last passed section
-                     }
-                 }
-
-                // If scrolled near the top, activate the first link
-                if (currentSectionId === '' && sections.length > 0 && scrollPosition < sections[0].offsetTop - navHeight - 70) {
-                     currentSectionId = sections[0].getAttribute('id');
-                 }
-
-                // Activate the correct link
-                 let activeLinkFound = false;
-                 navLinks.forEach(link => {
-                      link.classList.remove('active');
-                      const linkHrefId = link.getAttribute('href')?.substring(1); // Safe navigation with optional chaining
-                      if (linkHrefId && linkHrefId === currentSectionId) {
-                           link.classList.add('active');
-                           activeLinkFound = true;
-                       }
-                   });
-
-                 // Fallback if no exact match and scrolled down, activate the first
-                 if (!activeLinkFound && navLinks.length > 0) {
-                     navLinks[0].classList.add('active');
-                 }
-
-
-                // Scroll the nav bar to show the active link
-                 scrollToActiveLink();
-
-             }
-             // Debounce or Throttle the scroll event listener for performance
-             let scrollTimeout;
-             window.addEventListener('scroll', () => {
-                 clearTimeout(scrollTimeout);
-                 scrollTimeout = setTimeout(changeActiveLink, 50); // Adjust delay as needed
-             }, { passive: true });
-             changeActiveLink(); // Initial check
-
-
-             // --- 3. Section Fade-in Animation on Scroll ---
-               const observerOptions = {
-                   root: null,
-                   rootMargin: '0px 0px -10% 0px', // Trigger when 10% from bottom enters view
-                   threshold: 0.1 // At least 10% visible
-              };
-
-               const observerCallback = (entries, observer) => {
-                  entries.forEach(entry => {
-                      if (entry.isIntersecting) {
-                          entry.target.classList.add('visible');
-                          observer.unobserve(entry.target); // Stop observing once visible
+       // --- General Setup on DOMContentLoaded ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 1. KaTeX Rendering ---
+             try {
+                  renderMathInElement(document.body, {
+                     delimiters: [
+                         {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                         {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                         {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                         {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')} // Allow single $
+                     ],
+                     // Custom wrapper logic using div.math / span.math for block/inline
+                     trust: true, // Allows rendering potentially complex html generated by katex
+                     strict: (errorCode) => (errorCode === 'unicodeTextInMathMode' ? 'ignore' : 'warn'), // Less strict error handling, ignore unicode in math
+                     output: 'htmlAndMathml', // Better accessibility
+                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'],
+                     ignoredClasses: ['no-math'],
+                     throwOnError: false,
+                      preProcess: (math) => {
+                           // Remove specific problematic characters if needed before rendering
+                          // Example: math = math.replace(/[\u202A-\u202E]/g, ''); // Remove embedding controls if they cause issues
+                          return math.replace(/\\\\/g, '\\'); // Fix double backslashes common from copy-paste
                       }
                   });
-              };
+                 // Ensure display math is correctly wrapped
+                 document.querySelectorAll('.katex-display').forEach(displayMath => {
+                     const parent = displayMath.parentElement;
+                     // If parent is not div.math, wrap it
+                     if (!parent || parent.tagName !== 'DIV' || !parent.classList.contains('math')) {
+                         const divMath = document.createElement('div');
+                         divMath.className = 'math';
+                         divMath.setAttribute('dir', 'ltr');
+                          // Insert the wrapper before the original display math element
+                          displayMath.parentNode.insertBefore(divMath, displayMath);
+                          // Move the display math element inside the wrapper
+                          divMath.appendChild(displayMath);
+                      }
+                      // Ensure the div.math parent is inside a formula-block
+                      const mathParent = displayMath.closest('div.math');
+                      if (mathParent && (!mathParent.parentElement || !mathParent.parentElement.classList.contains('formula-block'))) {
+                           const formulaBlock = document.createElement('div');
+                           formulaBlock.className = 'formula-block';
+                           mathParent.parentNode.insertBefore(formulaBlock, mathParent);
+                           formulaBlock.appendChild(mathParent);
+                       }
+                  });
+                  // Ensure inline math has the right class and dir
+                  document.querySelectorAll('.katex').forEach(inlineMath => {
+                      // Only target inline math (which is typically wrapped in a span by KaTeX)
+                      if (inlineMath.tagName === 'SPAN' && !inlineMath.classList.contains('katex-display')) {
+                          // Add .math class if missing
+                          if (!inlineMath.classList.contains('math')) {
+                              inlineMath.classList.add('math');
+                           }
+                           // Ensure dir="ltr"
+                          inlineMath.setAttribute('dir', 'ltr');
+                       }
+                  });
 
-              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
-              sections.forEach(section => {
-                  scrollObserver.observe(section);
-               });
-
-
-             // --- 4. Dark Mode ---
-             const darkModeToggle = document.getElementById('darkModeToggle');
-             const htmlElement = document.documentElement;
-
-             const applyTheme = (theme) => {
-                 htmlElement.setAttribute('data-theme', theme);
-                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
-                 localStorage.setItem('theme', theme);
-                  // Re-render charts with new colors
-                  // Add a slight delay to allow CSS transitions to start
-                  setTimeout(renderAllCharts, 50); // Ensure this calls the chart rendering function
-             };
-
-             // Determine initial theme: 1. Local storage, 2. System preference, 3. Default to light
-             const savedTheme = localStorage.getItem('theme');
-             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-             let initialTheme = 'light'; // Default
-             if (savedTheme) {
-                 initialTheme = savedTheme;
-             } else if (prefersDark) {
-                initialTheme = 'dark';
+             } catch (error) {
+                 console.error("KaTeX auto-rendering failed:", error);
              }
 
-             applyTheme(initialTheme); // Apply initial theme *before* rendering charts
+             // --- 2. Active Navigation Link Highlighting ---
+             const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+             const sections = document.querySelectorAll('main section');
+             const navElement = document.querySelector('nav');
+             const navHeight = navElement ? navElement.offsetHeight : 60;
 
-             darkModeToggle.addEventListener('click', () => {
-                 const currentTheme = htmlElement.getAttribute('data-theme');
-                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                 applyTheme(newTheme);
-             });
+            function changeActiveLink() {
+                let currentSectionId = '';
+                const scrollPosition = window.scrollY;
 
-             // Listen for system theme changes ONLY if the user hasn't manually set a theme
-             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                 if (!localStorage.getItem('theme')) { // Only respect system preference if no manual choice
-                     const newTheme = e.matches ? 'dark' : 'light';
-                     applyTheme(newTheme);
-                 }
-             });
+                // Find the section currently in view or the last one passed
+                for (let i = sections.length - 1; i >= 0; i--) {
+                    const section = sections[i];
+                    // Adjust offset slightly more to trigger link activation a bit earlier when scrolling down
+                    const sectionTop = section.offsetTop - navHeight - 70;
 
-            // --- 5. Initial Chart Rendering ---
-            // Render only after DOM is ready and initial theme is set
-            renderAllCharts(); // Ensure this calls the chart rendering function
+                    if (scrollPosition >= sectionTop) {
+                        currentSectionId = section.getAttribute('id');
+                        break; // Found the current or last passed section
+                    }
+                }
 
-          });
-      </script>
+               // If scrolled near the top, activate the first link
+               if (currentSectionId === '' && sections.length > 0 && scrollPosition < sections[0].offsetTop - navHeight - 70) {
+                    currentSectionId = sections[0].getAttribute('id');
+                }
+
+               // Activate the correct link
+                let activeLinkFound = false;
+                navLinks.forEach(link => {
+                     link.classList.remove('active');
+                     const linkHrefId = link.getAttribute('href')?.substring(1); // Safe navigation with optional chaining
+                     if (linkHrefId && linkHrefId === currentSectionId) {
+                          link.classList.add('active');
+                          activeLinkFound = true;
+                      }
+                  });
+
+                // Fallback if no exact match and scrolled down, activate the first
+                if (!activeLinkFound && navLinks.length > 0) {
+                    navLinks[0].classList.add('active');
+                }
+
+
+               // Scroll the nav bar to show the active link
+                scrollToActiveLink();
+
+            }
+            // Debounce or Throttle the scroll event listener for performance
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(changeActiveLink, 50); // Adjust delay as needed
+            }, { passive: true });
+            changeActiveLink(); // Initial check
+
+
+            // --- 3. Section Fade-in Animation on Scroll ---
+              const observerOptions = {
+                  root: null,
+                  rootMargin: '0px 0px -10% 0px', // Trigger when 10% from bottom enters view
+                  threshold: 0.1 // At least 10% visible
+             };
+
+              const observerCallback = (entries, observer) => {
+                 entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                         entry.target.classList.add('visible');
+                         observer.unobserve(entry.target); // Stop observing once visible
+                     }
+                 });
+             };
+
+             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+             sections.forEach(section => {
+                 scrollObserver.observe(section);
+              });
+
+
+            // --- 4. Dark Mode ---
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const htmlElement = document.documentElement;
+
+            const applyTheme = (theme) => {
+                htmlElement.setAttribute('data-theme', theme);
+                darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
+                localStorage.setItem('globalTheme', theme);
+                 // Re-render charts with new colors
+                 // Add a slight delay to allow CSS transitions to start
+                 setTimeout(renderAllCharts, 50); // Ensure this calls the chart rendering function
+            };
+
+            // Determine initial theme: 1. Local storage, 2. System preference, 3. Default to light
+            const savedTheme = localStorage.getItem('globalTheme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let initialTheme = 'light'; // Default
+            if (savedTheme) {
+                initialTheme = savedTheme;
+            } else if (prefersDark) {
+               initialTheme = 'dark';
+            }
+
+            applyTheme(initialTheme); // Apply initial theme *before* rendering charts
+
+            darkModeToggle.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+            });
+
+            // Listen for system theme changes ONLY if the user hasn't manually set a theme
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('globalTheme')) { // Only respect system preference if no manual choice
+                    const newTheme = e.matches ? 'dark' : 'light';
+                    applyTheme(newTheme);
+                }
+            });
+
+           // --- 5. Initial Chart Rendering ---
+           // Render only after DOM is ready and initial theme is set
+           renderAllCharts(); // Ensure this calls the chart rendering function
+
+         });
+     </script>
 
 <!-- כפתור חזרה לדף הראשי -->
 <a href="../index.html" style="
