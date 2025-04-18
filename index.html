@@ -6,9 +6,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;600&display=swap" rel="stylesheet" />
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Shared Dark Mode CSS -->
-  <link rel="stylesheet" href="styles/dark-mode.css">
   <style>
+    :root {
+      --primary-color: #0a5a8d; /* Deeper Blue */
+      --secondary-color: #495057; /* Dark Gray */
+      --accent-color: #f0ad4e; /* Orange/Yellow Accent */
+      --highlight-color: #fdebd0; /* Softer Highlight */
+      --bg-color: #f8f9fa; /* Off-white / Light Gray */
+      --text-color: #343a40; /* Darker Text */
+      --border-color: #ced4da;
+      --card-bg: #ffffff;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --card-hover-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      --transition-speed: 0.4s;
+    }
+
+    /* Dark Mode Variables */
+    html[data-theme="dark"] {
+      --primary-color: #58a6ff; /* Lighter Blue */
+      --secondary-color: #8b949e; /* Lighter Gray */
+      --accent-color: #f7b731; /* Brighter Yellow */
+      --highlight-color: #2d333b; /* Darker Highlight */
+      --bg-color: #0d1117; /* Very Dark Gray/Black */
+      --text-color: #c9d1d9; /* Light Gray Text */
+      --border-color: #30363d;
+      --card-bg: #161b22; /* Dark Card Background */
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      --card-hover-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+
     body {
       margin: 0;
       font-family: 'Assistant', sans-serif;
@@ -123,6 +149,6 @@
   </div>
 
   <!-- Shared Dark Mode JavaScript -->
-  <script src="scripts/dark-mode.js"></script>
+  <script src="js/dark-mode.js"></script>
 </body>
 </html>
