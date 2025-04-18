@@ -1004,1009 +1004,492 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Global Dark Mode -->
+    <script src="../js/dark-mode.js"></script>
 
-     <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+    <!-- Custom Script for Rendering, Enhancements, and Charts -->
      <script>
-         // --- Global Chart References ---
-         let chart_fx_2x = null;
-         let chart_tan_t = null;
-         let chart_sec_t = null;
-         // References for the new drawings (using simple canvas rendering, not Chart.js)
-         let canvas_area_a_b = null;
-         let ctx_area_a_b = null;
-         let canvas_area_delta_s = null;
-         let ctx_area_delta_s = null;
+         // --- Global Chart Variables ---
+         let lineChartInstance = null;
+         let parabolaChartInstance = null;
 
+         // --- Function to Render Charts ---
+         function renderCharts() {
+             // Destroy previous charts if they exist
+             if (lineChartInstance) lineChartInstance.destroy();
+             if (parabolaChartInstance) parabolaChartInstance.destroy();
 
-        // --- Function to get current theme colors from CSS Variables ---
-        function getChartColors() {
-            const style = getComputedStyle(document.documentElement);
-            const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
+             const lineCtx = document.getElementById('lineChart')?.getContext('2d');
+             const parabolaCtx = document.getElementById('parabolaChart')?.getContext('2d');
 
-            return {
-                axisColor: getColor('--chart-axis-color', '#333333'),
-                gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
-                textColor: getColor('--text-color', '#343a40'),
-                primaryColor: getColor('--primary-color', '#0a5a8d'),
-                accentColor: getColor('--accent-color', '#f0ad4e'),
-                fillColor: getColor('--chart-fill-color', 'rgba(10, 90, 141, 0.2)'),
-                darkerFillColor: getColor('--primary-color', 'rgba(10, 90, 141, 0.4)'), // For ΔS highlight
-                bgColor: getColor('--card-bg', '#ffffff')
-            };
-        }
+             if (!lineCtx || !parabolaCtx) {
+                 console.warn("One or both chart canvas elements not found or lack context.");
+                 return;
+             }
 
-        // --- Function to render all charts and drawings ---
-        function renderAllChartsAndDrawings() {
-             renderAreaIllustrationAB(); // Render illustration 1
-             renderAreaIllustrationDeltaS(); // Render illustration 2
-             renderChartFx2x();          // Render Chart.js chart 1
-             renderChartTanT();          // Render Chart.js chart 2
-             renderChartSecT();          // Render Chart.js chart 3
-        }
+             const rangeMin = -4;
+             const rangeMax = 4;
+             const step = 0.25;
 
-
-         // --- Render Illustration: Area from a to b ---
-         function renderAreaIllustrationAB() {
-             canvas_area_a_b = document.getElementById('canvas_area_a_b');
-             if (!canvas_area_a_b) return;
-             ctx_area_a_b = canvas_area_a_b.getContext('2d');
-             const colors = getChartColors();
-             const w = canvas_area_a_b.width = canvas_area_a_b.clientWidth;
-             const h = canvas_area_a_b.height = canvas_area_a_b.clientHeight;
-             const pad = 30; // Padding
-
-             // Clear canvas
-             ctx_area_a_b.clearRect(0, 0, w, h);
-             ctx_area_a_b.fillStyle = colors.bgColor; // Match background
-             ctx_area_a_b.fillRect(0, 0, w, h);
-
-             // Axes
-             ctx_area_a_b.strokeStyle = colors.axisColor;
-             ctx_area_a_b.lineWidth = 1.5;
-             ctx_area_a_b.beginPath();
-             ctx_area_a_b.moveTo(pad, h - pad); // X-axis
-             ctx_area_a_b.lineTo(w - pad / 2, h - pad);
-             ctx_area_a_b.moveTo(pad, h - pad); // Y-axis
-             ctx_area_a_b.lineTo(pad, pad / 2);
-             ctx_area_a_b.stroke();
-
-             // Curve function points (example smooth curve)
-             const x_a = pad * 2;
-             const x_b = w - pad * 1.5;
-             const numPoints = 50;
-             const y_base = h - pad; // Y = 0 level
-
-             ctx_area_a_b.beginPath();
-             ctx_area_a_b.moveTo(x_a, y_base - h * 0.4); // Start point on curve
-
-             for (let i = 0; i <= numPoints; i++) {
-                 const x = x_a + (x_b - x_a) * i / numPoints;
-                 // Example curve: combination of sin/cos for smooth bumps
-                 const y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin((x - x_a) * Math.PI / (x_b - x_a)) + 0.1 * Math.cos((x - x_a) * 3 * Math.PI / (x_b - x_a)) );
-                 const y = y_base - y_offset;
-                 if (i === 0) {
-                     ctx_area_a_b.moveTo(x, y);
-                 } else {
-                     ctx_area_a_b.lineTo(x, y);
+             const generateData = (func, min, max, step) => {
+                 const points = [];
+                 for (let x = min; x <= max; x += step) {
+                     const roundedX = Math.round(x * 100) / 100;
+                     points.push({ x: roundedX, y: func(roundedX) });
                  }
-             }
+                 return points;
+             };
 
-             // Fill area
-             ctx_area_a_b.lineTo(x_b, y_base); // Line to x-axis at b
-             ctx_area_a_b.lineTo(x_a, y_base); // Line to x-axis at a
-             ctx_area_a_b.closePath();
-             ctx_area_a_b.fillStyle = colors.fillColor;
-             ctx_area_a_b.fill();
+             const axisColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-axis-color').trim();
+             const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid-color').trim();
+             const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
 
-             // Stroke the curve itself
-             ctx_area_a_b.strokeStyle = colors.primaryColor;
-             ctx_area_a_b.lineWidth = 2.5;
-             ctx_area_a_b.stroke(); // Draw the path outlined above, but only the curve part
-
-             // Dashed lines at a and b
-             ctx_area_a_b.strokeStyle = colors.secondaryColor;
-             ctx_area_a_b.lineWidth = 1;
-             ctx_area_a_b.setLineDash([5, 5]);
-             // Line a
-             ctx_area_a_b.beginPath();
-             ctx_area_a_b.moveTo(x_a, y_base);
-             ctx_area_a_b.lineTo(x_a, y_base - h * 0.45); // Extend slightly above typical curve start
-             ctx_area_a_b.stroke();
-             // Line b
-             ctx_area_a_b.beginPath();
-             ctx_area_a_b.moveTo(x_b, y_base);
-             ctx_area_a_b.lineTo(x_b, y_base - h * 0.35); // Extend slightly above typical curve end
-             ctx_area_a_b.stroke();
-             ctx_area_a_b.setLineDash([]); // Reset line dash
-
-             // Labels
-             ctx_area_a_b.fillStyle = colors.textColor;
-             ctx_area_a_b.font = "14px " + getComputedStyle(document.body).fontFamily;
-             ctx_area_a_b.textAlign = 'center';
-             ctx_area_a_b.fillText('a', x_a, h - pad / 2);
-             ctx_area_a_b.fillText('b', x_b, h - pad / 2);
-             ctx_area_a_b.textAlign = 'right';
-             ctx_area_a_b.fillText('x', w - pad / 3, h - pad - 5);
-             ctx_area_a_b.textAlign = 'center';
-             ctx_area_a_b.fillText('y', pad + 5, pad / 2 + 5);
-              ctx_area_a_b.fillText('f(x)', (x_a + x_b) / 2 , pad*1.5 ); // Position label above curve
-         }
-
-
-         // --- Render Illustration: Delta S Area ---
-          function renderAreaIllustrationDeltaS() {
-              canvas_area_delta_s = document.getElementById('canvas_area_delta_s');
-              if (!canvas_area_delta_s) return;
-              ctx_area_delta_s = canvas_area_delta_s.getContext('2d');
-              const colors = getChartColors();
-              const w = canvas_area_delta_s.width = canvas_area_delta_s.clientWidth;
-              const h = canvas_area_delta_s.height = canvas_area_delta_s.clientHeight;
-              const pad = 30; // Padding
-
-              // Clear canvas
-              ctx_area_delta_s.clearRect(0, 0, w, h);
-              ctx_area_delta_s.fillStyle = colors.bgColor; // Match background
-              ctx_area_delta_s.fillRect(0, 0, w, h);
-
-
-              // Axes
-              ctx_area_delta_s.strokeStyle = colors.axisColor;
-              ctx_area_delta_s.lineWidth = 1.5;
-              ctx_area_delta_s.beginPath();
-              ctx_area_delta_s.moveTo(pad, h - pad); // X-axis
-              ctx_area_delta_s.lineTo(w - pad / 2, h - pad);
-              ctx_area_delta_s.moveTo(pad, h - pad); // Y-axis
-              ctx_area_delta_s.lineTo(pad, pad / 2);
-              ctx_area_delta_s.stroke();
-
-              // Curve function points (same as before)
-              const x_a = pad * 1.5;
-              const x_b = w - pad * 1.5;
-              const x0 = pad * 3.5;
-              const delta_x = pad * 2;
-              const x0_plus_delta_x = x0 + delta_x;
-              const numPoints = 100;
-              const y_base = h - pad; // Y = 0 level
-
-              // Draw and fill the entire area from a to b lightly
-              ctx_area_delta_s.beginPath();
-               for (let i = 0; i <= numPoints; i++) {
-                  const x = x_a + (x_b - x_a) * i / numPoints;
-                  const y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin((x - x_a) * Math.PI / (x_b - x_a)) + 0.1 * Math.cos((x - x_a) * 3 * Math.PI / (x_b - x_a)) );
-                  const y = y_base - y_offset;
-                  if (i === 0) ctx_area_delta_s.moveTo(x, y); else ctx_area_delta_s.lineTo(x, y);
-               }
-              ctx_area_delta_s.lineTo(x_b, y_base);
-              ctx_area_delta_s.lineTo(x_a, y_base);
-              ctx_area_delta_s.closePath();
-              ctx_area_delta_s.fillStyle = colors.fillColor; // Light fill
-              ctx_area_delta_s.fill();
-
-              // Draw and fill the Delta S area darker
-              ctx_area_delta_s.beginPath();
-              let startDelta = false;
-              for (let i = 0; i <= numPoints; i++) {
-                   const x = x_a + (x_b - x_a) * i / numPoints;
-                   const y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin((x - x_a) * Math.PI / (x_b - x_a)) + 0.1 * Math.cos((x - x_a) * 3 * Math.PI / (x_b - x_a)) );
-                   const y = y_base - y_offset;
-
-                   if (x >= x0 && !startDelta) {
-                       ctx_area_delta_s.moveTo(x0, y_base); // Start fill from axis
-                       ctx_area_delta_s.lineTo(x,y);
-                       startDelta = true;
-                   }
-                   if(startDelta && x <= x0_plus_delta_x){
-                       ctx_area_delta_s.lineTo(x,y);
-                   }
-                   if(startDelta && x > x0_plus_delta_x){
-                       ctx_area_delta_s.lineTo(x0_plus_delta_x, y); // End curve segment precisely
-                       break;
-                   }
-               }
-              ctx_area_delta_s.lineTo(x0_plus_delta_x, y_base); // Line down to axis
-              ctx_area_delta_s.closePath(); // Close the path for fill
-              ctx_area_delta_s.fillStyle = colors.darkerFillColor; // Darker fill
-              ctx_area_delta_s.fill();
-
-             // Optionally, add hatching (more complex, might skip for simplicity)
-             // ctx_area_delta_s.strokeStyle = colors.accentColor;
-             // ctx_area_delta_s.lineWidth = 0.5;
-             // ctx_area_delta_s.save();
-             // ctx_area_delta_s.clip(); // Clip subsequent drawing to the filled area
-             // for (let i = x0; i < x0_plus_delta_x + h; i += 5) {
-             //    ctx_area_delta_s.beginPath();
-             //    ctx_area_delta_s.moveTo(i, y_base);
-             //    ctx_area_delta_s.lineTo(i-h*0.8, y_base-h*0.8); // Diagonal lines
-             //    ctx_area_delta_s.stroke();
-             //}
-             //ctx_area_delta_s.restore();
-
-              // Stroke the curve itself
-              ctx_area_delta_s.beginPath(); // Start a new path for the curve stroke
-               for (let i = 0; i <= numPoints; i++) {
-                  const x = x_a + (x_b - x_a) * i / numPoints;
-                  const y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin((x - x_a) * Math.PI / (x_b - x_a)) + 0.1 * Math.cos((x - x_a) * 3 * Math.PI / (x_b - x_a)) );
-                  const y = y_base - y_offset;
-                  if (i === 0) ctx_area_delta_s.moveTo(x, y); else ctx_area_delta_s.lineTo(x, y);
-               }
-              ctx_area_delta_s.strokeStyle = colors.primaryColor;
-              ctx_area_delta_s.lineWidth = 2.5;
-              ctx_area_delta_s.stroke();
-
-              // Dashed lines at x0 and x0+dx
-              ctx_area_delta_s.strokeStyle = colors.secondaryColor;
-              ctx_area_delta_s.lineWidth = 1;
-              ctx_area_delta_s.setLineDash([5, 5]);
-              // Line x0
-              ctx_area_delta_s.beginPath();
-              ctx_area_delta_s.moveTo(x0, y_base);
-              ctx_area_delta_s.lineTo(x0, y_base - h * 0.5); // Approx height
-              ctx_area_delta_s.stroke();
-              // Line x0+dx
-              ctx_area_delta_s.beginPath();
-              ctx_area_delta_s.moveTo(x0_plus_delta_x, y_base);
-              ctx_area_delta_s.lineTo(x0_plus_delta_x, y_base - h * 0.4); // Approx height
-              ctx_area_delta_s.stroke();
-              ctx_area_delta_s.setLineDash([]); // Reset line dash
-
-              // Labels
-              ctx_area_delta_s.fillStyle = colors.textColor;
-              ctx_area_delta_s.font = "14px " + getComputedStyle(document.body).fontFamily;
-              ctx_area_delta_s.textAlign = 'center';
-              ctx_area_delta_s.fillText('a', x_a, h - pad / 2);
-              ctx_area_delta_s.fillText('b', x_b, h - pad / 2);
-              ctx_area_delta_s.fillText('x₀', x0, h - pad / 2);
-              ctx_area_delta_s.fillText('x₀+Δx', x0_plus_delta_x, h - pad / 2);
-              ctx_area_delta_s.textAlign = 'right';
-              ctx_area_delta_s.fillText('x', w - pad / 3, h - pad - 5);
-              ctx_area_delta_s.textAlign = 'center';
-              ctx_area_delta_s.fillText('y', pad + 5, pad / 2 + 5);
-              ctx_area_delta_s.fillText('f(x)', (x_a + x_b) / 2 , pad*1.5 );
-               // Label ΔS
-              ctx_area_delta_s.fillText('ΔS', x0 + delta_x / 2, y_base - h*0.2);
-
-          }
-
-        // --- Function to render chart for f(x) = 2x ---
-        function renderChartFx2x() {
-            const ctx = document.getElementById('chart_fx_2x')?.getContext('2d');
-            if (!ctx) return; // Exit if canvas not ready
-
-            const colors = getChartColors();
-            const dataPoints = [];
-            for (let x = -1; x <= 1; x += 0.1) {
-                dataPoints.push({ x: x.toFixed(2), y: (2 * x).toFixed(2) }); // Fix toFixed issues
-            }
-
-            const data = {
-                datasets: [{
-                    label: 'f(x) = 2x',
-                    data: dataPoints,
-                    borderColor: colors.primaryColor,
-                    backgroundColor: 'transparent', // No fill needed for line
-                    borderWidth: 2.5,
-                    pointRadius: 0,
-                    tension: 0.1
-                }]
-            };
-
-            const options = {
-                responsive: true,
-                maintainAspectRatio: true, // Adjust aspect ratio as needed
-                 aspectRatio: 1.5,
-                plugins: {
-                    tooltip: {
-                        enabled: true, // Ensure tooltips are enabled
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed.y !== null) {
-                                    label += `(${context.parsed.x.toFixed(2)}, ${context.parsed.y.toFixed(2)})`;
-                                }
-                                return label;
-                             },
-                             title: () => null // No title for tooltip items
-                        }
-                    },
-                    legend: { display: false }
-                },
-                scales: {
-                    x: {
-                        type: 'linear',
-                        min: -1.1, max: 1.1,
-                        title: { display: true, text: 'x', color: colors.textColor },
-                        grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1, z: context => context.tick.value === 0 ? 1 : -1 }, // Ensure axis is drawn over grid lines
-                        ticks: { color: colors.textColor, stepSize: 0.5 }
-                    },
-                    y: {
-                         min: -2.2, max: 2.2,
-                        title: { display: true, text: 'f(x)', color: colors.textColor },
-                        grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1, z: context => context.tick.value === 0 ? 1 : -1 },
-                        ticks: { color: colors.textColor, stepSize: 1 }
-                    }
-                },
-                interaction: { // Enhance hover interaction
-                     intersect: false,
-                     mode: 'index',
-                 },
-            };
-
-            if (chart_fx_2x) chart_fx_2x.destroy(); // Destroy previous instance
-            chart_fx_2x = new Chart(ctx, { type: 'line', data: data, options: options });
-        }
-
-        // --- Function to render chart for tan(t) ---
-        function renderChartTanT() {
-            const ctx = document.getElementById('chart_tan_t')?.getContext('2d');
-             if (!ctx) return;
-
-             const colors = getChartColors();
-             const dataPoints = [];
-             const epsilon = 0.02; // Small value to approach asymptotes closer
-             const steps = 50; // Points per segment
-
-             // Approach left asymptote
-             for (let i = 0; i <= steps; i++) {
-                 const t = -Math.PI / 2 + epsilon + (Math.PI/2 - epsilon) * i / steps;
-                 let y = Math.tan(t);
-                 if (Math.abs(y) > 15) y = y > 0 ? 15 : -15; // Clamp y values for better display
-                 dataPoints.push({ x: t, y: y });
-             }
-
-
-            const data = {
-                datasets: [{
-                    label: 'x = tan(t)',
-                    data: dataPoints,
-                    borderColor: colors.primaryColor,
-                    backgroundColor: 'transparent',
-                    borderWidth: 2.5,
-                    pointRadius: 0,
-                     tension: 0, // Straighter lines often better for tan
-                     spanGaps: false // Don't connect across nulls
-                }]
-            };
-
-            const options = {
-                responsive: true,
+             const commonChartOptions = {
+                 responsive: true,
                  maintainAspectRatio: true,
                  aspectRatio: 1.5,
-                plugins: {
-                    tooltip: {
-                        enabled: true,
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) { label += ': '; }
-                                if (context.parsed.y !== null) {
-                                    // Display actual tangent value even if clamped for visual
-                                    let actual_y = Math.tan(context.parsed.x);
-                                    label += `t ≈ ${context.parsed.x.toFixed(2)}, x ≈ ${actual_y.toFixed(2)}`;
-                                }
-                                return label;
-                            },
-                             title: () => null
-                        }
-                    },
-                    legend: { display: false }
-                },
-                 scales: {
-                     x: { // This is t
-                         type: 'linear',
-                         min: -Math.PI / 2, max: Math.PI / 2,
-                         title: { display: true, text: 't', color: colors.textColor },
-                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
-                         ticks: {
-                             color: colors.textColor,
-                             callback: function(value, index, values) {
-                                const pi = Math.PI;
-                                if (Math.abs(value - (-pi / 2)) < 0.01) return '-π/2';
-                                if (Math.abs(value - (pi / 2)) < 0.01) return 'π/2';
-                                if (Math.abs(value - 0) < 0.01) return '0';
-                                return null; // Show only key points
-                             },
-                            stepSize: Math.PI / 2, // Ensure key points are attempted
-                            includeBounds: true
-                         }
-                     },
-                     y: { // This is x
-                         min: -10, max: 10, // Limit y-axis range for visibility
-                         title: { display: true, text: 'x', color: colors.textColor },
-                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
-                         ticks: { color: colors.textColor, stepSize: 5 }
-                     }
-                 },
-                 // Asymptotes could be drawn using chartjs-plugin-annotation if needed
                  interaction: {
-                     intersect: false,
                      mode: 'index',
+                     intersect: false
                  },
-            };
-
-            if (chart_tan_t) chart_tan_t.destroy();
-            chart_tan_t = new Chart(ctx, { type: 'line', data: data, options: options });
-        }
-
-         // --- Function to render chart for 1/cos(t) ---
-        function renderChartSecT() {
-            const ctx = document.getElementById('chart_sec_t')?.getContext('2d');
-            if (!ctx) return;
-
-             const colors = getChartColors();
-             const dataPoints1 = []; // For t in [0, pi/2)
-             const dataPoints2 = []; // For t in (pi/2, pi]
-             const numSteps = 50;
-             const epsilon = 0.02; // To approach asymptote closer
-
-             // First segment: [0, pi/2 - epsilon]
-             for(let i=0; i<=numSteps; i++) {
-                 const t = (Math.PI / 2 - epsilon) * i / numSteps;
-                  let y = 1 / Math.cos(t);
-                  if (y > 15) y = 15; // Clamp positive infinity
-                 dataPoints1.push({x: t, y: y});
-             }
-
-             // Second segment: [pi/2 + epsilon, pi]
-             for(let i=0; i<=numSteps; i++) {
-                 const t = (Math.PI / 2 + epsilon) + (Math.PI - (Math.PI / 2 + epsilon)) * i / numSteps;
-                 let y = 1 / Math.cos(t);
-                 if (y < -15) y = -15; // Clamp negative infinity
-                 dataPoints2.push({x: t, y: y});
-             }
-
-            const data = {
-                datasets: [
-                    {
-                        label: 'x=sec(t), t∈[0,π/2)', // Shorter label
-                        data: dataPoints1,
-                        borderColor: colors.primaryColor,
-                        backgroundColor: 'transparent',
-                        borderWidth: 2.5,
-                        pointRadius: 0,
-                        tension: 0.1,
-                         spanGaps: false
-                    },
-                     {
-                        label: 'x=sec(t), t∈(π/2,π]', // Shorter label
-                        data: dataPoints2,
-                        borderColor: colors.accentColor, // Different color for second branch
-                        backgroundColor: 'transparent',
-                        borderWidth: 2.5,
-                        pointRadius: 0,
-                         tension: 0.1,
-                         spanGaps: false
-                    }
-                ]
-            };
-
-            const options = {
-                responsive: true,
-                maintainAspectRatio: true,
-                 aspectRatio: 1.5,
                  plugins: {
                      tooltip: {
-                        enabled: true,
+                         backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                         titleColor: '#ffffff',
+                         bodyColor: '#ffffff',
                          callbacks: {
-                              label: function(context) {
-                                let label = context.dataset.label || '';
-                                let parts = label.split(','); // Split label
-                                if(parts[0]) label = parts[0]; else label = ''; // Take first part or fallback
-
-                                if (label) { label += ': '; }
-                                if (context.parsed.y !== null) {
-                                     let actual_y = 1 / Math.cos(context.parsed.x);
-                                     label += `t ≈ ${context.parsed.x.toFixed(2)}, x ≈ ${actual_y.toFixed(2)}`;
-                                }
-                                return label;
-                             },
-                              title: () => null
+                             label: ctx => `${ctx.dataset.label}: (${ctx.parsed.x.toFixed(2)}, ${ctx.parsed.y.toFixed(2)})`,
+                             title: () => ''
                          }
                      },
-                     legend: { display: true, position: 'bottom', labels: { color: colors.textColor, boxWidth: 20, padding: 15 } } // Show legend
+                     legend: {
+                         labels: {
+                             color: textColor
+                         }
+                     }
                  },
                  scales: {
-                     x: { // This is t
+                     x: {
                          type: 'linear',
-                         min: 0, max: Math.PI,
-                         title: { display: true, text: 't', color: colors.textColor },
-                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
+                         title: {
+                             display: true,
+                             text: 'x',
+                             font: { size: 16, weight: 'bold' },
+                             color: textColor
+                         },
+                         grid: {
+                             color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
+                             lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+                         },
                          ticks: {
-                             color: colors.textColor,
-                             callback: function(value, index, values) {
-                                const pi = Math.PI;
-                                if (Math.abs(value - 0) < 0.01) return '0';
-                                if (Math.abs(value - (pi/2)) < 0.01) return 'π/2';
-                                if (Math.abs(value - pi) < 0.01) return 'π';
-                                return null;
-                             },
-                              stepSize: Math.PI / 2,
-                              includeBounds: true
+                             font: { size: 12 },
+                             color: textColor
                          }
                      },
-                     y: { // This is x
-                         min: -10, max: 10, // Limit y range
-                         title: { display: true, text: 'x', color: colors.textColor },
-                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
-                         ticks: { color: colors.textColor, stepSize: 5 }
+                     y: {
+                         title: {
+                             display: true,
+                             text: 'y',
+                             font: { size: 16, weight: 'bold' },
+                             color: textColor
+                         },
+                         grid: {
+                             color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
+                             lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+                         },
+                         ticks: {
+                             font: { size: 12 },
+                             color: textColor
+                         }
                      }
+                 }
+             };
+
+             const lineData = generateData(x => x, rangeMin, rangeMax, step);
+             const parabolaDataC0 = generateData(x => (x * x) / 2, rangeMin, rangeMax, step);
+             const parabolaDataC1 = generateData(x => (x * x) / 2 + 1, rangeMin, rangeMax, step);
+             const parabolaDataC_2 = generateData(x => (x * x) / 2 - 2, rangeMin, rangeMax, step);
+
+             lineChartInstance = new Chart(lineCtx, {
+                 type: 'line',
+                 data: {
+                     datasets: [{
+                         label: 'y = x',
+                         data: lineData,
+                         borderColor: '#ffa500',
+                         backgroundColor: 'transparent',
+                         borderWidth: 2.5,
+                         pointRadius: 0,
+                         tension: 0.1
+                     }]
                  },
-                  interaction: {
-                     intersect: false,
-                     mode: 'index',
+                 options: commonChartOptions
+             });
+
+             parabolaChartInstance = new Chart(parabolaCtx, {
+                 type: 'line',
+                 data: {
+                     datasets: [
+                         {
+                             label: 'y = x²/2 + 1',
+                             data: parabolaDataC1,
+                             borderColor: '#f0ad4e',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         },
+                         {
+                             label: 'y = x²/2',
+                             data: parabolaDataC0,
+                             borderColor: '#fd7e14',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         },
+                         {
+                             label: 'y = x²/2 - 2',
+                             data: parabolaDataC_2,
+                             borderColor: '#dc3545',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         }
+                     ]
                  },
-            };
+                 options: commonChartOptions
+             });
+         }
 
-            if (chart_sec_t) chart_sec_t.destroy();
-            chart_sec_t = new Chart(ctx, { type: 'line', data: data, options: options });
-        }
-
-
-        // --- Scroll nav to show active link ---
-        function scrollToActiveLink() {
-            const navList = document.querySelector('#main-nav ul');
-            const activeLink = navList?.querySelector('a.active');
-            if (!activeLink || !navList) return;
-
-            const navListRect = navList.getBoundingClientRect();
-            const activeLinkRect = activeLink.getBoundingClientRect();
-
-             // Check if active link is outside the visible area of the navList
-             const isVisible =
-                activeLinkRect.left >= navListRect.left &&
-                activeLinkRect.right <= navListRect.right;
-
-            if (!isVisible) {
-                 // Calculate scroll position to center the link
-                 const scrollLeftTarget = navList.scrollLeft + activeLinkRect.left - navListRect.left - (navListRect.width / 2) + (activeLinkRect.width / 2);
-
-                 navList.scrollTo({
-                    left: scrollLeftTarget,
-                    behavior: 'smooth'
-                });
-             }
-        }
-
-        // --- General Setup on DOMContentLoaded ---
          document.addEventListener('DOMContentLoaded', function() {
              // --- 1. KaTeX Rendering ---
-              try {
-                   renderMathInElement(document.body, {
-                      delimiters: [
-                          {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')} // Allow single $
-                      ],
-                      // Custom pre-processing if needed (already handled above for \\)
-                      // Custom wrapper logic using div.math / span.math for block/inline
-                      trust: true, // Allows rendering potentially complex html generated by katex
-                      strict: false, // Less strict error handling
-                      output: 'htmlAndMathml', // Better accessibility
-                      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'],
-                      ignoredClasses: ['no-math'],
-                      throwOnError: false
-                   });
-                  // KaTeX auto-render sometimes wraps display math, ensure it's inside formula-block
-                  document.querySelectorAll('.katex-display').forEach(displayMath => {
-                      if (displayMath.parentElement.tagName !== 'DIV' || !displayMath.parentElement.classList.contains('math')) {
-                          // If it's not already wrapped in div.math, wrap it
-                          const divMath = document.createElement('div');
-                          divMath.className = 'math';
-                           divMath.setAttribute('dir', 'ltr');
-                           displayMath.parentNode.insertBefore(divMath, displayMath);
-                          divMath.appendChild(displayMath);
-                      }
-                      // Ensure the div.math parent is inside a formula-block
-                      let mathParent = displayMath.closest('div.math');
-                       if (mathParent && !mathParent.parentElement.classList.contains('formula-block')) {
-                           const formulaBlock = document.createElement('div');
-                           formulaBlock.className = 'formula-block';
-                           mathParent.parentNode.insertBefore(formulaBlock, mathParent);
-                           formulaBlock.appendChild(mathParent);
-                       }
-                  });
-                  // Ensure inline math has the right class and dir
-                  document.querySelectorAll('span.katex').forEach(inlineMath => {
-                     if (!inlineMath.classList.contains('math')) {
-                        inlineMath.classList.add('math');
-                     }
-                     inlineMath.setAttribute('dir', 'ltr');
+             try {
+                 renderMathInElement(document.body, {
+                     delimiters: [
+                         {left: '$$', right: '$$', display: true},
+                         {left: '\\[', right: '\\]', display: true},
+                         {left: '\\(', right: '\\)', display: false},
+                         {left: '$', right: '$', display: false}
+                     ],
+                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'],
+                     ignoredClasses: ['no-math'],
+                     throwOnError: false
                  });
-
-              } catch (error) {
-                  console.error("KaTeX auto-rendering failed:", error);
-              }
-
+             } catch (error) {
+                 console.error("KaTeX auto-rendering failed:", error);
+             }
 
              // --- 2. Active Navigation Link Highlighting ---
-              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
-              const sections = document.querySelectorAll('main section');
-              const navElement = document.querySelector('nav');
-              const navHeight = navElement ? navElement.offsetHeight : 60;
+             const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+             const sections = document.querySelectorAll('main section');
+             const navElement = document.querySelector('nav');
+             const navHeight = navElement ? navElement.offsetHeight : 60;
 
              function changeActiveLink() {
                  let currentSectionId = '';
                  const scrollPosition = window.scrollY;
 
-                 // Find the section currently in view or the last one passed
-                 for (let i = sections.length - 1; i >= 0; i--) {
-                     const section = sections[i];
-                     const sectionTop = section.offsetTop - navHeight - 50; // Adjusted offset for nav height and breathing room
-
+                 sections.forEach(section => {
+                     const sectionTop = section.offsetTop - navHeight - 50;
                      if (scrollPosition >= sectionTop) {
                          currentSectionId = section.getAttribute('id');
-                         break; // Found the current or last passed section
                      }
-                 }
+                 });
 
-                // If scrolled above the first section, default to the first link
-                if (currentSectionId === '' && sections.length > 0 && scrollPosition < sections[0].offsetTop - navHeight - 50) {
+                 if (scrollPosition < sections[0].offsetTop - navHeight - 50) {
                      currentSectionId = sections[0].getAttribute('id');
                  }
+                 if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight - 2) {
+                     currentSectionId = sections[sections.length - 1].getAttribute('id');
+                 }
 
-
-                // Activate the correct link
-                 let activeLinkFound = false;
                  navLinks.forEach(link => {
-                      link.classList.remove('active');
-                       // Handle potential leading '#' in href
-                      const linkHrefId = link.getAttribute('href').substring(1);
-                      if (linkHrefId === currentSectionId) {
-                           link.classList.add('active');
-                           activeLinkFound = true;
-                       }
-                   });
-
-                 // Fallback if ID mapping isn't perfect (e.g. targeting subsection H3 id)
-                  if(!activeLinkFound && currentSectionId !== '') {
-                       const currentSectionElem = document.getElementById(currentSectionId);
-                       if(currentSectionElem){
-                           // Try activating the link pointing to the parent section if it exists
-                            const parentSection = currentSectionElem.closest('section');
-                            if (parentSection) {
-                               const parentSectionId = parentSection.id;
-                                const parentLink = document.querySelector(`#main-nav a.nav-link[href="#${parentSectionId}"]`);
-                               if (parentLink) {
-                                   parentLink.classList.add('active');
-                                    activeLinkFound = true;
-                               }
-                            }
-                       }
-                  }
-
-                   // Ensure first link active when scrolled fully to top or no match found yet
-                   if(!activeLinkFound && navLinks.length > 0) {
-                      navLinks[0].classList.add('active');
-                   }
-
-
-                // Scroll the nav bar to show the active link
-                 scrollToActiveLink();
-
+                     link.classList.remove('active');
+                     if (link.getAttribute('href') === '#' + currentSectionId) {
+                         link.classList.add('active');
+                     }
+                 });
              }
-             window.addEventListener('scroll', changeActiveLink, { passive: true }); // Use passive listener for better scroll performance
-             changeActiveLink(); // Initial check
-
+             window.addEventListener('scroll', changeActiveLink);
+             setTimeout(changeActiveLink, 150);
 
              // --- 3. Section Fade-in Animation on Scroll ---
-               const observerOptions = {
-                   root: null,
-                   rootMargin: '0px 0px -10% 0px', // Trigger when 10% from bottom enters view
-                   threshold: 0.1 // At least 10% visible
-              };
-
-               const observerCallback = (entries, observer) => {
-                  entries.forEach(entry => {
-                      if (entry.isIntersecting) {
-                          entry.target.classList.add('visible');
-                          observer.unobserve(entry.target); // Stop observing once visible
-                      }
-                  });
-              };
-
-              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
-              sections.forEach(section => {
-                  scrollObserver.observe(section);
-               });
-
-
-             // --- 4. Dark Mode ---
-             const darkModeToggle = document.getElementById('darkModeToggle');
-             const htmlElement = document.documentElement;
-
-             const applyTheme = (theme) => {
-                 htmlElement.setAttribute('data-theme', theme);
-                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
-                 localStorage.setItem('theme', theme);
-                  // Re-render charts and drawings with new colors
-                  // Add a slight delay to allow CSS transitions to start
-                  setTimeout(renderAllChartsAndDrawings, 50);
+             const observerOptions = {
+                 root: null,
+                 rootMargin: '0px 0px -50px 0px',
+                 threshold: 0.1
              };
 
-             // Determine initial theme: 1. Local storage, 2. System preference, 3. Default to light
-             const savedTheme = localStorage.getItem('theme');
-             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-             let initialTheme = 'light'; // Default
-             if (savedTheme) {
-                 initialTheme = savedTheme;
-             } else if (prefersDark) {
-                initialTheme = 'dark';
-             }
+             const observerCallback = (entries, observer) => {
+                 entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                         entry.target.classList.add('visible');
+                         observer.unobserve(entry.target);
+                     }
+                 });
+             };
 
-             applyTheme(initialTheme); // Apply initial theme *before* rendering charts
-
-             darkModeToggle.addEventListener('click', () => {
-                 const currentTheme = htmlElement.getAttribute('data-theme');
-                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                 applyTheme(newTheme);
+             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+             sections.forEach(section => {
+                 scrollObserver.observe(section);
              });
 
-             // Listen for system theme changes ONLY if the user hasn't manually set a theme
-             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                 if (!localStorage.getItem('theme')) { // Only respect system preference if no manual choice
-                     const newTheme = e.matches ? 'dark' : 'light';
-                     applyTheme(newTheme);
-                 }
-             });
+             // --- 4. Initial Chart Rendering ---
+             renderCharts();
+         });
+     </script>
 
-            // --- 5. Initial Chart and Drawing Rendering ---
-            // Render only after DOM is ready and initial theme is set
-            renderAllChartsAndDrawings();
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-          });
-      </script>
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Init Charts -->
+    <!-- טען את Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- Init Charts -->
-<!-- טען את Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('chart_fx_2x').getContext('2d');
 
-<script>
-  const ctx = document.getElementById('chart_fx_2x').getContext('2d');
-
-  // צור את ערכי ה-x וה-y
-  const xValues = [];
-  const yValues = [];
-  for (let x = -1; x <= 1; x += 0.05) {
-    x = parseFloat(x.toFixed(2));
-    xValues.push(x);
-    yValues.push(2 * x);
-  }
-
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: xValues,
-      datasets: [{
-        label: 'f(x) = 2x',
-        data: yValues,
-        borderColor: 'blue',
-        borderWidth: 2,
-        fill: false,
-        pointRadius: 3,
-        pointHoverRadius: 6,
-        tension: 0.1
-      }]
-    },
-    options: {
-      responsive: true,
-      interaction: {
-        mode: 'index',
-        intersect: false,
-      },
-      plugins: {
-        tooltip: {
-          callbacks: {
-            title: (tooltipItems) => `x = ${tooltipItems[0].label}`,
-            label: (tooltipItem) => `f(x) = ${tooltipItem.formattedValue}`
-          }
-        },
-        legend: {
-          display: false
-        }
-      },
-      scales: {
-        x: {
-          title: {
-            display: true,
-            text: 'x'
-          }
-        },
-        y: {
-          title: {
-            display: true,
-            text: 'f(x)'
-          }
-        }
+      // צור את ערכי ה-x וה-y
+      const xValues = [];
+      const yValues = [];
+      for (let x = -1; x <= 1; x += 0.05) {
+        x = parseFloat(x.toFixed(2));
+        xValues.push(x);
+        yValues.push(2 * x);
       }
-    }
-  });
-</script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const tValues = [];
-  const cosValues = [];
-  const tanValues = [];
-
-  for (let t = -Math.PI / 2 + 0.01; t < Math.PI / 2 - 0.01; t += 0.01) {
-    tValues.push(t);
-    cosValues.push(Math.cos(t));
-    tanValues.push(Math.tan(t));
-  }
-
-  // גרף קוסינוס עם מילוי שטח אפור
-  new Chart(document.getElementById('cosChart'), {
-    type: 'line',
-    data: {
-      labels: tValues,
-      datasets: [{
-        label: 'y = cos(t)',
-        data: cosValues,
-        borderColor: 'black',
-        backgroundColor: 'rgba(150, 150, 150, 0.3)', // מילוי אפור
-        fill: true,
-        pointRadius: 0,
-        tension: 0.05
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-      },
-      scales: {
-        x: {
-          type: 'linear',
-          min: -Math.PI / 2,
-          max: Math.PI / 2,
-          ticks: {
-            callback: function(value) {
-              if (value === 0) return '0';
-              if (value === -Math.PI / 2) return '-π/2';
-              if (value === Math.PI / 2) return 'π/2';
-              return '';
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: xValues,
+          datasets: [{
+            label: 'f(x) = 2x',
+            data: yValues,
+            borderColor: 'blue',
+            borderWidth: 2,
+            fill: false,
+            pointRadius: 3,
+            pointHoverRadius: 6,
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          interaction: {
+            mode: 'index',
+            intersect: false,
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: (tooltipItems) => `x = ${tooltipItems[0].label}`,
+                label: (tooltipItem) => `f(x) = ${tooltipItem.formattedValue}`
+              }
+            },
+            legend: {
+              display: false
             }
           },
-          title: { display: true, text: 't' }
-        },
-        y: {
-          title: { display: true, text: 'cos(t)' },
-          min: -0.1,
-          max: 1.1
-        }
-      }
-    }
-  });
-
-  // גרף טנגנס בלי מילוי
-  new Chart(document.getElementById('tanChart'), {
-    type: 'line',
-    data: {
-      labels: tValues,
-      datasets: [{
-        label: 'y = tan(t)',
-        data: tanValues,
-        borderColor: 'black',
-        backgroundColor: 'transparent',
-        fill: false,
-        pointRadius: 0,
-        tension: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-      },
-      scales: {
-        x: {
-          type: 'linear',
-          min: -Math.PI / 2,
-          max: Math.PI / 2,
-          ticks: {
-            callback: function(value) {
-              if (value === 0) return '0';
-              if (value === -Math.PI / 2) return '-π/2';
-              if (value === Math.PI / 2) return 'π/2';
-              return '';
-            }
-          },
-          title: { display: true, text: 't' }
-        },
-        y: {
-          title: { display: true, text: 'tan(t)' },
-          min: -10,
-          max: 10
-        }
-      }
-    }
-  });
-});
-</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const tValues = [];
-  const fValues = [];
-
-  for (let t = 0.01; t < Math.PI; t += 0.01) {
-    if (Math.abs(t - Math.PI / 2) < 0.05) {
-      // דלג על נקודות קרובות מדי ל־π/2 כדי לא להראות קפיצה חדה
-      continue;
-    }
-    tValues.push(t);
-    fValues.push(1 / Math.cos(t)); // a = 1
-  }
-
-  new Chart(document.getElementById("secChart"), {
-    type: 'line',
-    data: {
-      labels: tValues,
-      datasets: [{
-        label: 'x = 1 / cos(t)',
-        data: fValues,
-        borderColor: 'black',
-        backgroundColor: 'transparent',
-        fill: false,
-        pointRadius: 0,
-        tension: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false }
-      },
-      scales: {
-        x: {
-          type: 'linear',
-          min: 0,
-          max: Math.PI,
-          title: { display: true, text: 't' },
-          ticks: {
-            callback: function (value) {
-              if (Math.abs(value - 0) < 0.01) return '0';
-              if (Math.abs(value - Math.PI / 2) < 0.01) return 'π/2';
-              if (Math.abs(value - Math.PI) < 0.01) return 'π';
-              return '';
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'x'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'f(x)'
+              }
             }
           }
-        },
-        y: {
-          title: { display: true, text: 'x = 1 / cos(t)' },
-          min: -10,
-          max: 10
         }
+      });
+    </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const tValues = [];
+      const cosValues = [];
+      const tanValues = [];
+
+      for (let t = -Math.PI / 2 + 0.01; t < Math.PI / 2 - 0.01; t += 0.01) {
+        tValues.push(t);
+        cosValues.push(Math.cos(t));
+        tanValues.push(Math.tan(t));
       }
-    }
-  });
-});
-</script>
+
+      // גרף קוסינוס עם מילוי שטח אפור
+      new Chart(document.getElementById('cosChart'), {
+        type: 'line',
+        data: {
+          labels: tValues,
+          datasets: [{
+            label: 'y = cos(t)',
+            data: cosValues,
+            borderColor: 'black',
+            backgroundColor: 'rgba(150, 150, 150, 0.3)', // מילוי אפור
+            fill: true,
+            pointRadius: 0,
+            tension: 0.05
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              min: -Math.PI / 2,
+              max: Math.PI / 2,
+              ticks: {
+                callback: function(value) {
+                  if (value === 0) return '0';
+                  if (value === -Math.PI / 2) return '-π/2';
+                  if (value === Math.PI / 2) return 'π/2';
+                  return '';
+                }
+              },
+              title: { display: true, text: 't' }
+            },
+            y: {
+              title: { display: true, text: 'cos(t)' },
+              min: -0.1,
+              max: 1.1
+            }
+          }
+        }
+      });
+
+      // גרף טנגנס בלי מילוי
+      new Chart(document.getElementById('tanChart'), {
+        type: 'line',
+        data: {
+          labels: tValues,
+          datasets: [{
+            label: 'y = tan(t)',
+            data: tanValues,
+            borderColor: 'black',
+            backgroundColor: 'transparent',
+            fill: false,
+            pointRadius: 0,
+            tension: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              min: -Math.PI / 2,
+              max: Math.PI / 2,
+              ticks: {
+                callback: function(value) {
+                  if (value === 0) return '0';
+                  if (value === -Math.PI / 2) return '-π/2';
+                  if (value === Math.PI / 2) return 'π/2';
+                  return '';
+                }
+              },
+              title: { display: true, text: 't' }
+            },
+            y: {
+              title: { display: true, text: 'tan(t)' },
+              min: -10,
+              max: 10
+            }
+          }
+        }
+      });
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const tValues = [];
+      const fValues = [];
+
+      for (let t = 0.01; t < Math.PI; t += 0.01) {
+        if (Math.abs(t - Math.PI / 2) < 0.05) {
+          // דלג על נקודות קרובות מדי ל־π/2 כדי לא להראות קפיצה חדה
+          continue;
+        }
+        tValues.push(t);
+        fValues.push(1 / Math.cos(t)); // a = 1
+      }
+
+      new Chart(document.getElementById("secChart"), {
+        type: 'line',
+        data: {
+          labels: tValues,
+          datasets: [{
+            label: 'x = 1 / cos(t)',
+            data: fValues,
+            borderColor: 'black',
+            backgroundColor: 'transparent',
+            fill: false,
+            pointRadius: 0,
+            tension: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              min: 0,
+              max: Math.PI,
+              title: { display: true, text: 't' },
+              ticks: {
+                callback: function (value) {
+                  if (Math.abs(value - 0) < 0.01) return '0';
+                  if (Math.abs(value - Math.PI / 2) < 0.01) return 'π/2';
+                  if (Math.abs(value - Math.PI) < 0.01) return 'π';
+                  return '';
+                }
+              }
+            },
+            y: {
+              title: { display: true, text: 'x = 1 / cos(t)' },
+              min: -10,
+              max: 10
+            }
+          }
+        }
+      });
+    });
+    </script>
 
 
 
 
-<!-- כפתור חזרה לדף הראשי -->
-<a href="../index.html" style="
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #0a5a8d;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 14px;
-  z-index: 999;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-">
-  🏠 חזרה למסך הראשי
-</a>
+    <!-- כפתור חזרה לדף הראשי -->
+    <a href="../index.html" style="
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #0a5a8d;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 14px;
+      z-index: 999;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    ">
+      🏠 חזרה למסך הראשי
+    </a>
 
 </body>
 </html>

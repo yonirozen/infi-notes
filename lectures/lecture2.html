@@ -934,27 +934,27 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Global Dark Mode -->
+    <script src="../js/dark-mode.js"></script>
 
-    <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+    <!-- Custom Script for Rendering, Enhancements, and Charts -->
      <script>
          // --- Global Chart Variables ---
-         // (Chart variables are kept for template consistency, but not used in this specific page)
          let lineChartInstance = null;
          let parabolaChartInstance = null;
 
-         // --- Function to Render Charts (Kept for template consistency) ---
+         // --- Function to Render Charts ---
          function renderCharts() {
              // Destroy previous charts if they exist
              if (lineChartInstance) lineChartInstance.destroy();
              if (parabolaChartInstance) parabolaChartInstance.destroy();
 
-             const lineCtx = document.getElementById('lineChart')?.getContext('2d'); // Get context safely
-             const parabolaCtx = document.getElementById('parabolaChart')?.getContext('2d'); // Get context safely
+             const lineCtx = document.getElementById('lineChart')?.getContext('2d');
+             const parabolaCtx = document.getElementById('parabolaChart')?.getContext('2d');
 
-             // Only proceed if canvas contexts are found
              if (!lineCtx || !parabolaCtx) {
-                 // console.warn("One or both chart canvas elements not found or lack context.");
-                 return; // Exit if canvas not ready
+                 console.warn("One or both chart canvas elements not found or lack context.");
+                 return;
              }
 
              const rangeMin = -4;
@@ -970,18 +970,16 @@
                  return points;
              };
 
-             // Use CSS variables for colors
              const axisColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-axis-color').trim();
              const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid-color').trim();
              const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
-
 
              const commonChartOptions = {
                  responsive: true,
                  maintainAspectRatio: true,
                  aspectRatio: 1.5,
                  interaction: {
-                     mode: 'index', // Better for comparing lines at the same x
+                     mode: 'index',
                      intersect: false
                  },
                  plugins: {
@@ -996,7 +994,7 @@
                      },
                      legend: {
                          labels: {
-                             color: textColor // Match text color
+                             color: textColor
                          }
                      }
                  },
@@ -1007,7 +1005,7 @@
                              display: true,
                              text: 'x',
                              font: { size: 16, weight: 'bold' },
-                             color: textColor // Match text color
+                             color: textColor
                          },
                          grid: {
                              color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
@@ -1015,7 +1013,7 @@
                          },
                          ticks: {
                              font: { size: 12 },
-                             color: textColor // Match text color
+                             color: textColor
                          }
                      },
                      y: {
@@ -1023,7 +1021,7 @@
                              display: true,
                              text: 'y',
                              font: { size: 16, weight: 'bold' },
-                             color: textColor // Match text color
+                             color: textColor
                          },
                          grid: {
                              color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
@@ -1031,7 +1029,7 @@
                          },
                          ticks: {
                              font: { size: 12 },
-                             color: textColor // Match text color
+                             color: textColor
                          }
                      }
                  }
@@ -1097,462 +1095,98 @@
 
          document.addEventListener('DOMContentLoaded', function() {
              // --- 1. KaTeX Rendering ---
-              try {
-                  renderMathInElement(document.body, {
+             try {
+                 renderMathInElement(document.body, {
                      delimiters: [
-                         {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')}, // Wrap in div.math LTR
-                         {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')}, // Wrap in div.math LTR
-                         {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')}, // Wrap in span.math LTR
-                         {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')}    // Wrap in span.math LTR
+                         {left: '$$', right: '$$', display: true},
+                         {left: '\\[', right: '\\]', display: true},
+                         {left: '\\(', right: '\\)', display: false},
+                         {left: '$', right: '$', display: false}
                      ],
-                      preProcess: (math) => {
-                         // Ensure backslashes are properly escaped for KaTeX
-                         return math.replace(/\\\\/g, '\\');
-                     },
-                      // Custom wrapper logic
-                     renderers: [
-                        {
-                            matcher: /^\$\$([\s\S]*?)\$\$$/, // Matches $$...$$
-                            renderer: (match) => {
-                                const math = match[1];
-                                const div = document.createElement('div');
-                                div.className = 'math';
-                                div.setAttribute('dir', 'ltr');
-                                try {
-                                    katex.render(math, div, { displayMode: true, throwOnError: false });
-                                } catch (e) {
-                                    div.textContent = `Error rendering: ${math} (${e.message})`;
-                                    console.error("KaTeX render error:", e);
-                                }
-                                return div.outerHTML;
-                            }
-                        },
-                         {
-                             matcher: /^\\\[([\s\S]*?)\\\]$/, // Matches \[...\]
-                             renderer: (match) => {
-                                 const math = match[1];
-                                 const div = document.createElement('div');
-                                 div.className = 'math';
-                                 div.setAttribute('dir', 'ltr');
-                                 try {
-                                     katex.render(math, div, { displayMode: true, throwOnError: false });
-                                 } catch (e) {
-                                     div.textContent = `Error rendering: ${math} (${e.message})`;
-                                     console.error("KaTeX render error:", e);
-                                 }
-                                 return div.outerHTML;
-                             }
-                         },
-                         {
-                             matcher: /^\\\(([\s\S]*?)\\\)$/, // Matches \(...\)
-                             renderer: (match) => {
-                                 const math = match[1];
-                                 const span = document.createElement('span');
-                                 span.className = 'math';
-                                 span.setAttribute('dir', 'ltr');
-                                 try {
-                                     katex.render(math, span, { displayMode: false, throwOnError: false });
-                                 } catch (e) {
-                                     span.textContent = `Error rendering: ${math} (${e.message})`;
-                                     console.error("KaTeX render error:", e);
-                                 }
-                                 return span.outerHTML;
-                             }
-                         },
-                           {
-                             matcher: /^\$([\s\S]*?)\$$/, // Matches $...$
-                             renderer: (match) => {
-                                 const math = match[1];
-                                 const span = document.createElement('span');
-                                 span.className = 'math';
-                                 span.setAttribute('dir', 'ltr');
-                                 try {
-                                     katex.render(math, span, { displayMode: false, throwOnError: false });
-                                 } catch (e) {
-                                     span.textContent = `Error rendering: ${math} (${e.message})`;
-                                     console.error("KaTeX render error:", e);
-                                 }
-                                 return span.outerHTML;
-                             }
-                         }
-                     ],
-                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'], // Ignore canvas
+                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'],
                      ignoredClasses: ['no-math'],
                      throwOnError: false
-                  });
-
-                  // Move rendered math into .formula-block where appropriate
-                  // Find all display math divs generated by auto-render that are direct children of body or main container
-                  document.querySelectorAll('body > div.math, .container > div.math, section > div.math').forEach(mathDiv => {
-                      // Check if it *should* be in a formula block (heuristic: is it standalone?)
-                      // A simple check: if previous and next siblings are not inline elements or text nodes, wrap it.
-                      const prev = mathDiv.previousElementSibling;
-                      const next = mathDiv.nextElementSibling;
-                      let shouldWrap = true;
-                      // Add more checks if needed
-                      if (prev && prev.tagName === 'P' && next && next.tagName === 'P'){
-                           // Assume it should be wrapped
-                      }
-
-                      if (shouldWrap && !mathDiv.parentElement.classList.contains('formula-block')) {
-                         const formulaBlock = document.createElement('div');
-                         formulaBlock.className = 'formula-block';
-                         mathDiv.parentNode.insertBefore(formulaBlock, mathDiv);
-                         formulaBlock.appendChild(mathDiv);
-                      } else if (mathDiv.parentElement.tagName !== 'DIV' || !mathDiv.parentElement.classList.contains('formula-block')){
-                           // If it's inside something else but not formula-block, maybe wrap it
-                           const formulaBlock = document.createElement('div');
-                           formulaBlock.className = 'formula-block';
-                           mathDiv.parentNode.insertBefore(formulaBlock, mathDiv);
-                           formulaBlock.appendChild(mathDiv);
-                      }
-                  });
-
-                 // Re-run renderMathInElement on the potentially modified structure *if needed*,
-                 // but the initial render should handle spans correctly.
-                 // Ensure formula blocks correctly wrap ONLY display math.
-                  document.querySelectorAll('.formula-block').forEach(block => {
-                    // Ensure only display math is inside
-                    if (block.querySelector('span.math')) {
-                        console.warn("Inline math found inside formula-block:", block);
-                    }
-                     if (!block.querySelector('div.math')) {
-                         // If a block was created empty or wrongly, remove it or fix it
-                        // console.warn("Empty formula-block found:", block);
-                     }
-                     // Ensure KaTeX structure is properly nested
-                     const mathDiv = block.querySelector('div.math');
-                     if(mathDiv && mathDiv.children.length === 1 && mathDiv.children[0].classList.contains('katex-display')) {
-                       // Standard KaTeX structure, looks okay.
-                     }
-                  });
-
-
+                 });
              } catch (error) {
                  console.error("KaTeX auto-rendering failed:", error);
              }
 
              // --- 2. Active Navigation Link Highlighting ---
-              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
-              const sections = document.querySelectorAll('main section');
-              const navElement = document.querySelector('nav');
-              const navHeight = navElement ? navElement.offsetHeight : 60;
+             const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+             const sections = document.querySelectorAll('main section');
+             const navElement = document.querySelector('nav');
+             const navHeight = navElement ? navElement.offsetHeight : 60;
 
              function changeActiveLink() {
                  let currentSectionId = '';
                  const scrollPosition = window.scrollY;
 
                  sections.forEach(section => {
-                     const sectionTop = section.offsetTop - navHeight - 50; // Adjusted offset
+                     const sectionTop = section.offsetTop - navHeight - 50;
                      if (scrollPosition >= sectionTop) {
                          currentSectionId = section.getAttribute('id');
                      }
                  });
 
-                 // Handle edge cases (top/bottom)
-                 if (sections.length > 0 && scrollPosition < sections[0].offsetTop - navHeight - 50) {
+                 if (scrollPosition < sections[0].offsetTop - navHeight - 50) {
                      currentSectionId = sections[0].getAttribute('id');
                  }
-                 if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight - 2) { // More reliable bottom check
-                     if (sections.length > 0) {
-                        currentSectionId = sections[sections.length - 1].getAttribute('id');
-                     }
+                 if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight - 2) {
+                     currentSectionId = sections[sections.length - 1].getAttribute('id');
                  }
 
                  navLinks.forEach(link => {
-                      link.classList.remove('active');
-                      if (link.getAttribute('href') === '#' + currentSectionId) {
-                          link.classList.add('active');
-                      }
-                  });
-              }
+                     link.classList.remove('active');
+                     if (link.getAttribute('href') === '#' + currentSectionId) {
+                         link.classList.add('active');
+                     }
+                 });
+             }
              window.addEventListener('scroll', changeActiveLink);
-             setTimeout(changeActiveLink, 150); // Delay slightly more
+             setTimeout(changeActiveLink, 150);
 
-              // --- 3. Section Fade-in Animation on Scroll ---
-               const observerOptions = {
-                  root: null,
-                   rootMargin: '0px 0px -50px 0px',
-                   threshold: 0.1
-              };
-
-               const observerCallback = (entries, observer) => {
-                  entries.forEach(entry => {
-                      if (entry.isIntersecting) {
-                          entry.target.classList.add('visible');
-                         observer.unobserve(entry.target);
-                      }
-                  });
-              };
-
-              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
-              sections.forEach(section => {
-                  scrollObserver.observe(section);
-               });
-
-             // --- 4. Dark Mode ---
-             const darkModeToggle = document.getElementById('darkModeToggle');
-             const htmlElement = document.documentElement;
-
-             // Function to apply theme
-             const applyTheme = (theme) => {
-                 htmlElement.setAttribute('data-theme', theme);
-                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
-                 localStorage.setItem('theme', theme); // Save preference
+             // --- 3. Section Fade-in Animation on Scroll ---
+             const observerOptions = {
+                 root: null,
+                 rootMargin: '0px 0px -50px 0px',
+                 threshold: 0.1
              };
 
-             // Check for saved theme on load
-             const savedTheme = localStorage.getItem('theme');
-             // Check for system preference if no saved theme
-             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+             const observerCallback = (entries, observer) => {
+                 entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                         entry.target.classList.add('visible');
+                         observer.unobserve(entry.target);
+                     }
+                 });
+             };
 
-             // Initialize theme
-             if (savedTheme) {
-                 applyTheme(savedTheme);
-             } else {
-                 applyTheme('light'); // Default to light always
-             }
-
-             // Toggle button event listener
-             darkModeToggle.addEventListener('click', () => {
-                 const currentTheme = htmlElement.getAttribute('data-theme');
-                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                 applyTheme(newTheme);
-                 // Re-render charts after theme change (if any exist)
-                 // Use a small delay to allow CSS transitions to start if needed
-                 // setTimeout(renderCharts, 100); // Commented out as no charts on this page
+             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+             sections.forEach(section => {
+                 scrollObserver.observe(section);
              });
 
-             // Listen for system theme changes (optional)
-             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                // Only change if no theme was explicitly set by the user via toggle
-                if (!localStorage.getItem('theme')) {
-                     const newTheme = e.matches ? 'dark' : 'light';
-                     applyTheme(newTheme);
-                     // setTimeout(renderCharts, 100); // Commented out as no charts on this page
-                }
-             });
+             // --- 4. Initial Chart Rendering ---
+             renderCharts();
+         });
+     </script>
 
-            // --- 5. Initial Chart Rendering ---
-            // Render charts after the rest of the DOM setup is complete
-            // renderCharts(); // Commented out as no charts on this page
-
-          });
-      </script>
-<script>
-// --- Global Chart Reference ---
-let stepChartInstance = null;
-
-// --- Function to get current theme colors from CSS Variables ---
-function getChartColors() {
-    const style = getComputedStyle(document.documentElement);
-    // Helper to get color or return fallback
-    const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
-
-    return {
-        // Use '--chart-axis-color' for axes/grid-at-zero, fallback to text color or black/white
-        axisColor: getColor('--chart-axis-color', getColor('--text-color', '#000000')),
-        // Use '--chart-grid-color' for general grid lines, fallback to a light/dark gray
-        gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
-        // Use '--text-color' for labels/titles, fallback to black/white
-        textColor: getColor('--text-color', '#000000'),
-        // Use '--primary-color' for the main graph elements, fallback to blue
-        primaryColor: getColor('--primary-color', '#007bff'),
-        // Use '--card-bg' for the 'open' circle fill, fallback to white
-        bgColor: getColor('--card-bg', '#ffffff')
-    };
-}
-
-
-// --- Function to create or update the step chart ---
-function renderStepChart() {
-    const colors = getChartColors(); // Get current colors based on theme
-
-    const chartData = {
-        datasets: [
-             // Line for 0 <= x < 1
-            {
-                label: 'f(x) = ⌊x⌋ (0<=x<1)',
-                data: Array.from({ length: 100 }, (_, i) => ({ x: i * 0.01, y: 0 })), // Points from x=0.00 to x=0.99
-                borderColor: colors.primaryColor,
-                backgroundColor: 'transparent',
-                showLine: true,
-                borderWidth: 3,
-                pointRadius: 0,
-                order: 1 // Draw lines behind points
-            },
-            // Line for 1 <= x < 2
-            {
-                label: 'f(x) = ⌊x⌋ (1<=x<2)',
-                 data: Array.from({ length: 100 }, (_, i) => ({ x: 1 + i * 0.01, y: 1 })), // Points from x=1.00 to x=1.99
-                borderColor: colors.primaryColor,
-                backgroundColor: 'transparent',
-                showLine: true,
-                borderWidth: 3,
-                pointRadius: 0,
-                order: 1 // Draw lines behind points
-            },
-            // Closed circles (function value is defined here)
-            {
-                type: 'scatter',
-                label: 'Closed Points',
-                data: [{ x: 0, y: 0 }, { x: 1, y: 1 }],
-                pointBackgroundColor: colors.primaryColor,
-                pointBorderColor: colors.primaryColor,
-                pointRadius: 5,
-                pointStyle: 'circle',
-                order: 0 // Draw points on top
-            },
-            // Open circles (limit points)
-            {
-                type: 'scatter',
-                label: 'Open Points',
-                data: [{ x: 1, y: 0 }, { x: 2, y: 1 }],
-                pointBackgroundColor: colors.bgColor, // Use background color for 'open' effect
-                pointBorderColor: colors.primaryColor,
-                pointRadius: 5,
-                pointBorderWidth: 2,
-                pointStyle: 'circle',
-                order: 0 // Draw points on top
-            }
-        ]
-    };
-
-    const chartOptions = {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-            legend: { display: false },
-            tooltip: {
-                enabled: true,
-                callbacks: {
-                    label: ctx => `f(${ctx.parsed.x.toFixed(2)}) = ${ctx.parsed.y}`,
-                    title: () => ''
-                }
-            }
-        },
-        scales: {
-            x: {
-                type: 'linear',
-                min: -0.2,
-                max: 2.2,
-                border: { // Controls the axis line itself
-                    display: true,
-                    color: colors.axisColor // Use theme color
-                },
-                ticks: {
-                    stepSize: 0.5,
-                    color: colors.textColor // Use theme color for labels
-                },
-                title: {
-                    display: true,
-                    text: 'x',
-                    font: { size: 14, weight: 'bold' },
-                    color: colors.textColor // Use theme color for title
-                },
-                grid: {
-                    // color for grid lines (special case for axis line at 0)
-                    color: ctx => ctx.tick.value === 0 ? colors.axisColor : colors.gridColor,
-                    lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1 // Thicker line at 0
-                }
-            },
-            y: {
-                min: -0.5,
-                max: 1.5,
-                 border: { // Controls the axis line itself
-                    display: true,
-                    color: colors.axisColor // Use theme color
-                },
-                ticks: {
-                    stepSize: 0.5,
-                    color: colors.textColor // Use theme color for labels
-                },
-                title: {
-                    display: true,
-                    text: 'f(x)',
-                    font: { size: 14, weight: 'bold' },
-                    color: colors.textColor // Use theme color for title
-                },
-                grid: {
-                    // color for grid lines (special case for axis line at 0)
-                    color: ctx => ctx.tick.value === 0 ? colors.axisColor : colors.gridColor,
-                    lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1 // Thicker line at 0
-                }
-            }
-        }
-    };
-
-    // Get canvas context
-    const ctx = document.getElementById('stepChart')?.getContext('2d');
-    if (!ctx) {
-        console.error("Canvas element 'stepChart' not found.");
-        return; // Exit if canvas not found
-    }
-
-    // If chart already exists, update it; otherwise, create it
-    if (stepChartInstance) {
-        stepChartInstance.data = chartData;
-        stepChartInstance.options = chartOptions;
-        stepChartInstance.update();
-    } else {
-        stepChartInstance = new Chart(ctx, {
-            type: 'scatter', // Base type allows mixing lines and points
-            data: chartData,
-            options: chartOptions
-        });
-    }
-}
-
-// --- Initial Render ---
-// Make sure this runs after the DOM is ready and CSS variables are set.
-// It should be called inside your 'DOMContentLoaded' event listener.
-// Example: document.addEventListener('DOMContentLoaded', renderStepChart);
-// OR if you call it directly here, ensure the script tag is at the end of the body.
-renderStepChart();
-
-// --- IMPORTANT ---
-// You also need to call `renderStepChart()` again whenever the theme changes.
-// Add this line inside your dark mode toggle event listener (and the system preference listener, if you have one), preferably with a small delay:
-// setTimeout(renderStepChart, 50);</script>
-
-
-<!-- כפתור חזרה לדף הראשי -->
-<a href="../index.html" style="
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #0a5a8d;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 14px;
-  z-index: 999;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-">
-  🏠 חזרה למסך הראשי
-</a>
-
-</body>
-</html>
-
-
-<!-- כפתור חזרה לדף הראשי -->
-<a href="../index.html" style="
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #0a5a8d;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 14px;
-  z-index: 999;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-">
-  🏠 חזרה למסך הראשי
-</a>
+    <!-- כפתור חזרה לדף הראשי -->
+    <a href="../index.html" style="
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #0a5a8d;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 14px;
+      z-index: 999;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    ">
+      🏠 חזרה למסך הראשי
+    </a>
 
 </body>
 </html>

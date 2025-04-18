@@ -641,8 +641,10 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Global Dark Mode -->
+    <script src="../js/dark-mode.js"></script>
 
-    <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+    <!-- Custom Script for Rendering, Enhancements, and Charts -->
      <script>
          // --- Global Chart Variables ---
          let lineChartInstance = null;
@@ -654,13 +656,12 @@
              if (lineChartInstance) lineChartInstance.destroy();
              if (parabolaChartInstance) parabolaChartInstance.destroy();
 
-             const lineCtx = document.getElementById('lineChart')?.getContext('2d'); // Get context safely
-             const parabolaCtx = document.getElementById('parabolaChart')?.getContext('2d'); // Get context safely
+             const lineCtx = document.getElementById('lineChart')?.getContext('2d');
+             const parabolaCtx = document.getElementById('parabolaChart')?.getContext('2d');
 
-             // Only proceed if canvas contexts are found
              if (!lineCtx || !parabolaCtx) {
                  console.warn("One or both chart canvas elements not found or lack context.");
-                 return; // Exit if canvas not ready
+                 return;
              }
 
              const rangeMin = -4;
@@ -676,18 +677,16 @@
                  return points;
              };
 
-             // Use CSS variables for colors
              const axisColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-axis-color').trim();
              const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid-color').trim();
              const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
-
 
              const commonChartOptions = {
                  responsive: true,
                  maintainAspectRatio: true,
                  aspectRatio: 1.5,
                  interaction: {
-                     mode: 'index', // Better for comparing lines at the same x
+                     mode: 'index',
                      intersect: false
                  },
                  plugins: {
@@ -702,7 +701,7 @@
                      },
                      legend: {
                          labels: {
-                             color: textColor // Match text color
+                             color: textColor
                          }
                      }
                  },
@@ -713,7 +712,7 @@
                              display: true,
                              text: 'x',
                              font: { size: 16, weight: 'bold' },
-                             color: textColor // Match text color
+                             color: textColor
                          },
                          grid: {
                              color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
@@ -721,7 +720,7 @@
                          },
                          ticks: {
                              font: { size: 12 },
-                             color: textColor // Match text color
+                             color: textColor
                          }
                      },
                      y: {
@@ -729,7 +728,7 @@
                              display: true,
                              text: 'y',
                              font: { size: 16, weight: 'bold' },
-                             color: textColor // Match text color
+                             color: textColor
                          },
                          grid: {
                              color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
@@ -737,7 +736,7 @@
                          },
                          ticks: {
                              font: { size: 12 },
-                             color: textColor // Match text color
+                             color: textColor
                          }
                      }
                  }
@@ -803,127 +802,81 @@
 
          document.addEventListener('DOMContentLoaded', function() {
              // --- 1. KaTeX Rendering ---
-              try {
-                  renderMathInElement(document.body, {
+             try {
+                 renderMathInElement(document.body, {
                      delimiters: [
                          {left: '$$', right: '$$', display: true},
                          {left: '\\[', right: '\\]', display: true},
                          {left: '\\(', right: '\\)', display: false},
                          {left: '$', right: '$', display: false}
                      ],
-                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'], // Ignore canvas
+                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'],
                      ignoredClasses: ['no-math'],
                      throwOnError: false
-                  });
+                 });
              } catch (error) {
                  console.error("KaTeX auto-rendering failed:", error);
              }
 
              // --- 2. Active Navigation Link Highlighting ---
-              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
-              const sections = document.querySelectorAll('main section');
-              const navElement = document.querySelector('nav');
-              const navHeight = navElement ? navElement.offsetHeight : 60;
+             const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+             const sections = document.querySelectorAll('main section');
+             const navElement = document.querySelector('nav');
+             const navHeight = navElement ? navElement.offsetHeight : 60;
 
              function changeActiveLink() {
                  let currentSectionId = '';
                  const scrollPosition = window.scrollY;
 
                  sections.forEach(section => {
-                     const sectionTop = section.offsetTop - navHeight - 50; // Adjusted offset
+                     const sectionTop = section.offsetTop - navHeight - 50;
                      if (scrollPosition >= sectionTop) {
                          currentSectionId = section.getAttribute('id');
                      }
                  });
 
-                 // Handle edge cases (top/bottom)
                  if (scrollPosition < sections[0].offsetTop - navHeight - 50) {
                      currentSectionId = sections[0].getAttribute('id');
                  }
-                 if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight - 2) { // More reliable bottom check
+                 if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight - 2) {
                      currentSectionId = sections[sections.length - 1].getAttribute('id');
                  }
 
                  navLinks.forEach(link => {
-                      link.classList.remove('active');
-                      if (link.getAttribute('href') === '#' + currentSectionId) {
-                          link.classList.add('active');
-                      }
-                  });
-              }
+                     link.classList.remove('active');
+                     if (link.getAttribute('href') === '#' + currentSectionId) {
+                         link.classList.add('active');
+                     }
+                 });
+             }
              window.addEventListener('scroll', changeActiveLink);
-             setTimeout(changeActiveLink, 150); // Delay slightly more
+             setTimeout(changeActiveLink, 150);
 
-              // --- 3. Section Fade-in Animation on Scroll ---
-               const observerOptions = {
-                  root: null,
-                   rootMargin: '0px 0px -50px 0px',
-                   threshold: 0.1
-              };
-
-               const observerCallback = (entries, observer) => {
-                  entries.forEach(entry => {
-                      if (entry.isIntersecting) {
-                          entry.target.classList.add('visible');
-                         observer.unobserve(entry.target);
-                      }
-                  });
-              };
-
-              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
-              sections.forEach(section => {
-                  scrollObserver.observe(section);
-               });
-
-             // --- 4. Dark Mode ---
-             const darkModeToggle = document.getElementById('darkModeToggle');
-             const htmlElement = document.documentElement;
-
-             // Function to apply theme
-             const applyTheme = (theme) => {
-                 htmlElement.setAttribute('data-theme', theme);
-                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
-                 localStorage.setItem('theme', theme); // Save preference
+             // --- 3. Section Fade-in Animation on Scroll ---
+             const observerOptions = {
+                 root: null,
+                 rootMargin: '0px 0px -50px 0px',
+                 threshold: 0.1
              };
 
-             // Check for saved theme on load
-             const savedTheme = localStorage.getItem('theme');
-             // Check for system preference if no saved theme
-             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+             const observerCallback = (entries, observer) => {
+                 entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                         entry.target.classList.add('visible');
+                         observer.unobserve(entry.target);
+                     }
+                 });
+             };
 
-             // Initialize theme
-             if (savedTheme) {
-                 applyTheme(savedTheme);
-             } else {
-                 applyTheme('light'); // Default to light always
-             }
-
-             // Toggle button event listener
-             darkModeToggle.addEventListener('click', () => {
-                 const currentTheme = htmlElement.getAttribute('data-theme');
-                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                 applyTheme(newTheme);
-                 // Re-render charts after theme change
-                 // Use a small delay to allow CSS transitions to start if needed
-                 setTimeout(renderCharts, 100);
+             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+             sections.forEach(section => {
+                 scrollObserver.observe(section);
              });
 
-             // Listen for system theme changes (optional)
-             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                // Only change if no theme was explicitly set by the user via toggle
-                if (!localStorage.getItem('theme')) {
-                     const newTheme = e.matches ? 'dark' : 'light';
-                     applyTheme(newTheme);
-                     setTimeout(renderCharts, 100); // Re-render on system change too
-                }
-             });
-
-            // --- 5. Initial Chart Rendering ---
-            // Render charts after the rest of the DOM setup is complete
-            renderCharts();
-
-          });
-      </script>
+             // --- 4. Initial Chart Rendering ---
+             renderCharts();
+         });
+     </script>
 
 
 <!-- כפתור חזרה לדף הראשי -->
