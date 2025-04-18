@@ -1465,6 +1465,21 @@ renderStepChart();
   🏠 חזרה למסך הראשי
 </a>
 
+
+<script>
+  try {
+    const parentTheme = window.parent?.document.documentElement.getAttribute('data-theme');
+    if (parentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }
+</script>
+
 </body>
 </html>
 
@@ -1485,6 +1500,21 @@ renderStepChart();
 ">
   🏠 חזרה למסך הראשי
 </a>
+
+
+<script>
+  try {
+    const parentTheme = window.parent?.document.documentElement.getAttribute('data-theme');
+    if (parentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }
+</script>
 
 </body>
 </html>
