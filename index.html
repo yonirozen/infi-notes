@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>סיכומי אינפי 2</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      max-width: 800px;
+      margin: 40px auto;
+      direction: rtl;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #0a5a8d;
+      margin-bottom: 40px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 15px 0;
+    }
+    a {
+      text-decoration: none;
+      background-color: #0a5a8d;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: 0.3s;
+      font-size: 1.1em;
+    }
+    a:hover {
+      background-color: #007bb5;
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 סיכומי אינפי 2</h1>
+  <ul id="lecture-list">
+    <!-- כאן יכנסו הקישורים -->
+  </ul>
+
+  <script>
+    const lectureList = document.getElementById('lecture-list');
+    const totalLectures = 14; // שנה כאן אם יש יותר
+
+    for (let i = 1; i <= totalLectures; i++) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `lectures/lecture${i}.html`;
+      a.textContent = `שיעור ${i}`;
+      li.appendChild(a);
+      lectureList.appendChild(li);
+    }
+  </script>
+</body>
+</html>
