@@ -4,13 +4,18 @@
   <meta charset="UTF-8" />
   <title>סיכומי אינפי 2</title>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;600&display=swap" rel="stylesheet" />
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Shared Dark Mode CSS -->
+  <link rel="stylesheet" href="styles/dark-mode.css">
   <style>
     body {
       margin: 0;
       font-family: 'Assistant', sans-serif;
-      background: #f8f9fa;
-      color: #343a40;
+      background: var(--bg-color);
+      color: var(--text-color);
       padding: 40px;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
     header {
       text-align: center;
@@ -18,7 +23,7 @@
     }
     header h1 {
       font-size: 2.5em;
-      color: #0a5a8d;
+      color: var(--primary-color);
       margin: 0;
     }
     .grid {
@@ -27,56 +32,77 @@
       gap: 20px;
     }
     .card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: var(--card-shadow);
       padding: 20px;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease, color 0.4s ease;
       text-decoration: none;
-      color: #0a5a8d;
+      color: var(--primary-color);
       font-weight: 600;
     }
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      box-shadow: var(--card-hover-shadow);
     }
     .card span {
       font-size: 1.2em;
     }
-    .dark-toggle {
+    .dark-mode-toggle {
       position: fixed;
       top: 20px;
       left: 20px;
-      background: #0a5a8d;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      padding: 10px 18px;
+      background-color: var(--card-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
       cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s ease, transform 0.2s ease;
+      overflow: hidden;
+      z-index: 1001;
     }
-    body.dark {
-      background: #1e1e1e;
-      color: #eee;
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: var(--card-hover-shadow);
+      color: var(--accent-color);
     }
-    body.dark .card {
-      background: #2a2a2a;
-      color: #f7f7f7;
+    .dark-mode-toggle .fa-sun,
+    .dark-mode-toggle .fa-moon {
+      position: absolute;
+      transition: transform 0.4s ease, opacity 0.4s ease;
     }
-    body.dark .card:hover {
-      box-shadow: 0 6px 16px rgba(255,255,255,0.15);
+    html:not([data-theme="dark"]) .dark-mode-toggle .fa-sun {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
     }
-    body.dark .dark-toggle {
-      background: #f0ad4e;
-      color: black;
+    html:not([data-theme="dark"]) .dark-mode-toggle .fa-moon {
+      transform: translateY(100%) rotate(180deg);
+      opacity: 0;
+    }
+    html[data-theme="dark"] .dark-mode-toggle .fa-sun {
+      transform: translateY(-100%) rotate(-180deg);
+      opacity: 0;
+    }
+    html[data-theme="dark"] .dark-mode-toggle .fa-moon {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-
-  <button class="dark-toggle" onclick="toggleDarkMode()">🌙 מצב לילה</button>
+  <!-- Dark Mode Toggle Button -->
+  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+    <i class="fas fa-sun"></i>
+    <i class="fas fa-moon"></i>
+  </button>
 
   <header>
     <h1>📘 סיכומי אינפי 2</h1>
@@ -96,11 +122,7 @@
     <!-- תוסיף עוד אם יש -->
   </div>
 
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-    }
-  </script>
-
+  <!-- Shared Dark Mode JavaScript -->
+  <script src="scripts/dark-mode.js"></script>
 </body>
 </html>
