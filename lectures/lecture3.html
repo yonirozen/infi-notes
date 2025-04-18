@@ -398,7 +398,27 @@
          }
 
 
-        
+        /* --- Dark Mode Toggle Button --- */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px; /* Positioned left */
+            z-index: 1001; /* Above nav */
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            transition: all var(--transition-speed) ease, transform 0.2s ease;
+            overflow: hidden; /* Hide the icon that's moving out */
+        }
         .dark-mode-toggle:hover {
             transform: scale(1.1);
             box-shadow: var(--card-hover-shadow);
@@ -454,7 +474,7 @@
              main section { padding: 25px 30px; }
              main h2 { font-size: 1.7em; }
              main h3 { font-size: 1.3em; }
-             
+             .dark-mode-toggle { width: 45px; height: 45px; font-size: 1.3rem; top: 15px; left: 15px; }
         }
 
         @media (max-width: 576px) {
@@ -468,7 +488,8 @@
              main h2 { font-size: 1.5em; }
              main h3 { font-size: 1.2em; }
              .formula-block { padding: 15px 10px; }
-             
+             .dark-mode-toggle { width: 40px; height: 40px; font-size: 1.2rem; top: 10px; left: 10px; }
+             .chart-container { padding: 10px; }
         }
 
     </style>
@@ -476,7 +497,10 @@
 <body>
 
     <!-- Dark Mode Toggle Button -->
-    
+    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
 
     <header>
         <h1>שיעור 3: אינטגרל לא מסוים והדיפרנציאל</h1>
@@ -1043,19 +1067,474 @@ $$
     </div>
 
     <!-- KaTeX JS -->
-    
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 
 
-<button onclick="toggleDark()" id="toggleDarkBtn"
-  style="position: fixed; top: 20px; left: 20px; z-index: 9999;
-         background: #0a5a8d; color: white; border: none;
-         padding: 10px 16px; border-radius: 30px;
-         font-weight: bold; cursor: pointer;">
-  🌓 מצב לילה
-</button>
+    <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+     <script>
+         // --- Global Chart Variable ---
+         let differentialChartInstance = null;
+
+          // --- Function to get current theme colors from CSS Variables ---
+         function getChartColors() {
+             const style = getComputedStyle(document.documentElement);
+             const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
+
+             return {
+                 axisColor: getColor('--chart-axis-color', '#000000'),
+                 gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
+                 textColor: getColor('--text-color', '#000000'),
+                 functionColor: getColor('--chart-function-color', '#0a5a8d'),
+                 tangentColor: getColor('--chart-tangent-color', '#f0ad4e'),
+                 deltaColor: getColor('--chart-delta-color', '#dc3545'),
+                 errorColor: getColor('--chart-error-color', '#6c757d'),
+                 pointColor: getColor('--primary-color', '#0a5a8d') // Use primary color for points
+             };
+         }
+
+
+         // --- Function to create or update the differential chart ---
+         function renderDifferentialChart() {
+             const colors = getChartColors(); // Get current colors
+
+             const ctx = document.getElementById('differentialChart')?.getContext('2d');
+             if (!ctx) {
+                 console.error("Canvas element 'differentialChart' not found.");
+                 return;
+             }
+
+             // --- Parameters ---
+             const f = x => x*x; // Example function f(x) = x^2
+             const df = x => 2*x; // Derivative f'(x) = 2x
+             const x0 = 1;
+             const deltaX = 0.7; // Make deltaX large enough to see the difference
+
+             const x_start = x0 - deltaX * 0.5;
+             const x_end = x0 + deltaX * 1.5;
+             const num_points = 100;
+
+             // --- Data Generation ---
+             const functionData = [];
+             const tangentData = [];
+             for (let i = 0; i <= num_points; i++) {
+                 const x = x_start + (x_end - x_start) * i / num_points;
+                 functionData.push({ x: x, y: f(x) });
+                 // Tangent line: y = f(x0) + f'(x0)*(x - x0)
+                 tangentData.push({ x: x, y: f(x0) + df(x0) * (x - x0) });
+             }
+
+             const x1 = x0 + deltaX;
+             const y0 = f(x0);
+             const y1_func = f(x1);
+             const y1_tan = f(x0) + df(x0) * deltaX;
+
+             const deltaF = y1_func - y0;
+             const diffF = y1_tan - y0; // This is df = f'(x0) * deltaX
+             const error = y1_func - y1_tan; // This is eps(deltaX)*deltaX
+
+
+             // --- Chart Configuration ---
+             const chartData = {
+                 datasets: [
+                     {
+                         label: 'f(x) = x²',
+                         data: functionData,
+                         borderColor: colors.functionColor,
+                         borderWidth: 2.5,
+                         pointRadius: 0,
+                         tension: 0.1,
+                         type: 'line',
+                         order: 1
+                     },
+                     {
+                         label: 'Tangent at x₀',
+                         data: tangentData,
+                         borderColor: colors.tangentColor,
+                         borderWidth: 1.5,
+                         borderDash: [5, 5],
+                         pointRadius: 0,
+                         type: 'line',
+                         order: 2
+                     },
+                     {
+                         // Points P, Q, R for visualization
+                         type: 'scatter',
+                         label: 'Points',
+                         data: [
+                             { x: x0, y: y0 },        // P
+                             { x: x1, y: y1_func },   // Q
+                             { x: x1, y: y1_tan },    // R
+                         ],
+                         pointBackgroundColor: colors.pointColor,
+                         pointBorderColor: colors.pointColor,
+                         pointRadius: 5,
+                         order: 0
+                     }
+                 ]
+             };
+
+             const chartOptions = {
+                 responsive: true,
+                 maintainAspectRatio: true,
+                 aspectRatio: 1.6, // Adjust aspect ratio if needed
+                 plugins: {
+                    legend: {
+                         display: true,
+                         position: 'top',
+                         labels: { color: colors.textColor }
+                    },
+                    tooltip: {
+                         enabled: true,
+                         callbacks: {
+                             label: ctx => {
+                                 if (ctx.dataset.label === 'Points') {
+                                    if (ctx.dataIndex === 0) return `P = (x₀, f(x₀)) = (${x0.toFixed(2)}, ${y0.toFixed(2)})`;
+                                    if (ctx.dataIndex === 1) return `Q = (x₀+Δx, f(x₀+Δx)) = (${x1.toFixed(2)}, ${y1_func.toFixed(2)})`;
+                                    if (ctx.dataIndex === 2) return `R = (x₀+Δx, y_tan) = (${x1.toFixed(2)}, ${y1_tan.toFixed(2)})`;
+                                 }
+                                 return `${ctx.dataset.label}: (${ctx.parsed.x.toFixed(2)}, ${ctx.parsed.y.toFixed(2)})`;
+                             },
+                             title: () => ''
+                         }
+                    },
+                     annotation: {
+                         annotations: {
+                             // --- Δx ---
+                             deltaXLine: {
+                                 type: 'line',
+                                 xMin: x0, xMax: x1,
+                                 yMin: y0 - deltaF * 0.2, yMax: y0 - deltaF * 0.2, // Position below P
+                                 borderColor: colors.deltaColor, borderWidth: 2
+                             },
+                             deltaXLabel: {
+                                type: 'label',
+                                xValue: (x0 + x1) / 2,
+                                yValue: y0 - deltaF * 0.2,
+                                content: 'Δx',
+                                color: colors.textColor,
+                                backgroundColor: 'rgba(0,0,0,0)', // transparent
+                                position: 'start',
+                                yAdjust: -10 // Adjust label position
+                             },
+                             // --- Δf (Actual change) ---
+                             deltaFLine: {
+                                type: 'line',
+                                xMin: x1 + (x_end - x_start)*0.02, xMax: x1 + (x_end - x_start)*0.02, // Position slightly right of Q/R
+                                yMin: y0, yMax: y1_func,
+                                borderColor: colors.deltaColor, borderWidth: 2
+                             },
+                             deltaFLabel: {
+                                type: 'label',
+                                xValue: x1 + (x_end - x_start)*0.02,
+                                yValue: (y0 + y1_func) / 2,
+                                content: 'Δf',
+                                color: colors.textColor,
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                position: 'center',
+                                xAdjust: 10
+                             },
+                            // --- df (Differential) ---
+                            dfLine: {
+                                type: 'line',
+                                xMin: x0 - (x_end - x_start)*0.02, xMax: x0 - (x_end - x_start)*0.02, // Position slightly left of P
+                                yMin: y0, yMax: y1_tan,
+                                borderColor: colors.tangentColor, borderWidth: 2, borderDash: [3, 3]
+                             },
+                            dfLabel: {
+                                type: 'label',
+                                xValue: x0 - (x_end - x_start)*0.02,
+                                yValue: (y0 + y1_tan) / 2,
+                                content: 'df',
+                                color: colors.textColor,
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                position: 'center',
+                                xAdjust: -15
+                             },
+                             // --- Error ---
+                             errorLine: {
+                                type: 'line',
+                                xMin: x1, xMax: x1,
+                                yMin: y1_tan, yMax: y1_func,
+                                borderColor: colors.errorColor, borderWidth: 1.5, borderDash: [2,2]
+                             },
+                             errorLabel: {
+                                type: 'label',
+                                xValue: x1,
+                                yValue: (y1_tan + y1_func) / 2,
+                                content: 'Error',
+                                color: colors.textColor,
+                                font: { size: 10 },
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                position: 'start',
+                                xAdjust: 10, yAdjust: -5
+                            }
+                         }
+                     }
+                 },
+                 scales: {
+                     x: {
+                         type: 'linear',
+                         min: x_start, max: x_end,
+                         title: { display: true, text: 'x', color: colors.textColor },
+                         ticks: { color: colors.textColor },
+                         grid: {
+                             color: ctx => ctx.tick.value === 0 ? colors.axisColor : colors.gridColor,
+                             lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+                         },
+                         border: { display: true, color: colors.axisColor }
+                     },
+                     y: {
+                         title: { display: true, text: 'y', color: colors.textColor },
+                         ticks: { color: colors.textColor },
+                         grid: {
+                             color: ctx => ctx.tick.value === 0 ? colors.axisColor : colors.gridColor,
+                             lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+                         },
+                         border: { display: true, color: colors.axisColor }
+                     }
+                 }
+             };
+
+
+             // If chart already exists, update it; otherwise, create it
+             if (differentialChartInstance) {
+                 differentialChartInstance.data = chartData;
+                 differentialChartInstance.options = chartOptions;
+                 differentialChartInstance.update();
+             } else {
+                 differentialChartInstance = new Chart(ctx, {
+                     type: 'scatter', // Base type allows mixing lines and points
+                     data: chartData,
+                     options: chartOptions
+                 });
+             }
+         }
+
+
+         document.addEventListener('DOMContentLoaded', function() {
+             // --- 1. KaTeX Rendering ---
+              try {
+                  renderMathInElement(document.body, {
+                     delimiters: [
+                         {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                         {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                         {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                         {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')}
+                     ],
+                      preProcess: (math) => {
+                         return math.replace(/\\\\/g, '\\');
+                     },
+                     // Custom wrapper logic for display math
+                     errorCallback: (err, math, elem) => {
+                         console.error("KaTeX Error:", err);
+                         const errorNode = document.createElement('span');
+                         errorNode.className = 'katex-error';
+                         errorNode.textContent = `Error rendering: ${math}`;
+                         return errorNode;
+                     },
+                     macros: {
+                        "\\R": "\\mathbb{R}", // Example macro
+                        "\\N": "\\mathbb{N}",
+                        "\\Z": "\\mathbb{Z}",
+                        "\\C": "\\mathbb{C}",
+                        "\\Q": "\\mathbb{Q}"
+                     },
+                     throwOnError: false
+                  });
+
+                // Manually wrap display math in formula-block and set direction
+                document.querySelectorAll('.katex-display').forEach(el => {
+                    // Find the original script tag if it exists
+                    let parent = el.parentNode;
+                    if (parent && parent.nodeName === 'DIV' && parent.classList.contains('math')) {
+                        // Already wrapped by potential auto-render customization
+                        parent.setAttribute('dir', 'ltr');
+                        if (!parent.parentNode.classList.contains('formula-block')) {
+                            const formulaBlock = document.createElement('div');
+                            formulaBlock.className = 'formula-block';
+                            parent.parentNode.insertBefore(formulaBlock, parent);
+                            formulaBlock.appendChild(parent);
+                        }
+                    } else if (parent && !parent.classList.contains('formula-block')) {
+                         // Wrap existing katex-display div if not already in formula-block
+                        const formulaBlock = document.createElement('div');
+                        formulaBlock.className = 'formula-block';
+                        const mathDiv = document.createElement('div');
+                        mathDiv.className = 'math';
+                        mathDiv.setAttribute('dir', 'ltr');
+
+                        parent.insertBefore(formulaBlock, el);
+                        mathDiv.appendChild(el);
+                        formulaBlock.appendChild(mathDiv);
+                    } else if (parent && parent.classList.contains('formula-block') && !parent.querySelector('div.math')) {
+                         // If it's directly inside formula-block, add the math div wrapper
+                         const mathDiv = document.createElement('div');
+                         mathDiv.className = 'math';
+                         mathDiv.setAttribute('dir', 'ltr');
+                         parent.insertBefore(mathDiv, el);
+                         mathDiv.appendChild(el);
+                    } else if (parent && parent.classList.contains('formula-block') && parent.querySelector('div.math')) {
+                        // Already correctly structured
+                        parent.querySelector('div.math').setAttribute('dir', 'ltr');
+                    }
+                });
+
+                // Wrap inline math and set direction
+                document.querySelectorAll('.katex').forEach(el => {
+                    if (!el.classList.contains('katex-display')) {
+                       // It's inline math
+                        if (el.nodeName !== 'SPAN' || !el.classList.contains('math')) {
+                             const span = document.createElement('span');
+                             span.className = 'math';
+                             span.setAttribute('dir', 'ltr');
+                             el.parentNode.insertBefore(span, el);
+                             span.appendChild(el);
+                        } else {
+                            // Already a span.math, just set dir
+                            el.setAttribute('dir', 'ltr');
+                        }
+                    }
+                });
+
+
+             } catch (error) {
+                 console.error("KaTeX auto-rendering setup failed:", error);
+             }
+
+             // --- 2. Active Navigation Link Highlighting ---
+              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+              const sections = document.querySelectorAll('main section');
+              const navElement = document.querySelector('nav');
+              const navHeight = navElement ? navElement.offsetHeight : 60;
+
+             function changeActiveLink() {
+                 let currentSectionId = '';
+                 const scrollPosition = window.scrollY;
+
+                 sections.forEach(section => {
+                     const sectionTop = section.offsetTop - navHeight - 50; // Adjusted offset
+                     if (scrollPosition >= sectionTop) {
+                         currentSectionId = section.getAttribute('id');
+                     }
+                 });
+
+                 if (sections.length > 0) {
+                    // Handle top edge case
+                    if (scrollPosition < sections[0].offsetTop - navHeight - 50) {
+                         // If scrolled above the first section, maybe highlight the first link or none
+                         currentSectionId = sections[0].getAttribute('id'); // Highlight first one
+                    }
+                     // Handle bottom edge case
+                    else if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight - 2) {
+                         currentSectionId = sections[sections.length - 1].getAttribute('id');
+                     }
+                 }
+
+
+                 navLinks.forEach(link => {
+                      link.classList.remove('active');
+                      if (link.getAttribute('href') === '#' + currentSectionId) {
+                          link.classList.add('active');
+                      }
+                  });
+              }
+             window.addEventListener('scroll', changeActiveLink);
+             // Run once on load after a short delay to ensure layout is stable
+             setTimeout(changeActiveLink, 200);
+
+              // --- 3. Section Fade-in Animation on Scroll ---
+               const observerOptions = {
+                  root: null,
+                   rootMargin: '0px 0px -50px 0px', // Trigger slightly before section is fully visible
+                   threshold: 0.1 // Trigger when 10% is visible
+              };
+
+               const observerCallback = (entries, observer) => {
+                  entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                          entry.target.classList.add('visible');
+                          observer.unobserve(entry.target); // Stop observing once visible
+                      }
+                  });
+              };
+
+              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+              sections.forEach(section => {
+                  scrollObserver.observe(section);
+               });
+
+             // --- 4. Dark Mode ---
+             const darkModeToggle = document.getElementById('darkModeToggle');
+             const htmlElement = document.documentElement;
+
+             // Function to apply theme
+             const applyTheme = (theme) => {
+                 htmlElement.setAttribute('data-theme', theme);
+                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
+                 localStorage.setItem('theme', theme); // Save preference
+                 // Re-render chart after theme change
+                 setTimeout(renderDifferentialChart, 50); // Use timeout to allow CSS transition
+             };
+
+             // Check for saved theme on load
+             const savedTheme = localStorage.getItem('theme');
+             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+             // Initialize theme
+             if (savedTheme) {
+                 applyTheme(savedTheme);
+             } else {
+                 // Removed system preference default to always start light unless saved otherwise
+                 applyTheme('light');
+                 // if (prefersDark) { applyTheme('dark'); }
+                 // else { applyTheme('light'); }
+             }
+
+             // Toggle button event listener
+             darkModeToggle.addEventListener('click', () => {
+                 const currentTheme = htmlElement.getAttribute('data-theme');
+                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                 applyTheme(newTheme);
+             });
+
+             // Listen for system theme changes (Optional - modify if you want auto-switching)
+             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                 // Only change if no theme was explicitly set by the user via toggle
+                 if (!localStorage.getItem('theme')) {
+                     const newTheme = e.matches ? 'dark' : 'light';
+                     applyTheme(newTheme);
+                 }
+             });
+
+             // --- 5. Initial Chart Rendering ---
+             // Render chart after the rest of the DOM setup is complete
+             renderDifferentialChart();
+
+          });
+      </script>
 
 
 
+<!-- כפתור חזרה לדף הראשי -->
+<a href="../index.html" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #0a5a8d;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+">
+  🏠 חזרה למסך הראשי
+</a>
 
 </body>
 </html>

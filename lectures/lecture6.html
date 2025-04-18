@@ -1,0 +1,2386 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אינפי 2 - שיעור 6</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-color: #0a5a8d; /* Deeper Blue */
+            --secondary-color: #495057; /* Dark Gray */
+            --accent-color: #f0ad4e; /* Orange/Yellow Accent */
+            --highlight-color: #fdebd0; /* Softer Highlight */
+            --bg-color: #fdfcfb; /* Off-white / Creamy */
+            --text-color: #343a40; /* Darker Text */
+            --border-color: #ced4da;
+            --font-family-hebrew: 'Assistant', 'Rubik', sans-serif;
+            --font-family-heading: 'Orbitron', 'Assistant', sans-serif;
+            --card-bg: #ffffff;
+            --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px; /* More rounded */
+            --header-bg: linear-gradient(135deg, var(--primary-color), #007bb5);
+            --header-text: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --nav-text: var(--primary-color);
+            --nav-hover-bg: var(--primary-color);
+            --nav-hover-text: #ffffff;
+            --section-border: var(--primary-color);
+            --section-hover-border: var(--accent-color);
+            --formula-bg: #f8f9fa;
+            --formula-border: #e9ecef;
+            --definition-bg: #fffaf0; /* Soft ivory for definitions */
+            --definition-border: var(--accent-color);
+            --definition-heading: var(--accent-color);
+            --example-bg: #f8f9fa; /* Light grey for examples */
+            --example-border: var(--secondary-color);
+            --theorem-bg: #eef8ff; /* Light blue for theorems/lemmas */
+            --theorem-border: var(--primary-color);
+            --theorem-heading: var(--primary-color);
+            --katex-inline-color: var(--primary-color);
+            --katex-display-color: var(--text-color);
+            --body-pattern: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e9ecef" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            --transition-speed: 0.4s;
+            --chart-axis-color: #333333; /* Default dark axis for better visibility on light bg*/
+            --chart-grid-color: rgba(128, 128, 128, 0.2);
+            --chart-fill-color: rgba(10, 90, 141, 0.2); /* Semi-transparent fill based on primary */
+            --chart-fill-alt-color: rgba(240, 173, 78, 0.2); /* Alt color based on accent */
+             --placeholder-bg: #eee;
+            --placeholder-border: #ccc;
+            --placeholder-text: #888;
+        }
+
+        /* --- Dark Mode Variables --- */
+        html[data-theme="dark"] {
+            --primary-color: #58a6ff; /* Lighter Blue */
+            --secondary-color: #8b949e; /* Lighter Gray */
+            --accent-color: #f7b731; /* Brighter Yellow */
+            --highlight-color: #2d333b; /* Darker Highlight */
+            --bg-color: #0d1117; /* Very Dark Gray/Black */
+            --text-color: #c9d1d9; /* Light Gray Text */
+            --border-color: #30363d;
+            --card-bg: #161b22; /* Dark Card Background */
+            --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            --header-bg: linear-gradient(135deg, #1f6feb, #21262d);
+            --header-text: #e6edf3;
+            --nav-bg: rgba(22, 27, 34, 0.85); /* Darker Nav */
+            --nav-text: var(--primary-color);
+            --nav-hover-bg: var(--primary-color);
+            --nav-hover-text: #0d1117;
+            --section-border: var(--primary-color);
+            --section-hover-border: var(--accent-color);
+            --formula-bg: #1c2128; /* Darker Formula Block */
+            --formula-border: #30363d;
+            --definition-bg: #221e15; /* Dark definition */
+            --definition-border: var(--accent-color);
+            --definition-heading: var(--accent-color);
+            --example-bg: #1c2128; /* Dark example */
+            --example-border: var(--secondary-color);
+             --theorem-bg: #111a28; /* Dark blue for theorems */
+             --theorem-border: var(--primary-color);
+            --theorem-heading: var(--primary-color);
+            --katex-inline-color: #79c0ff; /* Lighter Blue for Inline Katex */
+            --katex-display-color: var(--text-color);
+            --body-pattern: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2330363d" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            --chart-axis-color: #c9d1d9; /* Dark axis (light gray text) */
+            --chart-grid-color: rgba(128, 128, 128, 0.2); /* Grid can stay the same or be slightly adjusted */
+            --chart-fill-color: rgba(88, 166, 255, 0.2); /* Semi-transparent fill based on primary */
+             --chart-fill-alt-color: rgba(247, 183, 49, 0.2);
+             --placeholder-bg: #2a3038;
+            --placeholder-border: #444c56;
+            --placeholder-text: #768390;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; /* Smooth theme change */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 100%; /* Base 16px */
+        }
+
+        body {
+            font-family: var(--font-family-hebrew);
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            background-image: var(--body-pattern);
+            font-weight: 300; /* Lighter default weight */
+            direction: rtl; /* Default direction for body */
+        }
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 25px;
+  overflow-x: hidden; /* ⬅️ הוסף את זה רק כאן */
+}
+
+
+        header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%); /* Stylish shape */
+            animation: fadeInDown 1s ease-out 0.2s backwards;
+            position: relative; /* For credits positioning */
+        }
+         html[data-theme="dark"] header {
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+         }
+
+            header h1 {
+                font-family: var(--font-family-heading);
+                font-size: 2.8em; /* Adjusted title size */
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+                margin-bottom: 10px;
+            }
+             .credits {
+                font-size: 0.9em;
+                font-weight: 300;
+                opacity: 0.8;
+                margin-top: 15px;
+                color: var(--header-text);
+            }
+
+        nav {
+  max-width: 900px;
+  margin: 0 auto;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 10px 15px; /* Adjusted padding */
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            transition: top 0.3s ease, background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            border: 1px solid rgba(0,0,0,0.05);
+             /* Prevent nav from growing too tall if links wrap excessively */
+             max-height: 80px; /* Adjust as needed */
+        }
+         html[data-theme="dark"] nav {
+              border: 1px solid var(--border-color);
+         }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: nowrap; /* Prevent wrapping */
+            justify-content: flex-start; /* Align items to the start */
+            gap: 10px 15px; /* Row and column gap */
+            padding-bottom: 10px; /* Space for scrollbar */
+            overflow-x: auto; /* Enable horizontal scroll */
+            white-space: nowrap; /* Keep items on one line */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            margin-bottom: -10px; /* Counteract padding-bottom for visual alignment */
+            scroll-behavior: smooth; /* Smooth scrolling for programmatic scroll */
+             direction: rtl; /* Ensure nav itself scrolls correctly RTL */
+        }
+
+        /* Hide scrollbar visually but keep functionality */
+        nav ul::-webkit-scrollbar { height: 6px; background-color: transparent;}
+        nav ul::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 3px; }
+        html[data-theme="dark"] nav ul::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); }
+        nav ul { -ms-overflow-style: none; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.2) transparent;} /* Firefox */
+         html[data-theme="dark"] nav ul { scrollbar-color: rgba(255,255,255,0.2) transparent; }
+
+        nav ul li {
+            flex-shrink: 0; /* Prevent items from shrinking */
+            direction: rtl; /* Ensure individual items flow RTL */
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--nav-text);
+            font-weight: 500;
+            padding: 8px 12px; /* Adjusted padding */
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: inline-block; /* Needed for transform */
+            border: 1px solid transparent;
+            white-space: normal; /* Allow wrapping *within* the link */
+            text-align: center;
+             direction: rtl; /* Default direction for link content */
+             unicode-bidi: embed; /* Isolate directionality within link */
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: var(--nav-hover-bg);
+            color: var(--nav-hover-text);
+            transform: translateY(-2px) scale(1.02); /* Subtle lift */
+            box-shadow: 0 3px 6px rgba(0, 86, 179, 0.15);
+            border-color: transparent;
+        }
+        html[data-theme="dark"] nav ul li a:hover, html[data-theme="dark"] nav ul li a.active {
+            box-shadow: 0 3px 6px rgba(88, 166, 255, 0.2);
+        }
+        nav ul li a.active {
+            font-weight: 700;
+        }
+
+        main section {
+            background-color: var(--card-bg);
+            padding: 30px 35px; /* More padding */
+            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border-right: 7px solid var(--section-border); /* Changed border side for RTL */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease, transform 0.5s ease; /* Added opacity/transform */
+            opacity: 1; /* Default visible */
+            transform: translateY(0); /* Default position */
+            overflow: hidden; /* Contain elements */
+             direction: rtl; /* Ensure section content flows RTL */
+        }
+        main section.hidden-on-load { /* Class for initial hidden state if using JS observer */
+            opacity: 0;
+             transform: translateY(20px);
+         }
+
+         main section.visible {
+            opacity: 1;
+            transform: translateY(0);
+         }
+
+            main section:hover {
+                box-shadow: var(--card-hover-shadow);
+                transform: translateY(-8px) scale(1.01); /* Slightly larger lift and subtle scale */
+                border-right-color: var(--section-hover-border); /* Change border on hover */
+            }
+
+        main h2, main h3, main h4 {
+            font-family: var(--font-family-hebrew); /* Use Hebrew font */
+            color: var(--primary-color); /* Default color, override for specifics */
+            margin-bottom: 20px; /* Unified bottom margin */
+            font-weight: 600; /* Boldish */
+            padding-bottom: 8px; /* Space below text */
+             border-bottom: 2px solid var(--border-color);
+             width: fit-content; /* Border only under text */
+        }
+
+        main h2 {
+            font-family: var(--font-family-heading); /* Override for H2 */
+            font-size: 2.0em;
+            font-weight: 700; /* Bolder H2 */
+            border-bottom-width: 3px;
+             color: var(--primary-color);
+        }
+
+        main h3 {
+            font-size: 1.5em;
+             margin-top: 30px; /* More space before H3 */
+             color: var(--secondary-color);
+            border-bottom-style: dashed;
+             border-bottom-width: 1px;
+        }
+
+        main h4 {
+             font-size: 1.2em;
+             margin-top: 25px;
+             color: var(--primary-color);
+            border-bottom-style: dotted;
+            border-bottom-width: 1px;
+             padding-bottom: 5px;
+        }
+
+
+        p, li {
+            margin-bottom: 1em;
+            color: var(--text-color);
+            font-weight: 400; /* Regular weight */
+            font-size: 1.05em;
+             direction: rtl; /* Ensure text flows right to left */
+             text-align: right;
+        }
+         p .math, li .math { line-height: 1; display: inline-block; } /* Prevent inline math from messing line height */
+
+        ul, ol {
+            padding-right: 35px; /* Indentation for RTL lists */
+             margin-bottom: 1em; /* Spacing below lists */
+             list-style-position: outside; /* Ensure markers are outside */
+        }
+         li { margin-bottom: 0.6em; } /* Smaller space between list items */
+         li::marker { /* Style list markers */
+            color: var(--primary-color);
+            font-weight: 600;
+         }
+
+        /* Base block styling for definition, example, theorem */
+        .styled-block {
+            padding: 20px 25px 15px 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            border-right-width: 5px;
+            border-right-style: solid;
+            border-left: none;
+        }
+        html[data-theme="dark"] .styled-block {
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+         .styled-block h4, .styled-block h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+             padding-bottom: 5px;
+            border-bottom: 1px solid; /* Thin underline for block titles */
+            border-color: inherit; /* Inherit border color from parent */
+             width: fit-content;
+             font-family: var(--font-family-hebrew); /* Ensure heading font */
+        }
+
+        /* Specific styles */
+        .definition {
+            background-color: var(--definition-bg);
+            border-right-color: var(--definition-border);
+            border-color: var(--definition-border); /* For underline */
+        }
+            .definition h4, .definition h3 { color: var(--definition-heading); }
+
+        .example {
+            background-color: var(--example-bg);
+             border-right-color: var(--example-border);
+             border-color: var(--example-border);
+             border-right-style: dashed; /* Dashed border for examples */
+        }
+            .example h4, .example h3 { color: var(--secondary-color); font-weight: bold;}
+
+
+        .theorem { /* Includes lemmas */
+             background-color: var(--theorem-bg);
+             border-right-color: var(--theorem-border);
+             border-color: var(--theorem-border);
+        }
+            .theorem h4, .theorem h3 { color: var(--theorem-heading); }
+
+
+        .formula-block {
+            background-color: var(--formula-bg);
+            padding: 15px 20px;
+            margin: 25px auto; /* Center block */
+            border-radius: 8px;
+            overflow-x: auto; /* Handle long formulas */
+            text-align: center;
+            border: 1px solid var(--formula-border);
+            max-width: 100%;
+            transition: box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+             position: relative;
+             direction: ltr; /* Formula blocks are LTR containers */
+        }
+        .formula-block:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+        }
+         html[data-theme="dark"] .formula-block:hover {
+             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+         }
+
+            /* Force LTR for math layout & prevent clipping */
+            .formula-block div.math {
+                margin: 0 auto;
+                direction: ltr !important;
+                unicode-bidi: embed !important;
+                text-align: center;
+                padding: 10px 5px; /* Padding to prevent clipping */
+                overflow-x: auto;
+                overflow-y: hidden;
+                display: block;
+                color: var(--katex-display-color);
+                max-width: 100%;
+                font-size: 1.1em;
+            }
+            .katex-display > .katex {
+              white-space: normal; /* Allow wrapping within KaTeX display block if needed */
+            }
+
+
+        /* Style KaTeX inline math */
+        span.math {
+            font-size: 1.1em; /* Adjusted inline math size */
+            color: var(--katex-inline-color);
+            direction: ltr !important;
+            unicode-bidi: embed !important;
+            padding: 0 3px; /* Inline padding */
+            vertical-align: middle; /* Better alignment with text */
+            transition: color var(--transition-speed) ease;
+            font-weight: 500;
+            display: inline-block; /* Needed for vertical align and LTR */
+        }
+
+        .highlight {
+            background-color: var(--highlight-color);
+            padding: 3px 8px; /* More padding */
+            border-radius: 5px;
+            font-weight: 500; /* Medium weight */
+            border: 1px solid #f5c6cb; /* Border matching background */
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        html[data-theme="dark"] .highlight {
+            border-color: var(--border-color);
+        }
+
+        /* --- Chart Container --- */
+         .chart-container {
+            margin: 25px auto;
+            max-width: 600px; /* Limit chart width */
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            direction: ltr; /* Ensure chart container itself is LTR */
+            position: relative; /* For loading message */
+         }
+
+        .chart-wrapper { /* Use wrapper for specific layout needs */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+             margin: 0 auto; /* Centering */
+        }
+
+        .chart-container h5 { /* Title */
+             text-align: center;
+             margin-bottom: 15px;
+             font-size: 1.1em;
+             color: var(--secondary-color);
+             font-weight: 600;
+              direction: rtl; /* Title text is RTL */
+        }
+
+         canvas {
+            max-width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+         }
+
+         .chart-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-style: italic;
+            color: var(--secondary-color);
+             direction: rtl;
+        }
+
+
+        /* --- Dark Mode Toggle Button --- */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px; /* Positioned left */
+            z-index: 1001; /* Above nav */
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            transition: all var(--transition-speed) ease, transform 0.2s ease;
+            overflow: hidden; /* Hide the icon that's moving out */
+        }
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--card-hover-shadow);
+            color: var(--accent-color);
+        }
+        .dark-mode-toggle .fa-sun,
+        .dark-mode-toggle .fa-moon {
+             position: absolute;
+             transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+        }
+
+        html:not([data-theme="dark"]) .dark-mode-toggle .fa-sun { transform: translateY(0) rotate(0deg); opacity: 1; }
+        html:not([data-theme="dark"]) .dark-mode-toggle .fa-moon { transform: translateY(100%) rotate(180deg); opacity: 0; }
+        html[data-theme="dark"] .dark-mode-toggle .fa-sun { transform: translateY(-100%) rotate(-180deg); opacity: 0; }
+        html[data-theme="dark"] .dark-mode-toggle .fa-moon { transform: translateY(0) rotate(0deg); opacity: 1; }
+
+        /* CSS Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+             .container { max-width: 95%; padding: 0 20px; }
+             main h2 { font-size: 1.8em; }
+             main h3 { font-size: 1.4em; }
+        }
+
+        @media (max-width: 768px) {
+             html { font-size: 95%; }
+             .container { padding: 0 15px; }
+             header h1 { font-size: 2.3em; }
+             header { clip-path: none; border-radius: 0 0 10px 10px; padding: 30px 15px;}
+             .credits { font-size: 0.85em; }
+             nav { padding: 10px 5px; top: 10px; max-height: 70px;} /* Adjust max-height if needed */
+             nav ul { gap: 8px 12px; }
+             nav ul li a { padding: 7px 14px; font-size: 0.95em;}
+             main section { padding: 25px 30px; border-right-width: 6px; }
+             main h2 { font-size: 1.7em; }
+             main h3 { font-size: 1.3em; }
+             .dark-mode-toggle { width: 45px; height: 45px; font-size: 1.3rem; top: 15px; left: 15px; }
+             .formula-block { padding: 15px; }
+             .chart-container { padding: 15px; }
+        }
+
+        @media (max-width: 576px) {
+             html { font-size: 90%; }
+             header h1 { font-size: 2.0em; }
+             .credits { font-size: 0.8em; }
+             nav { padding: 8px 5px; max-height: 65px; } /* Adjust max-height if needed */
+             nav ul { gap: 6px 10px; padding-bottom: 8px; margin-bottom: -8px;}
+             nav ul li a { padding: 6px 10px; font-size: 0.9em;}
+             main section { padding: 20px 25px; border-right-width: 5px; }
+             main h2 { font-size: 1.5em; }
+             main h3 { font-size: 1.2em; }
+             .formula-block { padding: 10px; }
+             .formula-block div.math { font-size: 1.05em; }
+             .dark-mode-toggle { width: 40px; height: 40px; font-size: 1.2rem; top: 10px; left: 10px; }
+             .chart-container { padding: 10px; }
+        }
+
+         /* KaTeX baseline alignment fix */
+        .katex { vertical-align: baseline; }
+
+    </style>
+</head>
+<body dir="rtl">
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header>
+        <h1>אינפי 2 - שיעור מס' 6</h1>
+        <div class="credits">קרדיט ים ליקיר והלל .</div>
+    </header>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#intro" class="nav-link">מבוא</a></li>
+                <li><a href="#series-definition" class="nav-link">הגדרה: סדרת חלוקות נורמלית</a></li>
+                <li><a href="#integrability-definition" class="nav-link">הגדרה: אינטגרביליות לפי רימן</a></li>
+                <li><a href="#example-constant" class="nav-link">דוגמה: <span class="math" dir="ltr">\(f(x)=c\)</span></a></li>
+                <li><a href="#example-dirichlet" class="nav-link">דוגמה: פ' דיריכלה</a></li>
+                <li><a href="#boundedness-theorem" class="nav-link">משפט: תנאי הכרחי לאינטגרביליות (חסם)</a></li>
+                <li><a href="#darboux-sums" class="nav-link">הגדרה: סכומי דרבו</a></li>
+                <li><a href="#lemma-darboux-vs-riemann" class="nav-link">למה: סכומי דרבו כחסמים</a></li>
+                <li><a href="#refinement" class="nav-link">העדנה</a></li>
+                <li><a href="#lemma-refinement-effect" class="nav-link">למה: השפעת העדנה</a></li>
+                <li><a href="#lemma-comparison" class="nav-link">למה: השוואת סכומים</a></li>
+                <li><a href="#oscillation-definition" class="nav-link">הגדרה: תנודה</a></li>
+                <li><a href="#lemma-refinement-bounds" class="nav-link">למה: חסמים בהעדנה</a></li>
+                <li><a href="#darboux-integrals" class="nav-link">הגדרה: אינטגרלי דרבו</a></li>
+                <li><a href="#theorem-darboux-limits" class="nav-link">משפט: גבול סכומי דרבו</a></li>
+                <li><a href="#example-xsquared" class="nav-link">דוגמה: <span class="math" dir="ltr">\(f(x)=x^2\)</span></a></li>
+                <li><a href="#equivalence-theorem" class="nav-link">משפט: <span class="math" dir="ltr">\(f\)</span> אינטגרבילית <span class="math" dir="ltr">\(\iff\)</span> <span class="math" dir="ltr">\(I=I\)</span></a></li>
+                <li><a href="#cauchy-criterion" class="nav-link">משפט: תנאי קושי לאינטגרל</a></li>
+                <li><a href="#sufficient-condition-1" class="nav-link">משפט: תנאי מספיק 1</a></li>
+                <li><a href="#sufficient-condition-2" class="nav-link">משפט: תנאי מספיק 2</a></li>
+                <li><a href="#sufficient-condition-3" class="nav-link">משפט: תנאי מספיק 3</a></li>
+                <li><a href="#example-1-over-n" class="nav-link">דוגמה: <span class="math" dir="ltr">\(f(x)=1/n\)</span></a></li>
+                <li><a href="#riemann-condition" class="nav-link">משפט: תנאי רימן</a></li>
+                <li><a href="#uniform-continuity-reminder" class="nav-link">תזכורת: רציפות במ"ש</a></li>
+                <li><a href="#theorem-diff-bounded-implies-uniform" class="nav-link">משפט: נגזרת חסומה <span class="math" dir="ltr">\(\implies\)</span> רציפות במ"ש</a></li>
+                <li><a href="#theorem-continuous-implies-integrable" class="nav-link">משפט: רציפה <span class="math" dir="ltr">\(\implies\)</span> אינטגרבילית</a></li>
+                <li><a href="#theorem-finite-discontinuities" class="nav-link">משפט: מס' סופי של אי-רציפויות</a></li>
+                <li><a href="#example-sin-1-over-x" class="nav-link">דוגמה: <span class="math" dir="ltr">\(f(x)=\sin(1/x)\)</span></a></li>
+                <li><a href="#theorem-monotonic-implies-integrable" class="nav-link">משפט: מונוטונית <span class="math" dir="ltr">\(\implies\)</span> אינטגרבילית</a></li>
+                <li><a href="#remark-monotonic-discontinuities" class="nav-link">הערה: מס' אי-רציפויות</a></li>
+                <li><a href="#example-staircase" class="nav-link">דוגמה: פ' מדרגות</a></li>
+                <li><a href="#theorem-change-finite-points" class="nav-link">משפט: שינוי במס' סופי של נק'</a></li>
+            </ul>
+        </nav>
+
+    <div class="container">
+
+        <main>
+            <section id="intro">
+                <h2>המשך אינטגרל רימן ודרבו</h2>
+                <p>נמשיך מהיכן שהפסקנו. אציין רק ששיעור זה, הקודם והבא הם 3 שיעורים עמוסי תיאוריה. מן הסתם קשים יותר מאחרים. אז בהמשך קל יותר. מצד שני, מי שמבקש להתעמק כדי להבין את המושג אינטגרל הלא מסוים, זו ההזדמנות.</p>
+                <p>החומר כאן לפי ספרו המצוין של צ. מייזלר. פרקים י"ח-כ"ג (באופן כללי הרבה מהקורס מבוסס על ספר זה. ודאי כל מה שנוגע לפונקציה של משתנה אחד).</p>
+                <p>הערה נוספת: ניתן להגדיר את הגבול בלשון סדרות. לצורך זה ראשית-</p>
+            </section>
+
+            <section id="series-definition" class="definition">
+                <h3>הגדרה: סדרת חלוקות נורמלית</h3>
+                <p>סידרת חלוקות <span class="math" dir="ltr">\(\{T_m\}_{m=1}^{\infty}\)</span> נקראת סידרת חלוקות נורמלית אם פרמטר החלוקה שואף לאפס: <span class="math" dir="ltr">\(\lambda(T_m) \to 0\)</span> כאשר <span class="math" dir="ltr">\(m \to \infty\)</span>. כעת-</p>
+            </section>
+
+            <section id="integrability-definition" class="definition">
+                <h3>הגדרה: אינטגרביליות לפי רימן (באמצעות סדרות)</h3>
+                <p>פונקציה <span class="math" dir="ltr">\(f\)</span> המוגדרת על <span class="math" dir="ltr">\([a,b]\)</span> נקראת אינטגרבילית לפי רימן על <span class="math" dir="ltr">\([a,b]\)</span>, אם יש מספר ממשי <span class="math" dir="ltr">\(I\)</span>, אשר לכל סידרת חלוקות (ס"ח) נורמלית <span class="math" dir="ltr">\(\{T_m\}_{m=1}^{\infty}\)</span> עם בחירה כלשהי של נקודות <span class="math" dir="ltr">\(\{\zeta_i^{(m)}\}\)</span> עבור כל <span class="math" dir="ltr">\(T_m\)</span>, סכום רימן (ס"ר) המתאים, <span class="math" dir="ltr">\(\sigma(T_m, \{\zeta^{(m)}\})\)</span>, מקיים <span class="math" dir="ltr">\(\lim_{m \to \infty} \sigma(T_m) = I\)</span>.</p>
+                <p>הערה: מספיק להניח שכל סידרת ס"ר כזו <span class="math" dir="ltr">\(\sigma(T_m)\)</span> מתכנסת (במובן הצר) ומכך נובע שיש מספר יחיד <span class="math" dir="ltr">\(I\)</span> כך שהוא גבול של כל סידרת ס"ר כזו. [מדוע ? זו בכלל הערה על סדרות. אם כל תת סידרה של סידרה נתונה מתכנסת לאותו גבול, אז גם הסידרה המקורית מתכנסת לאותו גבול. רעיון הוכחה דומה לטיעונים על תתי-סדרות וגבולות מאינפי 1].</p>
+            </section>
+
+            <section id="example-constant" class="example">
+                <h3>דוגמה: פונקציה קבועה</h3>
+                <p>הפונקציה הקבועה <span class="math" dir="ltr">\(f(x) = c\)</span> אינטגרבילית על <span class="math" dir="ltr">\([a,b]\)</span> וערך האינטגרל הוא <span class="math" dir="ltr">\(\int_a^b f(x) \, dx = c(b-a)\)</span>.</p>
+                 <div class="chart-container">
+                    <h5>שטח מתחת לפונקציה קבועה <span class="math" dir="ltr">\(f(x)=c\)</span></h5>
+                    <div class="chart-wrapper">
+                         <canvas id="chart_fx_c"></canvas>
+                     </div>
+                     <div id="chart_fx_c_loading" class="chart-loading">טוען גרף...</div>
+                </div>
+
+                <h4>הוכחה</h4>
+                <p>בכל סכום רימן, של כל חלוקה <span class="math" dir="ltr">\(T = \{x_0, \dots, x_k\}\)</span> ובכל בחירה של <span class="math" dir="ltr">\(\zeta_i \in \Delta x_i\)</span>, מתקיים <span class="math" dir="ltr">\(f(\zeta_i) = c\)</span> לכל <span class="math" dir="ltr">\(1 \le i \le k\)</span>. ואז:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \sigma(T, \{\zeta_i\}) = \sum_{i=1}^k f(\zeta_i) \Delta x_i = \sum_{i=1}^k c \cdot \Delta x_i = c \sum_{i=1}^k \Delta x_i = c (b-a) $$</div></div>
+                <p>מאחר שכל סכומי רימן שווים ל-<span class="math" dir="ltr">\(c(b-a)\)</span>, הגבול שלהם (כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>) הוא גם כן <span class="math" dir="ltr">\(c(b-a)\)</span>.</p>
+            </section>
+
+            <section id="example-dirichlet" class="example">
+                <h3>דוגמה: פונקציית דיריכלה</h3>
+                <p>פונקציית דיריכלה:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ D(x) = \begin{cases} 1, & x \in \mathbb{Q} \\ 0, & x \notin \mathbb{Q} \end{cases} $$</div></div>
+                <p>אינה אינטגרבילית על <span class="math" dir="ltr">\([0,1]\)</span> (או כל קטע אחר).</p>
+
+                <h4>הוכחה</h4>
+                <p>בכל קטע <span class="math" dir="ltr">\(\Delta x_i = [x_{i-1}, x_i]\)</span> (כאשר <span class="math" dir="ltr">\(\Delta x_i > 0\)</span>), קטן ככל שיהיה, ישנן נקודות רציונליות ונקודות אי-רציונליות (תכונת הצפיפות). על כן, לכל חלוקה <span class="math" dir="ltr">\(T\)</span> של <span class="math" dir="ltr">\([0,1]\)</span>:</p>
+                <ul>
+                    <li>ניתן לבחור בכל קטע <span class="math" dir="ltr">\(\Delta x_i\)</span> נקודת ביניים רציונלית <span class="math" dir="ltr">\(\zeta_i \in \mathbb{Q}\)</span>. ואז <span class="math" dir="ltr">\(D(\zeta_i) = 1\)</span>, וסכום רימן המתאים הוא:
+                    <div class="formula-block"><div class="math" dir="ltr">$$ \sigma_1 = \sum_{i=1}^k D(\zeta_i) \Delta x_i = \sum_{i=1}^k 1 \cdot \Delta x_i = b-a = 1-0 = 1 $$</div></div>
+                    </li>
+                    <li>ניתן לבחור בכל קטע <span class="math" dir="ltr">\(\Delta x_i\)</span> נקודת ביניים אי-רציונלית <span class="math" dir="ltr">\(\zeta'_i \notin \mathbb{Q}\)</span>. ואז <span class="math" dir="ltr">\(D(\zeta'_i) = 0\)</span>, וסכום רימן המתאים הוא:
+                    <div class="formula-block"><div class="math" dir="ltr">$$ \sigma_2 = \sum_{i=1}^k D(\zeta'_i) \Delta x_i = \sum_{i=1}^k 0 \cdot \Delta x_i = 0 $$</div></div>
+                    </li>
+                </ul>
+                <p>מאחר שלכל חלוקה <span class="math" dir="ltr">\(T\)</span>, עדינה ככל שתהיה, ניתן למצוא סכומי רימן שערכם 1 וסכומי רימן שערכם 0, הגבול <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} \sigma(T)\)</span> אינו קיים, ולכן הפונקציה אינה אינטגרבילית.</p>
+            </section>
+
+            <section id="boundedness-theorem" class="theorem">
+                <h3>משפט: תנאי הכרחי לאינטגרביליות</h3>
+                <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז <span class="math" dir="ltr">\(f\)</span> חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>.</p>
+
+                <h4>הוכחה</h4>
+                <p>נניח בשלילה ש-<span class="math" dir="ltr">\(f\)</span> אינה חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>. על כן, לכל <span class="math" dir="ltr">\(M>0\)</span> קיימת נקודה <span class="math" dir="ltr">\(x_M \in [a,b]\)</span> כך ש-<span class="math" dir="ltr">\(|f(x_M)| > M\)</span>. מכאן ניתן לבנות סדרה <span class="math" dir="ltr">\(\{x_l\}\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span> כך ש-<span class="math" dir="ltr">\(|f(x_l)| \to \infty\)</span>. נניח בה"כ כי <span class="math" dir="ltr">\(f(x_l) \to \infty\)</span> (אחרת נתבונן ב-<span class="math" dir="ltr">\(-f\)</span> או נטפל בערך מוחלט).</p>
+                <p>תהי <span class="math" dir="ltr">\(T_n\)</span> סידרת חלוקות נורמלית כלשהי (<span class="math" dir="ltr">\(\lambda(T_n) \to 0\)</span>). לכל חלוקה <span class="math" dir="ltr">\(T_n = \{x_0^{(n)}, \dots, x_{k_n}^{(n)}\}\)</span>, נבחר נקודות ביניים <span class="math" dir="ltr">\(\zeta_i^{(n)}\)</span> באופן הבא:</p>
+                <p>מכיוון ש-<span class="math" dir="ltr">\(f\)</span> לא חסומה, ובמספר סופי של קטעים <span class="math" dir="ltr">\(\Delta x_i^{(n)}\)</span>, חייב להיות לפחות קטע אחד, נסמנו <span class="math" dir="ltr">\(\Delta x_{i_0}^{(n)}\)</span>, שבו <span class="math" dir="ltr">\(f\)</span> אינה חסומה (כי אם היתה חסומה בכל קטע, היתה חסומה באיחוד). בקטע <span class="math" dir="ltr">\(\Delta x_{i_0}^{(n)}\)</span> זה, נוכל לבחור נקודת ביניים <span class="math" dir="ltr">\(\zeta_{i_0}^{(n)}\)</span> כך ש-<span class="math" dir="ltr">\(f(\zeta_{i_0}^{(n)}) \cdot \Delta x_{i_0}^{(n)}\)</span> יהיה גדול כרצוננו.</p>
+                <p>ליתר דיוק: נקבע את נקודות הביניים <span class="math" dir="ltr">\(\zeta_i^{(n)}\)</span> עבור <span class="math" dir="ltr">\(i \neq i_0\)</span> באופן כלשהו (למשל, נקודות אמצע). הסכום החלקי <span class="math" dir="ltr">\(A_n = \sum_{i \neq i_0} f(\zeta_i^{(n)}) \Delta x_i^{(n)}\)</span> הוא מספר סופי. כעת, ב-<span class="math" dir="ltr">\(\Delta x_{i_0}^{(n)}\)</span>, נוכל לבחור <span class="math" dir="ltr">\(\zeta_{i_0}^{(n)}\)</span> כך ש-<span class="math" dir="ltr">\(|f(\zeta_{i_0}^{(n)})|\)</span> יהיה גדול מספיק כדי ש-<span class="math" dir="ltr">\(|f(\zeta_{i_0}^{(n)}) \Delta x_{i_0}^{(n)}| > |A_n| + n\)</span>.</p>
+                <p>אז סכום רימן המלא:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ |\sigma(T_n)| = |f(\zeta_{i_0}^{(n)}) \Delta x_{i_0}^{(n)} + A_n| \ge |f(\zeta_{i_0}^{(n)}) \Delta x_{i_0}^{(n)}| - |A_n| > n $$</div></div>
+                <p>בדרך זו בנינו סידרת סכומי רימן <span class="math" dir="ltr">\(\sigma(T_n)\)</span> המתאימה לסידרת חלוקות נורמלית <span class="math" dir="ltr">\(T_n\)</span>, כך ש-<span class="math" dir="ltr">\(|\sigma(T_n)| \to \infty\)</span>. סידרת סכומי הרימן אינה מתכנסת לגבול סופי, ולכן <span class="math" dir="ltr">\(f\)</span> אינה אינטגרבילית, בסתירה.</p>
+            </section>
+
+            <section id="darboux-sums">
+                <h2>גישת דרבו לאינטגרל</h2>
+                <p>נציג כעת את גישת דרבו לאינטגרל ובעזרתה נשיג תנאים מספיקים, הכרחיים (או שניהם) לקיומו של אינטגרל רימן.</p>
+                <div class="definition">
+                    <h3>הגדרה: סכומי דרבו עליונים ותחתונים</h3>
+                    <p>תהי <span class="math" dir="ltr">\(f\)</span> פונקציה חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>, ותהי <span class="math" dir="ltr">\(T = \{a=x_0, x_1, \dots, x_k=b\}\)</span> חלוקה של <span class="math" dir="ltr">\([a,b]\)</span>. לכל תת-קטע <span class="math" dir="ltr">\(\Delta x_i = [x_{i-1}, x_i]\)</span> (<span class="math" dir="ltr">\(1 \le i \le k\)</span>), נסמן:</p>
+                    <ul>
+                        <li><span class="math" dir="ltr">\(m_i = \inf \{f(x) : x \in \Delta x_i\}\)</span> (אינפימום של <span class="math" dir="ltr">\(f\)</span> בקטע <span class="math" dir="ltr">\(\Delta x_i\)</span>)</li>
+                        <li><span class="math" dir="ltr">\(M_i = \sup \{f(x) : x \in \Delta x_i\}\)</span> (סופרמום של <span class="math" dir="ltr">\(f\)</span> בקטע <span class="math" dir="ltr">\(\Delta x_i\)</span>)</li>
+                    </ul>
+                    <p>מכיוון ש-<span class="math" dir="ltr">\(f\)</span> חסומה, <span class="math" dir="ltr">\(m_i\)</span> ו-<span class="math" dir="ltr">\(M_i\)</span> הם מספרים ממשיים סופיים, וברור כי <span class="math" dir="ltr">\(m_i \le M_i\)</span> לכל <span class="math" dir="ltr">\(i\)</span>.</p>
+                    <p>סכום דרבו התחתון (ביחס לחלוקה <span class="math" dir="ltr">\(T\)</span>) מוגדר להיות:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T) = \sum_{i=1}^k m_i \Delta x_i $$</div></div>
+                    <p>סכום דרבו העליון (ביחס לחלוקה <span class="math" dir="ltr">\(T\)</span>) מוגדר להיות:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ S^*(T) = \sum_{i=1}^k M_i \Delta x_i $$</div></div>
+                     <p>(לפעמים מסמנים גם <span class="math" dir="ltr">\(s(T)\)</span> ו-<span class="math" dir="ltr">\(S(T)\)</span>, אך נשתמש בסימון עם כוכבית להבדיל מסכום רימן).</p>
+                 </div>
+
+                <div class="chart-container">
+                    <h5>איור: סכומי דרבו</h5>
+                    <div class="chart-wrapper">
+                         <canvas id="chart_darboux_sums"></canvas>
+                    </div>
+                     <div id="chart_darboux_sums_loading" class="chart-loading">טוען גרף...</div>
+                </div>
+                 <p>סכום שטחי המלבנים בציור הוא <span class="math" dir="ltr">\(S^*(T)\)</span> (מלבנים גבוהים) ו-<span class="math" dir="ltr">\(S_*(T)\)</span> (מלבנים נמוכים).</p>
+            </section>
+
+            <section id="lemma-darboux-vs-riemann" class="theorem">
+                <h3>למה: סכומי דרבו כחסמים לסכומי רימן</h3>
+                <p>תהי <span class="math" dir="ltr">\(T\)</span> חלוקה של <span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(f\)</span> פונקציה חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>. לכל בחירה של נקודות ביניים <span class="math" dir="ltr">\(\{\zeta_i\}_{i=1}^k\)</span> (<span class="math" dir="ltr">\(\zeta_i \in \Delta x_i\)</span>), סכום רימן המתאים <span class="math" dir="ltr">\(\sigma(T, \{\zeta_i\}) = \sum_{i=1}^k f(\zeta_i) \Delta x_i\)</span> מקיים:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T) \le \sigma(T, \{\zeta_i\}) \le S^*(T) $$</div></div>
+                <p>יתר על כן, <span class="math" dir="ltr">\(S_*(T)\)</span> הוא האינפימום של קבוצת כל סכומי רימן המתאימים לחלוקה <span class="math" dir="ltr">\(T\)</span>, ו-<span class="math" dir="ltr">\(S^*(T)\)</span> הוא הסופרמום של קבוצה זו.</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T) = \inf_{\{\zeta_i\}} \sigma(T, \{\zeta_i\}) \quad , \quad S^*(T) = \sup_{\{\zeta_i\}} \sigma(T, \{\zeta_i\}) $$</div></div>
+
+                <h4>הוכחה</h4>
+                <p>סכום רימן הוא <span class="math" dir="ltr">\(\sigma(T, \{\zeta_i\}) = \sum_{i=1}^k f(\zeta_i) \Delta x_i\)</span>. לפי הגדרת <span class="math" dir="ltr">\(m_i\)</span> ו-<span class="math" dir="ltr">\(M_i\)</span>, לכל <span class="math" dir="ltr">\(x \in \Delta x_i\)</span> (ובפרט עבור <span class="math" dir="ltr">\(x=\zeta_i\)</span>) מתקיים <span class="math" dir="ltr">\(m_i \le f(\zeta_i) \le M_i\)</span>.</p>
+                <p>לכן:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T) = \sum_{i=1}^k m_i \Delta x_i \le \sum_{i=1}^k f(\zeta_i) \Delta x_i = \sigma(T, \{\zeta_i\}) \le \sum_{i=1}^k M_i \Delta x_i = S^*(T) $$</div></div>
+                <p>כעת נוכיח ש-<span class="math" dir="ltr">\(S_*(T)\)</span> הוא האינפימום. ראינו שהוא חסם מלרע. נראה שניתן להתקרב אליו כרצוננו. יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. לפי הגדרת האינפימום <span class="math" dir="ltr">\(m_i = \inf_{x \in \Delta x_i} f(x)\)</span>, לכל <span class="math" dir="ltr">\(i\)</span> קיימת נקודת ביניים <span class="math" dir="ltr">\(\zeta_i \in \Delta x_i\)</span> כך ש-<span class="math" dir="ltr">\(f(\zeta_i) < m_i + \frac{\varepsilon}{b-a}\)</span> (אם <span class="math" dir="ltr">\(b=a\)</span> הכל טריוויאלי). נבחר סדרת נקודות ביניים כזו <span class="math" dir="ltr">\(\{\zeta_i\}_{i=1}^k\)</span> ונסתכל על סכום רימן המתאים:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \sigma(T, \{\zeta_i\}) = \sum_{i=1}^k f(\zeta_i) \Delta x_i < \sum_{i=1}^k \left( m_i + \frac{\varepsilon}{b-a} \right) \Delta x_i = \sum_{i=1}^k m_i \Delta x_i + \frac{\varepsilon}{b-a} \sum_{i=1}^k \Delta x_i = S_*(T) + \varepsilon $$</div></div>
+                <p>קיבלנו שלכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span>, קיים סכום רימן <span class="math" dir="ltr">\(\sigma\)</span> המקיים <span class="math" dir="ltr">\(S_*(T) \le \sigma < S_*(T) + \varepsilon\)</span>. לכן, <span class="math" dir="ltr">\(S_*(T)\)</span> הוא החסם התחתון (אינפימום) של קבוצת סכומי הרימן עבור החלוקה <span class="math" dir="ltr">\(T\)</span>.</p>
+                <p>באופן דומה מראים ש-<span class="math" dir="ltr">\(S^*(T)\)</span> הוא הסופרמום (חסם עליון) של אותה קבוצה.</p>
+                <p>(* אם <span class="math" dir="ltr">\(f\)</span> רציפה בקטע <span class="math" dir="ltr">\([a,b]\)</span>, אז היא מקבלת מינימום ומקסימום בכל תת-קטע <span class="math" dir="ltr">\(\Delta x_i\)</span> (לפי ויירשטראס), ואז <span class="math" dir="ltr">\(m_i\)</span> ו-<span class="math" dir="ltr">\(M_i\)</span> הם ערכי הפונקציה בנקודות מסוימות בקטע).</p>
+            </section>
+
+            <section id="refinement">
+                <h2>העדנה</h2>
+                <p>נעסוק בהשוואות בין סכומים (דרבו או רימן) של חלוקות שונות. באופן אינטואיטיבי, ככל שהחלוקה "עדינה" יותר (כלומר, הקטעים שלה קטנים יותר), כך סכומי דרבו (התחתון והעליון) אמורים "להתקרב" זה לזה, ולערך האינטגרל (אם קיים). נגדיר זאת פורמלית.</p>
+                <div class="definition">
+                    <h3>הגדרה: העדנה</h3>
+                    <p>אם <span class="math" dir="ltr">\(T\)</span> ו-<span class="math" dir="ltr">\(T'\)</span> הן שתי חלוקות של הקטע <span class="math" dir="ltr">\([a,b]\)</span>, אומרים ש-<span class="math" dir="ltr">\(T'\)</span> היא העדנה (או עידון) של <span class="math" dir="ltr">\(T\)</span> אם כל נקודת חלוקה של <span class="math" dir="ltr">\(T\)</span> היא גם נקודת חלוקה של <span class="math" dir="ltr">\(T'\)</span>. כלומר, קבוצת נקודות החלוקה של <span class="math" dir="ltr">\(T\)</span> מוכלת בקבוצת נקודות החלוקה של <span class="math" dir="ltr">\(T'\)</span> (<span class="math" dir="ltr">\(T \subseteq T'\)</span> בסימון קבוצתי).</p>
+                     <p>מסמנים גם <span class="math" dir="ltr">\(T' \succeq T\)</span>.</p>
+                 </div>
+                <p>במילים אחרות, <span class="math" dir="ltr">\(T'\)</span> מתקבלת מ-<span class="math" dir="ltr">\(T\)</span> על ידי הוספת נקודות חלוקה חדשות (או אי-הוספת נקודות כלל, ואז <span class="math" dir="ltr">\(T'=T\)</span>).</p>
+
+                 <div class="chart-container">
+                    <h5>איור: העדנה (<span class="math" dir="ltr">\(T_2\)</span> מעדנת את <span class="math" dir="ltr">\(T_1\)</span>)</h5>
+                     <div class="chart-wrapper">
+                         <canvas id="chart_refinement"></canvas>
+                    </div>
+                    <div id="chart_refinement_loading" class="chart-loading">טוען גרף...</div>
+                 </div>
+                <p>בדוגמה לעיל, <span class="math" dir="ltr">\(T_2\)</span> התקבלה מ-<span class="math" dir="ltr">\(T_1\)</span> ע"י הוספת שתי נקודות המסומנות בצהוב.</p>
+
+            </section>
+
+            <section id="lemma-refinement-effect" class="theorem">
+                <h3>למה: התקרבות סכומי דרבו אחרי העדנה</h3>
+                <p>אם <span class="math" dir="ltr">\(T'\)</span> היא העדנה של <span class="math" dir="ltr">\(T\)</span> (<span class="math" dir="ltr">\(T' \succeq T\)</span>) עבור פונקציה חסומה <span class="math" dir="ltr">\(f\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז:</p>
+                <ol type="1">
+                    <li><span class="math" dir="ltr">\(S_*(T) \le S_*(T')\)</span> (הסכום התחתון אינו קטן)</li>
+                    <li><span class="math" dir="ltr">\(S^*(T) \ge S^*(T')\)</span> (הסכום העליון אינו גדל)</li>
+                </ol>
+
+                 <div class="chart-container">
+                     <h5>איור: השפעת העדנה על סכומי דרבו</h5>
+                      <div class="chart-wrapper">
+                          <canvas id="chart_refinement_effect"></canvas>
+                      </div>
+                      <div id="chart_refinement_effect_loading" class="chart-loading">טוען גרף...</div>
+                 </div>
+                <p>רעיון ההוכחה פשוט: כאשר מוסיפים נקודה, קטע אחד מתפצל לשניים. האינפימום על כל אחד משני הקטעים החדשים גדול או שווה לאינפימום על הקטע המקורי (כי מסתכלים על תת-קבוצה). הסופרמום על כל אחד מהקטעים החדשים קטן או שווה לסופרמום על הקטע המקורי.</p>
+
+                <h4>הוכחה</h4>
+                <p>מספיק להוכיח את הטענה למקרה ש-<span class="math" dir="ltr">\(T'\)</span> מתקבלת מ-<span class="math" dir="ltr">\(T\)</span> על ידי הוספת נקודה אחת בלבד, <span class="math" dir="ltr">\(x^*\)</span>. אם הוספנו יותר נקודות, ניתן לבצע את התהליך בשלבים, ובכל שלב אי-השוויונות נשמרים.</p>
+                <p>נניח שהנקודה <span class="math" dir="ltr">\(x^*\)</span> נוספה בתוך הקטע <span class="math" dir="ltr">\(\Delta x_{i_0} = [x_{i_0-1}, x_{i_0}]\)</span> של החלוקה <span class="math" dir="ltr">\(T\)</span> (כך ש-<span class="math" dir="ltr">\(x_{i_0-1} < x^* < x_{i_0}\)</span>).</p>
+                <p>נוכיח את (2): <span class="math" dir="ltr">\(S^*(T) \ge S^*(T')\)</span>.</p>
+                <p>סכומי דרבו העליונים <span class="math" dir="ltr">\(S^*(T)\)</span> ו-<span class="math" dir="ltr">\(S^*(T')\)</span> נבדלים רק בתרומה של הקטע <span class="math" dir="ltr">\(\Delta x_{i_0}\)</span> ושל שני הקטעים החדשים שהוא התפצל אליהם, <span class="math" dir="ltr">\(\Delta x' = [x_{i_0-1}, x^*]\)</span> ו-<span class="math" dir="ltr">\(\Delta x'' = [x^*, x_{i_0}]\)</span>.</p>
+                <p>נסמן <span class="math" dir="ltr">\(M_{i_0} = \sup_{x \in \Delta x_{i_0}} f(x)\)</span>, <span class="math" dir="ltr">\(M' = \sup_{x \in \Delta x'} f(x)\)</span>, <span class="math" dir="ltr">\(M'' = \sup_{x \in \Delta x''} f(x)\)</span>.</p>
+                <p>מכיוון ש-<span class="math" dir="ltr">\(\Delta x'\)</span> ו-<span class="math" dir="ltr">\(\Delta x''\)</span> מוכלים ב-<span class="math" dir="ltr">\(\Delta x_{i_0}\)</span>, ברור ש-<span class="math" dir="ltr">\(M' \le M_{i_0}\)</span> ו-<span class="math" dir="ltr">\(M'' \le M_{i_0}\)</span> (הסופרמום על קבוצה גדולה יותר גדול או שווה לסופרמום על תת-קבוצה).</p>
+                <p>התרומה של <span class="math" dir="ltr">\(\Delta x_{i_0}\)</span> ל-<span class="math" dir="ltr">\(S^*(T)\)</span> היא <span class="math" dir="ltr">\(M_{i_0} \Delta x_{i_0} = M_{i_0} (x_{i_0} - x_{i_0-1})\)</span>.</p>
+                <p>התרומה של <span class="math" dir="ltr">\(\Delta x'\)</span> ו-<span class="math" dir="ltr">\(\Delta x''\)</span> ל-<span class="math" dir="ltr">\(S^*(T')\)</span> היא <span class="math" dir="ltr">\(M' \Delta x' + M'' \Delta x'' = M'(x^* - x_{i_0-1}) + M''(x_{i_0} - x^*)\)</span>.</p>
+                 <div class="chart-container">
+                     <h5>איור: הוכחת <span class="math" dir="ltr">\(S^*(T) \ge S^*(T')\)</span></h5>
+                      <div class="chart-wrapper">
+                          <canvas id="chart_refinement_proof"></canvas>
+                      </div>
+                      <div id="chart_refinement_proof_loading" class="chart-loading">טוען גרף...</div>
+                 </div>
+                <p>נשווה את התרומות:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ M' (x^* - x_{i_0-1}) + M'' (x_{i_0} - x^*) \le M_{i_0} (x^* - x_{i_0-1}) + M_{i_0} (x_{i_0} - x^*) = M_{i_0} [(x^* - x_{i_0-1}) + (x_{i_0} - x^*)] = M_{i_0} (x_{i_0} - x_{i_0-1}) = M_{i_0} \Delta x_{i_0} $$</div></div>
+                <p>כלומר, התרומה לסכום העליון ב-<span class="math" dir="ltr">\(T'\)</span> אינה גדולה מהתרומה ב-<span class="math" dir="ltr">\(T\)</span>. מאחר שכל שאר התרומות זהות, נקבל <span class="math" dir="ltr">\(S^*(T') \le S^*(T)\)</span> כנדרש.</p>
+                <p>הוכחת (1) <span class="math" dir="ltr">\(S_*(T) \le S_*(T')\)</span> אנלוגית, תוך שימוש בכך ש-<span class="math" dir="ltr">\(m' \ge m_{i_0}\)</span> ו-<span class="math" dir="ltr">\(m'' \ge m_{i_0}\)</span> (כאשר <span class="math" dir="ltr">\(m', m''\)</span> הם האינפימומים בקטעים החדשים).</p>
+            </section>
+
+            <section id="lemma-comparison" class="theorem">
+                <h3>למה: השוואה בין סכומי דרבו של חלוקות כלשהן</h3>
+                <p>אם <span class="math" dir="ltr">\(T_1, T_2\)</span> הן שתי חלוקות כלשהן של <span class="math" dir="ltr">\([a,b]\)</span> (לא בהכרח אחת מעדנת את השניה), אז סכום דרבו תחתון כלשהו אינו גדול מסכום דרבו עליון כלשהו:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T_1) \le S^*(T_2) $$</div></div>
+
+                <h4>הוכחה</h4>
+                <p>תהי <span class="math" dir="ltr">\(T = T_1 \cup T_2\)</span> החלוקה המשותפת, המתקבלת מאיחוד כל נקודות החלוקה של <span class="math" dir="ltr">\(T_1\)</span> ו-<span class="math" dir="ltr">\(T_2\)</span>.</p>
+                <p>כמובן ש-<span class="math" dir="ltr">\(T\)</span> היא העדנה של <span class="math" dir="ltr">\(T_1\)</span> (<span class="math" dir="ltr">\(T \succeq T_1\)</span>) וגם העדנה של <span class="math" dir="ltr">\(T_2\)</span> (<span class="math" dir="ltr">\(T \succeq T_2\)</span>).</p>
+                <p>לכן, לפי הלמה הקודמת, מתקיים:</p>
+                <ul>
+                    <li><span class="math" dir="ltr">\(S_*(T_1) \le S_*(T)\)</span> (כי <span class="math" dir="ltr">\(T\)</span> מעדנת את <span class="math" dir="ltr">\(T_1\)</span>)</li>
+                    <li><span class="math" dir="ltr">\(S^*(T) \le S^*(T_2)\)</span> (כי <span class="math" dir="ltr">\(T\)</span> מעדנת את <span class="math" dir="ltr">\(T_2\)</span>)</li>
+                </ul>
+                <p>בנוסף, לכל חלוקה (ובפרט ל-<span class="math" dir="ltr">\(T\)</span>), מתקיים <span class="math" dir="ltr">\(S_*(T) \le S^*(T)\)</span> (כי <span class="math" dir="ltr">\(m_i \le M_i\)</span> לכל <span class="math" dir="ltr">\(i\)</span> בסכום).</p>
+                <p>נחבר את אי-השוויונות:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T_1) \le S_*(T) \le S^*(T) \le S^*(T_2) $$</div></div>
+                <p>כלומר, <span class="math" dir="ltr">\(S_*(T_1) \le S^*(T_2)\)</span>.</p>
+            </section>
+
+            <section id="oscillation-definition" class="definition">
+                 <h3>הגדרה: תנודה (Oscillation)</h3>
+                 <p>עבור פונקציה <span class="math" dir="ltr">\(f(x)\)</span> חסומה בקטע <span class="math" dir="ltr">\(I\)</span>, התנודה של <span class="math" dir="ltr">\(f\)</span> ב-<span class="math" dir="ltr">\(I\)</span> מוגדרת להיות ההפרש בין הסופרמום והאינפימום של <span class="math" dir="ltr">\(f\)</span> בקטע זה:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \omega(f, I) = \sup_{x \in I} f(x) - \inf_{x \in I} f(x) $$</div></div>
+                  <p>אם מדובר בתת-קטע <span class="math" dir="ltr">\(\Delta x_i\)</span> של חלוקה <span class="math" dir="ltr">\(T\)</span>, נסמן בקיצור את התנודה <span class="math" dir="ltr">\(\omega_i = \omega(f, \Delta x_i) = M_i - m_i\)</span>.</p>
+                  <p>ברור כי <span class="math" dir="ltr">\(\omega_i \ge 0\)</span>. אם <span class="math" dir="ltr">\(f\)</span> רציפה בקטע סגור <span class="math" dir="ltr">\([c,d]\)</span>, אז <span class="math" dir="ltr">\(\omega(f, [c,d]) = \max f - \min f\)</span>.</p>
+            </section>
+
+            <section id="lemma-refinement-bounds" class="theorem">
+                 <h3>למה: חסמים על שינוי סכומי דרבו בהעדנה</h3>
+                  <p>נניח כי <span class="math" dir="ltr">\(T\)</span> חלוקה של <span class="math" dir="ltr">\([a,b]\)</span>, <span class="math" dir="ltr">\(T'\)</span> היא חלוקה שמעדנת את <span class="math" dir="ltr">\(T\)</span> על ידי הוספת <span class="math" dir="ltr">\(P\)</span> נקודות חלוקה נוספות. תהי <span class="math" dir="ltr">\(f\)</span> פונקציה חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>, ותהי <span class="math" dir="ltr">\(\Omega = \omega(f, [a,b]) = \sup f - \inf f\)</span> התנודה הכוללת של <span class="math" dir="ltr">\(f\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span>. נסמן <span class="math" dir="ltr">\(\lambda = \lambda(T)\)</span> את פרמטר החלוקה <span class="math" dir="ltr">\(T\)</span>. אז:</p>
+                 <ul>
+                     <li><span class="math" dir="ltr">\(S^*(T) - S^*(T') \le P \cdot \lambda \cdot \Omega\)</span>  (כלומר <span class="math" dir="ltr">\(S^*(T') \ge S^*(T) - P \lambda \Omega\)</span>)</li>
+                     <li><span class="math" dir="ltr">\(S_*(T') - S_*(T) \le P \cdot \lambda \cdot \Omega\)</span> (כלומר <span class="math" dir="ltr">\(S_*(T') \le S_*(T) + P \lambda \Omega\)</span>)</li>
+                  </ul>
+                   <p>* למה זו 'משלימה' את למת התקרבות סכומי דרבו (<span class="math" dir="ltr">\(S_* \uparrow, S^* \downarrow\)</span>). כאן האי-שוויונות נותנים חסם כמותי על מידת ההתקרבות, כתלות במספר הנקודות שנוספו, פרמטר החלוקה המקורית, והתנודה הכוללת.</p>
+
+                  <h4>הוכחה</h4>
+                   <p>שוב, מספיק להוכיח למקרה <span class="math" dir="ltr">\(P=1\)</span> (הוספת נקודה אחת <span class="math" dir="ltr">\(x^*\)</span> בקטע <span class="math" dir="ltr">\(\Delta x_{i_0}\)</span>). הטיעון עבור <span class="math" dir="ltr">\(P>1\)</span> יתקבל מהפעלה חוזרת <span class="math" dir="ltr">\(P\)</span> פעמים.</p>
+                   <p>נוכיח את אי-השוויון הראשון <span class="math" dir="ltr">\(S^*(T) - S^*(T') \le \lambda \Omega\)</span> (עבור <span class="math" dir="ltr">\(P=1\)</span>). ההפרש נובע רק מהקטע <span class="math" dir="ltr">\(\Delta x_{i_0}\)</span> שהתפצל:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ S^*(T) - S^*(T') = M_{i_0} \Delta x_{i_0} - (M' \Delta x' + M'' \Delta x'') $$</div></div>
+                   <p>אנו יודעים ש-<span class="math" dir="ltr">\(M', M'' \ge \inf_{x \in [a,b]} f\)</span>. נשתמש בזה וגם ב-<span class="math" dir="ltr">\(M_{i_0} \le \sup_{x \in [a,b]} f\)</span>.</p>
+                  <p>גישה אחרת (כמו בספר): נחסום את ההפרש:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">
+                     $$ \begin{aligned} S^*(T) - S^*(T') &= M_{i_0}(x_{i_0} - x_{i_0-1}) - [M'(x^* - x_{i_0-1}) + M''(x_{i_0} - x^*)] \\ &= (M_{i_0} - M')(x^* - x_{i_0-1}) + (M_{i_0} - M'')(x_{i_0} - x^*) \end{aligned} $$
+                    </div></div>
+                    <p>כל אחד מהסוגריים הראשונים חיובי או אפס (כי <span class="math" dir="ltr">\(M_{i_0} \ge M'\)</span> ו-<span class="math" dir="ltr">\(M_{i_0} \ge M''\)</span>). כמו כן, <span class="math" dir="ltr">\(M_{i_0} - M' \le M_{i_0} - m_{i_0} \le \Omega\)</span> ו-<span class="math" dir="ltr">\(M_{i_0} - M'' \le M_{i_0} - m_{i_0} \le \Omega\)</span>. נשתמש בתנודה של <span class="math" dir="ltr">\(\Delta x_{i_0}\)</span>: <span class="math" dir="ltr">\(\omega_{i_0} = M_{i_0} - m_{i_0} \le \Omega\)</span>.</p>
+                     <div class="formula-block"><div class="math" dir="ltr">
+                   $$   \begin{aligned} S^*(T) - S^*(T') &\le \omega_{i_0} (x^* - x_{i_0-1}) + \omega_{i_0} (x_{i_0} - x^*) \\ &= \omega_{i_0} (x_{i_0} - x_{i_0-1}) = \omega_{i_0} \Delta x_{i_0} \\ &\le \Omega \cdot \Delta x_{i_0} \\ &\le \Omega \cdot \lambda(T) \end{aligned} $$
+                   </div></div>
+                    <p>זה מוכיח את אי-השוויון הראשון עבור <span class="math" dir="ltr">\(P=1\)</span>.</p>
+                    <p>הוכחת אי-השוויון השני <span class="math" dir="ltr">\(S_*(T') - S_*(T) \le \lambda \Omega\)</span> דומה:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">
+                 $$   \begin{aligned} S_*(T') - S_*(T) &= (m' \Delta x' + m'' \Delta x'') - m_{i_0} \Delta x_{i_0} \\ &= (m' - m_{i_0})(x^* - x_{i_0-1}) + (m'' - m_{i_0})(x_{i_0} - x^*) \\ &\le (M_{i_0} - m_{i_0})(x^* - x_{i_0-1}) + (M_{i_0} - m_{i_0})(x_{i_0} - x^*) \\ &= \omega_{i_0} \Delta x_{i_0} \\ &\le \Omega \cdot \lambda(T) \end{aligned} $$
+                    </div></div>
+            </section>
+
+             <section id="darboux-integrals">
+                 <p>מלמת ההשוואה (<span class="math" dir="ltr">\(S_*(T_1) \le S^*(T_2)\)</span> לכל <span class="math" dir="ltr">\(T_1, T_2\)</span>), נובע שקבוצת כל סכומי דרבו התחתונים <span class="math" dir="ltr">\({\{S_*(T) : T \text{ is a partition}\}}\)</span> חסומה מלעיל (למשל על ידי <span class="math" dir="ltr">\(S^*(T_0)\)</span> עבור איזושהי חלוקה קבועה <span class="math" dir="ltr">\(T_0\)</span>). באופן דומה, קבוצת כל סכומי דרבו העליונים <span class="math" dir="ltr">\({\{S^*(T)\}}\)</span> חסומה מלרע (למשל על ידי <span class="math" dir="ltr">\(S_*(T_0)\)</span>).</p>
+                  <p>לכן, לפי אקסיומת השלמות, קיימים הסופרמום של הקבוצה הראשונה והאינפימום של הקבוצה השנייה.</p>
+                 <div class="definition">
+                      <h3>הגדרה: אינטגרל דרבו תחתון ועליון</h3>
+                      <p>עבור פונקציה <span class="math" dir="ltr">\(f\)</span> חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>:</p>
+                      <ul>
+                          <li>האינטגרל התחתון של דרבו מוגדר כסופרמום של כל סכומי דרבו התחתונים:
+                           <div class="formula-block"><div class="math" dir="ltr">$$ I_* = \sup \{ S_*(T) : T \text{ is a partition of } [a,b] \} $$</div></div>
+                          </li>
+                          <li>האינטגרל העליון של דרבו מוגדר כאינפימום של כל סכומי דרבו העליונים:
+                           <div class="formula-block"><div class="math" dir="ltr">$$ I^* = \inf \{ S^*(T) : T \text{ is a partition of } [a,b] \} $$</div></div>
+                           </li>
+                      </ul>
+                       <p>מלמת ההשוואה <span class="math" dir="ltr">\(S_*(T_1) \le S^*(T_2)\)</span> נובע מיד כי <span class="math" dir="ltr">\(I_* \le I^*\)</span>.</p>
+                       <p>סימונים אחרים: <span class="math" dir="ltr">\(\underline{\int_a^b} f(x) dx\)</span> לאינטגרל התחתון ו-<span class="math" dir="ltr">\(\overline{\int_a^b} f(x) dx\)</span> לאינטגרל העליון.</p>
+                  </div>
+                 <p>מסתבר שיש דרך מעשית יותר לחשב <span class="math" dir="ltr">\(I_*, I^*\)</span>, באמצעות גבולות.</p>
+             </section>
+
+            <section id="theorem-darboux-limits" class="theorem">
+                <h3>משפט: אינטגרלי דרבו כגבולות</h3>
+                 <p>אם <span class="math" dir="ltr">\(f\)</span> חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז קיימים הגבולות הבאים והם שווים לאינטגרלי דרבו:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\lambda(T) \to 0} S_*(T) = I_* $$</div></div>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\lambda(T) \to 0} S^*(T) = I^* $$</div></div>
+                <p>כלומר, כאשר פרמטר החלוקה שואף לאפס, סכומי דרבו התחתונים שואפים לאינטגרל התחתון, והסכומים העליונים שואפים לאינטגרל העליון.</p>
+                 <p>(די הגיוני, שכן השאפת <span class="math" dir="ltr">\(\lambda(T)\)</span> ל-0 היא במידה רבה תהליך של עידונים הולכים ומחריפים).</p>
+
+                 <h4>הוכחה</h4>
+                 <p>נוכיח את הטענה עבור <span class="math" dir="ltr">\(I_*\)</span> (<span class="math" dir="ltr">\(\lim S_*(T) = I_*\)</span>). ההוכחה עבור <span class="math" dir="ltr">\(I^*\)</span> אנלוגית.</p>
+                  <p>צריך להוכיח: לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שלכל חלוקה <span class="math" dir="ltr">\(T\)</span> המקיימת <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span> מתקיים <span class="math" dir="ltr">\(|S_*(T) - I_*| < \varepsilon\)</span>.</p>
+                 <p>יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. לפי הגדרת <span class="math" dir="ltr">\(I_*\)</span> כסופרמום, קיימת חלוקה <span class="math" dir="ltr">\(T'\)</span> של <span class="math" dir="ltr">\([a,b]\)</span> כך ש-<span class="math" dir="ltr">\(I_* - \frac{\varepsilon}{2} < S_*(T') \le I_*\)</span>.</p>
+                  <p>נסמן ב-<span class="math" dir="ltr">\(P'\)</span> את מספר נקודות החלוקה *הפנימיות* ב-<span class="math" dir="ltr">\(T'\)</span> (<כלומר, <span class="math" dir="ltr">\(P'+1\)</span> קטעים). תהי <span class="math" dir="ltr">\(\Omega\)</span> התנודה הכוללת של <span class="math" dir="ltr">\(f\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span> (נניח <span class="math" dir="ltr">\(\Omega > 0\)</span>, אחרת <span class="math" dir="ltr">\(f\)</span> קבועה וההוכחה טריוויאלית).</p>
+                 <p>נגדיר <span class="math" dir="ltr">\(\delta = \frac{\varepsilon}{2 P' \Omega}\)</span> (אם <span class="math" dir="ltr">\(P'=0\)</span>, כל <span class="math" dir="ltr">\(\delta>0\)</span> יעבוד).</p>
+                 <p>כעת, תהי <span class="math" dir="ltr">\(T\)</span> חלוקה כלשהי המקיימת <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>. נתבונן בחלוקה המשותפת <span class="math" dir="ltr">\(T^* = T \cup T'\)</span>.</p>
+                 <p><span class="math" dir="ltr">\(T^*\)</span> היא העדנה של <span class="math" dir="ltr">\(T\)</span> וגם של <span class="math" dir="ltr">\(T'\)</span>.</p>
+                 <ul>
+                     <li>מכיוון ש-<span class="math" dir="ltr">\(T^* \succeq T'\)</span>, אנו יודעים <span class="math" dir="ltr">\(S_*(T^*) \ge S_*(T') > I_* - \frac{\varepsilon}{2}\)</span>.</li>
+                     <li><span class="math" dir="ltr">\(T^*\)</span> מתקבלת מ-<span class="math" dir="ltr">\(T\)</span> על ידי הוספת לכל היותר <span class="math" dir="ltr">\(P'\)</span> הנקודות הפנימיות של <span class="math" dir="ltr">\(T'\)</span> (הקצוות <span class="math" dir="ltr">\(a, b\)</span> כבר נמצאים ב-<span class="math" dir="ltr">\(T\)</span>). לכן, לפי הלמה על חסמי שינוי סכומי דרבו, נקבל:
+                         <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T^*) \le S_*(T) + P' \cdot \lambda(T) \cdot \Omega $$</div></div>
+                         ומאחר ש-<span class="math" dir="ltr">\(\lambda(T) < \delta = \frac{\varepsilon}{2 P' \Omega}\)</span>:
+                         <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T^*) < S_*(T) + P' \cdot \frac{\varepsilon}{2 P' \Omega} \cdot \Omega = S_*(T) + \frac{\varepsilon}{2} $$</div></div>
+                  </li>
+                  </ul>
+                  <p>נחבר את הממצאים:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ I_* - \frac{\varepsilon}{2} < S_*(T^*) < S_*(T) + \frac{\varepsilon}{2} $$</div></div>
+                  <p>מכאן נקבל <span class="math" dir="ltr">\(I_* - \varepsilon < S_*(T)\)</span>.</p>
+                   <p>בנוסף, תמיד מתקיים <span class="math" dir="ltr">\(S_*(T) \le I_*\)</span> (כי <span class="math" dir="ltr">\(I_*\)</span> הוא סופרמום על כל הסכומים התחתונים).</p>
+                  <p>סה"כ, עבור <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>, קיבלנו <span class="math" dir="ltr">\(I_* - \varepsilon < S_*(T) \le I_*\)</span>, שזה גורר <span class="math" dir="ltr">\(|S_*(T) - I_*| < \varepsilon\)</span>, כנדרש.</p>
+             </section>
+
+            <section id="example-xsquared" class="example">
+                <h3>דוגמה: חישוב <span class="math" dir="ltr">\(I_*, I^*\)</span> עבור <span class="math" dir="ltr">\(f(x)=x^2\)</span></h3>
+                <p>כידוע <span class="math" dir="ltr">\(\sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}\)</span>. ננצל זאת כדי לחשב את <span class="math" dir="ltr">\(I_*\)</span> ו-<span class="math" dir="ltr">\(I^*\)</span> עבור <span class="math" dir="ltr">\(f(x)=x^2\)</span> בקטע <span class="math" dir="ltr">\([0,b]\)</span> (<span class="math" dir="ltr">\(b>0\)</span>).</p>
+                <p>מאחר ש-<span class="math" dir="ltr">\(f(x)=x^2\)</span> היא פונקציה רציפה, אנו יודעים שהיא אינטגרבילית, ולכן <span class="math" dir="ltr">\(I_* = I^*\)</span>. נוכל לחשב את אחד מהם באמצעות גבול של סכומי דרבו המתאימים לסדרת חלוקות נורמלית.</p>
+                 <p>נבחר חלוקה שווה של הקטע <span class="math" dir="ltr">\([0,b]\)</span> ל-<span class="math" dir="ltr">\(m\)</span> תת-קטעים:
+                 <div class="formula-block"><div class="math" dir="ltr">$$ T_m : x_i = i \cdot \frac{b}{m} \quad \text{for } i=0, 1, \dots, m $$</div></div>
+                 אורך כל תת-קטע הוא <span class="math" dir="ltr">\(\Delta x_i = \frac{b}{m}\)</span>. הפרמטר של חלוקה זו הוא <span class="math" dir="ltr">\(\lambda(T_m) = \frac{b}{m}\)</span>, והוא שואף לאפס כאשר <span class="math" dir="ltr">\(m \to \infty\)</span>, לכן זו סידרת חלוקות נורמלית.</p>
+                 <p>הפונקציה <span class="math" dir="ltr">\(f(x)=x^2\)</span> עולה בקטע <span class="math" dir="ltr">\([0,b]\)</span>. לכן בכל תת-קטע <span class="math" dir="ltr">\(\Delta x_i = [x_{i-1}, x_i]\)</span>:</p>
+                <ul>
+                    <li>האינפימום מתקבל בקצה השמאלי: <span class="math" dir="ltr">\(m_i = f(x_{i-1}) = \left((i-1)\frac{b}{m}\right)^2\)</span></li>
+                    <li>הסופרמום מתקבל בקצה הימני: <span class="math" dir="ltr">\(M_i = f(x_i) = \left(i\frac{b}{m}\right)^2\)</span></li>
+                 </ul>
+                 <p>נחשב את סכום דרבו העליון:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ S^*(T_m) = \sum_{i=1}^m M_i \Delta x_i = \sum_{i=1}^m \left(i\frac{b}{m}\right)^2 \cdot \frac{b}{m} = \frac{b^3}{m^3} \sum_{i=1}^m i^2 $$</div></div>
+                 <p>נשתמש בנוסחה לסכום ריבועים:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">
+                   \begin{aligned} S^*(T_m) &= \frac{b^3}{m^3} \cdot \frac{m(m+1)(2m+1)}{6} \\ &= \frac{b^3}{6} \cdot \frac{m(m+1)(2m+1)}{m^3} \\ &= \frac{b^3}{6} \cdot \left(1 \cdot \left(1+\frac{1}{m}\right) \cdot \left(2+\frac{1}{m}\right) \right) \end{aligned}
+                  </div></div>
+                  <p>כאשר <span class="math" dir="ltr">\(m \to \infty\)</span> (שזה שקול ל-<span class="math" dir="ltr">\(\lambda(T_m) \to 0\)</span>), נקבל:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{m \to \infty} S^*(T_m) = \frac{b^3}{6} \cdot (1 \cdot (1+0) \cdot (2+0)) = \frac{b^3}{6} \cdot 2 = \frac{b^3}{3} $$</div></div>
+                 <p>לכן, <span class="math" dir="ltr">\(I^* = \frac{b^3}{3}\)</span>.</p>
+                 <p>חישוב דומה עבור סכום דרבו התחתון יניב:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">
+                   \begin{aligned} S_*(T_m) &= \sum_{i=1}^m m_i \Delta x_i = \sum_{i=1}^m \left((i-1)\frac{b}{m}\right)^2 \cdot \frac{b}{m} = \frac{b^3}{m^3} \sum_{i=1}^m (i-1)^2 \\ &= \frac{b^3}{m^3} \sum_{j=0}^{m-1} j^2 \quad (\text{let } j=i-1) \\ &= \frac{b^3}{m^3} \frac{(m-1)(m-1+1)(2(m-1)+1)}{6} \\ &= \frac{b^3}{m^3} \frac{(m-1)m(2m-1)}{6} \\ &= \frac{b^3}{6} \cdot \frac{(m-1)m(2m-1)}{m^3} = \frac{b^3}{6} \left(1-\frac{1}{m}\right) \cdot 1 \cdot \left(2-\frac{1}{m}\right) \end{aligned}
+                  </div></div>
+                  <p>וגם הגבול של <span class="math" dir="ltr">\(S_*(T_m)\)</span> כאשר <span class="math" dir="ltr">\(m \to \infty\)</span> הוא <span class="math" dir="ltr">\(\frac{b^3}{6} (1 \cdot 1 \cdot 2) = \frac{b^3}{3}\)</span>. לכן <span class="math" dir="ltr">\(I_* = \frac{b^3}{3}\)</span>.</p>
+                  <p>קיבלנו <span class="math" dir="ltr">\(I_* = I^* = \frac{b^3}{3}\)</span>. כפי שצפוי, זהו גם ערך האינטגרל המסוים:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \int_0^b x^2 \, dx = \left[ \frac{x^3}{3} \right]_0^b = \frac{b^3}{3} - \frac{0^3}{3} = \frac{b^3}{3} $$</div></div>
+             </section>
+
+            <section id="integrability-conditions">
+                <h2>תנאים הכרחיים ומספיקים לקיום האינטגרל המסוים</h2>
+             </section>
+
+            <section id="equivalence-theorem" class="theorem">
+                <h3>משפט: קריטריון האינטגרביליות של דרבו</h3>
+                <p>תהי <span class="math" dir="ltr">\(f\)</span> פונקציה חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>. אז <span class="math" dir="ltr">\(f\)</span> אינטגרבילית (לפי רימן) ב-<span class="math" dir="ltr">\([a,b]\)</span> אם ורק אם אינטגרל דרבו התחתון שווה לאינטגרל דרבו העליון:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ f \text{ is integrable on } [a,b] \quad \iff \quad I_* = I^* $$</div></div>
+                <p>במקרה זה, ערך האינטגרל המסוים (לפי רימן) שווה לערך המשותף של אינטגרלי דרבו:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) \, dx = I_* = I^* $$</div></div>
+                 <p>* תנאי "f חסומה" ודאי לא דרוש בכיוון '<span class="math" dir="ltr">\(\Leftarrow\)</span>' כי אם f אינטגרבילית, היא חסומה. בכיוון '<span class="math" dir="ltr">\(\Rightarrow\)</span>' הוא חיוני כדי ש-<span class="math" dir="ltr">\(I_*\)</span> ו-<span class="math" dir="ltr">\(I^*\)</span> יהיו מספרים ממשיים סופיים.</p>
+
+                 <h4>הוכחה</h4>
+                 <p><strong>כיוון '<span class="math" dir="ltr">\(\Rightarrow\)</span>':</strong> נניח <span class="math" dir="ltr">\(f\)</span> אינטגרבילית לפי רימן עם ערך <span class="math" dir="ltr">\(I = \int_a^b f(x) dx\)</span>. זה אומר ש-<span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} \sigma(T) = I\)</span>. לפי למת סכומי דרבו כחסמים, לכל חלוקה <span class="math" dir="ltr">\(T\)</span> ולכל בחירה <span class="math" dir="ltr">\(\{\zeta_i\}\)</span>, מתקיים <span class="math" dir="ltr">\(S_*(T) \le \sigma(T, \{\zeta_i\}) \le S^*(T)\)</span>.</p>
+                  <p>יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. מקיום הגבול של <span class="math" dir="ltr">\(\sigma(T)\)</span>, קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>, אז לכל בחירה של <span class="math" dir="ltr">\(\{\zeta_i\}\)</span>, <span class="math" dir="ltr">\(I - \varepsilon < \sigma(T, \{\zeta_i\}) < I + \varepsilon\)</span>.</p>
+                  <p>מאחר ש-<span class="math" dir="ltr">\(S_*(T) = \inf \sigma(T)\)</span> ו-<span class="math" dir="ltr">\(S^*(T) = \sup \sigma(T)\)</span>, נובע מכך שעבור <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span> מתקיים:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ I - \varepsilon \le S_*(T) \le S^*(T) \le I + \varepsilon $$</div></div>
+                  <p>מכאן ש-<span class="math" dir="ltr">\(I - \varepsilon \le I_* \le I^* \le I + \varepsilon\)</span>. זה גורר <span class="math" dir="ltr">\(0 \le I^* - I_* \le 2\varepsilon\)</span>. מאחר שזה נכון לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span>, נובע <span class="math" dir="ltr">\(I^* - I_* = 0\)</span>, כלומר <span class="math" dir="ltr">\(I_* = I^*\)</span>. כמו כן, מהגבל בסנדוויץ' <span class="math" dir="ltr">\(I_* = I^* = I\)</span>.</p>
+
+                 <p><strong>כיוון '<span class="math" dir="ltr">\(\Leftarrow\)</span>':</strong> נניח <span class="math" dir="ltr">\(f\)</span> חסומה ו-<span class="math" dir="ltr">\(I_* = I^*\)</span>. נסמן את הערך המשותף ב-<span class="math" dir="ltr">\(I\)</span>. ידוע לנו ש-<span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} S_*(T) = I_* = I\)</span> ו-<span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} S^*(T) = I^* = I\)</span>.</p>
+                  <p>לכל חלוקה <span class="math" dir="ltr">\(T\)</span> וכל בחירה <span class="math" dir="ltr">\(\{\zeta_i\}\)</span>, מתקיים <span class="math" dir="ltr">\(S_*(T) \le \sigma(T, \{\zeta_i\}) \le S^*(T)\)</span>.</p>
+                  <p>נשאיר את <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>. מכיוון שגם <span class="math" dir="ltr">\(S_*(T)\)</span> וגם <span class="math" dir="ltr">\(S^*(T)\)</span> שואפים לאותו גבול <span class="math" dir="ltr">\(I\)</span>, לפי משפט הסנדוויץ', גם הגבול של סכומי רימן קיים ושווה ל-<span class="math" dir="ltr">\(I\)</span>:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\lambda(T) \to 0} \sigma(T, \{\zeta_i\}) = I $$</div></div>
+                   <p>וזה בדיוק אומר ש-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית (לפי רימן) וערך האינטגרל הוא <span class="math" dir="ltr">\(I = I_* = I^*\)</span>.</p>
+            </section>
+
+             <section id="cauchy-criterion" class="theorem">
+                <h3>משפט: תנאי הכרחי לקיום האינטגרל (דמוי קושי)</h3>
+                <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(T_1, T_2\)</span> הן שתי חלוקות המקיימות <span class="math" dir="ltr">\(\lambda(T_1) < \delta\)</span> ו-<span class="math" dir="ltr">\(\lambda(T_2) < \delta\)</span>, אז לכל בחירה של סכומי רימן <span class="math" dir="ltr">\(\sigma(T_1)\)</span> ו-<span class="math" dir="ltr">\(\sigma(T_2)\)</span> המתאימים להן, מתקיים <span class="math" dir="ltr">\(|\sigma(T_1) - \sigma(T_2)| < \varepsilon\)</span>.</p>
+                 <p>(סוג של תנאי קושי לגבול של סכומי רימן).</p>
+
+                <h4>הוכחה</h4>
+                 <p>נסמן <span class="math" dir="ltr">\(I = \int_a^b f(x) dx\)</span>. מקיום הגבול <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} \sigma(T) = I\)</span>, בהינתן <span class="math" dir="ltr">\(\varepsilon > 0\)</span>, קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>, אז <span class="math" dir="ltr">\(|\sigma(T) - I| < \frac{\varepsilon}{2}\)</span>.</p>
+                  <p>כעת, אם <span class="math" dir="ltr">\(T_1, T_2\)</span> הן שתי חלוקות עם <span class="math" dir="ltr">\(\lambda(T_1) < \delta\)</span> ו-<span class="math" dir="ltr">\(\lambda(T_2) < \delta\)</span>, אז לכל <span class="math" dir="ltr">\(\sigma(T_1)\)</span> ו-<span class="math" dir="ltr">\(\sigma(T_2)\)</span> מתקיים:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">
+                   \begin{aligned} |\sigma(T_1) - \sigma(T_2)| &= |\sigma(T_1) - I + I - \sigma(T_2)| \\ &\le |\sigma(T_1) - I| + |I - \sigma(T_2)| \\ &< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \end{aligned}
+                  </div></div>
+                   <p>כנדרש.</p>
+                   <p>* הערה: ניתן היה להוכיח זאת גם דרך סכומי דרבו. אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית, <span class="math" dir="ltr">\(I_*=I^*=I\)</span>. אז <span class="math" dir="ltr">\(\lim S_*(T) = I\)</span> ו-<span class="math" dir="ltr">\(\lim S^*(T) = I\)</span>. בהינתן <span class="math" dir="ltr">\(\varepsilon\)</span>, ניקח <span class="math" dir="ltr">\(\delta\)</span> כך שאם <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>, אז <span class="math" dir="ltr">\(S^*(T) - S_*(T) < \varepsilon\)</span>. אם <span class="math" dir="ltr">\(T_1, T_2\)</span> מקיימות <span class="math" dir="ltr">\(\lambda(T_1), \lambda(T_2) < \delta\)</span>, אז:</p>
+                 <p><span class="math" dir="ltr">\(S_*(T_1) \le \sigma(T_1) \le S^*(T_1)\)</span> וגם <span class="math" dir="ltr">\(S_*(T_2) \le \sigma(T_2) \le S^*(T_2)\)</span>.</p>
+                 <p><span class="math" dir="ltr">\(S_*(T_1) < I + \varepsilon/2\)</span>, <span class="math" dir="ltr">\(S^*(T_1) > I - \varepsilon/2\)</span> (למשל). הטענה היא על הפרש <span class="math" dir="ltr">\(\sigma\)</span>.</p>
+                  <p>שימוש אחר: אם <span class="math" dir="ltr">\(T_1, T_2\)</span> עדינות מספיק, אז <span class="math" dir="ltr">\(I-\varepsilon/2 < \sigma(T_1) < I+\varepsilon/2\)</span> ו-<span class="math" dir="ltr">\(I-\varepsilon/2 < \sigma(T_2) < I+\varepsilon/2\)</span>. מכאן ההפרש ביניהם קטן מ-<span class="math" dir="ltr">\(\varepsilon\)</span>. זה תואם את ההוכחה הראשונה.</p>
+            </section>
+
+             <section id="sufficient-condition-1" class="theorem">
+                 <h3>משפט: תנאי מספיק לקיום אינטגרל (דמוי קושי)</h3>
+                 <p>אם <span class="math" dir="ltr">\(f\)</span> חסומה על <span class="math" dir="ltr">\([a,b]\)</span> ולכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיימות חלוקות <span class="math" dir="ltr">\(T_1, T_2\)</span> (לאו דווקא עדינות) כך ש-<span class="math" dir="ltr">\(S^*(T_1) - S_*(T_2) < \varepsilon\)</span>, אז <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>.</p>
+
+                <h4>הוכחה</h4>
+                 <p>הפונקציה <span class="math" dir="ltr">\(f\)</span> חסומה, לכן אינטגרלי דרבו <span class="math" dir="ltr">\(I_*\)</span> ו-<span class="math" dir="ltr">\(I^*\)</span> קיימים כמספרים ממשיים.</p>
+                  <p>ידוע שתמיד <span class="math" dir="ltr">\(S_*(T_2) \le I_* \le I^* \le S^*(T_1)\)</span> (כי <span class="math" dir="ltr">\(I_*\)</span> סופרמום של סכומים תחתונים, <span class="math" dir="ltr">\(I^*\)</span> אינפימום של סכומים עליונים, ו-<span class="math" dir="ltr">\(I_* \le I^*\)</span>).</p>
+                  <p>מהנתון, לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span>, ניתן למצוא <span class="math" dir="ltr">\(T_1, T_2\)</span> כך ש:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ 0 \le I^* - I_* \le S^*(T_1) - S_*(T_2) < \varepsilon $$</div></div>
+                   <p>מאחר ש-<span class="math" dir="ltr">\(0 \le I^* - I_* < \varepsilon\)</span> נכון לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span>, נובע בהכרח ש-<span class="math" dir="ltr">\(I^* - I_* = 0\)</span>, כלומר <span class="math" dir="ltr">\(I^* = I_*\)</span>.</p>
+                   <p>לפי משפט קריטריון האינטגרביליות של דרבו, מכיוון ש-<span class="math" dir="ltr">\(f\)</span> חסומה ו-<span class="math" dir="ltr">\(I_* = I^*\)</span>, נובע ש-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית.</p>
+            </section>
+
+             <section id="sufficient-condition-2" class="theorem">
+                 <h3>משפט: תנאי הכרחי נוסף לאינטגרביליות</h3>
+                 <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(T\)</span> היא חלוקה המקיימת <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>, אז <span class="math" dir="ltr">\(S^*(T) - S_*(T) < \varepsilon\)</span>.</p>
+                <p>שימו לב: <span class="math" dir="ltr">\(S^*(T) - S_*(T) = \sum (M_i - m_i) \Delta x_i = \sum \omega_i \Delta x_i\)</span>, כאשר <span class="math" dir="ltr">\(\omega_i\)</span> היא התנודה של <span class="math" dir="ltr">\(f\)</span> בקטע <span class="math" dir="ltr">\(\Delta x_i\)</span>. כלומר, הטענה היא <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} \sum \omega_i \Delta x_i = 0\)</span>.</p>
+
+                <h4>הוכחה</h4>
+                <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית, אז <span class="math" dir="ltr">\(I_* = I^* = I\)</span>. ידוע ש-<span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} S_*(T) = I_*\)</span> ו-<span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} S^*(T) = I^*\)</span.</p>
+                 <p>לכן, לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span>, קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>, אז מתקיימים שני אי-השוויונות:</p>
+                 <ul>
+                     <li><span class="math" dir="ltr">\(|S_*(T) - I_*| < \frac{\varepsilon}{2}\)</span>, כלומר <span class="math" dir="ltr">\(I_* - \frac{\varepsilon}{2} < S_*(T) < I_* + \frac{\varepsilon}{2}\)</span></li>
+                      <li><span class="math" dir="ltr">\(|S^*(T) - I^*| < \frac{\varepsilon}{2}\)</span>, כלומר <span class="math" dir="ltr">\(I^* - \frac{\varepsilon}{2} < S^*(T) < I^* + \frac{\varepsilon}{2}\)</span></li>
+                  </ul>
+                  <p>מאחר ש-<span class="math" dir="ltr">\(I_* = I^*\)</span>, נקבל מאחד האי-שוויונים:</p>
+                  <p><span class="math" dir="ltr">\(S^*(T) < I^* + \frac{\varepsilon}{2} = I_* + \frac{\varepsilon}{2}\)</span></p>
+                  <p>ומשני:</p>
+                   <p><span class="math" dir="ltr">\(-S_*(T) < -I_* + \frac{\varepsilon}{2}\)</span> (אחרי הכפלה ב-1-).</p>
+                  <p>נחבר את שני אי-השוויונות הללו:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ S^*(T) - S_*(T) < (I_* + \frac{\varepsilon}{2}) + (-I_* + \frac{\varepsilon}{2}) = \varepsilon $$</div></div>
+                   <p>כנדרש.</p>
+             </section>
+
+             <section id="sufficient-condition-3" class="theorem">
+                <h3>משפט: תנאי מספיק נוסף (והכרחי) לאינטגרביליות</h3>
+                 <p>אם <span class="math" dir="ltr">\(f\)</span> חסומה על <span class="math" dir="ltr">\([a,b]\)</span> ולכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיימת חלוקה <span class="math" dir="ltr">\(T\)</span> כך ש-<span class="math" dir="ltr">\(S^*(T) - S_*(T) < \varepsilon\)</span>, אז <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>.</p>
+
+                <h4>הוכחה</h4>
+                 <p>זהו מקרה פרטי של תנאי מספיק 1 (<span class="math" dir="ltr">\(S^*(T_1) - S_*(T_2) < \varepsilon\)</span>), כאשר לוקחים <span class="math" dir="ltr">\(T_1 = T_2 = T\)</span>. נראה זאת ישירות: </p>
+                  <p>ידוע שתמיד <span class="math" dir="ltr">\(S_*(T) \le I_* \le I^* \le S^*(T)\)</span>.</p>
+                  <p>לכן <span class="math" dir="ltr">\(0 \le I^* - I_* \le S^*(T) - S_*(T)\)</span>.</p>
+                 <p>אם לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> ניתן למצוא <span class="math" dir="ltr">\(T\)</span> כך ש-<span class="math" dir="ltr">\(S^*(T) - S_*(T) < \varepsilon\)</span>, אז לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> מתקיים <span class="math" dir="ltr">\(0 \le I^* - I_* < \varepsilon\)</span>.</p>
+                 <p>זה גורר ש-<span class="math" dir="ltr">\(I^* - I_* = 0\)</span>, כלומר <span class="math" dir="ltr">\(I^* = I_*\)</span>, ולכן <span class="math" dir="ltr">\(f\)</span> אינטגרבילית.</p>
+                <p>(יחד עם המשפט הקודם, זה נותן קריטריון "אם ורק אם": <span class="math" dir="ltr">\(f\)</span> חסומה אינטגרבילית <span class="math" dir="ltr">\(\iff\)</span> <span class="math" dir="ltr">\(\forall \varepsilon>0 \exists T: S^*(T)-S_*(T)<\varepsilon\)</span>).</p>
+             </section>
+
+            <section id="example-1-over-n" class="example">
+                 <h3>דוגמה: <span class="math" dir="ltr">\(f(x)=1\)</span> ב-<span class="math" dir="ltr">\(x=1/n\)</span></h3>
+                 <p>נגדיר פונקציה <span class="math" dir="ltr">\(f(x)\)</span> ב-<span class="math" dir="ltr">\([0,1]\)</span>:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \begin{cases} 1, & x = 1/n \text{ for } n \in \mathbb{N} \\ 0, & \text{otherwise} \end{cases} $$</div></div>
+                <p>טענה: <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([0,1]\)</span> וערך האינטגרל <span class="math" dir="ltr">\(\int_0^1 f(x) dx = 0\)</span>.</p>
+
+                 <h4>הוכחה</h4>
+                 <p>ראשית, נראה ש-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית. נשתמש בקריטריון האחרון (<span class="math" dir="ltr">\(\forall \varepsilon>0 \exists T: S^*(T)-S_*(T)<\varepsilon\)</span>).</p>
+                  <p>לכל חלוקה <span class="math" dir="ltr">\(T\)</span> של <span class="math" dir="ltr">\([0,1]\)</span>, בכל תת-קטע <span class="math" dir="ltr">\(\Delta x_i\)</span> תמיד קיימת נקודה <span class="math" dir="ltr">\(x\)</span> שאינה מהצורה <span class="math" dir="ltr">\(1/n\)</span> (למשל, נקודה אי-רציונלית) שבה <span class="math" dir="ltr">\(f(x)=0\)</span>. לכן, האינפימום בכל קטע הוא <span class="math" dir="ltr">\(m_i = 0\)</span>. מכאן שסכום דרבו התחתון הוא תמיד 0:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ S_*(T) = \sum m_i \Delta x_i = \sum 0 \cdot \Delta x_i = 0 $$</div></div>
+                  <p>כדי להוכיח אינטגרביליות, מספיק להראות שלכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span>, קיימת חלוקה <span class="math" dir="ltr">\(T\)</span> כך ש-<span class="math" dir="ltr">\(S^*(T) < \varepsilon\)</span> (כי אז <span class="math" dir="ltr">\(S^*(T) - S_*(T) = S^*(T) - 0 < \varepsilon\)</span>).</p>
+                  <p>יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span> נתון (נוכל להניח <span class="math" dir="ltr">\(\varepsilon < 1\)</span>). נבחר מספר טבעי <span class="math" dir="ltr">\(N\)</span> גדול מספיק כך ש-<span class="math" dir="ltr">\(1/N < \varepsilon/2\)</span>.</p>
+                  <p>קבוצת הנקודות בקטע <span class="math" dir="ltr">\((0,1]\)</span> שבהן <span class="math" dir="ltr">\(f(x)=1\)</span> היא <span class="math" dir="ltr">\(A = \{1/1, 1/2, 1/3, \dots, 1/n, \dots\}\)</span>. נשים לב שהנקודה 0 אינה ב-<span class="math" dir="ltr">\(A\)</span>, ובה <span class="math" dir="ltr">\(f(0)=0\)</span>.</p>
+                  <p>נחלק את הנקודות ב-<span class="math" dir="ltr">\(A\)</span> לשתי קבוצות:</p>
+                 <ul>
+                     <li><span class="math" dir="ltr">\(A_1 = \{1/1, 1/2, \dots, 1/(N-1)\}\)</span> - קבוצה סופית של <span class="math" dir="ltr">\(N-1\)</span> נקודות.</li>
+                      <li><span class="math" dir="ltr">\(A_2 = \{1/N, 1/(N+1), \dots\}\)</span> - קבוצה אינסופית של נקודות, כולן נמצאות בקטע <span class="math" dir="ltr">\([0, 1/N]\)</span> (ובפרט <span class="math" dir="ltr">\(0 < 1/N < \varepsilon/2\)</span>).</li>
+                  </ul>
+                  <p>נבנה חלוקה <span class="math" dir="ltr">\(T\)</span> באופן הבא:</p>
+                 <ol>
+                     <li>נקח קטע ראשון <span class="math" dir="ltr">\([0, \varepsilon/2]\)</span>. כל נקודות <span class="math" dir="ltr">\(A_2\)</span> נמצאות בקטע זה (או בשפתו הימנית, אם <span class="math" dir="ltr">\(\varepsilon/2 \le 1/N\)</span>). גם 0 נמצא בקטע. התנודה בקטע זה היא 1 (<span class="math" dir="ltr">\(\sup f = 1, \inf f = 0\)</span>), ולכן <span class="math" dir="ltr">\(M_1 = 1\)</span>.</li>
+                     <li>נקיף כל אחת מ-<span class="math" dir="ltr">\(N-1\)</span> הנקודות ב-<span class="math" dir="ltr">\(A_1\)</span> בקטע פתוח קטן מאוד <span class="math" dir="ltr">\((x_j - \delta_j, x_j + \delta_j)\)</span> (כאשר <span class="math" dir="ltr">\(x_j = 1/j\)</span>). נבחר את <span class="math" dir="ltr">\(\delta_j\)</span> להיות קטנים מספיק כך שסכום אורכי כל הקטעים הללו יהיה קטן מ-<span class="math" dir="ltr">\(\varepsilon/2\)</span>, וגם שהם לא יחפפו זה את זה או את הקטע <span class="math" dir="ltr">\([0, \varepsilon/2]\)</span> או את נקודה 1 (אלא אם <span class="math" dir="ltr">\(x_j=1\)</span>). נסמן קטעים אלו כ-<span class="math" dir="ltr">\(\Delta x_j^*\)</span> (<span class="math" dir="ltr">\(j=1,\dots,N-1\)</span>). בכל אחד מהם <span class="math" dir="ltr">\(M_j^*=1\)</span>.</li>
+                     <li>שאר הקטעים בחלוקה יהיו הקטעים שנותרו בין הקטעים שכבר הגדרנו. בקטעים אלו <span class="math" dir="ltr">\(f(x)=0\)</span>, ולכן הסופרמום בהם הוא <span class="math" dir="ltr">\(M_k^{**} = 0\)</span>.</li>
+                 </ol>
+
+                 <div class="chart-container">
+                     <h5>איור: חלוקה לדוגמה <span class="math" dir="ltr">\(f(x)=1/n\)</span></h5>
+                     <div class="chart-wrapper">
+                         <canvas id="chart_1_over_n"></canvas>
+                     </div>
+                     <div id="chart_1_over_n_loading" class="chart-loading">טוען גרף...</div>
+                  </div>
+
+                <p>כעת נחשב את <span class="math" dir="ltr">\(S^*(T)\)</span>:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">
+               $$   \begin{aligned} S^*(T) &= M_1 \cdot (\varepsilon/2) + \sum_{j=1}^{N-1} M_j^* \cdot \text{length}(\Delta x_j^*) + \sum M_k^{**} \cdot \text{length}(\Delta x_k^{**}) \\ &= 1 \cdot (\varepsilon/2) + \sum_{j=1}^{N-1} 1 \cdot (2\delta_j) + \sum 0 \cdot \text{length}(\Delta x_k^{**}) \\ &= \varepsilon/2 + \sum_{j=1}^{N-1} (2\delta_j) \end{aligned} $$
+                  </div></div>
+                   <p>בחרנו את <span class="math" dir="ltr">\(\delta_j\)</span> כך ש-<span class="math" dir="ltr">\(\sum_{j=1}^{N-1} 2\delta_j < \varepsilon/2\)</span>. לכן:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ S^*(T) < \varepsilon/2 + \varepsilon/2 = \varepsilon $$</div></div>
+                   <p>הראנו שלכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיימת <span class="math" dir="ltr">\(T\)</span> כך ש-<span class="math" dir="ltr">\(S^*(T) < \varepsilon\)</span>. מאחר ש-<span class="math" dir="ltr">\(S_*(T) = 0\)</span>, קיבלנו <span class="math" dir="ltr">\(S^*(T) - S_*(T) < \varepsilon\)</span>. לכן <span class="math" dir="ltr">\(f\)</span> אינטגרבילית.</p>
+                  <p>מאחר ש-<span class="math" dir="ltr">\(S_*(T) = 0\)</span> לכל <span class="math" dir="ltr">\(T\)</span>, אז האינטגרל התחתון <span class="math" dir="ltr">\(I_* = \sup \{S_*(T)\} = 0\)</span>. כיוון ש-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית, ערך האינטגרל שווה ל-<span class="math" dir="ltr">\(I_*\)</span>, כלומר <span class="math" dir="ltr">\(\int_0^1 f(x) dx = 0\)</span>.</p>
+             </section>
+
+             <section id="riemann-condition" class="theorem">
+                  <h3>משפט: תנאי רימן לאינטגרביליות</h3>
+                  <p><span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> אם ורק אם מתקיימים שני התנאים הבאים:</p>
+                  <ol>
+                       <li><span class="math" dir="ltr">\(f\)</span> חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>.</li>
+                        <li>הגבול של סכום התנודות המשוקלל הוא אפס:
+                           <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\lambda(T) \to 0} \sum_{i=1}^k \omega_i \Delta x_i = 0 $$</div></div>
+                           כאשר <span class="math" dir="ltr">\(\omega_i = M_i - m_i = \omega(f, \Delta x_i)\)</span> היא התנודה של <span class="math" dir="ltr">\(f\)</span> בתת-קטע <span class="math" dir="ltr">\(\Delta x_i\)</span>.</li>
+                    </ol>
+
+                  <h4>הוכחה</h4>
+                   <p>נשים לב ש-<span class="math" dir="ltr">\(\sum \omega_i \Delta x_i = \sum (M_i - m_i) \Delta x_i = \sum M_i \Delta x_i - \sum m_i \Delta x_i = S^*(T) - S_*(T)\)</span>.</p>
+                  <p><strong>כיוון '<span class="math" dir="ltr">\(\Rightarrow\)</span>':</strong> נניח <span class="math" dir="ltr">\(f\)</span> אינטגרבילית.</p>
+                   <ol>
+                       <li>ממשפט קודם, <span class="math" dir="ltr">\(f\)</span> חסומה.</li>
+                       <li>ממשפט קודם (תנאי הכרחי נוסף), נובע ישירות כי <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} (S^*(T) - S_*(T)) = 0\)</span>, כלומר <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} \sum \omega_i \Delta x_i = 0\)</span>.</li>
+                   </ol>
+                   <p><strong>כיוון '<span class="math" dir="ltr">\(\Leftarrow\)</span>':</strong> נניח <span class="math" dir="ltr">\(f\)</span> חסומה ומתקיים <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} (S^*(T) - S_*(T)) = 0\)</span>.</p>
+                  <p>ידוע כי <span class="math" dir="ltr">\(S_*(T) \le I_* \le I^* \le S^*(T)\)</span>, ולכן <span class="math" dir="ltr">\(0 \le I^* - I_* \le S^*(T) - S_*(T)\)</span>.</p>
+                   <p>כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, האגף הימני שואף לאפס. לכן, לפי משפט הסנדוויץ', גם <span class="math" dir="ltr">\(I^* - I_*\)</span> שואף לאפס. מאחר ש-<span class="math" dir="ltr">\(I^* - I_*\)</span> הוא קבוע, הוא חייב להיות שווה לאפס. כלומר <span class="math" dir="ltr">\(I^* = I_*\)</span>.</p>
+                   <p>מאחר ש-<span class="math" dir="ltr">\(f\)</span> חסומה ו-<span class="math" dir="ltr">\(I_* = I^*\)</span>, <span class="math" dir="ltr">\(f\)</span> אינטגרבילית.</p>
+
+                  <p>הערה: מהוכחת כיוון '<span class="math" dir="ltr">\(\Leftarrow\)</span>', נובע שמספיק שיש *סידרת* חלוקות נורמלית <span class="math" dir="ltr">\(\{T_m\}\)</span> אשר עבורה <span class="math" dir="ltr">\(\lim_{m \to \infty} \sum \omega_i \Delta x_i = 0\)</span> כדי להסיק ש-<span class="math" dir="ltr">\(f\)</span> (החסומה) היא אינטגרבילית (כי זה מספיק כדי להוכיח <span class="math" dir="ltr">\(I^*=I_*\)</span>).</p>
+            </section>
+
+            <section id="uniform-continuity-reminder">
+                <h2>תזכורת מאינפי 1</h2>
+                 <div class="definition">
+                     <h3>הגדרה: רציפות במידה שווה (רציפות במ"ש)</h3>
+                      <p>פונקציה <span class="math" dir="ltr">\(f(x)\)</span> המוגדרת בקבוצה <span class="math" dir="ltr">\(A \subseteq \mathbb{R}\)</span> נקראת רציפה במידה שווה ב-<span class="math" dir="ltr">\(A\)</span> אם לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיים <span class="math" dir="ltr">\(\delta > 0\)</span> (התלוי *רק* ב-<span class="math" dir="ltr">\(\varepsilon\)</span>) כך שלכל <span class="math" dir="ltr">\(x_1, x_2 \in A\)</span> המקיימים <span class="math" dir="ltr">\(|x_1 - x_2| < \delta\)</span>, מתקיים <span class="math" dir="ltr">\(|f(x_1) - f(x_2)| < \varepsilon\)</span>.</p>
+                 </div>
+                  <p>(היו עוד כמה דברים בקובץ, דברים שלמדנו כבר באינפי 1, מי שרוצה מוזמן לחזור)</p>
+            </section>
+
+            <section id="practical-theorems">
+                 <h2>מספר משפטים מעשיים יותר</h2>
+             </section>
+
+             <section id="theorem-diff-bounded-implies-uniform" class="theorem">
+                 <h3>משפט: נגזרת חסומה גוררת רציפות במ"ש</h3>
+                  <p>אם <span class="math" dir="ltr">\(f\)</span> גזירה בקטע <span class="math" dir="ltr">\(I\)</span> (לאו דווקא סגור או חסום) ונגזרתה <span class="math" dir="ltr">\(f'\)</span> חסומה ב-<span class="math" dir="ltr">\(I\)</span>, אז <span class="math" dir="ltr">\(f\)</span> רציפה במידה שווה ב-<span class="math" dir="ltr">\(I\)</span>.</p>
+
+                 <h4>הוכחה</h4>
+                  <p>מכך ש-<span class="math" dir="ltr">\(f'\)</span> חסומה, קיים קבוע <span class="math" dir="ltr">\(M > 0\)</span> כך ש-<span class="math" dir="ltr">\(|f'(x)| \le M\)</span> לכל <span class="math" dir="ltr">\(x \in I\)</span>.</p>
+                  <p>יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. נבחר <span class="math" dir="ltr">\(\delta = \frac{\varepsilon}{M}\)</span>. יהיו <span class="math" dir="ltr">\(x_1, x_2 \in I\)</span> שתי נקודות כלשהן המקיימות <span class="math" dir="ltr">\(|x_1 - x_2| < \delta\)</span>. לפי משפט הערך הממוצע של לגראנז', קיימת נקודה <span class="math" dir="ltr">\(c\)</span> בין <span class="math" dir="ltr">\(x_1\)</span> ל-<span class="math" dir="ltr">\(x_2\)</span> (ולכן <span class="math" dir="ltr">\(c \in I\)</span>) כך ש:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \frac{f(x_2) - f(x_1)}{x_2 - x_1} = f'(c) $$</div></div>
+                   <p>כלומר, <span class="math" dir="ltr">\(f(x_2) - f(x_1) = f'(c)(x_2 - x_1)\)</span>.</p>
+                   <p>ניקח ערך מוחלט:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ |f(x_2) - f(x_1)| = |f'(c)| |x_2 - x_1| \le M |x_2 - x_1| $$</div></div>
+                   <p>ומכיוון ש-<span class="math" dir="ltr">\(|x_1 - x_2| < \delta = \frac{\varepsilon}{M}\)</span>:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ |f(x_2) - f(x_1)| < M \cdot \frac{\varepsilon}{M} = \varepsilon $$</div></div>
+                  <p>הראינו שלכל <span class="math" dir="ltr">\(\varepsilon\)</span> קיים <span class="math" dir="ltr">\(\delta\)</span> מתאים, ולכן <span class="math" dir="ltr">\(f\)</span> רציפה במ"ש ב-<span class="math" dir="ltr">\(I\)</span>.</p>
+            </section>
+
+             <section id="theorem-continuous-implies-integrable" class="theorem">
+                 <h3>משפט: פונקציה רציפה אינטגרבילית</h3>
+                  <p>פונקציה <span class="math" dir="ltr">\(f\)</span> הרציפה בקטע סגור <span class="math" dir="ltr">\([a,b]\)</span>, היא אינטגרבילית בו.</p>
+
+                 <h4>הוכחה</h4>
+                  <p>נשתמש בתנאי רימן (<span class="math" dir="ltr">\(f\)</span> חסומה ו-<span class="math" dir="ltr">\(\lim \sum \omega_i \Delta x_i = 0\)</span>).</p>
+                 <ol>
+                    <li>פונקציה רציפה בקטע סגור וחסום חסומה בו (לפי משפט ויירשטראס הראשון). לכן <span class="math" dir="ltr">\(f\)</span> חסומה.</li>
+                    <li>פונקציה רציפה בקטע סגור וחסום רציפה בו במידה שווה (לפי משפט קנטור). כלומר, לכל <span class="math" dir="ltr">\(\varepsilon' > 0\)</span> קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(|x_1 - x_2| < \delta\)</span> אז <span class="math" dir="ltr">\(|f(x_1) - f(x_2)| < \varepsilon'\)</span>.</li>
+                 </ol>
+                  <p>כעת נוכיח שתנאי 2 של רימן מתקיים. יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. נבחר <span class="math" dir="ltr">\(\varepsilon' = \frac{\varepsilon}{b-a}\)</span>. מרציפות במ"ש, קיים <span class="math" dir="ltr">\(\delta > 0\)</span> המתאים ל-<span class="math" dir="ltr">\(\varepsilon'\)</span> זה.</p>
+                   <p>תהי <span class="math" dir="ltr">\(T\)</span> חלוקה כלשהי המקיימת <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>. לכל תת-קטע <span class="math" dir="ltr">\(\Delta x_i = [x_{i-1}, x_i]\)</span> של <span class="math" dir="ltr">\(T\)</span>, אורכו <span class="math" dir="ltr">\(\Delta x_i \le \lambda(T) < \delta\)</span>. מכיוון ש-<span class="math" dir="ltr">\(f\)</span> רציפה ב-<span class="math" dir="ltr">\(\Delta x_i\)</span>, היא מקבלת בו מינימום <span class="math" dir="ltr">\(m_i = f(c_i)\)</span> ומקסימום <span class="math" dir="ltr">\(M_i = f(d_i)\)</span> עבור <span class="math" dir="ltr">\(c_i, d_i \in \Delta x_i\)</span>.</p>
+                  <p>מרציפות במ"ש, מכיוון ש-<span class="math" dir="ltr">\(|c_i - d_i| \le \Delta x_i < \delta\)</span>, נובע ש:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \omega_i = M_i - m_i = f(d_i) - f(c_i) < \varepsilon' = \frac{\varepsilon}{b-a} $$</div></div>
+                   <p>כעת נחשב את סכום התנודות המשוקלל:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \sum_{i=1}^k \omega_i \Delta x_i < \sum_{i=1}^k \frac{\varepsilon}{b-a} \Delta x_i = \frac{\varepsilon}{b-a} \sum_{i=1}^k \Delta x_i = \frac{\varepsilon}{b-a} (b-a) = \varepsilon $$</div></div>
+                  <p>הראינו שלכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span> אז <span class="math" dir="ltr">\(\sum \omega_i \Delta x_i < \varepsilon\)</span>. זה מוכיח כי <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} \sum \omega_i \Delta x_i = 0\)</span>.</p>
+                  <p>מתקיימים שני תנאי רימן, ולכן <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>.</p>
+            </section>
+
+             <section id="theorem-finite-discontinuities" class="theorem">
+                  <h3>משפט: פונקציה חסומה עם מס' סופי של אי-רציפויות</h3>
+                  <p>אם <span class="math" dir="ltr">\(f\)</span> חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span> ובעלת מספר סופי של נקודות אי-רציפות בקטע, אז <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>.</p>
+
+                 <h4>הוכחה</h4>
+                  <p>נשתמש בקריטריון <span class="math" dir="ltr">\(\forall \varepsilon>0 \exists T: S^*(T)-S_*(T)<\varepsilon\)</span>.</p>
+                 <p>יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. תהיינה <span class="math" dir="ltr">\(x_1, x_2, \dots, x_L\)</span> הנקודות ב-<span class="math" dir="ltr">\([a,b]\)</span> שבהן <span class="math" dir="ltr">\(f\)</span> אינה רציפה. מאחר ש-<span class="math" dir="ltr">\(f\)</span> חסומה, קיים <span class="math" dir="ltr">\(C > 0\)</span> כך ש-<span class="math" dir="ltr">\(|f(x)| \le C\)</span> לכל <span class="math" dir="ltr">\(x \in [a,b]\)</span>. לכן, התנודה <span class="math" dir="ltr">\(\omega_i = M_i - m_i\)</span> בכל תת-קטע מקיימת <span class="math" dir="ltr">\(\omega_i \le C - (-C) = 2C\)</span>.</p>
+                  <p>נבנה חלוקה <span class="math" dir="ltr">\(T\)</span> באופן הבא:</p>
+                 <ol>
+                    <li>סביב כל אחת מ-<span class="math" dir="ltr">\(L\)</span> נקודות אי-הרציפות <span class="math" dir="ltr">\(x_j\)</span> (וגם סביב <span class="math" dir="ltr">\(a\)</span> ו-<span class="math" dir="ltr">\(b\)</span> אם הן אי-רציפות), ניקח קטע קטן מאוד <span class="math" dir="ltr">\(\Delta x_j^*\)</span> המכיל את <span class="math" dir="ltr">\(x_j\)</span> (אולי חצי-קטע אם <span class="math" dir="ltr">\(x_j\)</span> היא קצה). נדאג שהקטעים יהיו זרים ושאורך כל אחד מהם יהיה קטן מ-<span class="math" dir="ltr">\(\frac{\varepsilon}{4CL}\)</span> (אם <span class="math" dir="ltr">\(L=0\)</span>, שלב זה מתבטל). ישנם <span class="math" dir="ltr">\(L\)</span> קטעים כאלה. נסמן אותם "קטעים מסוג 1".</li>
+                     <li>שאר הקטע <span class="math" dir="ltr">\([a,b]\)</span> מורכב מאיחוד של מספר סופי (<span class="math" dir="ltr">\(L+1\)</span> לכל היותר) של קטעים סגורים שבהם <span class="math" dir="ltr">\(f\)</span> רציפה. נסמן קטעים אלו <span class="math" dir="ltr">\(I_k\)</span> ("קטעים מסוג 2"). בכל קטע <span class="math" dir="ltr">\(I_k\)</span>, <span class="math" dir="ltr">\(f\)</span> רציפה בו, ולכן אינטגרבילית בו. לכן, ניתן ליצור חלוקה פנימית <span class="math" dir="ltr">\(T_k\)</span> של <span class="math" dir="ltr">\(I_k\)</span> כך שסכום התנודות המשוקלל על <span class="math" dir="ltr">\(T_k\)</span> יהיה קטן מ-<span class="math" dir="ltr">\(\frac{\varepsilon}{2(L+1)}\)</span>.</li>
+                 </ol>
+
+                 <div class="chart-container">
+                     <h5>איור: חלוקה למס' סופי של אי-רציפויות</h5>
+                      <div class="chart-wrapper">
+                          <canvas id="chart_finite_discontinuities"></canvas>
+                     </div>
+                     <div id="chart_finite_discontinuities_loading" class="chart-loading">טוען גרף...</div>
+                  </div>
+
+
+                 <p>החלוקה <span class="math" dir="ltr">\(T\)</span> של <span class="math" dir="ltr">\([a,b]\)</span> תורכב מאיחוד כל נקודות החלוקה של הקטעים מסוג 1 וכל נקודות החלוקה מהחלוקות הפנימיות <span class="math" dir="ltr">\(T_k\)</span> של הקטעים מסוג 2.</p>
+                  <p>כעת נחשב את <span class="math" dir="ltr">\(S^*(T) - S_*(T) = \sum \omega_i \Delta x_i\)</span> על החלוקה <span class="math" dir="ltr">\(T\)</span>:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \sum_{i \in T} \omega_i \Delta x_i = \sum_{\text{קטעים סוג 1}} \omega_j^* \Delta x_j^* + \sum_{\text{קטעים סוג 2}} \sum_{l \in T_k} \omega_{kl} \Delta x_{kl} $$</div></div>
+                  <p>עבור הקטעים מסוג 1 (סביב נקודות אי-הרציפות):</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \sum_{\text{קטעים סוג 1}} \omega_j^* \Delta x_j^* \le \sum_{j=1}^L (2C) \cdot \frac{\varepsilon}{4CL} = \sum_{j=1}^L \frac{\varepsilon}{2L} = L \cdot \frac{\varepsilon}{2L} = \frac{\varepsilon}{2} $$</div></div>
+                   <p>עבור הקטעים מסוג 2 (החלוקות הפנימיות <span class="math" dir="ltr">\(T_k\)</span>):</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \sum_{\text{קטעים סוג 2}} \sum_{l \in T_k} \omega_{kl} \Delta x_{kl} = \sum_{k=1}^{L+1} \left( S^*(T_k) - S_*(T_k) \right) < \sum_{k=1}^{L+1} \frac{\varepsilon}{2(L+1)} = (L+1) \frac{\varepsilon}{2(L+1)} = \frac{\varepsilon}{2} $$</div></div>
+                   <p>בסה"כ:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ S^*(T) - S_*(T) < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon $$</div></div>
+                  <p>מצאנו שלכל <span class="math" dir="ltr">\(\varepsilon\)</span> קיימת <span class="math" dir="ltr">\(T\)</span> כזו, ולכן <span class="math" dir="ltr">\(f\)</span> אינטגרבילית.</p>
+
+                 <p>הערה: התייחסנו למצב בו כל נקודות אי הרציפות פנימיות, ואז מספר הקטעים <span class="math" dir="ltr">\(I_k\)</span> הוא <span class="math" dir="ltr">\(L+1\)</span>. בדומה מטפלים במקרים בהם <span class="math" dir="ltr">\(x_1=a\)</span> או <span class="math" dir="ltr">\(x_L=b\)</span>.</p>
+            </section>
+
+            <section id="example-sin-1-over-x" class="example">
+                <h3>דוגמה: <span class="math" dir="ltr">\(f(x)=\sin(1/x)\)</span></h3>
+                <p>נגדיר <span class="math" dir="ltr">\(f(x)\)</span> ב-<span class="math" dir="ltr">\([0,1]\)</span>:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \begin{cases} \sin(1/x), & 0 < x \le 1 \\ 7, & x = 0 \end{cases} $$</div></div>
+                 <p>לכל <span class="math" dir="ltr">\(x \in (0,1]\)</span>, <span class="math" dir="ltr">\(|\sin(1/x)| \le 1\)</span>. גם <span class="math" dir="ltr">\(f(0)=7\)</span>. לכן <span class="math" dir="ltr">\(|f(x)| \le 7\)</span> לכל <span class="math" dir="ltr">\(x \in [0,1]\)</span>, כלומר <span class="math" dir="ltr">\(f\)</span> חסומה.</p>
+                  <p>הפונקציה <span class="math" dir="ltr">\(\sin(1/x)\)</span> רציפה לכל <span class="math" dir="ltr">\(x \ne 0\)</span> (כהרכבה של רציפות). נקודת אי-הרציפות היחידה האפשרית היא <span class="math" dir="ltr">\(x=0\)</span>. אכן, הגבול <span class="math" dir="ltr">\(\lim_{x \to 0^+} \sin(1/x)\)</span> אינו קיים, ולכן ודאי אינו שווה ל-<span class="math" dir="ltr">\(f(0)=7\)</span>. לכן <span class="math" dir="ltr">\(x=0\)</span> היא נקודת אי-רציפות (ממין שני).</p>
+                 <p>קיבלנו ש-<span class="math" dir="ltr">\(f\)</span> חסומה ב-<span class="math" dir="ltr">\([0,1]\)</span> ויש לה נקודת אי-רציפות אחת בלבד (<span class="math" dir="ltr">\(x=0\)</span>). מספר נקודות אי-הרציפות סופי (1), ולכן, לפי המשפט הקודם, <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([0,1]\)</span>.</p>
+            </section>
+
+             <section id="theorem-monotonic-implies-integrable" class="theorem">
+                  <h3>משפט: פונקציה מונוטונית אינטגרבילית</h3>
+                   <p>פונקציה <span class="math" dir="ltr">\(f\)</span> מונוטונית בקטע סגור <span class="math" dir="ltr">\([a,b]\)</span> היא אינטגרבילית בו.</p>
+
+                 <h4>הוכחה</h4>
+                  <p>נניח בה"כ כי <span class="math" dir="ltr">\(f\)</span> מונוטונית לא יורדת (עולה או קבועה). ההוכחה ללא עולה דומה.</p>
+                   <ol>
+                       <li>חסומה: לכל <span class="math" dir="ltr">\(x \in [a,b]\)</span> מתקיים <span class="math" dir="ltr">\(f(a) \le f(x) \le f(b)\)</span>. לכן <span class="math" dir="ltr">\(f\)</span> חסומה על ידי <span class="math" dir="ltr">\(f(a)\)</span> ו-<span class="math" dir="ltr">\(f(b)\)</span>.</li>
+                        <li>נוכיח שתנאי רימן מתקיים (<span class="math" dir="ltr">\(\lim \sum \omega_i \Delta x_i = 0\)</span>).
+                         יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. נטפל במקרה <span class="math" dir="ltr">\(f(b) - f(a) > 0\)</span> (אם <span class="math" dir="ltr">\(f(b)=f(a)\)</span> אז <span class="math" dir="ltr">\(f\)</span> קבועה וכבר הוכחנו שהיא אינטגרבילית).</p>
+                         <p>נבחר <span class="math" dir="ltr">\(\delta = \frac{\varepsilon}{f(b) - f(a)}\)</span>. תהי <span class="math" dir="ltr">\(T\)</span> חלוקה כלשהי עם <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span>. מאחר ש-<span class="math" dir="ltr">\(f\)</span> לא יורדת, בכל תת-קטע <span class="math" dir="ltr">\(\Delta x_i = [x_{i-1}, x_i]\)</span> מתקיים:
+                         <ul>
+                            <li><span class="math" dir="ltr">\(m_i = f(x_{i-1})\)</span> (האינפימום הוא בקצה השמאלי)</li>
+                            <li><span class="math" dir="ltr">\(M_i = f(x_i)\)</span> (הסופרמום הוא בקצה הימני)</li>
+                         </ul>
+                          לכן התנודה בקטע היא <span class="math" dir="ltr">\(\omega_i = M_i - m_i = f(x_i) - f(x_{i-1})\)</span>.</p>
+                         <p>נחשב את סכום התנודות המשוקלל:</p>
+                                                  <div class="formula-block"><div class="math" dir="ltr">
+                       $$    \begin{aligned} \sum_{i=1}^k \omega_i \Delta x_i &= \sum_{i=1}^k (f(x_i) - f(x_{i-1})) \Delta x_i \\ &\le \sum_{i=1}^k (f(x_i) - f(x_{i-1})) \lambda(T) \\ &< \sum_{i=1}^k (f(x_i) - f(x_{i-1})) \delta \\ &= \delta \sum_{i=1}^k (f(x_i) - f(x_{i-1})) \end{aligned} $$
+                         </div></div>
+                          <p>הסכום האחרון הוא סכום טלסקופי:</p>
+                         <div class="formula-block"><div class="math" dir="ltr">$$ \sum_{i=1}^k (f(x_i) - f(x_{i-1})) = (f(x_1)-f(x_0)) + (f(x_2)-f(x_1)) + \dots + (f(x_k)-f(x_{k-1})) = f(x_k) - f(x_0) = f(b) - f(a) $$</div></div>
+                         <p>לכן:</p>
+                         <div class="formula-block"><div class="math" dir="ltr">$$ \sum_{i=1}^k \omega_i \Delta x_i < \delta (f(b) - f(a)) = \frac{\varepsilon}{f(b) - f(a)} (f(b) - f(a)) = \varepsilon $$</div></div>
+                          <p>הראינו שלכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span> אז <span class="math" dir="ltr">\(\sum \omega_i \Delta x_i < \varepsilon\)</span>. לכן תנאי רימן מתקיים, ו-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית.</p>
+                   </li>
+                </ol>
+            </section>
+
+            <section id="remark-monotonic-discontinuities" class="styled-block example"> <!-- Using example styling for remark -->
+                <h4>הערה (לא קשורה למשפט הנ"ל): מספר אי-רציפויות של פונקציה מונוטונית</h4>
+                <p>לפונקציה מונוטונית (עולה או יורדת) בקטע כלשהו יש לכל היותר מספר בן מנייה של נקודות אי-רציפות.</p>
+
+                <h5>רעיון הוכחה</h5>
+                 <p>נניח ש-<span class="math" dir="ltr">\(f\)</span> לא יורדת. כל נקודת אי-רציפות <span class="math" dir="ltr">\(x_0\)</span> של פונקציה מונוטונית היא ממין ראשון (קפיצה), כלומר הגבולות החד-צדדיים קיימים וסופיים: <span class="math" dir="ltr">\(L_{x_0}^- = \lim_{x \to x_0^-} f(x)\)</span> ו-<span class="math" dir="ltr">\(L_{x_0}^+ = \lim_{x \to x_0^+} f(x)\)</span>. עבור פונקציה לא יורדת, מתקיים <span class="math" dir="ltr">\(L_{x_0}^- \le f(x_0) \le L_{x_0}^+\)</span>. אם <span class="math" dir="ltr">\(f\)</span> אינה רציפה ב-<span class="math" dir="ltr">\(x_0\)</span>, אז <span class="math" dir="ltr">\(L_{x_0}^- < L_{x_0}^+\)</span> (זוהי ה"קפיצה" של הפונקציה).</p>
+                <p>הקטע הפתוח <span class="math" dir="ltr">\((L_{x_0}^-, L_{x_0}^+)\)</span> הוא קטע לא ריק על ציר ה-<span class="math" dir="ltr">\(y\)</span>. לפי צפיפות הרציונליים, קיים מספר רציונלי <span class="math" dir="ltr">\(q_{x_0}\)</span> בקטע זה: <span class="math" dir="ltr">\(L_{x_0}^- < q_{x_0} < L_{x_0}^+\)</span>.</p>
+                <p>יתרה מזאת, עבור שתי נקודות אי-רציפות שונות <span class="math" dir="ltr">\(x_0 < x_1\)</span>, הקטעים המתאימים <span class="math" dir="ltr">\((L_{x_0}^-, L_{x_0}^+)\)</span> ו-<span class="math" dir="ltr">\((L_{x_1}^-, L_{x_1}^+)\)</span> הם זרים. מדוע? כי אם <span class="math" dir="ltr">\(x_0 < x_1\)</span> אז <span class="math" dir="ltr">\(L_{x_0}^+ \le L_{x_1}^-\)</span>.</p>
+                <p>לכן, ניתן להתאים לכל נקודת אי-רציפות <span class="math" dir="ltr">\(x_0\)</span> מספר רציונלי ייחודי <span class="math" dir="ltr">\(q_{x_0}\)</span>. זוהי התאמה חח"ע מקבוצת נקודות אי-הרציפות לקבוצה חלקית של המספרים הרציונליים.</p>
+                 <p>מאחר שקבוצת המספרים הרציונליים היא בת מנייה, גם קבוצת נקודות אי-הרציפות של <span class="math" dir="ltr">\(f\)</span> היא לכל היותר בת מנייה.</p>
+            </section>
+
+            <section id="example-staircase" class="example">
+                 <h3>דוגמה: פונקציית מדרגות אינסופית</h3>
+                 <p>נגדיר <span class="math" dir="ltr">\(f(x)\)</span> ב-<span class="math" dir="ltr">\([0,1]\)</span>:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \begin{cases} 0, & x = 0 \\ 1/n, & \frac{1}{n+1} < x \le \frac{1}{n} \quad (n \in \mathbb{N}) \end{cases} $$</div></div>
+                  <p>כלומר: <span class="math" dir="ltr">\(f(x)=1\)</span> עבור <span class="math" dir="ltr">\(1/2 < x \le 1\)</span>; <span class="math" dir="ltr">\(f(x)=1/2\)</span> עבור <span class="math" dir="ltr">\(1/3 < x \le 1/2\)</span>; <span class="math" dir="ltr">\(f(x)=1/3\)</span> עבור <span class="math" dir="ltr">\(1/4 < x \le 1/3\)</span>; וכו'.</p>
+
+                 <div class="chart-container">
+                     <h5>איור: פונקציית מדרגות אינסופית</h5>
+                      <div class="chart-wrapper">
+                          <canvas id="chart_staircase"></canvas>
+                     </div>
+                     <div id="chart_staircase_loading" class="chart-loading">טוען גרף...</div>
+                 </div>
+
+                 <p>פונקציה זו <span class="math" dir="ltr">\(f\)</span> אינה רציפה בכל נקודה מהצורה <span class="math" dir="ltr">\(1/n\)</span> עבור <span class="math" dir="ltr">\(n \in \mathbb{N}, n \ge 2\)</span>. יש לה אינסוף נקודות אי-רציפות.</p>
+                 <p>עם זאת, הפונקציה <span class="math" dir="ltr">\(f\)</span> היא מונוטונית לא יורדת בקטע <span class="math" dir="ltr">\([0,1]\)</span>. ככל ש-<span class="math" dir="ltr">\(x\)</span> גדל, הערך <span class="math" dir="ltr">\(1/n\)</span> המקביל לו (או 0) אינו קטן. לכן, לפי המשפט על פונקציות מונוטוניות, <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([0,1]\)</span>.</p>
+            </section>
+
+            <section id="theorem-change-finite-points" class="theorem">
+                 <h3>משפט: שינוי ערכים במספר סופי של נקודות</h3>
+                 <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(f^*\)</span> היא פונקציה המוגדרת ב-<span class="math" dir="ltr">\([a,b]\)</span> כך ש-<span class="math" dir="ltr">\(f(x) = f^*(x)\)</span> פרט למספר סופי של נקודות <span class="math" dir="ltr">\(x_1, \dots, x_L\)</span> בקטע, אז גם <span class="math" dir="ltr">\(f^*\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ומתקיים:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) \, dx = \int_a^b f^*(x) \, dx $$</div></div>
+
+                 <h4>רעיון ההוכחה</h4>
+                 <p>נניח שהפונקציות שונות רק בנקודה אחת <span class="math" dir="ltr">\(x_1\)</span>.</p>
+                  <p>אינטגרביליות: <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ולכן חסומה. מאחר ש-<span class="math" dir="ltr">\(f^*\)</span> שונה ממנה רק בנקודה אחת, וערכה שם סופי, אז גם <span class="math" dir="ltr">\(f^*\)</span> חסומה. קבוצת נקודות אי-הרציפות של <span class="math" dir="ltr">\(f^*\)</span> מכילה לכל היותר את נקודות אי-הרציפות של <span class="math" dir="ltr">\(f\)</span> ועוד הנקודה <span class="math" dir="ltr">\(x_1\)</span>. אם קבוצת אי-הרציפות של <span class="math" dir="ltr">\(f\)</span> היתה מידה אפס (מושג שלא הוגדר כאן, אך קשור), אז כך גם של <span class="math" dir="ltr">\(f^*\)</span>. גישה אחרת: נשתמש בקריטריון דרבו.</p>
+                  <p>יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. מאחר ש-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית, קיימת חלוקה <span class="math" dir="ltr">\(T\)</span> כך ש-<span class="math" dir="ltr">\(S^*(T,f) - S_*(T,f) < \varepsilon/2\)</span>.</p>
+                  <p>נתבונן בסכומי דרבו עבור <span class="math" dir="ltr">\(f^*\)</span> באותה חלוקה <span class="math" dir="ltr">\(T\)</span>. ההבדל בין <span class="math" dir="ltr">\(S^*(T,f)\)</span> ל-<span class="math" dir="ltr">\(S^*(T, f^*)\)</span> נובע לכל היותר משני קטעים סמוכים אם <span class="math" dir="ltr">\(x_1\)</span> היא נקודת חלוקה, או מקטע אחד אם <span class="math" dir="ltr">\(x_1\)</span> היא פנימית לקטע. נניח <span class="math" dir="ltr">\(x_1\)</span> פנימית ב-<span class="math" dir="ltr">\(\Delta x_{i_0}\)</span>. ההבדל בסופרמום (<span class="math" dir="ltr">\(M_{i_0}(f^*)\)</span> לעומת <span class="math" dir="ltr">\(M_{i_0}(f)\)</span>) כפול <span class="math" dir="ltr">\(\Delta x_{i_0}\)</span>. אם נעדן את החלוקה <span class="math" dir="ltr">\(T\)</span> לחלוקה <span class="math" dir="ltr">\(T'\)</span> כך ש-<span class="math" dir="ltr">\(x_1\)</span> תהיה מבודדת בקטע קטן מאוד <span class="math" dir="ltr">\(\Delta x_1^*\)</span> שארכו <span class="math" dir="ltr">\(\delta\)</span>, אז ההבדל בין <span class="math" dir="ltr">\(S^*(T',f)\)</span> ל-<span class="math" dir="ltr">\(S^*(T',f^*)\)</span> הוא לכל היותר <span class="math" dir="ltr">\((|f(x_1)|+|f^*(x_1)|)\delta\)</span>. באופן דומה עבור <span class="math" dir="ltr">\(S_*\)</span>. ניתן להפוך הבדל זה קטן כרצוננו (קטן מ-<span class="math" dir="ltr">\(\varepsilon/2\)</span>) על ידי בחירת <span class="math" dir="ltr">\(\delta\)</span> קטן.</p>
+                   <p>נקבל <span class="math" dir="ltr">\(S^*(T', f^*) - S_*(T', f^*) \approx S^*(T', f) - S_*(T', f) \le S^*(T, f) - S_*(T, f) < \varepsilon\)</span>. לכן <span class="math" dir="ltr">\(f^*\)</span> אינטגרבילית.</p>
+                 <p>שוויון האינטגרלים: מכיוון שניתן למצוא חלוקות <span class="math" dir="ltr">\(T\)</span> כך ש-<span class="math" dir="ltr">\(|\sigma(T,f) - \sigma(T,f^*)| \to 0\)</span> כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span> (כי ההבדל תורם רק בקטעים המכילים את <span class="math" dir="ltr">\(x_j\)</span>, ואורך כולל של קטעים אלו שואף לאפס), והגבול <span class="math" dir="ltr">\(\lim \sigma(T,f)\)</span> קיים, נובע שגם הגבול <span class="math" dir="ltr">\(\lim \sigma(T, f^*)\)</span> קיים ושווה לו.</p>
+
+
+                <div class="chart-container">
+                    <h5>איור: פונקציות <span class="math" dir="ltr">\(f\)</span> ו-<span class="math" dir="ltr">\(f^*\)</span> שונות במס' סופי של נק'</h5>
+                    <div class="chart-wrapper">
+                         <canvas id="chart_change_finite"></canvas>
+                     </div>
+                     <div id="chart_change_finite_loading" class="chart-loading">טוען גרף...</div>
+                </div>
+
+            </section>
+
+
+        </main>
+    </div>
+
+    <!-- KaTeX JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+
+    <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+     <script>
+        // --- Global Chart References ---
+        let chart_fx_c = null;
+        let chart_darboux_sums = null;
+        let chart_refinement = null;
+        let chart_refinement_effect = null;
+        let chart_refinement_proof = null;
+        let chart_1_over_n = null;
+        let chart_finite_discontinuities = null;
+        let chart_staircase = null;
+        let chart_change_finite = null;
+
+        // --- Function to get current theme colors from CSS Variables ---
+        function getChartColors() {
+            const style = getComputedStyle(document.documentElement);
+            const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
+
+            return {
+                axisColor: getColor('--chart-axis-color', '#333333'),
+                gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
+                textColor: getColor('--text-color', '#343a40'),
+                primaryColor: getColor('--primary-color', '#0a5a8d'),
+                accentColor: getColor('--accent-color', '#f0ad4e'),
+                secondaryColor: getColor('--secondary-color', '#495057'), // Added for some charts
+                fillColor: getColor('--chart-fill-color', 'rgba(10, 90, 141, 0.2)'),
+                fillColorAlt: getColor('--chart-fill-alt-color', 'rgba(240, 173, 78, 0.2)'),
+                bgColor: getColor('--card-bg', '#ffffff')
+            };
+        }
+
+        // --- Debounce function ---
+        function debounce(func, wait) {
+             let timeout;
+             return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                 };
+                clearTimeout(timeout);
+                 timeout = setTimeout(later, wait);
+             };
+         }
+
+        // --- Show Loading Message ---
+        function showLoadingMessage(chartId) {
+            const loadingElement = document.getElementById(chartId + '_loading');
+            if (loadingElement) {
+                loadingElement.style.display = 'block';
+            }
+        }
+
+        // --- Hide Loading Message ---
+        function hideLoadingMessage(chartId) {
+            const loadingElement = document.getElementById(chartId + '_loading');
+            if (loadingElement) {
+                loadingElement.style.display = 'none';
+            }
+        }
+
+
+        // --- Drawing Functions ---
+
+         // Helper to draw axis
+        function drawAxes(ctx, w, h, pad, colors, xLabel = 'x', yLabel = 'y', title = null) {
+             ctx.clearRect(0, 0, w, h);
+             ctx.fillStyle = colors.bgColor;
+             ctx.fillRect(0, 0, w, h);
+
+             ctx.strokeStyle = colors.axisColor;
+             ctx.fillStyle = colors.textColor;
+             ctx.lineWidth = 1.5;
+             ctx.font = "14px " + getComputedStyle(document.body).fontFamily;
+
+             // Y axis
+             ctx.beginPath();
+             ctx.moveTo(pad, pad / 2);
+             ctx.lineTo(pad, h - pad);
+             ctx.stroke();
+             ctx.textAlign = 'center';
+             ctx.fillText(yLabel, pad, pad / 2 - 5);
+
+             // X axis
+             ctx.beginPath();
+             ctx.moveTo(pad, h - pad);
+             ctx.lineTo(w - pad / 2, h - pad);
+             ctx.stroke();
+             ctx.textAlign = 'right';
+             ctx.fillText(xLabel, w - pad / 3, h - pad + 15);
+
+             // Title if provided
+             if (title) {
+                ctx.textAlign = 'center';
+                 ctx.font = "bold 16px " + getComputedStyle(document.body).fontFamily;
+                 ctx.fillText(title, w / 2, pad / 2);
+                 // Reset font for labels
+                 ctx.font = "14px " + getComputedStyle(document.body).fontFamily;
+             }
+
+             // Labels a and b
+             ctx.textAlign = 'center';
+             ctx.fillText('a', pad * 1.5, h - pad + 15);
+             ctx.fillText('b', w - pad * 1.5, h - pad + 15);
+         }
+
+
+        // Generic function shape
+        function curve(x, x_min, x_max, y_base, h, type = 1) {
+             const normalized_x = (x - x_min) / (x_max - x_min);
+             let y_offset;
+             switch(type) {
+                 case 1: // Smooth sine-like curve
+                      y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin(normalized_x * Math.PI) + 0.1 * Math.cos(normalized_x * 3 * Math.PI));
+                     break;
+                 case 2: // More jagged/variable
+                    y_offset = h * 0.4 * (0.5 + 0.4 * Math.sin(normalized_x * 2.5 * Math.PI) * Math.cos(normalized_x * 0.8 * Math.PI));
+                     break;
+                 case 3: // Constant function
+                      y_offset = h * 0.5;
+                     break;
+                 default:
+                      y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin(normalized_x * Math.PI));
+             }
+             return y_base - y_offset;
+         }
+
+         // Draw the curve path
+        function drawCurvePath(ctx, x_min, x_max, numPoints, y_base, h, curveType) {
+            ctx.beginPath();
+             for (let i = 0; i <= numPoints; i++) {
+                 const x = x_min + (x_max - x_min) * i / numPoints;
+                 const y = curve(x, x_min, x_max, y_base, h, curveType);
+                 if (i === 0) {
+                     ctx.moveTo(x, y);
+                 } else {
+                     ctx.lineTo(x, y);
+                 }
+             }
+         }
+
+
+        // Draw Darboux rectangles
+        function drawDarbouxRectangles(ctx, partition, x_min, x_max, y_base, h, curveType, colors, drawUpper = true, drawLower = true) {
+             const numPointsSegment = 20; // Points to calculate min/max within a segment
+             ctx.lineWidth = 1;
+
+             for (let i = 0; i < partition.length - 1; i++) {
+                 const x_start = partition[i];
+                 const x_end = partition[i+1];
+                 let min_y = y_base;
+                 let max_y = 0;
+
+                 // Find min/max y in the segment
+                 for (let j = 0; j <= numPointsSegment; j++) {
+                     const x_sample = x_start + (x_end - x_start) * j / numPointsSegment;
+                     const y_sample = curve(x_sample, x_min, x_max, y_base, h, curveType);
+                     min_y = Math.min(min_y, y_sample);
+                     max_y = Math.max(max_y, y_sample);
+                 }
+
+                 // Draw lower rectangle
+                 if (drawLower) {
+                     ctx.fillStyle = colors.fillColorAlt; // Use accent color based fill
+                     ctx.strokeStyle = colors.secondaryColor; // Grey border
+                     ctx.fillRect(x_start, min_y, x_end - x_start, y_base - min_y);
+                     ctx.strokeRect(x_start, min_y, x_end - x_start, y_base - min_y);
+                 }
+
+                 // Draw upper rectangle
+                 if (drawUpper) {
+                     ctx.fillStyle = colors.fillColor; // Use primary color based fill
+                     ctx.strokeStyle = colors.primaryColor; // Blue border
+                     ctx.fillRect(x_start, max_y, x_end - x_start, y_base - max_y);
+                     ctx.strokeRect(x_start, max_y, x_end - x_start, y_base - max_y);
+                 }
+             }
+         }
+
+
+         // 1. F(x) = c chart
+         function renderChartFxC() {
+             const chartId = 'chart_fx_c';
+             showLoadingMessage(chartId);
+             const canvas = document.getElementById(chartId);
+             if (!canvas) return;
+             const ctx = canvas.getContext('2d');
+             const colors = getChartColors();
+             const w = canvas.width = canvas.clientWidth;
+             const h = canvas.height = 200; // Fixed height
+             const pad = 30;
+             const x_a = pad * 1.5;
+             const x_b = w - pad * 1.5;
+             const y_base = h - pad;
+
+             drawAxes(ctx, w, h, pad, colors);
+
+             // Constant function value (mid-height)
+             const y_c = curve(x_a, x_a, x_b, y_base, h, 3); // Type 3 is constant
+
+             // Draw function line
+             ctx.strokeStyle = colors.primaryColor;
+             ctx.lineWidth = 2.5;
+             ctx.beginPath();
+             ctx.moveTo(x_a, y_c);
+             ctx.lineTo(x_b, y_c);
+             ctx.stroke();
+
+             // Fill area
+             ctx.fillStyle = colors.fillColor;
+             ctx.fillRect(x_a, y_c, x_b - x_a, y_base - y_c);
+
+             // Add 'c' label
+             ctx.fillStyle = colors.textColor;
+             ctx.textAlign = 'left';
+             ctx.fillText('c', pad * 0.5, y_c + 5);
+
+              hideLoadingMessage(chartId);
+         }
+
+
+         // 2. Darboux sums illustration
+          function renderChartDarbouxSums() {
+              const chartId = 'chart_darboux_sums';
+              showLoadingMessage(chartId);
+              const canvas = document.getElementById(chartId);
+              if (!canvas) return;
+              const ctx = canvas.getContext('2d');
+              const colors = getChartColors();
+              const w = canvas.width = canvas.clientWidth;
+              const h = canvas.height = 250; // Slightly taller
+              const pad = 30;
+              const x_a = pad * 1.5;
+              const x_b = w - pad * 1.5;
+              const y_base = h - pad;
+              const curveType = 1; // Smooth curve
+              const numPointsCurve = 100;
+
+              drawAxes(ctx, w, h, pad, colors);
+
+              // Define a partition
+              const partition = [x_a, x_a + (x_b-x_a)*0.2, x_a + (x_b-x_a)*0.5, x_a + (x_b-x_a)*0.8, x_b];
+
+               // Draw Darboux rectangles (both upper and lower)
+              drawDarbouxRectangles(ctx, partition, x_a, x_b, y_base, h, curveType, colors, true, true);
+
+              // Draw the curve itself over the rectangles
+              drawCurvePath(ctx, x_a, x_b, numPointsCurve, y_base, h, curveType);
+              ctx.strokeStyle = colors.primaryColor;
+              ctx.lineWidth = 2.5;
+              ctx.stroke();
+
+              // Draw partition lines
+              ctx.strokeStyle = colors.secondaryColor;
+              ctx.lineWidth = 0.5;
+              ctx.setLineDash([3, 3]);
+              for(let i=1; i < partition.length-1; i++){
+                   ctx.beginPath();
+                   ctx.moveTo(partition[i], 0);
+                   ctx.lineTo(partition[i], y_base);
+                   ctx.stroke();
+              }
+              ctx.setLineDash([]);
+
+
+              hideLoadingMessage(chartId);
+         }
+
+          // 3. Refinement illustration
+          function renderChartRefinement() {
+              const chartId = 'chart_refinement';
+              showLoadingMessage(chartId);
+              const canvas = document.getElementById(chartId);
+               if (!canvas) return;
+              const ctx = canvas.getContext('2d');
+              const colors = getChartColors();
+              const w = canvas.width = canvas.clientWidth;
+              const h = canvas.height = 150; // Lower height, focus on partitions
+              const pad = 20; // Smaller padding
+               const y_base = h - pad;
+               const x_a = pad * 1.5;
+              const x_b = w - pad * 1.5;
+
+               // Base draw
+              drawAxes(ctx, w, h, pad, colors, 'x', '', null); // No y-axis label needed
+
+
+              // Partition T1
+              const t1_points = [x_a, x_a + (x_b-x_a)*0.3, x_a + (x_b-x_a)*0.7, x_b];
+               ctx.strokeStyle = colors.primaryColor;
+              ctx.fillStyle = colors.primaryColor;
+               ctx.lineWidth = 2;
+               ctx.beginPath();
+               ctx.moveTo(x_a, y_base * 0.6);
+               ctx.lineTo(x_b, y_base * 0.6);
+               ctx.stroke();
+               for(const p of t1_points){
+                   ctx.beginPath();
+                   ctx.arc(p, y_base * 0.6, 4, 0, Math.PI * 2);
+                   ctx.fill();
+              }
+              ctx.textAlign = 'left';
+              ctx.fillText("T1", x_a - pad, y_base * 0.6 + 5);
+
+               // Partition T2 (refinement of T1)
+               const t2_points = [
+                  x_a,
+                  x_a + (x_b-x_a)*0.15, // New point
+                   x_a + (x_b-x_a)*0.3, // Old point
+                   x_a + (x_b-x_a)*0.5, // New point
+                  x_a + (x_b-x_a)*0.7, // Old point
+                  x_a + (x_b-x_a)*0.85, // New point
+                  x_b
+              ];
+              ctx.strokeStyle = colors.accentColor;
+              ctx.fillStyle = colors.accentColor;
+              ctx.beginPath();
+              ctx.moveTo(x_a, y_base * 0.3);
+              ctx.lineTo(x_b, y_base * 0.3);
+              ctx.stroke();
+               for(const p of t2_points){
+                   ctx.beginPath();
+                   const isNew = !t1_points.includes(p);
+                   ctx.arc(p, y_base * 0.3, (isNew ? 5 : 4) , 0, Math.PI * 2); // Highlight new points
+                   ctx.fill();
+               }
+               ctx.textAlign = 'left';
+               ctx.fillText("T2 (מעדנת)", x_a - pad, y_base * 0.3 + 5);
+
+              hideLoadingMessage(chartId);
+          }
+
+
+          // 4. Refinement Effect
+          function renderChartRefinementEffect() {
+               const chartId = 'chart_refinement_effect';
+               showLoadingMessage(chartId);
+               const canvas = document.getElementById(chartId);
+                if (!canvas) return;
+               const ctx = canvas.getContext('2d');
+               const colors = getChartColors();
+               const w = canvas.width = canvas.clientWidth;
+               const h = canvas.height = 280; // Taller to show both partitions clearly
+               const pad = 30;
+               const y_base = h - pad;
+                const x_a = pad * 1.5;
+                const x_b = w - pad * 1.5;
+                const curveType = 1; // Smooth curve
+               const numPointsCurve = 100;
+
+               drawAxes(ctx, w, h, pad, colors, 'x', 'f(x)');
+
+                // Partition T
+               const partitionT = [x_a, x_a + (x_b - x_a) * 0.4, x_a + (x_b - x_a) * 0.7, x_b];
+                // Partition T' (refinement of T)
+                const partitionTprime = [x_a, x_a + (x_b-x_a)*0.2, x_a + (x_b - x_a) * 0.4, x_a + (x_b-x_a)*0.55, x_a + (x_b - x_a) * 0.7, x_a + (x_b-x_a)*0.9, x_b];
+
+
+                // Draw T rectangles first (partially opaque)
+               ctx.globalAlpha = 0.6;
+               drawDarbouxRectangles(ctx, partitionT, x_a, x_b, y_base, h, curveType, colors, true, true);
+               ctx.globalAlpha = 1.0;
+
+
+               // Draw T' rectangles over them (solid) - make slightly different fill maybe?
+               // let colorsTprime = {...colors, fillColor: 'rgba(10, 141, 90, 0.3)', fillColorAlt: 'rgba(240, 78, 173, 0.3)' }; // Example: Green/Pinkish tints
+               // drawDarbouxRectangles(ctx, partitionTprime, x_a, x_b, y_base, h, curveType, colorsTprime, true, true);
+               // Alternative: Draw just the outlines of T' rectangles strongly
+                ctx.lineWidth = 1.5;
+                for (let i = 0; i < partitionTprime.length - 1; i++) {
+                     const x_start = partitionTprime[i];
+                     const x_end = partitionTprime[i+1];
+                      let min_y = y_base;
+                      let max_y = 0;
+                       const numPointsSegment = 20;
+                     for (let j = 0; j <= numPointsSegment; j++) {
+                          const x_sample = x_start + (x_end - x_start) * j / numPointsSegment;
+                         const y_sample = curve(x_sample, x_a, x_b, y_base, h, curveType);
+                         min_y = Math.min(min_y, y_sample);
+                          max_y = Math.max(max_y, y_sample);
+                      }
+                     // Draw lower outline
+                      ctx.strokeStyle = colors.secondaryColor; // Use darker/different color
+                      ctx.strokeRect(x_start, min_y, x_end - x_start, y_base - min_y);
+                     // Draw upper outline
+                      ctx.strokeStyle = colors.primaryColor; // Use darker/different color
+                      ctx.strokeRect(x_start, max_y, x_end - x_start, y_base - max_y);
+                  }
+
+               // Draw the curve itself over the rectangles
+               drawCurvePath(ctx, x_a, x_b, numPointsCurve, y_base, h, curveType);
+               ctx.strokeStyle = colors.primaryColor; // Make curve thicker maybe?
+               ctx.lineWidth = 3.0;
+               ctx.stroke();
+
+
+               // Labels (optional, might clutter)
+                // ctx.fillStyle = colors.textColor;
+                // ctx.fillText("S_*(T), S^*(T) (faint)", w / 2, pad*0.8);
+                // ctx.fillText("S_*(T'), S^*(T') outlines", w / 2, pad*1.2);
+
+                hideLoadingMessage(chartId);
+          }
+
+
+          // 5. Refinement Proof illustration
+          function renderChartRefinementProof() {
+              const chartId = 'chart_refinement_proof';
+               showLoadingMessage(chartId);
+               const canvas = document.getElementById(chartId);
+                if (!canvas) return;
+               const ctx = canvas.getContext('2d');
+              const colors = getChartColors();
+              const w = canvas.width = canvas.clientWidth;
+              const h = canvas.height = 250;
+               const pad = 30;
+              const y_base = h - pad;
+              const x_a = pad * 1.5;
+              const x_b = w - pad * 1.5;
+               const curveType = 2; // More variable curve
+              const numPointsCurve = 100;
+
+
+               // Specific segment indices for focus
+               const segment_idx = 1; // Focus on the second segment [x1, x2]
+              const x_prev = x_a + (x_b - x_a) * 0.3; // xi0-1
+               const x_next = x_a + (x_b - x_a) * 0.7; // xi0
+              const x_star = x_a + (x_b - x_a) * 0.5; // x*
+
+              // Draw full axes and curve
+               drawAxes(ctx, w, h, pad, colors, 'x', 'f(x)');
+               drawCurvePath(ctx, x_a, x_b, numPointsCurve, y_base, h, curveType);
+               ctx.strokeStyle = colors.primaryColor;
+               ctx.lineWidth = 2.5;
+               ctx.stroke();
+
+               // Highlight the segment xi0-1 to xi0
+              ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Light overlay
+              ctx.fillRect(x_prev, 0, x_next - x_prev, h - pad);
+
+              // Calculate M values (approx)
+               let M_orig = 0, M1 = 0, M2 = 0;
+               const samples = 20;
+               for(let i=0; i<=samples; i++) {
+                    const x = x_prev + (x_next - x_prev) * i / samples;
+                    const y = curve(x, x_a, x_b, y_base, h, curveType);
+                    M_orig = Math.max(M_orig, y);
+                    if (x <= x_star) M1 = Math.max(M1, y);
+                    if (x >= x_star) M2 = Math.max(M2, y);
+               }
+
+
+                // Draw M_i0 * delta_xi0 rectangle outline
+                ctx.strokeStyle = colors.accentColor;
+               ctx.lineWidth = 1.5;
+                ctx.setLineDash([5, 5]);
+                ctx.strokeRect(x_prev, M_orig, x_next - x_prev, y_base - M_orig);
+                ctx.setLineDash([]);
+
+                // Draw M' * delta_x' + M'' * delta_x'' rectangles solid
+                ctx.fillStyle = colors.fillColor; // Blueish fill
+                ctx.strokeStyle = colors.primaryColor;
+               ctx.lineWidth = 1.0;
+               // First part
+               ctx.fillRect(x_prev, M1, x_star - x_prev, y_base - M1);
+                ctx.strokeRect(x_prev, M1, x_star - x_prev, y_base - M1);
+               // Second part
+               ctx.fillRect(x_star, M2, x_next - x_star, y_base - M2);
+                ctx.strokeRect(x_star, M2, x_next - x_star, y_base - M2);
+
+               // Add vertical lines for partition points
+                ctx.strokeStyle = colors.secondaryColor;
+                ctx.lineWidth = 1.0;
+                function drawVLine(x_pos) {
+                    ctx.beginPath();
+                    ctx.moveTo(x_pos, y_base + 5);
+                    ctx.lineTo(x_pos, y_base - h * 0.8); // Go up enough
+                    ctx.stroke();
+                }
+               drawVLine(x_prev);
+               drawVLine(x_star);
+                drawVLine(x_next);
+
+
+                // Add labels
+                ctx.fillStyle = colors.textColor;
+               ctx.textAlign = 'center';
+               ctx.fillText('xᵢ₋₁', x_prev, y_base + 18);
+               ctx.fillText('x*', x_star, y_base + 18);
+                ctx.fillText('xᵢ', x_next, y_base + 18);
+
+                ctx.fillStyle = colors.accentColor;
+                ctx.fillText('Mᵢ₀⋅Δxᵢ contribution', (x_prev+x_next)/2, M_orig - 10);
+                ctx.fillStyle = colors.primaryColor;
+                ctx.fillText("M'⋅Δx' + M''⋅Δx'' contribution", (x_prev+x_star)/2, M1 - 5);
+                //ctx.fillText("+ M''⋅Δx''", (x_star+x_next)/2, M2 - 5);
+
+
+               hideLoadingMessage(chartId);
+          }
+
+          // 6. Chart for f(x)=1/n type function
+            function renderChart1OverN() {
+                const chartId = 'chart_1_over_n';
+                showLoadingMessage(chartId);
+                const canvas = document.getElementById(chartId);
+                 if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                const colors = getChartColors();
+                const w = canvas.width = canvas.clientWidth;
+                const h = canvas.height = 250;
+                const pad = 40; // More padding for labels
+                const y_base = h - pad;
+                const x_max = 1;
+                const x_min_axis = 0; // Start axis at 0
+                const y_max = 1;
+
+
+                // Setup axes
+                 ctx.clearRect(0, 0, w, h);
+                 ctx.fillStyle = colors.bgColor;
+                ctx.fillRect(0, 0, w, h);
+                ctx.strokeStyle = colors.axisColor;
+                 ctx.fillStyle = colors.textColor;
+                 ctx.lineWidth = 1.5;
+                 ctx.font = "12px " + getComputedStyle(document.body).fontFamily;
+
+                 // Y axis
+                 ctx.beginPath();
+                 ctx.moveTo(pad, pad * 0.5);
+                 ctx.lineTo(pad, y_base);
+                 ctx.stroke();
+                 ctx.textAlign = 'right';
+                ctx.fillText('1', pad - 5, pad * 0.5 + 5);
+                 ctx.fillText('0', pad - 5, y_base + 5);
+
+                 // X axis
+                 ctx.beginPath();
+                 ctx.moveTo(pad, y_base);
+                 ctx.lineTo(w - pad * 0.5, y_base);
+                 ctx.stroke();
+                ctx.textAlign = 'center';
+                 ctx.fillText('0', pad, y_base + 15);
+                ctx.fillText('... 1/N', pad + (w - pad * 1.5) * 0.2 , y_base + 15); // Point approx for 1/N
+                 ctx.fillText('1/3', pad + (w - pad * 1.5) / 3, y_base + 15);
+                 ctx.fillText('1/2', pad + (w - pad * 1.5) / 2, y_base + 15);
+                 ctx.fillText('1', pad + (w - pad * 1.5) * 1, y_base + 15);
+                 ctx.textAlign = 'right';
+                ctx.fillText('x', w - pad * 0.3, y_base + 15);
+                 ctx.textAlign = 'center';
+                 ctx.fillText('f(x)', pad, pad*0.5 - 10);
+
+
+                 // Draw the rectangles
+                ctx.strokeStyle = colors.primaryColor;
+                ctx.fillStyle = colors.fillColor; // Use the fill color
+                ctx.lineWidth = 1;
+                const max_n_draw = 10; // Draw up to n=10 reasonably
+                let last_x = w - pad * 0.5; // Start from x=1 coordinate
+
+                for(let n = 1; n <= max_n_draw; n++) {
+                    const x_n = pad + (w - pad*1.5) / n; // Calculate x-coordinate for 1/n
+                     const x_n_plus_1 = (n === max_n_draw) ? pad : pad + (w - pad*1.5) / (n + 1); // x for 1/(n+1) (or 0)
+                    const y_val = (h-pad*1.5) / n ; // y = 1/n mapped to canvas height
+
+                    // Draw the horizontal line segment for f(x)=1/n
+                    ctx.beginPath();
+                     ctx.moveTo(x_n_plus_1, y_base - y_val);
+                    ctx.lineTo(x_n, y_base - y_val);
+                    ctx.stroke();
+
+                     // Fill the area - important for S*(T) visualization
+                    ctx.fillRect(x_n_plus_1, y_base - y_val, x_n - x_n_plus_1, y_val);
+
+                    // Draw vertical line at x_n if needed (looks cleaner without maybe)
+                     // ctx.beginPath();
+                    // ctx.moveTo(x_n, y_base - y_val);
+                    // ctx.lineTo(x_n, y_base); // Draw down to axis
+                    // ctx.stroke();
+                 }
+
+                 // Add a point at (0,0)
+                 ctx.beginPath();
+                 ctx.fillStyle=colors.primaryColor;
+                 ctx.arc(pad, y_base, 3, 0, 2 * Math.PI);
+                ctx.fill();
+
+                 // Highlight the first epsilon/2 interval [0, eps/2]
+                const eps_val = 0.4; // Visual representation of epsilon
+                const x_eps_2 = pad + (w - pad * 1.5) * (eps_val / 2);
+                 ctx.fillStyle = 'rgba(255, 165, 0, 0.2)'; // Semi-transparent orange
+                 ctx.fillRect(pad, 0, x_eps_2 - pad, h - pad);
+                 ctx.strokeStyle = 'orange';
+                 ctx.lineWidth = 0.5;
+                ctx.strokeRect(pad, 0, x_eps_2 - pad, h - pad);
+                 ctx.fillStyle = 'orange';
+                 ctx.textAlign='center';
+                 ctx.fillText("אזור [0, ε/2]", (pad+x_eps_2)/2, pad*0.8);
+
+                 // Indicate small intervals around 1/1, 1/2 etc.
+                for (let n=1; n<=2; n++){ // Show for 1/1 and 1/2
+                    const x_n_center = pad + (w - pad * 1.5) / n;
+                    const delta_vis = (w - pad * 1.5) * 0.02; // Visual width of interval
+                     ctx.fillStyle = 'rgba(255, 0, 0, 0.15)'; // Semi-transparent red
+                     ctx.fillRect(x_n_center-delta_vis, 0, 2*delta_vis, h - pad);
+                     ctx.strokeStyle = 'red';
+                     ctx.strokeRect(x_n_center-delta_vis, 0, 2*delta_vis, h - pad);
+                 }
+                 ctx.fillStyle = 'red';
+                 ctx.textAlign='center';
+                 ctx.fillText("קטעי δ סביב נקודות גדולות", w * 0.7, pad*0.8);
+
+                hideLoadingMessage(chartId);
+          }
+
+
+          // 7. Chart Finite Discontinuities
+          function renderChartFiniteDiscontinuities() {
+              const chartId = 'chart_finite_discontinuities';
+              showLoadingMessage(chartId);
+              const canvas = document.getElementById(chartId);
+              if (!canvas) return;
+              const ctx = canvas.getContext('2d');
+              const colors = getChartColors();
+               const w = canvas.width = canvas.clientWidth;
+              const h = canvas.height = 250;
+              const pad = 30;
+              const y_base = h - pad;
+              const x_a = pad * 1.5;
+              const x_b = w - pad * 1.5;
+               const curveType = 2; // A somewhat interesting curve
+              const numPointsCurve = 100;
+
+              drawAxes(ctx, w, h, pad, colors, 'x', 'f(x)');
+
+              // Define discontinuity points
+               const disco_points_x = [x_a + (x_b-x_a)*0.3, x_a + (x_b-x_a)*0.6, x_a + (x_b-x_a)*0.8];
+
+               // Draw the main curve
+              drawCurvePath(ctx, x_a, x_b, numPointsCurve, y_base, h, curveType);
+              ctx.strokeStyle = colors.primaryColor;
+              ctx.lineWidth = 2.5;
+               ctx.stroke();
+
+               // Highlight intervals around discontinuity points
+               const interval_half_width = (w - pad * 1.5) * 0.03; // Visual size of interval
+              ctx.fillStyle = 'rgba(255, 165, 0, 0.2)'; // Orange highlight
+              ctx.strokeStyle = 'orange';
+               ctx.lineWidth = 0.5;
+              for(const x_disco of disco_points_x) {
+                    const x_start = Math.max(x_a, x_disco - interval_half_width);
+                   const x_end = Math.min(x_b, x_disco + interval_half_width);
+                   ctx.fillRect(x_start, 0, x_end - x_start, h - pad);
+                   ctx.strokeRect(x_start, 0, x_end - x_start, h - pad);
+                   // Mark the discontinuity point
+                    ctx.fillStyle = 'red';
+                    ctx.beginPath();
+                    ctx.arc(x_disco, y_base-h*0.4, 4, 0, 2*Math.PI); // Place marker near curve level
+                    ctx.fill();
+               }
+
+              // Highlight continuous segments in between
+              ctx.fillStyle = 'rgba(0, 255, 0, 0.1)'; // Green highlight
+              ctx.strokeStyle = 'green';
+               let last_end = x_a;
+               for(const x_disco of disco_points_x) {
+                   const x_start = Math.max(x_a, x_disco - interval_half_width);
+                    const continuous_start = last_end;
+                    const continuous_end = x_start;
+                    if (continuous_end > continuous_start) {
+                        ctx.fillRect(continuous_start, 0, continuous_end - continuous_start, h - pad);
+                        ctx.strokeRect(continuous_start, 0, continuous_end - continuous_start, h - pad);
+                    }
+                    last_end = Math.min(x_b, x_disco + interval_half_width);
+               }
+               // Last segment
+                if (x_b > last_end) {
+                    ctx.fillRect(last_end, 0, x_b - last_end, h - pad);
+                    ctx.strokeRect(last_end, 0, x_b - last_end, h - pad);
+                }
+
+                // Add legend text
+                ctx.fillStyle = colors.textColor;
+                ctx.textAlign = 'center';
+                 ctx.fillText("אזורים 'רציפים' (ירוק) + אזורים סביב אי-רציפות (כתום)", w / 2, pad * 0.8);
+
+               hideLoadingMessage(chartId);
+          }
+
+           // 8. Staircase Function
+          function renderChartStaircase() {
+              const chartId = 'chart_staircase';
+              showLoadingMessage(chartId);
+               const canvas = document.getElementById(chartId);
+               if (!canvas) return;
+              const ctx = canvas.getContext('2d');
+              const colors = getChartColors();
+              const w = canvas.width = canvas.clientWidth;
+              const h = canvas.height = 250;
+              const pad = 40; // Need space for 1/n labels
+               const y_base = h - pad;
+               const x_map = (val) => pad + (w - pad * 1.5) * val; // Map x=[0,1] to canvas
+               const y_map = (val) => y_base - (h - pad * 1.5) * val; // Map y=[0,1] to canvas
+
+              // Axes setup
+               ctx.clearRect(0, 0, w, h);
+               ctx.fillStyle = colors.bgColor;
+               ctx.fillRect(0, 0, w, h);
+               ctx.strokeStyle = colors.axisColor;
+               ctx.fillStyle = colors.textColor;
+               ctx.lineWidth = 1.5;
+              ctx.font = "12px " + getComputedStyle(document.body).fontFamily;
+
+               // Y axis
+              ctx.beginPath();
+              ctx.moveTo(pad, pad * 0.5);
+              ctx.lineTo(pad, y_base);
+              ctx.stroke();
+              ctx.textAlign = 'right';
+              ctx.fillText('1', pad - 5, y_map(1) + 5);
+               ctx.fillText('1/2', pad - 5, y_map(0.5) + 5);
+               ctx.fillText('1/3', pad - 5, y_map(1/3) + 5);
+               ctx.fillText('0', pad - 5, y_map(0) + 5);
+              ctx.fillText('f(x)', pad-10, pad*0.5-5);
+
+              // X axis
+              ctx.beginPath();
+              ctx.moveTo(pad, y_base);
+               ctx.lineTo(w - pad * 0.5, y_base);
+               ctx.stroke();
+               ctx.textAlign = 'center';
+              ctx.fillText('0', x_map(0), y_base + 15);
+              ctx.fillText('...', x_map(0.1), y_base + 15);
+              ctx.fillText('1/3', x_map(1/3), y_base + 15);
+              ctx.fillText('1/2', x_map(1/2), y_base + 15);
+              ctx.fillText('1', x_map(1), y_base + 15);
+               ctx.fillText('x', w - pad*0.5, y_base + 15);
+
+
+               // Draw the steps
+              ctx.strokeStyle = colors.primaryColor;
+               ctx.lineWidth = 2;
+              const max_n_draw = 10;
+              for (let n = 1; n <= max_n_draw; n++) {
+                   const x_start = 1 / (n + 1);
+                    const x_end = 1 / n;
+                    const y_val = 1 / n;
+                   ctx.beginPath();
+                   // Move to start of segment (left open circle)
+                    ctx.arc(x_map(x_start), y_map(y_val), 3, 0, 2 * Math.PI);
+                   ctx.stroke(); // Draw open circle
+                    // Draw line to end of segment
+                   ctx.moveTo(x_map(x_start), y_map(y_val));
+                    ctx.lineTo(x_map(x_end), y_map(y_val));
+                   ctx.stroke();
+                    // Draw filled circle at end
+                   ctx.beginPath();
+                   ctx.arc(x_map(x_end), y_map(y_val), 3, 0, 2 * Math.PI);
+                    ctx.fillStyle = colors.primaryColor;
+                   ctx.fill();
+               }
+
+                // Point at (0,0)
+               ctx.beginPath();
+                ctx.fillStyle = colors.primaryColor;
+                ctx.arc(x_map(0), y_map(0), 3, 0, 2*Math.PI);
+                ctx.fill();
+
+                hideLoadingMessage(chartId);
+          }
+
+           // 9. Chart Change Finite Points
+            function renderChartChangeFinite() {
+                 const chartId = 'chart_change_finite';
+                 showLoadingMessage(chartId);
+                const canvas = document.getElementById(chartId);
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                 const colors = getChartColors();
+                 const w = canvas.width = canvas.clientWidth;
+                 const h = canvas.height = 250;
+                 const pad = 30;
+                const y_base = h - pad;
+                const x_a = pad * 1.5;
+                const x_b = w - pad * 1.5;
+                 const curveType = 1; // Smooth curve
+                const numPointsCurve = 100;
+
+                 drawAxes(ctx, w, h, pad, colors, 'x', 'f(x)');
+
+                 // Draw the main function f(x)
+                 drawCurvePath(ctx, x_a, x_b, numPointsCurve, y_base, h, curveType);
+                 ctx.strokeStyle = colors.primaryColor;
+                 ctx.lineWidth = 2.5;
+                 ctx.stroke();
+                 ctx.fillStyle = colors.primaryColor;
+                ctx.textAlign = 'left';
+                ctx.fillText("f(x)", x_b + 5, curve(x_b, x_a, x_b, y_base, h, curveType));
+
+                 // Define points where f*(x) differs
+                 const change_points_x = [x_a + (x_b - x_a) * 0.25, x_a + (x_b - x_a) * 0.6];
+                 const f_star_values_y = [y_base - h * 0.2, y_base - h * 0.7]; // Example different y-values
+
+
+                // Draw f*(x) markers
+                ctx.fillStyle = colors.accentColor; // Orange for f* changes
+                 ctx.strokeStyle = colors.accentColor;
+                 for(let i=0; i < change_points_x.length; i++) {
+                    const x_change = change_points_x[i];
+                    const y_original = curve(x_change, x_a, x_b, y_base, h, curveType);
+                    const y_new = f_star_values_y[i];
+
+                     // Dashed line showing the change
+                    ctx.beginPath();
+                    ctx.setLineDash([2, 2]);
+                     ctx.moveTo(x_change, y_original);
+                     ctx.lineTo(x_change, y_new);
+                     ctx.stroke();
+                    ctx.setLineDash([]);
+
+                     // Original f(x) point (maybe smaller circle)
+                    ctx.fillStyle = colors.primaryColor;
+                     ctx.beginPath();
+                     ctx.arc(x_change, y_original, 3, 0, 2*Math.PI);
+                     ctx.fill();
+
+                     // New f*(x) point (larger filled circle)
+                    ctx.fillStyle = colors.accentColor;
+                     ctx.beginPath();
+                     ctx.arc(x_change, y_new, 5, 0, 2 * Math.PI);
+                     ctx.fill();
+                }
+                ctx.textAlign='left';
+                 ctx.fillText("f*(x)", change_points_x[1] + 5, f_star_values_y[1]);
+
+                hideLoadingMessage(chartId);
+            }
+
+
+
+        // --- Function to render all charts and drawings ---
+         const renderAllChartsAndDrawings = debounce(() => {
+            console.log("Rendering charts...");
+             renderChartFxC();
+            renderChartDarbouxSums();
+             renderChartRefinement();
+             renderChartRefinementEffect();
+             renderChartRefinementProof();
+            renderChart1OverN();
+             renderChartFiniteDiscontinuities();
+            renderChartStaircase();
+             renderChartChangeFinite();
+         }, 250); // Debounce rendering
+
+
+        // --- Scroll nav to show active link ---
+        function scrollToActiveLink() {
+            const navList = document.querySelector('#main-nav ul');
+            const activeLink = navList?.querySelector('a.active');
+            if (!activeLink || !navList) return;
+
+            const navListRect = navList.getBoundingClientRect();
+            const activeLinkRect = activeLink.getBoundingClientRect();
+
+             const isVisible =
+                activeLinkRect.right >= navListRect.left && // Adjusted for RTL
+                 activeLinkRect.left <= navListRect.right;
+
+             if (!isVisible) {
+                 const scrollTarget = navList.scrollLeft + activeLinkRect.right - navListRect.right + (activeLinkRect.width / 2) + 15; // Center calculation RTL
+
+                navList.scrollTo({
+                    left: scrollTarget,
+                    behavior: 'smooth'
+                 });
+             }
+         }
+
+        // --- General Setup on DOMContentLoaded ---
+         document.addEventListener('DOMContentLoaded', function() {
+             // --- 1. KaTeX Rendering ---
+              try {
+                   renderMathInElement(document.body, {
+                      delimiters: [
+                          {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                          {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                          {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                           {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')}
+                       ],
+                      trust: true,
+                      strict: (errorCode) => (errorCode === 'htmlExtension') ? 'ignore' : 'warn', // Allow certain extensions if needed
+                       output: 'htmlAndMathml',
+                       ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'],
+                      ignoredClasses: ['no-math'],
+                      throwOnError: false
+                   });
+                   // Ensure correct wrapping and directionality (redundancy for safety)
+                  document.querySelectorAll('.katex-display').forEach(displayMath => {
+                      const parentDiv = displayMath.closest('div.math');
+                       if (parentDiv) {
+                            parentDiv.setAttribute('dir', 'ltr');
+                            if (!parentDiv.parentElement.classList.contains('formula-block')) {
+                                const formulaBlock = document.createElement('div');
+                                formulaBlock.className = 'formula-block';
+                                parentDiv.parentNode.insertBefore(formulaBlock, parentDiv);
+                                formulaBlock.appendChild(parentDiv);
+                           }
+                        } else { // Wrap if KaTeX didn't do it correctly or it's misplaced
+                             const divMath = document.createElement('div');
+                            divMath.className = 'math';
+                             divMath.setAttribute('dir', 'ltr');
+                            displayMath.parentNode.insertBefore(divMath, displayMath);
+                            divMath.appendChild(displayMath);
+                             const formulaBlock = document.createElement('div');
+                             formulaBlock.className = 'formula-block';
+                             divMath.parentNode.insertBefore(formulaBlock, divMath);
+                             formulaBlock.appendChild(divMath);
+                        }
+                   });
+                  document.querySelectorAll('span.katex').forEach(inlineMath => {
+                       if (!inlineMath.classList.contains('math')) {
+                            inlineMath.classList.add('math');
+                        }
+                       inlineMath.setAttribute('dir', 'ltr');
+                    });
+
+              } catch (error) {
+                   console.error("KaTeX auto-rendering failed:", error);
+               }
+
+
+              // --- 2. Active Navigation Link Highlighting ---
+               const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+               const sections = Array.from(document.querySelectorAll('main section, main h3[id], main h4[id]')) // Include section headings with IDs
+                 .sort((a, b) => a.offsetTop - b.offsetTop); // Ensure order is correct
+               const navElement = document.querySelector('nav');
+               const navHeight = navElement ? navElement.offsetHeight : 60;
+
+               function changeActiveLink() {
+                 let currentElementId = '';
+                 const scrollPosition = window.scrollY;
+                 const pageBottom = document.body.scrollHeight - window.innerHeight;
+
+                 // Handle scroll near bottom explicitly
+                 if (scrollPosition >= pageBottom - 50) { // If close to bottom
+                     currentElementId = sections[sections.length - 1]?.getAttribute('id') || '';
+                 } else {
+                     // Find the element currently in view or the last one passed
+                      for (let i = sections.length - 1; i >= 0; i--) {
+                         const element = sections[i];
+                         // Trigger slightly before the element top hits the nav bar
+                         const elementTop = element.offsetTop - navHeight - 80; // Increased offset
+
+                        if (scrollPosition >= elementTop) {
+                            currentElementId = element.getAttribute('id');
+                             break;
+                         }
+                      }
+                 }
+
+                 // If scrolled near the top, activate the first link
+                  if (currentElementId === '' && scrollPosition < sections[0]?.offsetTop - navHeight - 80 && navLinks.length > 0) {
+                      currentElementId = sections[0]?.getAttribute('id') || navLinks[0].getAttribute('href').substring(1);
+                  }
+
+                 let activeLinkFound = false;
+                 navLinks.forEach(link => {
+                    const linkHrefId = link.getAttribute('href').substring(1);
+                     link.classList.remove('active');
+                     if (linkHrefId === currentElementId) {
+                        link.classList.add('active');
+                         activeLinkFound = true;
+                      }
+                   });
+
+                  // Fallback: If the current ID belongs to an H3/H4, try activating the parent section's link
+                  if(!activeLinkFound && currentElementId !== '') {
+                       const currentElem = document.getElementById(currentElementId);
+                       const parentSection = currentElem?.closest('section');
+                       if(parentSection){
+                          const parentSectionId = parentSection.id;
+                           const parentLink = document.querySelector(`#main-nav a.nav-link[href="#${parentSectionId}"]`);
+                            if (parentLink) {
+                               parentLink.classList.add('active');
+                                activeLinkFound = true;
+                            }
+                        }
+                   }
+
+                    // Ensure *at least* one link is active if nothing else matches (usually first)
+                   if (!activeLinkFound && navLinks.length > 0 && !document.querySelector('#main-nav a.nav-link.active')) {
+                        navLinks[0].classList.add('active');
+                   }
+
+                  scrollToActiveLink();
+               }
+               const debouncedChangeActiveLink = debounce(changeActiveLink, 100); // Debounce scroll handler
+              window.addEventListener('scroll', debouncedChangeActiveLink);
+               changeActiveLink(); // Initial check
+
+             // --- 3. Section Fade-in Animation (Optional, enabled by default) ---
+             const observerOptions = {
+                 root: null,
+                 rootMargin: '0px 0px -10% 0px', // Trigger when 10% from bottom enters view
+                  threshold: 0.05 // Trigger even if only a small part is visible
+             };
+            const observerCallback = (entries, observer) => {
+               entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                     entry.target.classList.add('visible');
+                     entry.target.classList.remove('hidden-on-load'); // Remove hiding class
+                      observer.unobserve(entry.target); // Stop observing once visible
+                  }
+               });
+             };
+             // Apply hidden class initially for JS-based fade-in
+             document.querySelectorAll('main section').forEach(section => {
+                section.classList.add('hidden-on-load');
+             });
+             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+             document.querySelectorAll('main section.hidden-on-load').forEach(section => {
+                 scrollObserver.observe(section);
+              });
+
+
+             // --- 4. Dark Mode ---
+             const darkModeToggle = document.getElementById('darkModeToggle');
+             const htmlElement = document.documentElement;
+
+             const applyTheme = (theme) => {
+                 htmlElement.setAttribute('data-theme', theme);
+                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
+                 localStorage.setItem('theme', theme);
+                  // Rerender charts on theme change
+                  renderAllChartsAndDrawings();
+             };
+
+              const savedTheme = localStorage.getItem('theme');
+              const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+             let initialTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+             applyTheme(initialTheme);
+
+              darkModeToggle.addEventListener('click', () => {
+                  const newTheme = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                 applyTheme(newTheme);
+             });
+             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                  if (!localStorage.getItem('theme')) { // Only respect system preference if no manual choice
+                      applyTheme(e.matches ? 'dark' : 'light');
+                 }
+             });
+
+              // --- 5. Initial Chart and Drawing Rendering ---
+              // Use requestAnimationFrame to ensure the browser is ready for rendering
+               requestAnimationFrame(() => {
+                renderAllChartsAndDrawings();
+               });
+
+
+          }); // End DOMContentLoaded
+      </script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+          ]
+        });">
+</script>
+
+
+
+<!-- כפתור חזרה לדף הראשי -->
+<a href="../index.html" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #0a5a8d;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+">
+  🏠 חזרה למסך הראשי
+</a>
+
+</body>
+</html>
