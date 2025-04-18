@@ -5,59 +5,67 @@
   <title>סיכומי אינפי 2</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
       color: #333;
-      max-width: 800px;
-      margin: 40px auto;
       direction: rtl;
-      padding: 0 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
     }
-    h1 {
-      text-align: center;
-      color: #0a5a8d;
-      margin-bottom: 40px;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      margin: 15px 0;
-    }
-    a {
-      text-decoration: none;
-      background-color: #0a5a8d;
+    header {
+      background: #0a5a8d;
       color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      display: inline-block;
-      transition: 0.3s;
-      font-size: 1.1em;
+      padding: 20px;
+      border-radius: 0 0 12px 12px;
+      text-align: center;
     }
-    a:hover {
-      background-color: #007bb5;
+    nav {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    nav a {
+      background: #0a5a8d;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background: #007bb5;
+    }
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
     }
   </style>
 </head>
 <body>
-  <h1>📘 סיכומי אינפי 2</h1>
-  <ul id="lecture-list">
-    <!-- כאן יכנסו הקישורים -->
-  </ul>
+
+  <header>
+    <h1>📘 סיכומי אינפי 2</h1>
+  </header>
+
+  <nav>
+    <a href="#" onclick="loadLecture(1)">שיעור 1</a>
+    <a href="#" onclick="loadLecture(2)">שיעור 2</a>
+    <a href="#" onclick="loadLecture(3)">שיעור 3</a>
+    <a href="#" onclick="loadLecture(4)">שיעור 4</a>
+    <!-- תוסיף עוד לפי הצורך -->
+  </nav>
+
+  <iframe id="lectureFrame" src="lectures/lecture1.html"></iframe>
 
   <script>
-    const lectureList = document.getElementById('lecture-list');
-    const totalLectures = 14; // שנה כאן אם יש יותר
-
-    for (let i = 1; i <= totalLectures; i++) {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = `lectures/lecture${i}.html`;
-      a.textContent = `שיעור ${i}`;
-      li.appendChild(a);
-      lectureList.appendChild(li);
+    function loadLecture(num) {
+      document.getElementById("lectureFrame").src = `lectures/lecture${num}.html`;
     }
   </script>
+
 </body>
 </html>
