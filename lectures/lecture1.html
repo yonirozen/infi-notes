@@ -483,10 +483,7 @@
 <body>
 
     <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
+    
 
     <header>
         <h1>שיעור 1: האנטגרל המסוים</h1>
@@ -875,50 +872,7 @@
                   scrollObserver.observe(section);
                });
 
-             // --- 4. Dark Mode ---
-             const darkModeToggle = document.getElementById('darkModeToggle');
-             const htmlElement = document.documentElement;
-
-             // Function to apply theme
-             const applyTheme = (theme) => {
-                 htmlElement.setAttribute('data-theme', theme);
-                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
-                 localStorage.setItem('theme', theme); // Save preference
-             };
-
-             // Check for saved theme on load
-             const savedTheme = localStorage.getItem('theme');
-             // Check for system preference if no saved theme
-             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-             // Initialize theme
-             if (savedTheme) {
-                 applyTheme(savedTheme);
-             } else {
-                 applyTheme('light'); // Default to light always
-             }
-
-             // Toggle button event listener
-             darkModeToggle.addEventListener('click', () => {
-                 const currentTheme = htmlElement.getAttribute('data-theme');
-                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                 applyTheme(newTheme);
-                 // Re-render charts after theme change
-                 // Use a small delay to allow CSS transitions to start if needed
-                 setTimeout(renderCharts, 100);
-             });
-
-             // Listen for system theme changes (optional)
-             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                // Only change if no theme was explicitly set by the user via toggle
-                if (!localStorage.getItem('theme')) {
-                     const newTheme = e.matches ? 'dark' : 'light';
-                     applyTheme(newTheme);
-                     setTimeout(renderCharts, 100); // Re-render on system change too
-                }
-             });
-
-            // --- 5. Initial Chart Rendering ---
+             // --- 5. Initial Chart Rendering ---
             // Render charts after the rest of the DOM setup is complete
             renderCharts();
 

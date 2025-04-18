@@ -497,10 +497,7 @@
 <body>
 
     <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
+    
 
     <header>
         <h1>שיעור 3: אינטגרל לא מסוים והדיפרנציאל</h1>
@@ -1466,49 +1463,6 @@ $$
               sections.forEach(section => {
                   scrollObserver.observe(section);
                });
-
-             // --- 4. Dark Mode ---
-             const darkModeToggle = document.getElementById('darkModeToggle');
-             const htmlElement = document.documentElement;
-
-             // Function to apply theme
-             const applyTheme = (theme) => {
-                 htmlElement.setAttribute('data-theme', theme);
-                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
-                 localStorage.setItem('theme', theme); // Save preference
-                 // Re-render chart after theme change
-                 setTimeout(renderDifferentialChart, 50); // Use timeout to allow CSS transition
-             };
-
-             // Check for saved theme on load
-             const savedTheme = localStorage.getItem('theme');
-             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-             // Initialize theme
-             if (savedTheme) {
-                 applyTheme(savedTheme);
-             } else {
-                 // Removed system preference default to always start light unless saved otherwise
-                 applyTheme('light');
-                 // if (prefersDark) { applyTheme('dark'); }
-                 // else { applyTheme('light'); }
-             }
-
-             // Toggle button event listener
-             darkModeToggle.addEventListener('click', () => {
-                 const currentTheme = htmlElement.getAttribute('data-theme');
-                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                 applyTheme(newTheme);
-             });
-
-             // Listen for system theme changes (Optional - modify if you want auto-switching)
-             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                 // Only change if no theme was explicitly set by the user via toggle
-                 if (!localStorage.getItem('theme')) {
-                     const newTheme = e.matches ? 'dark' : 'light';
-                     applyTheme(newTheme);
-                 }
-             });
 
              // --- 5. Initial Chart Rendering ---
              // Render chart after the rest of the DOM setup is complete
