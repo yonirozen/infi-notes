@@ -3,40 +3,38 @@ import re
 
 LECTURES_DIR = "lectures"
 
-# Regex to match the Dark Mode button
-button_pattern = re.compile(
-    r'<button id="darkModeToggle".*?</button>', 
-    re.DOTALL
-)
+def clean_dark_mode(html):
+    original = html
 
-# Regex to match the JS code block for Dark Mode
-js_pattern = re.compile(
-    r'// --- 4\. Dark Mode ---.*?(?=// --- 5\.|</script>)', 
-    re.DOTALL
-)
+    # 1. הסרת כפתור ה-Dark Mode
+    html = re.sub(r'<button[^>]*id="darkModeToggle".*?</button>', '', html, flags=re.DOTALL)
 
-# Optional: remove the dark-mode-toggle CSS block
-css_pattern = re.compile(
-    r'/\* --- Dark Mode Toggle Button --- \*/.*?\.dark-mode-toggle.*?\}', 
-    re.DOTALL
-)
+    # 2. הסרת בלוק CSS של המחלקה .dark-mode-toggle (גם אם יש בלוקים נוספים אחריה)
+    html = re.sub(
+        r'\.dark-mode-toggle\s*\{[^{}]*\}(?:\s*\.[^{}]+\s*\{[^{}]*\})*',
+        '', html, flags=re.DOTALL
+    )
 
+    # 3. הסרת קטעי JavaScript שמכילים darkModeToggle או data-theme
+    html = re.sub(
+        r'<script[^>]*>.*?(darkModeToggle|data-theme).*?</script>',
+        '', html, flags=re.DOTALL
+    )
+
+    return html if html != original else None
+
+# עובר על כל הקבצים בתיקייה
 for filename in os.listdir(LECTURES_DIR):
     if filename.endswith(".html"):
         path = os.path.join(LECTURES_DIR, filename)
-        with open(path, "r", encoding="utf-8") as file:
-            content = file.read()
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
 
-        original = content
+        updated = clean_dark_mode(content)
 
-        # Remove button, JS block, and optional CSS
-        content = button_pattern.sub('', content)
-        content = js_pattern.sub('', content)
-        content = css_pattern.sub('', content)
-
-        if content != original:
-            with open(path, "w", encoding="utf-8") as file:
-                file.write(content)
+        if updated:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(updated)
             print(f"✅ עודכן: {filename}")
         else:
             print(f"➖ אין שינוי: {filename}")
