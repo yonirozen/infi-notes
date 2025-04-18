@@ -150,5 +150,31 @@
 
   <!-- Shared Dark Mode JavaScript -->
   <script src="js/dark-mode.js"></script>
+  <!-- Custom script to ensure dark mode toggle works -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const htmlElement = document.documentElement;
+      
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+          const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          htmlElement.setAttribute('data-theme', newTheme);
+          darkModeToggle.setAttribute('aria-pressed', newTheme === 'dark');
+          localStorage.setItem('globalTheme', newTheme);
+        });
+      }
+
+      // Apply theme on load
+      const savedTheme = localStorage.getItem('globalTheme');
+      if (savedTheme) {
+        htmlElement.setAttribute('data-theme', savedTheme);
+        if (darkModeToggle) {
+          darkModeToggle.setAttribute('aria-pressed', savedTheme === 'dark');
+        }
+      }
+    });
+  </script>
 </body>
 </html>
