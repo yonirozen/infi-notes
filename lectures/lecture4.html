@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אינפי 2 - שיעור 4</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-color: #0a5a8d; /* Deeper Blue */
+            --secondary-color: #495057; /* Dark Gray */
+            --accent-color: #f0ad4e; /* Orange/Yellow Accent */
+            --highlight-color: #fdebd0; /* Softer Highlight */
+            --bg-color: #fdfcfb; /* Off-white / Creamy */
+            --text-color: #343a40; /* Darker Text */
+            --border-color: #ced4da;
+            --font-family-hebrew: 'Assistant', 'Rubik', sans-serif;
+            --font-family-heading: 'Orbitron', 'Assistant', sans-serif;
+            --card-bg: #ffffff;
+            --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px; /* More rounded */
+            --header-bg: linear-gradient(135deg, var(--primary-color), #007bb5);
+            --header-text: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --nav-text: var(--primary-color);
+            --nav-hover-bg: var(--primary-color);
+            --nav-hover-text: #ffffff;
+            --section-border: var(--primary-color);
+            --section-hover-border: var(--accent-color);
+            --formula-bg: #f8f9fa;
+            --formula-border: #e9ecef;
+            --definition-bg: #fffaf0;
+            --definition-border: var(--accent-color);
+            --definition-heading: var(--accent-color);
+            --example-bg: #f8f9fa;
+            --example-border: var(--secondary-color);
+            --katex-inline-color: var(--primary-color);
+            --katex-display-color: var(--text-color);
+            --body-pattern: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e9ecef" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            --transition-speed: 0.4s;
+            --chart-axis-color: #333333; /* Default dark axis for better visibility on light bg*/
+            --chart-grid-color: rgba(128, 128, 128, 0.2);
+            --chart-fill-color: rgba(10, 90, 141, 0.2); /* Semi-transparent fill based on primary */
+             --placeholder-bg: #eee;
+            --placeholder-border: #ccc;
+            --placeholder-text: #888;
+        }
+
+        /* --- Dark Mode Variables --- */
+        html[data-theme="dark"] {
+            --primary-color: #58a6ff; /* Lighter Blue */
+            --secondary-color: #8b949e; /* Lighter Gray */
+            --accent-color: #f7b731; /* Brighter Yellow */
+            --highlight-color: #2d333b; /* Darker Highlight */
+            --bg-color: #0d1117; /* Very Dark Gray/Black */
+            --text-color: #c9d1d9; /* Light Gray Text */
+            --border-color: #30363d;
+            --card-bg: #161b22; /* Dark Card Background */
+            --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            --header-bg: linear-gradient(135deg, #1f6feb, #21262d);
+            --header-text: #e6edf3;
+            --nav-bg: rgba(22, 27, 34, 0.85); /* Darker Nav */
+            --nav-text: var(--primary-color);
+            --nav-hover-bg: var(--primary-color);
+            --nav-hover-text: #0d1117;
+            --section-border: var(--primary-color);
+            --section-hover-border: var(--accent-color);
+            --formula-bg: #1c2128; /* Darker Formula Block */
+            --formula-border: #30363d;
+            --definition-bg: #20242a; /* Darker Definition */
+            --definition-border: var(--accent-color);
+            --definition-heading: var(--accent-color);
+            --example-bg: #1c2128; /* Darker Example Block */
+            --example-border: var(--secondary-color);
+            --katex-inline-color: #79c0ff; /* Lighter Blue for Inline Katex */
+            --katex-display-color: var(--text-color);
+            --body-pattern: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2330363d" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            --chart-axis-color: #c9d1d9; /* Dark axis (light gray text) */
+            --chart-grid-color: rgba(128, 128, 128, 0.2); /* Grid can stay the same or be slightly adjusted */
+            --chart-fill-color: rgba(88, 166, 255, 0.2); /* Semi-transparent fill based on primary */
+             --placeholder-bg: #2a3038;
+            --placeholder-border: #444c56;
+            --placeholder-text: #768390;
+        }
+
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; /* Added transition for smooth theme change */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 100%; /* Base 16px */
+        }
+
+        body {
+            font-family: var(--font-family-hebrew);
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            background-image: var(--body-pattern);
+            font-weight: 300; /* Lighter default weight */
+        }
+
+        .container {
+            max-width: 900px; /* Adjusted max-width for better readability */
+            margin: 30px auto;
+            padding: 0 25px;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%); /* Stylish shape */
+            animation: fadeInDown 1s ease-out 0.2s backwards;
+            position: relative; /* For credits positioning */
+        }
+         html[data-theme="dark"] header {
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+         }
+
+            header h1 {
+                font-family: var(--font-family-heading);
+                font-size: 2.8em; /* Adjusted title size */
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+                margin-bottom: 10px; /* Space for credits */
+            }
+             .credits {
+                font-size: 0.9em;
+                font-weight: 300;
+                opacity: 0.8;
+                margin-top: 15px; /* Position below the clipped path */
+                color: var(--header-text);
+            }
+
+        nav {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            padding: 10px 15px; /* Adjusted padding */
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            transition: top 0.3s ease, background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            border: 1px solid rgba(0,0,0,0.05);
+             /* Removed overflow: hidden; to allow internal scrolling */
+        }
+         html[data-theme="dark"] nav {
+              border: 1px solid var(--border-color);
+         }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: nowrap; /* Prevent wrapping */
+            justify-content: flex-start; /* Align items to the start */
+            gap: 10px 15px; /* Row and column gap */
+            padding-bottom: 10px; /* Space for scrollbar */
+            overflow-x: auto; /* Enable horizontal scroll */
+            white-space: nowrap; /* Keep items on one line */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            margin-bottom: -10px; /* Counteract padding-bottom for visual alignment */
+            scroll-behavior: smooth; /* Smooth scrolling for programmatic scroll */
+        }
+
+        /* Hide scrollbar visually but keep functionality */
+        nav ul::-webkit-scrollbar { height: 6px; background-color: transparent;}
+        nav ul::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 3px; }
+        html[data-theme="dark"] nav ul::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); }
+        nav ul { -ms-overflow-style: none; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.2) transparent;} /* Firefox */
+         html[data-theme="dark"] nav ul { scrollbar-color: rgba(255,255,255,0.2) transparent; }
+
+
+        nav ul li {
+            flex-shrink: 0; /* Prevent items from shrinking */
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--nav-text);
+            font-weight: 500; /* Medium weight */
+            padding: 8px 8px; /* Adjusted padding */
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: inline-block; /* Needed for transform */
+            border: 1px solid transparent;
+             white-space: normal; /* Allow text wrapping within the link if needed */
+             text-align: center;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: var(--nav-hover-bg);
+            color: var(--nav-hover-text);
+            transform: translateY(-2px) scale(1.02); /* Subtle lift */
+            box-shadow: 0 3px 6px rgba(0, 86, 179, 0.15);
+            border-color: transparent;
+        }
+        html[data-theme="dark"] nav ul li a:hover, html[data-theme="dark"] nav ul li a.active {
+            box-shadow: 0 3px 6px rgba(88, 166, 255, 0.2);
+        }
+        nav ul li a.active {
+            font-weight: 700;
+        }
+
+
+        main section {
+            background-color: var(--card-bg);
+            padding: 30px 35px; /* More padding */
+            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border-right: 7px solid var(--section-border); /* Changed border side for RTL */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease, transform 0.5s ease; /* Added opacity/transform */
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(20px); /* Start slightly lower */
+            overflow: hidden; /* Contain elements */
+        }
+
+         main section.visible {
+            opacity: 1;
+            transform: translateY(0);
+         }
+
+            main section:hover {
+                box-shadow: var(--card-hover-shadow);
+                transform: translateY(-8px) scale(1.01); /* Slightly larger lift and subtle scale */
+                border-right-color: var(--section-hover-border); /* Change border on hover */
+            }
+
+        main h2 {
+            font-family: var(--font-family-heading);
+            font-size: 2.0em; /* Adjusted section titles */
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--border-color); /* Use variable */
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        main h3 {
+            font-family: var(--font-family-hebrew); /* Ensure consistent font */
+            font-size: 1.5em; /* Adjusted sub-section titles */
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-weight: 600; /* Bold */
+             border-bottom: 1px dashed var(--border-color);
+             padding-bottom: 8px;
+             width: fit-content;
+        }
+
+        main h4 {
+            font-size: 1.2em; /* Adjusted slightly */
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        p, li {
+            margin-bottom: 1em;
+             color: var(--text-color);
+             font-weight: 400; /* Regular weight for readability */
+             font-size: 1.05em;
+        }
+
+        ul, ol {
+            padding-right: 25px; /* Indentation for RTL lists */
+            margin-bottom: 1em; /* Spacing below lists */
+        }
+         li { margin-bottom: 0.5em; } /* Smaller space between list items */
+         li::marker { /* Style list markers */
+            color: var(--primary-color);
+            font-weight: 600;
+         }
+
+        .formula-block {
+            background-color: var(--formula-bg);
+            padding: 15px 20px; /* Adjusted padding */
+            margin: 25px auto; /* Center block */
+            border-radius: 8px;
+            overflow-x: auto; /* Handle long formulas */
+            text-align: center;
+            border: 1px solid var(--formula-border);
+            max-width: 100%;
+            transition: box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+             position: relative; /* For potential ::before/::after */
+        }
+        .formula-block:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+        }
+         html[data-theme="dark"] .formula-block:hover {
+             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+         }
+
+            /* Force LTR for math layout & prevent clipping */
+            .formula-block div.math { /* UPDATED SELECTOR */
+                margin: 0 auto; /* Center math block */
+                direction: ltr !important; /* CRITICAL FOR RTL ISSUE */
+                unicode-bidi: embed !important; /* CRITICAL FOR RTL ISSUE */
+                text-align: center; /* Center content within LTR block */
+                padding: 10px 5px; /* ADDED PADDING to prevent clipping */
+                overflow-x: auto; /* Scroll long equations */
+                overflow-y: hidden;
+                display: block; /* Make sure it behaves as a block */
+                 color: var(--katex-display-color); /* Use variable */
+                 max-width: 100%; /* Ensure it doesn't overflow parent */
+                 font-size: 1.1em; /* Slightly larger display math */
+            }
+
+        /* Style KaTeX inline math */
+        span.math { /* UPDATED SELECTOR */
+            font-size: 1.1em; /* Adjusted inline math size */
+            color: var(--katex-inline-color); /* Use variable */
+             direction: ltr !important; /* Inline math also LTR */
+             unicode-bidi: embed !important;
+             padding: 0 3px; /* Inline padding */
+             vertical-align: middle; /* Better alignment with text */
+             transition: color var(--transition-speed) ease; /* Smooth color change */
+             font-weight: 500; /* Slightly bolder */
+        }
+
+        .definition {
+            border-right: 5px solid var(--definition-border); /* Use accent color, RTL */
+            border-left: none; /* Remove left border */
+            padding: 20px 25px 15px 25px; /* Adjusted padding */
+            margin: 25px 0;
+            background-color: var(--definition-bg); /* Very light yellow/cream */
+            border-radius: 8px;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+         html[data-theme="dark"] .definition {
+             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+         }
+            .definition h4 {
+                 color: var(--definition-heading); /* Match border */
+                 margin-top: 0;
+                 margin-bottom: 10px;
+                 border-bottom: none; /* Remove underline from H4 */
+             }
+
+        .highlight {
+            background-color: var(--highlight-color);
+            padding: 3px 8px; /* More padding */
+            border-radius: 5px;
+            font-weight: 500; /* Medium weight */
+            border: 1px solid #f5c6cb; /* Border matching background */
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        html[data-theme="dark"] .highlight {
+            border-color: var(--border-color);
+        }
+
+        .example {
+            border: 1px dashed var(--example-border);
+            padding: 20px 25px;
+            margin-top: 25px;
+            border-radius: 8px;
+            background-color: var(--example-bg);
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+            .example h4 {
+                margin-top: 0;
+                color: var(--secondary-color);
+                font-weight: bold;
+                 border-bottom: none; /* Remove underline */
+            }
+
+        /* --- Chart Container --- */
+        .chart-container {
+            margin: 25px auto; /* Center single chart */
+            max-width: 600px; /* Limit width */
+             background-color: var(--card-bg); /* Match card bg for better border look */
+             padding: 20px;
+             border-radius: var(--border-radius);
+             box-shadow: var(--card-shadow);
+             border: 1px solid var(--border-color);
+             transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+  text-align: center;
+
+
+        }
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px auto; /* מרכז את הכל אופקית */
+  text-align: center;
+}
+        .chart-container h5 { /* Title applies to the whole container */
+             text-align: center;
+             margin-bottom: 15px;
+             font-size: 1.1em;
+             color: var(--secondary-color);
+             font-weight: 600;
+        }
+         canvas {
+            max-width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+         }
+
+        /* --- Placeholder for Images --- */
+        /* Kept for potential future use but will be removed/replaced */
+        .placeholder-image {
+            border: 2px dashed var(--placeholder-border);
+            background-color: var(--placeholder-bg);
+            color: var(--placeholder-text);
+            padding: 40px 20px;
+            margin: 20px auto;
+            text-align: center;
+            font-style: italic;
+            border-radius: var(--border-radius);
+            max-width: 100%;
+        }
+
+
+        /* --- Dark Mode Toggle Button --- */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px; /* Positioned left */
+            z-index: 1001; /* Above nav */
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            transition: all var(--transition-speed) ease, transform 0.2s ease;
+            overflow: hidden; /* Hide the icon that's moving out */
+        }
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--card-hover-shadow);
+            color: var(--accent-color);
+        }
+        .dark-mode-toggle .fa-sun,
+        .dark-mode-toggle .fa-moon {
+             position: absolute;
+             transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+        }
+
+        /* Light mode: Sun is visible, Moon is hidden and moved */
+        html:not([data-theme="dark"]) .dark-mode-toggle .fa-sun {
+             transform: translateY(0) rotate(0deg);
+             opacity: 1;
+        }
+        html:not([data-theme="dark"]) .dark-mode-toggle .fa-moon {
+            transform: translateY(100%) rotate(180deg);
+             opacity: 0;
+        }
+
+        /* Dark mode: Moon is visible, Sun is hidden and moved */
+        html[data-theme="dark"] .dark-mode-toggle .fa-sun {
+             transform: translateY(-100%) rotate(-180deg);
+             opacity: 0;
+         }
+        html[data-theme="dark"] .dark-mode-toggle .fa-moon {
+             transform: translateY(0) rotate(0deg);
+             opacity: 1;
+        }
+
+
+        /* CSS Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+             .container { max-width: 95%; padding: 0 20px; }
+             main h2 { font-size: 1.8em; }
+             main h3 { font-size: 1.4em; }
+        }
+
+        @media (max-width: 768px) {
+             html { font-size: 95%; }
+             .container { padding: 0 15px; }
+             header h1 { font-size: 2.3em; }
+             header { clip-path: none; border-radius: 0 0 10px 10px; padding: 30px 15px;}
+             .credits { font-size: 0.85em; }
+             nav { padding: 10px 5px; top: 10px;}
+             nav ul { gap: 8px 12px; }
+             nav ul li a { padding: 7px 14px; font-size: 0.95em;}
+             main section { padding: 25px 30px; border-right-width: 6px; }
+             main h2 { font-size: 1.7em; }
+             main h3 { font-size: 1.3em; }
+             .dark-mode-toggle { width: 45px; height: 45px; font-size: 1.3rem; top: 15px; left: 15px; }
+             .formula-block { padding: 15px; }
+             .chart-container { padding: 15px; } /* Adjust padding for container */
+        }
+
+        @media (max-width: 576px) {
+             html { font-size: 90%; }
+             header h1 { font-size: 2.0em; }
+             .credits { font-size: 0.8em; }
+             nav { padding: 8px 5px; }
+             nav ul { gap: 6px 10px; padding-bottom: 8px; margin-bottom: -8px;}
+             nav ul li a { padding: 6px 10px; font-size: 0.9em;}
+             main section { padding: 20px 25px; border-right-width: 5px; }
+             main h2 { font-size: 1.5em; }
+             main h3 { font-size: 1.2em; }
+             .formula-block { padding: 10px; }
+             .formula-block div.math { font-size: 1.05em; }
+             .dark-mode-toggle { width: 40px; height: 40px; font-size: 1.2rem; top: 10px; left: 10px; }
+             .chart-wrapper { padding: 0; } /* Remove padding if container handles it */
+             .chart-container { padding: 10px; }
+        }
+
+         /* Katex alignment fix for baseline */
+        .katex { vertical-align: baseline; }
+        p .math, li .math { line-height: 1; } /* Prevent inline math from increasing line height too much */
+
+    </style>
+</head>
+<body>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header>
+        <h1>אינפי 2 - שיעור מספר 4</h1>
+        <div class="credits">קרדיט להלל</div>
+    </header>
+
+    <div class="container">
+<nav id="main-nav">
+  <ul>
+    <li><a href="#problem1" class="nav-link" dir="rtl">בעיה 1: מציאת פונקציה</a></li>
+    <li><a href="#problem2" class="nav-link" dir="rtl">בעיה 2: שטח</a></li>
+    <li><a href="#area-properties" class="nav-link" dir="rtl">תכונות שטח</a></li>
+    <li><a href="#area-function" class="nav-link" dir="rtl">פונקציית שטח</a></li>
+    <li><a href="#negative-area" class="nav-link" dir="rtl">שטח שלילי וקיזוז</a></li>
+    <li><a href="#rational-functions" class="nav-link" dir="rtl">פונ' רציונליות</a></li>
+    <li><a href="#type1-integrals" class="nav-link" dir="rtl">סוג 1: R(sin,cos)</a></li>
+    <li><a href="#example-sin" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \frac{1}{\sin x} \, dx \)</span></a></li>
+    <li><a href="#type2-integrals" class="nav-link" dir="rtl">סוג 2: R(x, √(a²-x²))</a></li>
+    <li><a href="#type3-integrals" class="nav-link" dir="rtl">סוג 3: R(x, √(a²+x²))</a></li>
+    <li><a href="#type4-integrals" class="nav-link" dir="rtl">סוג 4: R(x, √(x²-a²))</a></li>
+    <li><a href="#example-sqrt" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \frac{1}{x^2 \sqrt{x^2 - 1}} \, dx \)</span></a></li>
+    <li><a href="#special-cases" class="nav-link" dir="rtl">מקרים מיוחדים</a></li>
+    <li><a href="#special-case1" class="nav-link" dir="rtl">מקרה 1: R(cos²x, sinx)cosx</a></li>
+    <li><a href="#example-cos3" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \cos^3 x \cdots \)</span></a></li>
+    <li><a href="#example-sin5" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \sin^5 x \, dx \)</span></a></li>
+    <li><a href="#special-case2" class="nav-link" dir="rtl">מקרה 2: R(sin²x, cos²x)</a></li>
+    <li><a href="#example-tan" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \frac{1+\sin^2 x}{1+\cos^2 x} \, dx \)</span></a></li>
+  </ul>
+</nav>
+
+
+        <main>
+            <section id="intro">
+                <p>נפתח בשתי בעיות, אשר יישום של האינטגרל הלא מסוים פותר אותן.</p>
+            </section>
+
+            <section id="problem1">
+                <h2>1. בעיה 1: מציאת פונקציה לפי שיפוע</h2>
+                <p>מצא פונקציה <span class="math" dir="ltr">\(y=f(x)\)</span> המוגדרת ב-<span class="math" dir="ltr">\(\mathbb{R}\)</span>, אשר השיפוע של המשיק לה בכל נקודה <span class="math" dir="ltr">\(x\)</span> הוא <span class="math" dir="ltr">\(x\)</span>.</p>
+                <h3>פתרון:</h3>
+                <p>שיפוע המשיק הוא <span class="math" dir="ltr">\(f'(x)\)</span>, לכן צריך להתקיים <span class="math" dir="ltr">\(f'(x)=x\)</span> לכל <span class="math" dir="ltr">\(x\)</span>. על ידי אינטגרציה נקבל:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \int x \, dx = \frac{x^2}{2} + C $$</div></div>
+                <p>כמובן שיש אינסוף פונקציות כאלו, הנבדלות בקבוע <span class="math" dir="ltr">\(C\)</span>.</p>
+                <p><span class="math" dir="ltr">\(C\)</span> יקבע באופן יחיד אם נדרוש שהגרף של <span class="math" dir="ltr">\(f(x)\)</span> יעבור דרך נקודה מסוימת.</p>
+                <p>נניח למשל ש-<span class="math" dir="ltr">\((1,3)\)</span> על הגרף, כלומר <span class="math" dir="ltr">\(f(1)=3\)</span>. אזי:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ 3 = \frac{1^2}{2} + C \implies 3 = \frac{1}{2} + C \implies C = 3 - \frac{1}{2} = \frac{5}{2} $$</div></div>
+                <p>והפונקציה הספציפית היא:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{x^2}{2} + \frac{5}{2} $$</div></div>
+                <p>נביא כעת את היישום שהוא כנראה המפורסם ביותר:</p>
+            </section>
+
+            <section id="problem2">
+                <h2>2. בעיה 2: שטח בין גרף פונקציה לציר ה-X</h2>
+                <p>לפני שנתחיל, נתעכב מעט על הגדרת שטח של קבוצה מישורית <span class="math" dir="ltr">\(A \subseteq \mathbb{R}^2\)</span>.</p>
+                <p>את ההגדרה המדויקת ניתן לקראת סוף הקורס, במסגרת הדיון על אינטגרל כפול.</p>
+                <p>בשלב זה, נציין רק מספר תכונות טבעיות של פונקצית השטח אשר יספיקו לנו כעת.</p>
+
+                <h3 id="area-properties">תכונות פונקציית השטח <span class="math" dir="ltr">\(S(A)\)</span></h3>
+                <ol type="א">
+                    <li>
+                        <p><strong>עקביות:</strong> עבור <span class="math" dir="ltr">\(A\)</span> שהיא מלבן, וצלעותיה הן <span class="math" dir="ltr">\(a, b\)</span>, אזי <span class="math" dir="ltr">\(S(A) = a \cdot b\)</span>.</p>
+                    </li>
+                    <li>
+                        <p><strong>מונוטוניות:</strong> אם <span class="math" dir="ltr">\(A \subseteq B\)</span> אז <span class="math" dir="ltr">\(S(A) \le S(B)\)</span>.</p>
+                    </li>
+                    <li>
+                        <p><strong>אדיטיביות:</strong> אם <span class="math" dir="ltr">\(A\)</span> ו-<span class="math" dir="ltr">\(B\)</span> זרות (כלומר <span class="math" dir="ltr">\(A \cap B = \emptyset\)</span>, או חיתוך בעל שטח אפס), אז <span class="math" dir="ltr">\(S(A \cup B) = S(A) + S(B)\)</span>.</p>
+                    </li>
+                </ol>
+                <p>כמובן שנחשב את השטח רק עבור קבוצות <span class="math" dir="ltr">\(A\)</span> עבורן ההגדרה (שנביא בהמשך הקורס) תתאים. נראה אז גם שישנן קבוצות אשר ההגדרה אינה מתאימה להן, כלומר, קבוצות שאינן "בעלות שטח".</p>
+
+                <h3 id="area-function">חישוב שטח באמצעות פונקציית שטח</h3>
+                <p>כעת, תהי <span class="math" dir="ltr">\(f(x)\)</span> פונקציה חיובית ורציפה המוגדרת בקטע <span class="math" dir="ltr">\([a,b]\)</span>. נרצה לחשב את השטח של הקבוצה <span class="math" dir="ltr">\(A\)</span> שהיא אוסף הנקודות בין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=b\)</span> וגרף הפונקציה.</p>
+                <!-- Replaced Placeholder 3 -->
+                 <div class="chart-container">
+                    <h5>השטח מתחת לגרף <span class="math" dir="ltr">\(f(x)\)</span> בין <span class="math" dir="ltr">\(a\)</span> ל-<span class="math" dir="ltr">\(b\)</span></h5>
+                     <div class="chart-wrapper">
+                         <canvas id="canvas_area_a_b" height="200"></canvas>
+                     </div>
+                 </div>
+
+                <p>עבור <span class="math" dir="ltr">\(a \le x_0 \le b\)</span> נסמן ב-<span class="math" dir="ltr">\(A_{x_0}\)</span> את הקבוצה שהיא אוסף הנקודות בין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=x_0\)</span> וגרף הפונקציה.</p>
+                <p>לפי סימון זה <span class="math" dir="ltr">\(A = A_b\)</span> ואנו מעוניינים ב-<span class="math" dir="ltr">\(S(A_b)\)</span>. <span class="math" dir="ltr">\(S(A_{x_0})\)</span> הוא כאמור השטח של <span class="math" dir="ltr">\(A_{x_0}\)</span>.</p>
+                <p>לשם הפשטות נקצר ונכתוב <span class="math" dir="ltr">\(S(b)\)</span> או <span class="math" dir="ltr">\(S(x_0)\)</span>. נגדיר את <strong>פונקציית השטח</strong> <span class="math" dir="ltr">\(S(x) = S(A_x)\)</span> עבור <span class="math" dir="ltr">\(x \in [a,b]\)</span>.</p>
+                <p>כצפוי, <span class="math" dir="ltr">\(A_{x_0}\)</span> תתברר לפי ההגדרה המדויקת כקבוצה שעונה על ההגדרה שנביא בהמשך הקורס, כלומר קבוצה "בעלת שטח" (חשוב כאן ש-<span class="math" dir="ltr">\(f\)</span> רציפה).</p>
+                <p>כך גם עבור <span class="math" dir="ltr">\(x_0=a\)</span> (כמובן <span class="math" dir="ltr">\(S(a)=0\)</span>).</p>
+
+                <p>ניקח כעת <span class="math" dir="ltr">\(x_0\)</span> כך ש-<span class="math" dir="ltr">\(a < x_0 < b\)</span>, וניקח <span class="math" dir="ltr">\(\Delta x > 0\)</span> קטן מספיק כך ש-<span class="math" dir="ltr">\(x_0+\Delta x\)</span> היא בקטע <span class="math" dir="ltr">\([a,b]\)</span>.</p>
+                <p>לפי הסימונים שלנו, השטח שבין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=x_0, x=x_0+\Delta x\)</span> וגרף <span class="math" dir="ltr">\(f(x)\)</span> הוא:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \Delta S = S(x_0+\Delta x) - S(x_0) \quad (*) $$</div></div>
+                <!-- Replaced Placeholder 4 -->
+                <div class="chart-container">
+                    <h5>תוספת השטח <span class="math" dir="ltr">\(\Delta S\)</span> בין <span class="math" dir="ltr">\(x_0\)</span> ל-<span class="math" dir="ltr">\(x_0+\Delta x\)</span></h5>
+                    <div class="chart-wrapper">
+                         <canvas id="canvas_area_delta_s" height="200"></canvas>
+                    </div>
+                </div>
+
+                <p><strong>הסבר ל- (*):</strong></p>
+                <p>נסמן לשם פשטות את אוסף הנקודות ששטחו <span class="math" dir="ltr">\(\Delta S\)</span> ב-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>. מתקיים:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ A_{x_0+\Delta x} = A_{x_0} \cup \hat{A}_{\Delta S} $$</div></div>
+                <p>האיחוד בצד ימין הוא איחוד של שתי קבוצות זרות (עד כדי הקו האנכי <span class="math" dir="ltr">\(x=x_0\)</span> המפריד ביניהן, שהוא בעל שטח 0).</p>
+                <p>אז לפי תכונה ג' (אדיטיביות) מתקיים:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ S(A_{x_0+\Delta x}) = S(A_{x_0}) + S(\hat{A}_{\Delta S}) $$</div></div>
+                <p>כלומר:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ S(x_0+\Delta x) = S(x_0) + \Delta S $$</div></div>
+                <p>נעביר אגפים ונקבל את (*).</p>
+
+<p>
+כיצד נעריך את <span class="math" dir="ltr">\( \Delta S \)</span>? 
+הפונקציה <span class="math" dir="ltr">\( f \)</span> רציפה בקטע הסגור 
+<span class="math" dir="ltr">\( [x_0, x_0 + \Delta x] \)</span>, 
+ולכן יש לה ערך מינימלי שנסמנו 
+<span class="math" dir="ltr">\( m \)</span> 
+וערך מקסימלי שנסמנו 
+<span class="math" dir="ltr">\( M \)</span> .
+</p>
+                <p>על כן, המלבן שבסיסו <span class="math" dir="ltr">\(\Delta x\)</span> וגובהו <span class="math" dir="ltr">\(m\)</span> מוכל ב-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>, ואילו המלבן שבסיסו <span class="math" dir="ltr">\(\Delta x\)</span> וגובהו <span class="math" dir="ltr">\(M\)</span> מכיל את <span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>.</p>
+                <p>אז לפי תכונה ב' (מונוטוניות), שטח המלבן הנמוך אינו גדול מ-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>, ו-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span> אינו גדול משטח המלבן הגבוה:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ m \cdot \Delta x \le \Delta S \le M \cdot \Delta x $$</div></div>
+                <p>(שוויון ממש באחד מהם אם ורק אם <span class="math" dir="ltr">\(f\)</span> קבועה בקטע <span class="math" dir="ltr">\([x_0, x_0+\Delta x]\)</span>).</p>
+                <p>נחלק ב-<span class="math" dir="ltr">\(\Delta x > 0\)</span> ונקבל:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ m \le \frac{\Delta S}{\Delta x} \le M $$</div></div>
+                <p>כאשר <span class="math" dir="ltr">\(\Delta x \to 0^+\)</span>, מכיוון ש-<span class="math" dir="ltr">\(f\)</span> רציפה ב-<span class="math" dir="ltr">\(x_0\)</span>, גם <span class="math" dir="ltr">\(m\)</span> וגם <span class="math" dir="ltr">\(M\)</span> (שהם ערכים של <span class="math" dir="ltr">\(f\)</span> בקטע <span class="math" dir="ltr">\([x_0, x_0+\Delta x]\)</span>) שואפים ל-<span class="math" dir="ltr">\(f(x_0)\)</span>. כלומר:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\Delta x \to 0^+} m = \lim_{\Delta x \to 0^+} M = f(x_0) $$</div></div>
+                <p>לכן, לפי משפט הסנדוויץ', נקבל מ-<span class="math" dir="ltr">\(m \le \frac{\Delta S}{\Delta x} \le M\)</span> ש:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\Delta x \to 0^+} \frac{\Delta S}{\Delta x} = \lim_{\Delta x \to 0^+} \frac{S(x_0+\Delta x) - S(x_0)}{\Delta x} = f(x_0) $$</div></div>
+                 <p>כלומר, פונקציית השטח <span class="math" dir="ltr">\(S(x)\)</span> גזירה מימין ב-<span class="math" dir="ltr">\(x_0\)</span> ומתקיים ש-<span class="math" dir="ltr">\(S'_+(x_0) = f(x_0)\)</span>.</p>
+                <p>באופן דומה, אם ניקח <span class="math" dir="ltr">\(\Delta x < 0\)</span>, נחלק ב-<span class="math" dir="ltr">\(-\Delta x > 0\)</span> ונגיע לאותה מסקנה עבור הגבול משמאל, <span class="math" dir="ltr">\(\lim_{\Delta x \to 0^-} \frac{S(x_0+\Delta x) - S(x_0)}{\Delta x} = f(x_0)\)</span>, כלומר <span class="math" dir="ltr">\(S'_-(x_0) = f(x_0)\)</span>.</p>
+                <p>סה"כ <span class="math" dir="ltr">\(S(x)\)</span> גזירה ב-<span class="math" dir="ltr">\(x_0\)</span> ו-<span class="math" dir="ltr">\(S'(x_0) = f(x_0)\)</span>.</p>
+                <p>טיעון זה נכון לכל <span class="math" dir="ltr">\(x_0 \in (a,b)\)</span>. בקצוות, <span class="math" dir="ltr">\(x_0=a\)</span> ו-<span class="math" dir="ltr">\(x_0=b\)</span>, הוא נכון באופן חד-צדדי: <span class="math" dir="ltr">\(S'_+(a)=f(a)\)</span> ו-<span class="math" dir="ltr">\(S'_-(b)=f(b)\)</span>.</p>
+                <p>נכתוב כעת <span class="math" dir="ltr">\(x\)</span> במקום <span class="math" dir="ltr">\(x_0\)</span>. קיבלנו בסה"כ ש-<span class="math" dir="ltr">\(S(x)\)</span> היא <strong>פונקציה קדומה</strong> ל-<span class="math" dir="ltr">\(f(x)\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span>. השטח של <span class="math" dir="ltr">\(A_x\)</span> (השטח מ-<span class="math" dir="ltr">\(a\)</span> עד <span class="math" dir="ltr">\(x\)</span>) הוא <span class="math" dir="ltr">\(S(x) = S(x)-S(a)\)</span> (כי <span class="math" dir="ltr">\(S(a)=0\)</span>). בפרט, עבור <span class="math" dir="ltr">\(x=b\)</span>, השטח שרצינו לחשב הוא <span class="math" dir="ltr">\(S(b) = S(b)-S(a)\)</span>.</p>
+
+                <p><span class="math" dir="ltr">\(S(x)\)</span> היא פונקציה קדומה מיוחדת שבנינו והוגדרה כפונקצית שטח. אם <span class="math" dir="ltr">\(F(x)\)</span> היא איזושהי פונקציה קדומה אחרת של <span class="math" dir="ltr">\(f(x)\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span>, אז יש קבוע <span class="math" dir="ltr">\(C\)</span> כך ש-<span class="math" dir="ltr">\(F(x) = S(x) + C\)</span> בקטע זה. לכן, לכל <span class="math" dir="ltr">\(x_0 \in [a,b]\)</span> מתקיים:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ F(x_0) - F(a) = (S(x_0) + C) - (S(a) + C) = S(x_0) - S(a) = S(x_0) $$</div></div>
+                <p>כלומר, הפרש הערכים של <strong>כל</strong> פונקציה קדומה בין <span class="math" dir="ltr">\(x=a\)</span> ל-<span class="math" dir="ltr">\(x=x_0\)</span> נותן את השטח <span class="math" dir="ltr">\(S(x_0)\)</span> (השטח בין ציר <span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=x_0\)</span> והגרף של <span class="math" dir="ltr">\(f\)</span>).</p>
+                <p>בפרט, <span class="math" dir="ltr">\(F(b)-F(a)\)</span> הוא השטח הרצוי מתחת לגרף של <span class="math" dir="ltr">\(f\)</span> מעל הקטע <span class="math" dir="ltr">\([a,b]\)</span>.</p>
+                <div class="definition">
+                    <h4>המשפט היסודי של החשבון הדיפרנציאלי והאינטגרלי (חלק 1)</h4>
+                    <p>אם <span class="math" dir="ltr">\(f\)</span> רציפה בקטע <span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה כלשהי של <span class="math" dir="ltr">\(f\)</span> בקטע זה (<span class="math" dir="ltr">\(F'(x)=f(x)\)</span>), אז השטח המכוון בין גרף הפונקציה <span class="math" dir="ltr">\(f\)</span> לבין ציר ה-<span class="math" dir="ltr">\(x\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span> נתון על ידי:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ \text{Area} = \int_a^b f(x) \, dx = F(b) - F(a) $$</div></div>
+                    <p>(הסימון <span class="math" dir="ltr">\(\int_a^b f(x) dx\)</span> נקרא <strong>אינטגרל מסוים</strong> ויוגדר בהמשך).</p>
+                </div>
+            </section>
+
+            <section id="negative-area">
+                <h2>שטח שלילי וקיזוז</h2>
+                <p>מה לגבי <span class="math" dir="ltr">\(f\)</span> שלילית?</p>
+                <p>אזי <span class="math" dir="ltr">\(-f\)</span> חיובית. אם <span class="math" dir="ltr">\(F\)</span> קדומה של <span class="math" dir="ltr">\(f\)</span>, אזי <span class="math" dir="ltr">\(-F\)</span> קדומה של <span class="math" dir="ltr">\(-f\)</span>. השטח שבין ציר ה-<span class="math" dir="ltr">\(x\)</span> לגרף של <span class="math" dir="ltr">\(-f\)</span> (שנמצא מעל הציר) הוא <span class="math" dir="ltr">\((-F)(b) - (-F)(a) = -(F(b) - F(a))\)</span>.</p>
+                <p>זהו השטח הגאומטרי שבין גרף <span class="math" dir="ltr">\(f\)</span> (שנמצא מתחת לציר <span class="math" dir="ltr">\(x\)</span>) לבין ציר <span class="math" dir="ltr">\(x\)</span>. מכאן שהביטוי <span class="math" dir="ltr">\(F(b)-F(a)\)</span> עבור <span class="math" dir="ltr">\(f\)</span> שלילית הוא מספר שלילי שערכו המוחלט שווה לשטח הגאומטרי. כלומר, הפרש הערכים של פונקציה קדומה של <span class="math" dir="ltr">\(f\)</span> שלילית מודד את השטח כשטח שלילי (שטח מכוון).</p>
+                <p>אם <span class="math" dir="ltr">\(f\)</span> משנה סימן בקטע <span class="math" dir="ltr">\([a,b]\)</span>, ניתן לחלק את הקטע לקטעי משנה שבהם הסימן קבוע. למשל, אם <span class="math" dir="ltr">\(f\)</span> שלילית ב-<span class="math" dir="ltr">\([a,c]\)</span> וחיובית ב-<span class="math" dir="ltr">\([c,b]\)</span>, אז:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ F(b)-F(a) = (F(b)-F(c)) + (F(c)-F(a)) $$</div></div>
+                <p>כאשר <span class="math" dir="ltr">\(F(b)-F(c)\)</span> הוא השטח החיובי מעל <span class="math" dir="ltr">\([c,b]\)</span>, ו-<span class="math" dir="ltr">\(F(c)-F(a)\)</span> הוא השטח השלילי מתחת ל-<span class="math" dir="ltr">\([a,c]\)</span>. הביטוי הכולל <span class="math" dir="ltr">\(F(b)-F(a)\)</span> מודד את השטח המכוון הכולל, כך שהשטח שמתחת לציר מתקזז עם השטח שמעל הציר.</p>
+
+                <div class="example">
+                    <h4>דוגמה: קיזוז שטחים</h4>
+                    <p>ניקח <span class="math" dir="ltr">\(f(x)=2x\)</span> בקטע <span class="math" dir="ltr">\([-1,1]\)</span>.</p>
+                    <p>הפונקציה הקדומה שלה היא <span class="math" dir="ltr">\(F(x)=x^2\)</span>.</p>
+                    <p>השטח המכוון הוא:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ F(1)-F(-1) = (1)^2 - (-1)^2 = 1-1 = 0 $$</div></div>
+                    <div class="chart-container">
+                        <div class="chart-wrapper">
+                             <h5>גרף <span class="math" dir="ltr">\(f(x)=2x\)</span> בקטע <span class="math" dir="ltr">\([-1,1]\)</span></h5>
+                             <canvas id="chart_fx_2x"></canvas>
+                        </div>
+                    </div>
+                    <p>הגרף מראה משולש שווה שטח מתחת לציר בקטע <span class="math" dir="ltr">\([-1,0]\)</span> (שטח מכוון <span class="math" dir="ltr">\(-1\)</span>) ומשולש שווה שטח מעל הציר בקטע <span class="math" dir="ltr">\([0,1]\)</span> (שטח מכוון <span class="math" dir="ltr">\(+1\)</span>). השטח המכוון הכולל הוא <span class="math" dir="ltr">\(-1 + 1 = 0\)</span>, כפי שחישבנו. השטח הגאומטרי הכולל הוא כמובן <span class="math" dir="ltr">\(|-1| + |1| = 1+1=2\)</span>.</p>
+                    <p>בהמשך נלמד על האינטגרל המסוים <span class="math" dir="ltr">\(\int_a^b f(x) dx\)</span>, ונראה שגם הוא מחשב את השטח המכוון עם קיזוזים.</p>
+                 </div>
+             </section>
+
+             <section id="substitution-methods">
+                <h2>שיטות הצבה לאינטגרלים</h2>
+                <p>נביא כעת מספר שיטות לפתרון סוגים שונים של אינטגרלים על ידי הצבה.</p>
+                <p>הבסיס לשיטות אלו הוא שבסוף נגיע לאינטגרל של פונקציה רציונלית, אשר איתו אנו יודעים להתמודד (כזכור, בתנאי שניתן לפרק את המכנה למכפלת חזקות טבעיות של גורמים פולינומיאליים לינאריים או ריבועיים אי-פריקים הזרים זה לזה).</p>
+
+                <h3 id="rational-functions">פונקציה רציונלית של שני משתנים</h3>
+                 <div class="definition">
+                    <h4>הגדרה</h4>
+                    <p>פונקציה <span class="math" dir="ltr">\(R(s,t)\)</span> נקראת <strong>פונקציה רציונלית של שני משתנים</strong> <span class="math" dir="ltr">\(s, t\)</span> אם היא מנה של שני פולינומים במשתנים <span class="math" dir="ltr">\(s\)</span> ו-<span class="math" dir="ltr">\(t\)</span>. באופן שקול, כאשר מתייחסים לאחד המשתנים כאל קבוע, היא פונקציה רציונלית במשתנה השני.</p>
+                    <p>למשל: <span class="math" dir="ltr">\(R(s,t) = \frac{2st}{2s-t}\)</span>.</p>
+                 </div>
+                <p>השימוש בפונקציות רציונליות כאלו הוא פשוט דרך נוחה להציג את סוגי האינטגרלים שנטפל בהם, אשר האינטגרנדים שלהם הם פונקציות של משתנה אחד <span class="math" dir="ltr">\(x\)</span>.</p>
+             </section>
+
+            <section id="type1-integrals">
+                 <h2>סוג 1: אינטגרלים של פונקציות רציונליות ב-<span class="math" dir="ltr">\(\sin x, \cos x\)</span></h2>
+                 <p>הסוג הראשון של אינטגרלים יהיה מהצורה:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \int R(\sin x, \cos x) \, dx $$</div></div>
+                 <p>כאשר <span class="math" dir="ltr">\(R(s,t)\)</span> היא פונקציה רציונלית של שני משתנים.</p>
+                 <p>למשל, עבור הפונקציה של משתנה אחד:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{2\sin x \cos x}{\sin x - 5\cos x} $$</div></div>
+                 <p>כאן הפונקציה הרציונלית המתאימה היא <span class="math" dir="ltr">\(R(s,t) = \frac{2st}{s-5t}\)</span>, והאינטגרל הוא <span class="math" dir="ltr">\(\int f(x) dx = \int R(\sin x, \cos x) dx\)</span>.</p>
+
+                 <p>כדאי לרענן את הידע לגבי התנהגות הפונקציות הטריגונומטריות הבסיסיות <span class="math" dir="ltr">\(\sin x, \cos x, \tan x, \cot x\)</span>: המחזוריות שלהן, היכן הן חיוביות/שליליות/מתאפסות/מקבלות <span class="math" dir="ltr">\(\pm 1\)</span>, והיכן הן עולות/יורדות.</p>
+
+                 <h3>ההצבה האוניברסלית (ויירשטראס)</h3>
+                 <p>כפי שנווכח, דרכנו תהיה למצוא הצבה מתאימה שתהפוך כל אינטגרל לאינטגרל מסוג שאותו אנו יודעים לפתור (אינטגרל של פונקציה רציונלית).</p>
+                 <p>נשתמש בנוסחאות של חצי זווית:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \sin x = \frac{2\tan(x/2)}{1+\tan^2(x/2)}, \quad \cos x = \frac{1-\tan^2(x/2)}{1+\tan^2(x/2)} $$</div></div>
+                 <p>נבצע את ההצבה:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ t = \tan\left(\frac{x}{2}\right) $$</div></div>
+                 <p>"תרגום" הנוסחאות לאנטגרל שלנו באמצעות <span class="math" dir="ltr">\(t\)</span> הוא:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \sin x = \frac{2t}{1+t^2}, \quad \cos x = \frac{1-t^2}{1+t^2} $$</div></div>
+                 <p>כעת נמצא את <span class="math" dir="ltr">\(dx\)</span> במונחי <span class="math" dir="ltr">\(dt\)</span>. מ-<span class="math" dir="ltr">\(t = \tan(x/2)\)</span> נובע <span class="math" dir="ltr">\(x/2 = \arctan(t)\)</span>, ולכן <span class="math" dir="ltr">\(x = 2 \arctan(t)\)</span>.</p>
+                 <p>נגזור לפי <span class="math" dir="ltr">\(t\)</span>:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \frac{dx}{dt} = \frac{d}{dt}(2 \arctan t) = 2 \cdot \frac{1}{1+t^2} = \frac{2}{1+t^2} $$</div></div>
+                 <p>ולכן:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{2}{1+t^2} dt $$</div></div>
+
+                 <p><strong>דרך חלופית למציאת <span class="math" dir="ltr">\(dx\)</span>:</strong></p>
+                 <p>מ-<span class="math" dir="ltr">\(t = \tan(x/2)\)</span>, נגזור לפי <span class="math" dir="ltr">\(x\)</span>:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{d}{dx}\left(\tan\left(\frac{x}{2}\right)\right) = \sec^2\left(\frac{x}{2}\right) \cdot \frac{1}{2} = \frac{1}{2\cos^2(x/2)} $$</div></div>
+                 <p>נשתמש בזהות <span class="math" dir="ltr">\(\cos^2(\alpha) = \frac{1+\cos(2\alpha)}{2}\)</span> עם <span class="math" dir="ltr">\(\alpha = x/2\)</span>:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{1}{1+\cos x} $$</div></div>
+                 <p>נביע את <span class="math" dir="ltr">\(\cos x\)</span> באמצעות <span class="math" dir="ltr">\(t\)</span>:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{1}{1 + \frac{1-t^2}{1+t^2}} = \frac{1}{\frac{(1+t^2)+(1-t^2)}{1+t^2}} = \frac{1}{\frac{2}{1+t^2}} = \frac{1+t^2}{2} $$</div></div>
+                 <p>ומכאן שוב:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{2}{1+t^2} dt $$</div></div>
+
+                 <p>בסה"כ, הצבה זו הופכת אינטגרל מסוג <span class="math" dir="ltr">\(\int R(\sin x, \cos x) dx\)</span> ל:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \int R\left(\frac{2t}{1+t^2}, \frac{1-t^2}{1+t^2}\right) \frac{2}{1+t^2} dt $$</div></div>
+                 <p>האינטגרנד החדש הוא פונקציה רציונלית של <span class="math" dir="ltr">\(t\)</span>, ואחרי סידור אלגברי מקבלים אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>, שאותו אנו יודעים לפתור (עקרונית).</p>
+            </section>
+
+            <section id="example-sin">
+                <h2>5. דוגמה: <span class="math" dir="ltr">\(\int \frac{dx}{\sin x}\)</span></h2>
+                <p>זהו אינטגרל מסוג (1) (כאן <span class="math" dir="ltr">\(R(s,t) = 1/s\)</span>). נשתמש בהצבה האוניברסלית <span class="math" dir="ltr">\(t = \tan(x/2)\)</span>.</p>
+                <p>ידוע ש-<span class="math" dir="ltr">\(\sin x = \frac{2t}{1+t^2}\)</span> ו-<span class="math" dir="ltr">\(dx = \frac{2}{1+t^2} dt\)</span>. נציב:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{\frac{2t}{1+t^2}} \cdot \frac{2}{1+t^2} dt = \int \frac{1+t^2}{2t} \cdot \frac{2}{1+t^2} dt = \int \frac{1}{t} dt $$</div></div>
+                <p>זהו אינטגרל מיידי:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ I = \ln|t| + C $$</div></div>
+                <p>נחזור למשתנה <span class="math" dir="ltr">\(x\)</span>:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ I = \ln\left|\tan\left(\frac{x}{2}\right)\right| + C $$</div></div>
+                <p>(כמובן, הפתרון אינו מוגדר כאשר <span class="math" dir="ltr">\(\tan(x/2) = 0\)</span> או אינו מוגדר, כלומר <span class="math" dir="ltr">\(x/2 = k\pi\)</span> או <span class="math" dir="ltr">\(x/2 = \pi/2 + k\pi\)</span>, שזה <span class="math" dir="ltr">\(x = n\pi\)</span> עבור <span class="math" dir="ltr">\(n\)</span> שלם. זה לא מפתיע, מכיוון שאלו בדיוק הנקודות בהן <span class="math" dir="ltr">\(\sin x = 0\)</span>, והאינטגרנד המקורי אינו מוגדר).</p>
+
+                <p>אומנם ההצבה האוניברסלית הביאה לפתרון קל מאוד, אך ניתן גם אחרת (כפי שראינו בשיעור קודם או באופן דומה):</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{1}{\sin x} dx = \int \frac{\sin x}{\sin^2 x} dx = \int \frac{\sin x}{1-\cos^2 x} dx \\ & \text{Let } u = \cos x, \quad du = -\sin x dx \\ &= \int \frac{-du}{1-u^2} = \int \frac{du}{u^2-1} = \int \frac{1}{(u-1)(u+1)} du \\ &= \int \frac{1}{2} \left( \frac{1}{u-1} - \frac{1}{u+1} \right) du \\ &= \frac{1}{2} (\ln|u-1| - \ln|u+1|) + C = \frac{1}{2} \ln\left|\frac{u-1}{u+1}\right| + C \\ &= \frac{1}{2} \ln\left|\frac{\cos x - 1}{\cos x + 1}\right| + C \\ &= \frac{1}{2} \ln\left|\frac{-2\sin^2(x/2)}{2\cos^2(x/2)}\right| + C = \frac{1}{2} \ln|\tan^2(x/2)| + C \\ &= \ln|\tan(x/2)| + C \end{aligned} $$</div></div>
+                 <p>אכן, לא תמיד ההצבות שנלמד הן הדרך היחידה או הקלה ביותר.</p>
+            </section>
+
+             <section id="type2-integrals">
+                 <h2>6. סוג 2: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{a^2-x^2}) dx\)</span></h2>
+                 <p>כאן <span class="math" dir="ltr">\(a > 0\)</span> הוא קבוע, ו-<span class="math" dir="ltr">\(R(s,t)\)</span> היא פונקציה רציונלית.</p>
+                 <p>למשל, אם האינטגרנד הוא:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{x^3 (\sqrt{7-x^2})^3 + 5x}{x + \sqrt{7-x^2} - 5x^3 + 4} $$</div></div>
+                  <p>כאן <span class="math" dir="ltr">\(a = \sqrt{7}\)</span>, והפונקציה הרציונלית המתאימה היא <span class="math" dir="ltr">\(R(s,t) = \frac{s^3 t^3 + 5s}{s + t - 5s^3 + 4}\)</span>.</p>
+                  <p>גם בשיעור הקודם נתקלנו באינטגרל <span class="math" dir="ltr">\(\int \sqrt{a^2-x^2} dx\)</span>. שם <span class="math" dir="ltr">\(R(s,t)=t\)</span>.</p>
+
+                  <p>הביטוי <span class="math" dir="ltr">\(\sqrt{a^2-x^2}\)</span> מוגדר עבור <span class="math" dir="ltr">\(-a \le x \le a\)</span>.</p>
+                  <p>ההצבה הטריגונומטרית המתאימה כאן היא:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ x = a \sin t $$</div></div>
+                  <p>נבחר את התחום של <span class="math" dir="ltr">\(t\)</span> כך שיכסה את כל הערכים האפשריים של <span class="math" dir="ltr">\(x\)</span> בדיוק פעם אחת, וגם יפשט את השורש. הבחירה המקובלת היא <span class="math" dir="ltr">\(-\frac{\pi}{2} \le t \le \frac{\pi}{2}\)</span>.</p>
+                  <p>בתחום זה מתקיים <span class="math" dir="ltr">\(\cos t \ge 0\)</span>, ולכן:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{a^2-x^2} = \sqrt{a^2 - (a\sin t)^2} = \sqrt{a^2(1-\sin^2 t)} = \sqrt{a^2 \cos^2 t} = |a \cos t| = a \cos t $$</div></div>
+                  <p>כמו כן, הדיפרנציאל הוא:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ dx = a \cos t \, dt $$</div></div>
+                  <p>כך האינטגרל הופך להיות:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(x, \sqrt{a^2-x^2}) dx = \int R(a\sin t, a\cos t) \cdot (a\cos t) dt $$</div></div>
+                   <p>וזהו אינטגרל מהסוג הקודם (סוג 1: אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(\sin t, \cos t\)</span>), איתו אנחנו יודעים להתמודד (למשל, באמצעות ההצבה האוניברסלית <span class="math" dir="ltr">\(u = \tan(t/2)\)</span>).</p>
+                   <p>(הערה: אפשר גם להציב <span class="math" dir="ltr">\(x=a\cos t\)</span> עם <span class="math" dir="ltr">\(0 \le t \le \pi\)</span>, ואז <span class="math" dir="ltr">\(\sqrt{a^2-x^2} = a\sin t\)</span> ו-<span class="math" dir="ltr">\(dx = -a\sin t dt\)</span>).</p>
+             </section>
+
+             <section id="type3-integrals">
+                  <h2>7. סוג 3: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{a^2+x^2}) dx\)</span></h2>
+                  <p>כאן הביטוי <span class="math" dir="ltr">\(\sqrt{a^2+x^2}\)</span> מוגדר לכל <span class="math" dir="ltr">\(x \in \mathbb{R}\)</span>.</p>
+                  <p>בהסתמך על הזהות <span class="math" dir="ltr">\(1+\tan^2 t = \sec^2 t = \frac{1}{\cos^2 t}\)</span>, ההצבה המתאימה היא:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ x = a \tan t $$</div></div>
+<p>
+נבחר את התחום של 
+<span class="math" dir="ltr">\( t \)</span> 
+כך שיכסה את כל הערכים האפשריים של 
+<span class="math" dir="ltr">\( x \in (-\infty, \infty) \)</span> 
+בדיוק פעם אחת ויפשט את הביטוי שבתוך השורש. הבחירה המקובלת היא:
+<span class="math" dir="ltr">\( -\frac{\pi}{2} < t < \frac{\pi}{2} \)</span>.
+בתחום זה מתקיים 
+<span class="math" dir="ltr">\( \cos t > 0 \)</span> 
+(ולכן גם 
+<span class="math" dir="ltr">\( \sec t > 0 \)</span>).
+</p>
+
+                  <p>בתחום זה מתקיים <span class="math" dir="ltr">\(\cos t > 0\)</span> (ולכן <span class="math" dir="ltr">\(\sec t > 0\)</span>).</p>
+                  <div class="chart-container">
+                    <div class="chart-wrapper">
+                         <h5>גרף <span class="math" dir="ltr">\(x = a \tan t\)</span> עבור <span class="math" dir="ltr">\(t \in (-\pi/2, \pi/2)\)</span> (עם <span class="math" dir="ltr">\(a=1\)</span>)</h5>
+<div class="chart-container">
+<div class="charts">
+  <canvas id="tanChart"></canvas>
+</div>
+
+</div>
+                    </div>
+                  </div>
+                  <p>נחשב את השורש:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{a^2+x^2} = \sqrt{a^2 + (a\tan t)^2} = \sqrt{a^2(1+\tan^2 t)} = \sqrt{a^2 \sec^2 t} = |a \sec t| = a \sec t = \frac{a}{\cos t} $$</div></div>
+                  <p>הדיפרנציאל הוא:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ dx = a \sec^2 t \, dt = \frac{a}{\cos^2 t} dt $$</div></div>
+                  <p>והאינטגרל הופך להיות:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(a\tan t, a\sec t) \cdot (a\sec^2 t) dt $$</div></div>
+                  <p>גם זה אינטגרל של פונקציה רציונלית במונחי פונקציות טריגונומטריות (ניתן להביע <span class="math" dir="ltr">\(\tan t = \sin t / \cos t\)</span> ו-<span class="math" dir="ltr">\(\sec t = 1/\cos t\)</span>), כלומר אינטגרל מסוג 1.</p>
+             </section>
+
+             <section id="type4-integrals">
+                  <h2>8. סוג 4: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{x^2-a^2}) dx\)</span></h2>
+                  <p>כאן הביטוי <span class="math" dir="ltr">\(\sqrt{x^2-a^2}\)</span> מוגדר עבור <span class="math" dir="ltr">\(x \ge a\)</span> או <span class="math" dir="ltr">\(x \le -a\)</span>.</p>
+                  <p>נשתמש שוב בזהות <span class="math" dir="ltr">\(1+\tan^2 t = \sec^2 t\)</span>, או <span class="math" dir="ltr">\(\sec^2 t - 1 = \tan^2 t\)</span>. ההצבה המתאימה היא:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ x = a \sec t = \frac{a}{\cos t} $$</div></div>
+                  <p>נבחר את התחום של <span class="math" dir="ltr">\(t\)</span>.
+                  <ul>
+                    <li>כדי לכסות <span class="math" dir="ltr">\(x \ge a\)</span>, מתאים <span class="math" dir="ltr">\(t \in [0, \pi/2)\)</span>. בתחום זה <span class="math" dir="ltr">\(\cos t > 0\)</span>, <span class="math" dir="ltr">\(\sin t \ge 0\)</span>, <span class="math" dir="ltr">\(\tan t \ge 0\)</span>.</li>
+                    <li>כדי לכסות <span class="math" dir="ltr">\(x \le -a\)</span>, מתאים <span class="math" dir="ltr">\(t \in (\pi/2, \pi]\)</span>. בתחום זה <span class="math" dir="ltr">\(\cos t < 0\)</span>, <span class="math" dir="ltr">\(\sin t \ge 0\)</span>, <span class="math" dir="ltr">\(\tan t \le 0\)</span>.</li>
+                 </ul>
+                 </p>
+                  <div class="chart-container">
+                        <div class="chart-wrapper">
+                             <h5>גרף <span class="math" dir="ltr">\(x = a / \cos t\)</span> עבור <span class="math" dir="ltr">\(t \in [0, \pi/2) \cup (\pi/2, \pi]\)</span> (עם <span class="math" dir="ltr">\(a=1\)</span>)</h5>
+  <canvas id="secChart" width="600" height="400"></canvas>
+                        </div>
+                  </div>
+                  <p>נחשב את השורש:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2-a^2} = \sqrt{(a\sec t)^2 - a^2} = \sqrt{a^2(\sec^2 t - 1)} = \sqrt{a^2 \tan^2 t} = |a \tan t| $$</div></div>
+                   <p>לכן:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2-a^2} = \begin{cases} a \tan t & \text{if } x \ge a \quad (t \in [0, \pi/2)) \\ -a \tan t & \text{if } x \le -a \quad (t \in (\pi/2, \pi]) \end{cases} $$</div></div>
+                   <p>הדיפרנציאל הוא:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ dx = a \sec t \tan t \, dt = \frac{a \sin t}{\cos^2 t} dt $$</div></div>
+                   <p>האינטגרל הופך ל:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(a\sec t, |a\tan t|) \cdot (a \sec t \tan t) dt $$</div></div>
+                   <p>שוב, זהו אינטגרל מסוג 1.</p>
+             </section>
+
+              <section id="example-sqrt">
+                 <h2>9. דוגמה: <span class="math" dir="ltr">\(I = \int \frac{dx}{x^2\sqrt{x^2-1}}\)</span></h2>
+                 <p>זהו אינטגרל מסוג 4 עם <span class="math" dir="ltr">\(a=1\)</span>. נשתמש בהצבה <span class="math" dir="ltr">\(x = \sec t = \frac{1}{\cos t}\)</span>.</p>
+                 <p>הדיפרנציאל: <span class="math" dir="ltr">\(dx = \sec t \tan t \, dt\)</span>.</p>
+                 <p>השורש: <span class="math" dir="ltr">\(\sqrt{x^2-1} = |\tan t|\)</span>.</p>
+                 <p>נציב באינטגרל:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{\sec t \tan t \, dt}{(\sec t)^2 |\tan t|} = \int \frac{\tan t}{\sec t |\tan t|} dt $$</div></div>
+                 <p>נפריד למקרים:</p>
+                 <ul>
+                    <li><strong>מקרה 1: <span class="math" dir="ltr">\(x \ge 1\)</span></strong> (<span class="math" dir="ltr">\(t \in [0, \pi/2)\)</span>. כאן <span class="math" dir="ltr">\(\tan t \ge 0\)</span>, <span class="math" dir="ltr">\(\sec t \ge 1\)</span>, ולכן <span class="math" dir="ltr">\(|\tan t| = \tan t\)</span> (נניח <span class="math" dir="ltr">\(t \ne 0\)</span>).
+                        <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{\tan t}{\sec t \tan t} dt = \int \frac{1}{\sec t} dt = \int \cos t \, dt = \sin t + C $$</div></div>
+                        צריך לחזור ל-<span class="math" dir="ltr">\(x\)</span>. אם <span class="math" dir="ltr">\(x = \sec t = 1/\cos t\)</span>, אז <span class="math" dir="ltr">\(\cos t = 1/x\)</span>. מכיוון ש-<span class="math" dir="ltr">\(t \in [0, \pi/2)\)</span>, <span class="math" dir="ltr">\(\sin t \ge 0\)</span>. לכן <span class="math" dir="ltr">\(\sin t = \sqrt{1-\cos^2 t} = \sqrt{1 - (1/x)^2} = \sqrt{\frac{x^2-1}{x^2}} = \frac{\sqrt{x^2-1}}{|x|}\)</span>. מאחר ש-<span class="math" dir="ltr">\(x \ge 1\)</span>, <span class="math" dir="ltr">\(|x|=x\)</span>.
+                        <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{\sqrt{x^2-1}}{x} + C \quad (\text{for } x \ge 1) $$</div></div>
+                    </li>
+                     <li><strong>מקרה 2: <span class="math" dir="ltr">\(x \le -1\)</span></strong> (<span class="math" dir="ltr">\(t \in (\pi/2, \pi]\)</span>. כאן <span class="math" dir="ltr">\(\tan t \le 0\)</span>, <span class="math" dir="ltr">\(\sec t \le -1\)</span>, ולכן <span class="math" dir="ltr">\(|\tan t| = -\tan t\)</span> (נניח <span class="math" dir="ltr">\(t \ne \pi\)</span>).
+                        <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{\tan t}{\sec t (-\tan t)} dt = \int \frac{-1}{\sec t} dt = \int -\cos t \, dt = -\sin t + C $$</div></div>
+                         כאן <span class="math" dir="ltr">\(t \in (\pi/2, \pi]\)</span>, אז <span class="math" dir="ltr">\(\sin t \ge 0\)</span>. כמו קודם, <span class="math" dir="ltr">\(\sin t = \frac{\sqrt{x^2-1}}{|x|}\)</span>. מאחר ש-<span class="math" dir="ltr">\(x \le -1\)</span>, <span class="math" dir="ltr">\(|x|=-x\)</span>.
+                         <div class="formula-block"><div class="math" dir="ltr">$$ I = -\frac{\sqrt{x^2-1}}{-x} + C = \frac{\sqrt{x^2-1}}{x} + C \quad (\text{for } x \le -1) $$</div></div>
+                     </li>
+                 </ul>
+                 <p>בשני המקרים קיבלנו את אותה התוצאה:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{x^2\sqrt{x^2-1}} = \frac{\sqrt{x^2-1}}{x} + C $$</div></div>
+                 <p>נשים לב שהאינטגרנד הוא פונקציה זוגית (<span class="math" dir="ltr">\(f(-x) = \frac{1}{(-x)^2 \sqrt{(-x)^2-1}} = f(x)\)</span>), והפונקציה הקדומה שמצאנו היא פונקציה אי-זוגית (<span class="math" dir="ltr">\(F(-x) = \frac{\sqrt{(-x)^2-1}}{-x} = -F(x)\)</span>). זה הגיוני, שכן נגזרת של פונקציה אי-זוגית היא פונקציה זוגית.</p>
+             </section>
+
+             <section id="special-cases">
+                 <h2>10. הצבות יעילות יותר במקרים מסוימים</h2>
+                 <p>ישנם מקרים בהם יש הצבות יעילות יותר מאשר ההצבה האוניברסלית או ההצבות הטריגונומטריות הכלליות.</p>
+
+                 <h3 id="special-case1"> מקרה 1: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(\cos^2 x, \sin x) \cos x \, dx\)</span></h3>
+                  <p>או באופן כללי יותר, אינטגרלים שבהם <span class="math" dir="ltr">\(\cos x\)</span> מופיע רק בחזקות זוגיות (או בתוך פונקציה רציונלית של <span class="math" dir="ltr">\(\cos^2 x\)</span>), <span class="math" dir="ltr">\(\sin x\)</span> יכול להופיע בחזקות כלשהן, והאינטגרנד מוכפל ב-<span class="math" dir="ltr">\(\cos x \, dx\)</span>.</p>
+                 <p>מכיוון ש-<span class="math" dir="ltr">\(\cos^2 x = 1 - \sin^2 x\)</span>, ומכיוון ש-<span class="math" dir="ltr">\((\sin x)' = \cos x\)</span>, ההצבה המתבקשת היא:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ t = \sin x $$</div></div>
+                 <p>ואז <span class="math" dir="ltr">\(dt = \cos x \, dx\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x = 1 - t^2\)</span>.</p>
+                 <p>האינטגרל הופך ל:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(1-t^2, t) \, dt $$</div></div>
+                 <p>וזהו אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>, שלרוב פשוט יותר לחישוב מאשר זה המתקבל מההצבה האוניברסלית.</p>
+                 <p>(באופן דומה, אם <span class="math" dir="ltr">\(\sin x\)</span> מופיע רק בחזקות זוגיות, <span class="math" dir="ltr">\(\cos x\)</span> בחזקות כלשהן, והאינטגרנד מוכפל ב-<span class="math" dir="ltr">\(\sin x dx\)</span>, ההצבה <span class="math" dir="ltr">\(t = \cos x\)</span> (ואז <span class="math" dir="ltr">\(dt = -\sin x dx\)</span>) תהיה יעילה).</p>
+             </section>
+
+            <section id="example-cos3">
+                <h2>11. דוגמה למקרה 1</h2>
+                <p>חשב <span class="math" dir="ltr">\(I = \int \frac{\cos^3 x + \sin(2x)}{2 - \cos^2 x} dx\)</span>.</p>
+                <p>נפשט את האינטגרנד וננסה להביא אותו לצורה של מקרה 1:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{\cos^3 x + 2\sin x \cos x}{2 - \cos^2 x} dx \\ &= \int \frac{(\cos^2 x + 2\sin x)\cos x}{2 - \cos^2 x} dx \\ &= \int \frac{(1-\sin^2 x + 2\sin x)}{2 - (1-\sin^2 x)} \cos x \, dx \\ &= \int \frac{1-\sin^2 x + 2\sin x}{1 + \sin^2 x} \cos x \, dx \end{aligned} $$</div></div>
+                 <p>האינטגרנד הוא כעת מהצורה <span class="math" dir="ltr">\(R'(\sin x) \cos x dx\)</span> (השתמשתי ב- <span class="math" dir="ltr">\(R'\)</span> כדי למנוע בלבול עם הגדרת המקרה הכללית <span class="math" dir="ltr">\(R\)</span>). לכן נציב <span class="math" dir="ltr">\(t = \sin x\)</span>, <span class="math" dir="ltr">\(dt = \cos x dx\)</span>.</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1-t^2+2t}{1+t^2} dt $$</div></div>
+                 <p>זהו אינטגרל של פונקציה רציונלית. נבצע חילוק פולינומים או פירוק:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \frac{-t^2+2t+1}{t^2+1} &= \frac{-(t^2+1) + 2t + 2}{t^2+1} \\ &= -1 + \frac{2t+2}{t^2+1} \\ &= -1 + \frac{2t}{t^2+1} + \frac{2}{t^2+1} \end{aligned} $$</div></div>
+                 <p>לכן:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \left( -1 + \frac{2t}{t^2+1} + \frac{2}{t^2+1} \right) dt \\ &= -t + \ln|t^2+1| + 2 \arctan(t) + C \\ &= -\sin x + \ln(1+\sin^2 x) + 2 \arctan(\sin x) + C \end{aligned} $$</div></div>
+                   <p>(הערך המוחלט ב-<span class="math" dir="ltr">\(\ln\)</span> מיותר כי <span class="math" dir="ltr">\(1+t^2 > 0\)</span>).</p>
+            </section>
+
+             <section id="example-sin5">
+                 <h2>12. דוגמה נוספת (הצבה <span class="math" dir="ltr">\(t=\cos x\)</span>)</h2>
+                 <p>חשב <span class="math" dir="ltr">\(I = \int \sin^5 x \, dx\)</span>.</p>
+                 <p>כאן <span class="math" dir="ltr">\(\sin x\)</span> מופיע בחזקה אי-זוגית. נוכל לבודד גורם <span class="math" dir="ltr">\(\sin x dx\)</span> ולהביע את השאר (<span class="math" dir="ltr">\(\sin^4 x\)</span>) באמצעות <span class="math" dir="ltr">\(\cos x\)</span>, וזה מתאים למקרה הדומה למקרה 1:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \sin^4 x \cdot \sin x \, dx \\ &= \int (\sin^2 x)^2 \sin x \, dx \\ &= \int (1-\cos^2 x)^2 \sin x \, dx \end{aligned} $$</div></div>
+                 <p>כעת נציב <span class="math" dir="ltr">\(t = \cos x\)</span>, ואז <span class="math" dir="ltr">\(dt = -\sin x \, dx\)</span>, כלומר <span class="math" dir="ltr">\(\sin x \, dx = -dt\)</span>.</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int (1-t^2)^2 (-dt) \\ &= -\int (1 - 2t^2 + t^4) dt \\ &= -\left( t - \frac{2t^3}{3} + \frac{t^5}{5} \right) + C \\ &= -t + \frac{2}{3}t^3 - \frac{1}{5}t^5 + C \\ &= -\cos x + \frac{2}{3}\cos^3 x - \frac{1}{5}\cos^5 x + C \end{aligned} $$</div></div>
+                  <p>נשים לב שוב: האינטגרנד <span class="math" dir="ltr">\(\sin^5 x\)</span> הוא פונקציה אי-זוגית, והקדומה שקיבלנו היא פונקציה זוגית (כי <span class="math" dir="ltr">\(\cos(-x)=\cos x\)</span>), וזה הגיוני (נגזרת של זוגית היא אי-זוגית).</p>
+             </section>
+
+             <section id="special-case2">
+                 <h3 id="special-case2-heading">13. מקרה 2: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(\sin^2 x, \cos^2 x) dx\)</span></h3>
+                 <p>כאן גם <span class="math" dir="ltr">\(\sin x\)</span> וגם <span class="math" dir="ltr">\(\cos x\)</span> מופיעים רק בחזקות זוגיות (או בתוך פונקציה רציונלית של <span class="math" dir="ltr">\(\sin^2 x\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x\)</span>).</p>
+                 <p>במקרה זה, טובה ההצבה:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ t = \tan x $$</div></div>
+                 <p>אז <span class="math" dir="ltr">\(x = \arctan t\)</span>, ולכן <span class="math" dir="ltr">\(dx = \frac{dt}{1+t^2}\)</span>.</p>
+                 <p>ניתן להביע את <span class="math" dir="ltr">\(\sin^2 x\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x\)</span> באמצעות <span class="math" dir="ltr">\(t=\tan x\)</span>:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \cos^2 x = \frac{1}{\sec^2 x} = \frac{1}{1+\tan^2 x} = \frac{1}{1+t^2} $$</div></div>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \sin^2 x = 1 - \cos^2 x = 1 - \frac{1}{1+t^2} = \frac{1+t^2-1}{1+t^2} = \frac{t^2}{1+t^2} $$</div></div>
+                 <p>ההצבה הופכת את האינטגרל ל:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R\left(\frac{t^2}{1+t^2}, \frac{1}{1+t^2}\right) \frac{1}{1+t^2} dt $$</div></div>
+                  <p>שוב, זהו אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>.</p>
+             </section>
+
+             <section id="example-tan">
+                 <h2>14. דוגמה למקרה 2</h2>
+                 <p>חשב <span class="math" dir="ltr">\(I = \int \frac{1+\sin^2 x}{1+\cos^2 x} dx\)</span>.</p>
+                  <p>האינטגרנד הוא מהצורה <span class="math" dir="ltr">\(R(\sin^2 x, \cos^2 x)\)</span>. נציב <span class="math" dir="ltr">\(t=\tan x\)</span>. ידוע:</p>
+                  <p><span class="math" dir="ltr">\(\sin^2 x = \frac{t^2}{1+t^2}\)</span>, <span class="math" dir="ltr">\(\cos^2 x = \frac{1}{1+t^2}\)</span>, <span class="math" dir="ltr">\(dx = \frac{dt}{1+t^2}\)</span>.</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{1 + \frac{t^2}{1+t^2}}{1 + \frac{1}{1+t^2}} \cdot \frac{dt}{1+t^2} \\ &= \int \frac{\frac{1+t^2+t^2}{1+t^2}}{\frac{1+t^2+1}{1+t^2}} \cdot \frac{dt}{1+t^2} \\ &= \int \frac{1+2t^2}{2+t^2} \cdot \frac{dt}{1+t^2} \\ &= \int \frac{1+2t^2}{(t^2+2)(t^2+1)} dt \end{aligned} $$</div></div>
+                 <p>זהו אינטגרל של פונקציה רציונלית. מעלת המונה (2) קטנה ממעלת המכנה (4). המכנה הוא מכפלה של שני פולינומים ריבועיים אי-פריקים וזרים (<span class="math" dir="ltr">\(t^2+2\)</span> ו-<span class="math" dir="ltr">\(t^2+1\)</span>).</p>
+                 <p>נשתמש בפירוק לשברים חלקיים. מאחר שמופיעות רק חזקות זוגיות של <span class="math" dir="ltr">\(t\)</span> (כלומר, זו פונקציה רציונלית של <span class="math" dir="ltr">\(t^2\)</span>), הפירוק יהיה מהצורה:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1+2u}{(u+2)(u+1)} = \frac{A}{u+2} + \frac{B}{u+1} $$</div></div>
+                  <p>(כאשר <span class="math" dir="ltr">\(u=t^2\)</span> לצורך הפירוק).</p>
+                  <p>נכפיל במכנה המשותף <span class="math" dir="ltr">\((u+2)(u+1)\)</span>:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ 1+2u = A(u+1) + B(u+2) $$</div></div>
+                  <p>נציב ערכים נוחים ל-<span class="math" dir="ltr">\(u\)</span>:
+                  <ul>
+                     <li>אם <span class="math" dir="ltr">\(u=-1\)</span>: <span class="math" dir="ltr">\(1+2(-1) = A(0) + B(-1+2) \implies -1 = B\)</span></li>
+                     <li>אם <span class="math" dir="ltr">\(u=-2\)</span>: <span class="math" dir="ltr">\(1+2(-2) = A(-2+1) + B(0) \implies -3 = -A \implies A=3\)</span></li>
+                  </ul>
+                 </p>
+                  <p>לכן הפירוק הוא:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1+2t^2}{(t^2+2)(t^2+1)} = \frac{3}{t^2+2} - \frac{1}{t^2+1} $$</div></div>
+                  <p>נחזור לאינטגרל:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \left( \frac{3}{t^2+2} - \frac{1}{t^2+1} \right) dt $$</div></div>
+                   <p>נשתמש בנוסחה <span class="math" dir="ltr">\(\int \frac{1}{t^2+a^2} dt = \frac{1}{a} \arctan(\frac{t}{a}) + C\)</span>:</p>
+                   <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= 3 \int \frac{1}{t^2+(\sqrt{2})^2} dt - \int \frac{1}{t^2+1^2} dt \\ &= 3 \cdot \frac{1}{\sqrt{2}} \arctan\left(\frac{t}{\sqrt{2}}\right) - \arctan(t) + C \\ &= \frac{3}{\sqrt{2}} \arctan\left(\frac{\tan x}{\sqrt{2}}\right) - \arctan(\tan x) + C \\ &= \frac{3\sqrt{2}}{2} \arctan\left(\frac{\tan x}{\sqrt{2}}\right) - x + C \end{aligned} $$</div></div>
+                   <p>(הערה: <span class="math" dir="ltr">\(\arctan(\tan x) = x\)</span> בתחום <span class="math" dir="ltr">\(-\pi/2 < x < \pi/2\)</span>. באופן כללי, <span class="math" dir="ltr">\(\arctan(\tan x) = x - k\pi\)</span> כאשר <span class="math" dir="ltr">\(k\)</span> שלם. ההפרש הקבוע נבלע ב-<span class="math" dir="ltr">\(C\)</span>).</p>
+             </section>
+
+        </main>
+    </div>
+
+    <!-- KaTeX JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+     <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+     <script>
+         // --- Global Chart References ---
+         let chart_fx_2x = null;
+         let chart_tan_t = null;
+         let chart_sec_t = null;
+         // References for the new drawings (using simple canvas rendering, not Chart.js)
+         let canvas_area_a_b = null;
+         let ctx_area_a_b = null;
+         let canvas_area_delta_s = null;
+         let ctx_area_delta_s = null;
+
+
+        // --- Function to get current theme colors from CSS Variables ---
+        function getChartColors() {
+            const style = getComputedStyle(document.documentElement);
+            const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
+
+            return {
+                axisColor: getColor('--chart-axis-color', '#333333'),
+                gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
+                textColor: getColor('--text-color', '#343a40'),
+                primaryColor: getColor('--primary-color', '#0a5a8d'),
+                accentColor: getColor('--accent-color', '#f0ad4e'),
+                fillColor: getColor('--chart-fill-color', 'rgba(10, 90, 141, 0.2)'),
+                darkerFillColor: getColor('--primary-color', 'rgba(10, 90, 141, 0.4)'), // For ΔS highlight
+                bgColor: getColor('--card-bg', '#ffffff')
+            };
+        }
+
+        // --- Function to render all charts and drawings ---
+        function renderAllChartsAndDrawings() {
+             renderAreaIllustrationAB(); // Render illustration 1
+             renderAreaIllustrationDeltaS(); // Render illustration 2
+             renderChartFx2x();          // Render Chart.js chart 1
+             renderChartTanT();          // Render Chart.js chart 2
+             renderChartSecT();          // Render Chart.js chart 3
+        }
+
+
+         // --- Render Illustration: Area from a to b ---
+         function renderAreaIllustrationAB() {
+             canvas_area_a_b = document.getElementById('canvas_area_a_b');
+             if (!canvas_area_a_b) return;
+             ctx_area_a_b = canvas_area_a_b.getContext('2d');
+             const colors = getChartColors();
+             const w = canvas_area_a_b.width = canvas_area_a_b.clientWidth;
+             const h = canvas_area_a_b.height = canvas_area_a_b.clientHeight;
+             const pad = 30; // Padding
+
+             // Clear canvas
+             ctx_area_a_b.clearRect(0, 0, w, h);
+             ctx_area_a_b.fillStyle = colors.bgColor; // Match background
+             ctx_area_a_b.fillRect(0, 0, w, h);
+
+             // Axes
+             ctx_area_a_b.strokeStyle = colors.axisColor;
+             ctx_area_a_b.lineWidth = 1.5;
+             ctx_area_a_b.beginPath();
+             ctx_area_a_b.moveTo(pad, h - pad); // X-axis
+             ctx_area_a_b.lineTo(w - pad / 2, h - pad);
+             ctx_area_a_b.moveTo(pad, h - pad); // Y-axis
+             ctx_area_a_b.lineTo(pad, pad / 2);
+             ctx_area_a_b.stroke();
+
+             // Curve function points (example smooth curve)
+             const x_a = pad * 2;
+             const x_b = w - pad * 1.5;
+             const numPoints = 50;
+             const y_base = h - pad; // Y = 0 level
+
+             ctx_area_a_b.beginPath();
+             ctx_area_a_b.moveTo(x_a, y_base - h * 0.4); // Start point on curve
+
+             for (let i = 0; i <= numPoints; i++) {
+                 const x = x_a + (x_b - x_a) * i / numPoints;
+                 // Example curve: combination of sin/cos for smooth bumps
+                 const y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin((x - x_a) * Math.PI / (x_b - x_a)) + 0.1 * Math.cos((x - x_a) * 3 * Math.PI / (x_b - x_a)) );
+                 const y = y_base - y_offset;
+                 if (i === 0) {
+                     ctx_area_a_b.moveTo(x, y);
+                 } else {
+                     ctx_area_a_b.lineTo(x, y);
+                 }
+             }
+
+             // Fill area
+             ctx_area_a_b.lineTo(x_b, y_base); // Line to x-axis at b
+             ctx_area_a_b.lineTo(x_a, y_base); // Line to x-axis at a
+             ctx_area_a_b.closePath();
+             ctx_area_a_b.fillStyle = colors.fillColor;
+             ctx_area_a_b.fill();
+
+             // Stroke the curve itself
+             ctx_area_a_b.strokeStyle = colors.primaryColor;
+             ctx_area_a_b.lineWidth = 2.5;
+             ctx_area_a_b.stroke(); // Draw the path outlined above, but only the curve part
+
+             // Dashed lines at a and b
+             ctx_area_a_b.strokeStyle = colors.secondaryColor;
+             ctx_area_a_b.lineWidth = 1;
+             ctx_area_a_b.setLineDash([5, 5]);
+             // Line a
+             ctx_area_a_b.beginPath();
+             ctx_area_a_b.moveTo(x_a, y_base);
+             ctx_area_a_b.lineTo(x_a, y_base - h * 0.45); // Extend slightly above typical curve start
+             ctx_area_a_b.stroke();
+             // Line b
+             ctx_area_a_b.beginPath();
+             ctx_area_a_b.moveTo(x_b, y_base);
+             ctx_area_a_b.lineTo(x_b, y_base - h * 0.35); // Extend slightly above typical curve end
+             ctx_area_a_b.stroke();
+             ctx_area_a_b.setLineDash([]); // Reset line dash
+
+             // Labels
+             ctx_area_a_b.fillStyle = colors.textColor;
+             ctx_area_a_b.font = "14px " + getComputedStyle(document.body).fontFamily;
+             ctx_area_a_b.textAlign = 'center';
+             ctx_area_a_b.fillText('a', x_a, h - pad / 2);
+             ctx_area_a_b.fillText('b', x_b, h - pad / 2);
+             ctx_area_a_b.textAlign = 'right';
+             ctx_area_a_b.fillText('x', w - pad / 3, h - pad - 5);
+             ctx_area_a_b.textAlign = 'center';
+             ctx_area_a_b.fillText('y', pad + 5, pad / 2 + 5);
+              ctx_area_a_b.fillText('f(x)', (x_a + x_b) / 2 , pad*1.5 ); // Position label above curve
+         }
+
+
+         // --- Render Illustration: Delta S Area ---
+          function renderAreaIllustrationDeltaS() {
+              canvas_area_delta_s = document.getElementById('canvas_area_delta_s');
+              if (!canvas_area_delta_s) return;
+              ctx_area_delta_s = canvas_area_delta_s.getContext('2d');
+              const colors = getChartColors();
+              const w = canvas_area_delta_s.width = canvas_area_delta_s.clientWidth;
+              const h = canvas_area_delta_s.height = canvas_area_delta_s.clientHeight;
+              const pad = 30; // Padding
+
+              // Clear canvas
+              ctx_area_delta_s.clearRect(0, 0, w, h);
+              ctx_area_delta_s.fillStyle = colors.bgColor; // Match background
+              ctx_area_delta_s.fillRect(0, 0, w, h);
+
+
+              // Axes
+              ctx_area_delta_s.strokeStyle = colors.axisColor;
+              ctx_area_delta_s.lineWidth = 1.5;
+              ctx_area_delta_s.beginPath();
+              ctx_area_delta_s.moveTo(pad, h - pad); // X-axis
+              ctx_area_delta_s.lineTo(w - pad / 2, h - pad);
+              ctx_area_delta_s.moveTo(pad, h - pad); // Y-axis
+              ctx_area_delta_s.lineTo(pad, pad / 2);
+              ctx_area_delta_s.stroke();
+
+              // Curve function points (same as before)
+              const x_a = pad * 1.5;
+              const x_b = w - pad * 1.5;
+              const x0 = pad * 3.5;
+              const delta_x = pad * 2;
+              const x0_plus_delta_x = x0 + delta_x;
+              const numPoints = 100;
+              const y_base = h - pad; // Y = 0 level
+
+              // Draw and fill the entire area from a to b lightly
+              ctx_area_delta_s.beginPath();
+               for (let i = 0; i <= numPoints; i++) {
+                  const x = x_a + (x_b - x_a) * i / numPoints;
+                  const y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin((x - x_a) * Math.PI / (x_b - x_a)) + 0.1 * Math.cos((x - x_a) * 3 * Math.PI / (x_b - x_a)) );
+                  const y = y_base - y_offset;
+                  if (i === 0) ctx_area_delta_s.moveTo(x, y); else ctx_area_delta_s.lineTo(x, y);
+               }
+              ctx_area_delta_s.lineTo(x_b, y_base);
+              ctx_area_delta_s.lineTo(x_a, y_base);
+              ctx_area_delta_s.closePath();
+              ctx_area_delta_s.fillStyle = colors.fillColor; // Light fill
+              ctx_area_delta_s.fill();
+
+              // Draw and fill the Delta S area darker
+              ctx_area_delta_s.beginPath();
+              let startDelta = false;
+              for (let i = 0; i <= numPoints; i++) {
+                   const x = x_a + (x_b - x_a) * i / numPoints;
+                   const y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin((x - x_a) * Math.PI / (x_b - x_a)) + 0.1 * Math.cos((x - x_a) * 3 * Math.PI / (x_b - x_a)) );
+                   const y = y_base - y_offset;
+
+                   if (x >= x0 && !startDelta) {
+                       ctx_area_delta_s.moveTo(x0, y_base); // Start fill from axis
+                       ctx_area_delta_s.lineTo(x,y);
+                       startDelta = true;
+                   }
+                   if(startDelta && x <= x0_plus_delta_x){
+                       ctx_area_delta_s.lineTo(x,y);
+                   }
+                   if(startDelta && x > x0_plus_delta_x){
+                       ctx_area_delta_s.lineTo(x0_plus_delta_x, y); // End curve segment precisely
+                       break;
+                   }
+               }
+              ctx_area_delta_s.lineTo(x0_plus_delta_x, y_base); // Line down to axis
+              ctx_area_delta_s.closePath(); // Close the path for fill
+              ctx_area_delta_s.fillStyle = colors.darkerFillColor; // Darker fill
+              ctx_area_delta_s.fill();
+
+             // Optionally, add hatching (more complex, might skip for simplicity)
+             // ctx_area_delta_s.strokeStyle = colors.accentColor;
+             // ctx_area_delta_s.lineWidth = 0.5;
+             // ctx_area_delta_s.save();
+             // ctx_area_delta_s.clip(); // Clip subsequent drawing to the filled area
+             // for (let i = x0; i < x0_plus_delta_x + h; i += 5) {
+             //    ctx_area_delta_s.beginPath();
+             //    ctx_area_delta_s.moveTo(i, y_base);
+             //    ctx_area_delta_s.lineTo(i-h*0.8, y_base-h*0.8); // Diagonal lines
+             //    ctx_area_delta_s.stroke();
+             //}
+             //ctx_area_delta_s.restore();
+
+              // Stroke the curve itself
+              ctx_area_delta_s.beginPath(); // Start a new path for the curve stroke
+               for (let i = 0; i <= numPoints; i++) {
+                  const x = x_a + (x_b - x_a) * i / numPoints;
+                  const y_offset = h * 0.4 * (0.6 + 0.3 * Math.sin((x - x_a) * Math.PI / (x_b - x_a)) + 0.1 * Math.cos((x - x_a) * 3 * Math.PI / (x_b - x_a)) );
+                  const y = y_base - y_offset;
+                  if (i === 0) ctx_area_delta_s.moveTo(x, y); else ctx_area_delta_s.lineTo(x, y);
+               }
+              ctx_area_delta_s.strokeStyle = colors.primaryColor;
+              ctx_area_delta_s.lineWidth = 2.5;
+              ctx_area_delta_s.stroke();
+
+              // Dashed lines at x0 and x0+dx
+              ctx_area_delta_s.strokeStyle = colors.secondaryColor;
+              ctx_area_delta_s.lineWidth = 1;
+              ctx_area_delta_s.setLineDash([5, 5]);
+              // Line x0
+              ctx_area_delta_s.beginPath();
+              ctx_area_delta_s.moveTo(x0, y_base);
+              ctx_area_delta_s.lineTo(x0, y_base - h * 0.5); // Approx height
+              ctx_area_delta_s.stroke();
+              // Line x0+dx
+              ctx_area_delta_s.beginPath();
+              ctx_area_delta_s.moveTo(x0_plus_delta_x, y_base);
+              ctx_area_delta_s.lineTo(x0_plus_delta_x, y_base - h * 0.4); // Approx height
+              ctx_area_delta_s.stroke();
+              ctx_area_delta_s.setLineDash([]); // Reset line dash
+
+              // Labels
+              ctx_area_delta_s.fillStyle = colors.textColor;
+              ctx_area_delta_s.font = "14px " + getComputedStyle(document.body).fontFamily;
+              ctx_area_delta_s.textAlign = 'center';
+              ctx_area_delta_s.fillText('a', x_a, h - pad / 2);
+              ctx_area_delta_s.fillText('b', x_b, h - pad / 2);
+              ctx_area_delta_s.fillText('x₀', x0, h - pad / 2);
+              ctx_area_delta_s.fillText('x₀+Δx', x0_plus_delta_x, h - pad / 2);
+              ctx_area_delta_s.textAlign = 'right';
+              ctx_area_delta_s.fillText('x', w - pad / 3, h - pad - 5);
+              ctx_area_delta_s.textAlign = 'center';
+              ctx_area_delta_s.fillText('y', pad + 5, pad / 2 + 5);
+              ctx_area_delta_s.fillText('f(x)', (x_a + x_b) / 2 , pad*1.5 );
+               // Label ΔS
+              ctx_area_delta_s.fillText('ΔS', x0 + delta_x / 2, y_base - h*0.2);
+
+          }
+
+        // --- Function to render chart for f(x) = 2x ---
+        function renderChartFx2x() {
+            const ctx = document.getElementById('chart_fx_2x')?.getContext('2d');
+            if (!ctx) return; // Exit if canvas not ready
+
+            const colors = getChartColors();
+            const dataPoints = [];
+            for (let x = -1; x <= 1; x += 0.1) {
+                dataPoints.push({ x: x.toFixed(2), y: (2 * x).toFixed(2) }); // Fix toFixed issues
+            }
+
+            const data = {
+                datasets: [{
+                    label: 'f(x) = 2x',
+                    data: dataPoints,
+                    borderColor: colors.primaryColor,
+                    backgroundColor: 'transparent', // No fill needed for line
+                    borderWidth: 2.5,
+                    pointRadius: 0,
+                    tension: 0.1
+                }]
+            };
+
+            const options = {
+                responsive: true,
+                maintainAspectRatio: true, // Adjust aspect ratio as needed
+                 aspectRatio: 1.5,
+                plugins: {
+                    tooltip: {
+                        enabled: true, // Ensure tooltips are enabled
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += `(${context.parsed.x.toFixed(2)}, ${context.parsed.y.toFixed(2)})`;
+                                }
+                                return label;
+                             },
+                             title: () => null // No title for tooltip items
+                        }
+                    },
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        min: -1.1, max: 1.1,
+                        title: { display: true, text: 'x', color: colors.textColor },
+                        grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1, z: context => context.tick.value === 0 ? 1 : -1 }, // Ensure axis is drawn over grid lines
+                        ticks: { color: colors.textColor, stepSize: 0.5 }
+                    },
+                    y: {
+                         min: -2.2, max: 2.2,
+                        title: { display: true, text: 'f(x)', color: colors.textColor },
+                        grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1, z: context => context.tick.value === 0 ? 1 : -1 },
+                        ticks: { color: colors.textColor, stepSize: 1 }
+                    }
+                },
+                interaction: { // Enhance hover interaction
+                     intersect: false,
+                     mode: 'index',
+                 },
+            };
+
+            if (chart_fx_2x) chart_fx_2x.destroy(); // Destroy previous instance
+            chart_fx_2x = new Chart(ctx, { type: 'line', data: data, options: options });
+        }
+
+        // --- Function to render chart for tan(t) ---
+        function renderChartTanT() {
+            const ctx = document.getElementById('chart_tan_t')?.getContext('2d');
+             if (!ctx) return;
+
+             const colors = getChartColors();
+             const dataPoints = [];
+             const epsilon = 0.02; // Small value to approach asymptotes closer
+             const steps = 50; // Points per segment
+
+             // Approach left asymptote
+             for (let i = 0; i <= steps; i++) {
+                 const t = -Math.PI / 2 + epsilon + (Math.PI/2 - epsilon) * i / steps;
+                 let y = Math.tan(t);
+                 if (Math.abs(y) > 15) y = y > 0 ? 15 : -15; // Clamp y values for better display
+                 dataPoints.push({ x: t, y: y });
+             }
+
+
+            const data = {
+                datasets: [{
+                    label: 'x = tan(t)',
+                    data: dataPoints,
+                    borderColor: colors.primaryColor,
+                    backgroundColor: 'transparent',
+                    borderWidth: 2.5,
+                    pointRadius: 0,
+                     tension: 0, // Straighter lines often better for tan
+                     spanGaps: false // Don't connect across nulls
+                }]
+            };
+
+            const options = {
+                responsive: true,
+                 maintainAspectRatio: true,
+                 aspectRatio: 1.5,
+                plugins: {
+                    tooltip: {
+                        enabled: true,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                    // Display actual tangent value even if clamped for visual
+                                    let actual_y = Math.tan(context.parsed.x);
+                                    label += `t ≈ ${context.parsed.x.toFixed(2)}, x ≈ ${actual_y.toFixed(2)}`;
+                                }
+                                return label;
+                            },
+                             title: () => null
+                        }
+                    },
+                    legend: { display: false }
+                },
+                 scales: {
+                     x: { // This is t
+                         type: 'linear',
+                         min: -Math.PI / 2, max: Math.PI / 2,
+                         title: { display: true, text: 't', color: colors.textColor },
+                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
+                         ticks: {
+                             color: colors.textColor,
+                             callback: function(value, index, values) {
+                                const pi = Math.PI;
+                                if (Math.abs(value - (-pi / 2)) < 0.01) return '-π/2';
+                                if (Math.abs(value - (pi / 2)) < 0.01) return 'π/2';
+                                if (Math.abs(value - 0) < 0.01) return '0';
+                                return null; // Show only key points
+                             },
+                            stepSize: Math.PI / 2, // Ensure key points are attempted
+                            includeBounds: true
+                         }
+                     },
+                     y: { // This is x
+                         min: -10, max: 10, // Limit y-axis range for visibility
+                         title: { display: true, text: 'x', color: colors.textColor },
+                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
+                         ticks: { color: colors.textColor, stepSize: 5 }
+                     }
+                 },
+                 // Asymptotes could be drawn using chartjs-plugin-annotation if needed
+                 interaction: {
+                     intersect: false,
+                     mode: 'index',
+                 },
+            };
+
+            if (chart_tan_t) chart_tan_t.destroy();
+            chart_tan_t = new Chart(ctx, { type: 'line', data: data, options: options });
+        }
+
+         // --- Function to render chart for 1/cos(t) ---
+        function renderChartSecT() {
+            const ctx = document.getElementById('chart_sec_t')?.getContext('2d');
+            if (!ctx) return;
+
+             const colors = getChartColors();
+             const dataPoints1 = []; // For t in [0, pi/2)
+             const dataPoints2 = []; // For t in (pi/2, pi]
+             const numSteps = 50;
+             const epsilon = 0.02; // To approach asymptote closer
+
+             // First segment: [0, pi/2 - epsilon]
+             for(let i=0; i<=numSteps; i++) {
+                 const t = (Math.PI / 2 - epsilon) * i / numSteps;
+                  let y = 1 / Math.cos(t);
+                  if (y > 15) y = 15; // Clamp positive infinity
+                 dataPoints1.push({x: t, y: y});
+             }
+
+             // Second segment: [pi/2 + epsilon, pi]
+             for(let i=0; i<=numSteps; i++) {
+                 const t = (Math.PI / 2 + epsilon) + (Math.PI - (Math.PI / 2 + epsilon)) * i / numSteps;
+                 let y = 1 / Math.cos(t);
+                 if (y < -15) y = -15; // Clamp negative infinity
+                 dataPoints2.push({x: t, y: y});
+             }
+
+            const data = {
+                datasets: [
+                    {
+                        label: 'x=sec(t), t∈[0,π/2)', // Shorter label
+                        data: dataPoints1,
+                        borderColor: colors.primaryColor,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2.5,
+                        pointRadius: 0,
+                        tension: 0.1,
+                         spanGaps: false
+                    },
+                     {
+                        label: 'x=sec(t), t∈(π/2,π]', // Shorter label
+                        data: dataPoints2,
+                        borderColor: colors.accentColor, // Different color for second branch
+                        backgroundColor: 'transparent',
+                        borderWidth: 2.5,
+                        pointRadius: 0,
+                         tension: 0.1,
+                         spanGaps: false
+                    }
+                ]
+            };
+
+            const options = {
+                responsive: true,
+                maintainAspectRatio: true,
+                 aspectRatio: 1.5,
+                 plugins: {
+                     tooltip: {
+                        enabled: true,
+                         callbacks: {
+                              label: function(context) {
+                                let label = context.dataset.label || '';
+                                let parts = label.split(','); // Split label
+                                if(parts[0]) label = parts[0]; else label = ''; // Take first part or fallback
+
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                     let actual_y = 1 / Math.cos(context.parsed.x);
+                                     label += `t ≈ ${context.parsed.x.toFixed(2)}, x ≈ ${actual_y.toFixed(2)}`;
+                                }
+                                return label;
+                             },
+                              title: () => null
+                         }
+                     },
+                     legend: { display: true, position: 'bottom', labels: { color: colors.textColor, boxWidth: 20, padding: 15 } } // Show legend
+                 },
+                 scales: {
+                     x: { // This is t
+                         type: 'linear',
+                         min: 0, max: Math.PI,
+                         title: { display: true, text: 't', color: colors.textColor },
+                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
+                         ticks: {
+                             color: colors.textColor,
+                             callback: function(value, index, values) {
+                                const pi = Math.PI;
+                                if (Math.abs(value - 0) < 0.01) return '0';
+                                if (Math.abs(value - (pi/2)) < 0.01) return 'π/2';
+                                if (Math.abs(value - pi) < 0.01) return 'π';
+                                return null;
+                             },
+                              stepSize: Math.PI / 2,
+                              includeBounds: true
+                         }
+                     },
+                     y: { // This is x
+                         min: -10, max: 10, // Limit y range
+                         title: { display: true, text: 'x', color: colors.textColor },
+                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
+                         ticks: { color: colors.textColor, stepSize: 5 }
+                     }
+                 },
+                  interaction: {
+                     intersect: false,
+                     mode: 'index',
+                 },
+            };
+
+            if (chart_sec_t) chart_sec_t.destroy();
+            chart_sec_t = new Chart(ctx, { type: 'line', data: data, options: options });
+        }
+
+
+        // --- Scroll nav to show active link ---
+        function scrollToActiveLink() {
+            const navList = document.querySelector('#main-nav ul');
+            const activeLink = navList?.querySelector('a.active');
+            if (!activeLink || !navList) return;
+
+            const navListRect = navList.getBoundingClientRect();
+            const activeLinkRect = activeLink.getBoundingClientRect();
+
+             // Check if active link is outside the visible area of the navList
+             const isVisible =
+                activeLinkRect.left >= navListRect.left &&
+                activeLinkRect.right <= navListRect.right;
+
+            if (!isVisible) {
+                 // Calculate scroll position to center the link
+                 const scrollLeftTarget = navList.scrollLeft + activeLinkRect.left - navListRect.left - (navListRect.width / 2) + (activeLinkRect.width / 2);
+
+                 navList.scrollTo({
+                    left: scrollLeftTarget,
+                    behavior: 'smooth'
+                });
+             }
+        }
+
+        // --- General Setup on DOMContentLoaded ---
+         document.addEventListener('DOMContentLoaded', function() {
+             // --- 1. KaTeX Rendering ---
+              try {
+                   renderMathInElement(document.body, {
+                      delimiters: [
+                          {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                          {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                          {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')},
+                          {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')} // Allow single $
+                      ],
+                      // Custom pre-processing if needed (already handled above for \\)
+                      // Custom wrapper logic using div.math / span.math for block/inline
+                      trust: true, // Allows rendering potentially complex html generated by katex
+                      strict: false, // Less strict error handling
+                      output: 'htmlAndMathml', // Better accessibility
+                      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'],
+                      ignoredClasses: ['no-math'],
+                      throwOnError: false
+                   });
+                  // KaTeX auto-render sometimes wraps display math, ensure it's inside formula-block
+                  document.querySelectorAll('.katex-display').forEach(displayMath => {
+                      if (displayMath.parentElement.tagName !== 'DIV' || !displayMath.parentElement.classList.contains('math')) {
+                          // If it's not already wrapped in div.math, wrap it
+                          const divMath = document.createElement('div');
+                          divMath.className = 'math';
+                           divMath.setAttribute('dir', 'ltr');
+                           displayMath.parentNode.insertBefore(divMath, displayMath);
+                          divMath.appendChild(displayMath);
+                      }
+                      // Ensure the div.math parent is inside a formula-block
+                      let mathParent = displayMath.closest('div.math');
+                       if (mathParent && !mathParent.parentElement.classList.contains('formula-block')) {
+                           const formulaBlock = document.createElement('div');
+                           formulaBlock.className = 'formula-block';
+                           mathParent.parentNode.insertBefore(formulaBlock, mathParent);
+                           formulaBlock.appendChild(mathParent);
+                       }
+                  });
+                  // Ensure inline math has the right class and dir
+                  document.querySelectorAll('span.katex').forEach(inlineMath => {
+                     if (!inlineMath.classList.contains('math')) {
+                        inlineMath.classList.add('math');
+                     }
+                     inlineMath.setAttribute('dir', 'ltr');
+                 });
+
+              } catch (error) {
+                  console.error("KaTeX auto-rendering failed:", error);
+              }
+
+
+             // --- 2. Active Navigation Link Highlighting ---
+              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+              const sections = document.querySelectorAll('main section');
+              const navElement = document.querySelector('nav');
+              const navHeight = navElement ? navElement.offsetHeight : 60;
+
+             function changeActiveLink() {
+                 let currentSectionId = '';
+                 const scrollPosition = window.scrollY;
+
+                 // Find the section currently in view or the last one passed
+                 for (let i = sections.length - 1; i >= 0; i--) {
+                     const section = sections[i];
+                     const sectionTop = section.offsetTop - navHeight - 50; // Adjusted offset for nav height and breathing room
+
+                     if (scrollPosition >= sectionTop) {
+                         currentSectionId = section.getAttribute('id');
+                         break; // Found the current or last passed section
+                     }
+                 }
+
+                // If scrolled above the first section, default to the first link
+                if (currentSectionId === '' && sections.length > 0 && scrollPosition < sections[0].offsetTop - navHeight - 50) {
+                     currentSectionId = sections[0].getAttribute('id');
+                 }
+
+
+                // Activate the correct link
+                 let activeLinkFound = false;
+                 navLinks.forEach(link => {
+                      link.classList.remove('active');
+                       // Handle potential leading '#' in href
+                      const linkHrefId = link.getAttribute('href').substring(1);
+                      if (linkHrefId === currentSectionId) {
+                           link.classList.add('active');
+                           activeLinkFound = true;
+                       }
+                   });
+
+                 // Fallback if ID mapping isn't perfect (e.g. targeting subsection H3 id)
+                  if(!activeLinkFound && currentSectionId !== '') {
+                       const currentSectionElem = document.getElementById(currentSectionId);
+                       if(currentSectionElem){
+                           // Try activating the link pointing to the parent section if it exists
+                            const parentSection = currentSectionElem.closest('section');
+                            if (parentSection) {
+                               const parentSectionId = parentSection.id;
+                                const parentLink = document.querySelector(`#main-nav a.nav-link[href="#${parentSectionId}"]`);
+                               if (parentLink) {
+                                   parentLink.classList.add('active');
+                                    activeLinkFound = true;
+                               }
+                            }
+                       }
+                  }
+
+                   // Ensure first link active when scrolled fully to top or no match found yet
+                   if(!activeLinkFound && navLinks.length > 0) {
+                      navLinks[0].classList.add('active');
+                   }
+
+
+                // Scroll the nav bar to show the active link
+                 scrollToActiveLink();
+
+             }
+             window.addEventListener('scroll', changeActiveLink, { passive: true }); // Use passive listener for better scroll performance
+             changeActiveLink(); // Initial check
+
+
+             // --- 3. Section Fade-in Animation on Scroll ---
+               const observerOptions = {
+                   root: null,
+                   rootMargin: '0px 0px -10% 0px', // Trigger when 10% from bottom enters view
+                   threshold: 0.1 // At least 10% visible
+              };
+
+               const observerCallback = (entries, observer) => {
+                  entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                          entry.target.classList.add('visible');
+                          observer.unobserve(entry.target); // Stop observing once visible
+                      }
+                  });
+              };
+
+              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+              sections.forEach(section => {
+                  scrollObserver.observe(section);
+               });
+
+
+             // --- 4. Dark Mode ---
+             const darkModeToggle = document.getElementById('darkModeToggle');
+             const htmlElement = document.documentElement;
+
+             const applyTheme = (theme) => {
+                 htmlElement.setAttribute('data-theme', theme);
+                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
+                 localStorage.setItem('theme', theme);
+                  // Re-render charts and drawings with new colors
+                  // Add a slight delay to allow CSS transitions to start
+                  setTimeout(renderAllChartsAndDrawings, 50);
+             };
+
+             // Determine initial theme: 1. Local storage, 2. System preference, 3. Default to light
+             const savedTheme = localStorage.getItem('theme');
+             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+             let initialTheme = 'light'; // Default
+             if (savedTheme) {
+                 initialTheme = savedTheme;
+             } else if (prefersDark) {
+                initialTheme = 'dark';
+             }
+
+             applyTheme(initialTheme); // Apply initial theme *before* rendering charts
+
+             darkModeToggle.addEventListener('click', () => {
+                 const currentTheme = htmlElement.getAttribute('data-theme');
+                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                 applyTheme(newTheme);
+             });
+
+             // Listen for system theme changes ONLY if the user hasn't manually set a theme
+             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                 if (!localStorage.getItem('theme')) { // Only respect system preference if no manual choice
+                     const newTheme = e.matches ? 'dark' : 'light';
+                     applyTheme(newTheme);
+                 }
+             });
+
+            // --- 5. Initial Chart and Drawing Rendering ---
+            // Render only after DOM is ready and initial theme is set
+            renderAllChartsAndDrawings();
+
+          });
+      </script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Init Charts -->
+<!-- טען את Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('chart_fx_2x').getContext('2d');
+
+  // צור את ערכי ה-x וה-y
+  const xValues = [];
+  const yValues = [];
+  for (let x = -1; x <= 1; x += 0.05) {
+    x = parseFloat(x.toFixed(2));
+    xValues.push(x);
+    yValues.push(2 * x);
+  }
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: xValues,
+      datasets: [{
+        label: 'f(x) = 2x',
+        data: yValues,
+        borderColor: 'blue',
+        borderWidth: 2,
+        fill: false,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        tension: 0.1
+      }]
+    },
+    options: {
+      responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            title: (tooltipItems) => `x = ${tooltipItems[0].label}`,
+            label: (tooltipItem) => `f(x) = ${tooltipItem.formattedValue}`
+          }
+        },
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'x'
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'f(x)'
+          }
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const tValues = [];
+  const cosValues = [];
+  const tanValues = [];
+
+  for (let t = -Math.PI / 2 + 0.01; t < Math.PI / 2 - 0.01; t += 0.01) {
+    tValues.push(t);
+    cosValues.push(Math.cos(t));
+    tanValues.push(Math.tan(t));
+  }
+
+  // גרף קוסינוס עם מילוי שטח אפור
+  new Chart(document.getElementById('cosChart'), {
+    type: 'line',
+    data: {
+      labels: tValues,
+      datasets: [{
+        label: 'y = cos(t)',
+        data: cosValues,
+        borderColor: 'black',
+        backgroundColor: 'rgba(150, 150, 150, 0.3)', // מילוי אפור
+        fill: true,
+        pointRadius: 0,
+        tension: 0.05
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+      },
+      scales: {
+        x: {
+          type: 'linear',
+          min: -Math.PI / 2,
+          max: Math.PI / 2,
+          ticks: {
+            callback: function(value) {
+              if (value === 0) return '0';
+              if (value === -Math.PI / 2) return '-π/2';
+              if (value === Math.PI / 2) return 'π/2';
+              return '';
+            }
+          },
+          title: { display: true, text: 't' }
+        },
+        y: {
+          title: { display: true, text: 'cos(t)' },
+          min: -0.1,
+          max: 1.1
+        }
+      }
+    }
+  });
+
+  // גרף טנגנס בלי מילוי
+  new Chart(document.getElementById('tanChart'), {
+    type: 'line',
+    data: {
+      labels: tValues,
+      datasets: [{
+        label: 'y = tan(t)',
+        data: tanValues,
+        borderColor: 'black',
+        backgroundColor: 'transparent',
+        fill: false,
+        pointRadius: 0,
+        tension: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+      },
+      scales: {
+        x: {
+          type: 'linear',
+          min: -Math.PI / 2,
+          max: Math.PI / 2,
+          ticks: {
+            callback: function(value) {
+              if (value === 0) return '0';
+              if (value === -Math.PI / 2) return '-π/2';
+              if (value === Math.PI / 2) return 'π/2';
+              return '';
+            }
+          },
+          title: { display: true, text: 't' }
+        },
+        y: {
+          title: { display: true, text: 'tan(t)' },
+          min: -10,
+          max: 10
+        }
+      }
+    }
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const tValues = [];
+  const fValues = [];
+
+  for (let t = 0.01; t < Math.PI; t += 0.01) {
+    if (Math.abs(t - Math.PI / 2) < 0.05) {
+      // דלג על נקודות קרובות מדי ל־π/2 כדי לא להראות קפיצה חדה
+      continue;
+    }
+    tValues.push(t);
+    fValues.push(1 / Math.cos(t)); // a = 1
+  }
+
+  new Chart(document.getElementById("secChart"), {
+    type: 'line',
+    data: {
+      labels: tValues,
+      datasets: [{
+        label: 'x = 1 / cos(t)',
+        data: fValues,
+        borderColor: 'black',
+        backgroundColor: 'transparent',
+        fill: false,
+        pointRadius: 0,
+        tension: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: {
+          type: 'linear',
+          min: 0,
+          max: Math.PI,
+          title: { display: true, text: 't' },
+          ticks: {
+            callback: function (value) {
+              if (Math.abs(value - 0) < 0.01) return '0';
+              if (Math.abs(value - Math.PI / 2) < 0.01) return 'π/2';
+              if (Math.abs(value - Math.PI) < 0.01) return 'π';
+              return '';
+            }
+          }
+        },
+        y: {
+          title: { display: true, text: 'x = 1 / cos(t)' },
+          min: -10,
+          max: 10
+        }
+      }
+    }
+  });
+});
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שיעור 1: האנטגרל המסוים</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-color: #0a5a8d; /* Deeper Blue */
+            --secondary-color: #495057; /* Dark Gray */
+            --accent-color: #f0ad4e; /* Orange/Yellow Accent */
+            --highlight-color: #fdebd0; /* Softer Highlight */
+            --bg-color: #fdfcfb; /* Off-white / Creamy */
+            --text-color: #343a40; /* Darker Text */
+            --border-color: #ced4da;
+            --font-family-hebrew: 'Assistant', 'Rubik', sans-serif;
+            --font-family-heading: 'Orbitron', 'Assistant', sans-serif;
+            --card-bg: #ffffff;
+            --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px; /* More rounded */
+            --header-bg: linear-gradient(135deg, var(--primary-color), #007bb5);
+            --header-text: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --nav-text: var(--primary-color);
+            --nav-hover-bg: var(--primary-color);
+            --nav-hover-text: #ffffff;
+            --section-border: var(--primary-color);
+            --section-hover-border: var(--accent-color);
+            --formula-bg: #f8f9fa;
+            --formula-border: #e9ecef;
+            --definition-bg: #fffaf0;
+            --definition-border: var(--accent-color);
+            --definition-heading: var(--accent-color);
+            --example-bg: #f8f9fa;
+            --example-border: var(--secondary-color);
+            --katex-inline-color: var(--primary-color);
+            --katex-display-color: var(--text-color);
+            --body-pattern: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e9ecef" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            --transition-speed: 0.4s;
+            --chart-axis-color: #000000; /* Default light axis */
+            --chart-grid-color: rgba(128, 128, 128, 0.2);
+        }
+
+        /* --- Dark Mode Variables --- */
+        html[data-theme="dark"] {
+            --primary-color: #58a6ff; /* Lighter Blue */
+            --secondary-color: #8b949e; /* Lighter Gray */
+            --accent-color: #f7b731; /* Brighter Yellow */
+            --highlight-color: #2d333b; /* Darker Highlight */
+            --bg-color: #0d1117; /* Very Dark Gray/Black */
+            --text-color: #c9d1d9; /* Light Gray Text */
+            --border-color: #30363d;
+            --card-bg: #161b22; /* Dark Card Background */
+            --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            --header-bg: linear-gradient(135deg, #1f6feb, #21262d);
+            --header-text: #e6edf3;
+            --nav-bg: rgba(22, 27, 34, 0.85); /* Darker Nav */
+            --nav-text: var(--primary-color);
+            --nav-hover-bg: var(--primary-color);
+            --nav-hover-text: #0d1117;
+            --section-border: var(--primary-color);
+            --section-hover-border: var(--accent-color);
+            --formula-bg: #1c2128; /* Darker Formula Block */
+            --formula-border: #30363d;
+            --definition-bg: #20242a; /* Darker Definition */
+            --definition-border: var(--accent-color);
+            --definition-heading: var(--accent-color);
+            --example-bg: #1c2128; /* Darker Example Block */
+            --example-border: var(--secondary-color);
+            --katex-inline-color: #79c0ff; /* Lighter Blue for Inline Katex */
+            --katex-display-color: var(--text-color);
+            --body-pattern: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2330363d" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            --chart-axis-color: #ffffff; /* Dark axis */
+            --chart-grid-color: rgba(128, 128, 128, 0.2); /* Grid can stay the same or be slightly adjusted */
+        }
+
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; /* Added transition for smooth theme change */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 100%; /* Base 16px */
+        }
+
+        body {
+            font-family: var(--font-family-hebrew);
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            background-image: var(--body-pattern);
+            font-weight: 300; /* Lighter default weight */
+        }
+
+        .container {
+            max-width: 900px; /* Adjusted max-width for better readability */
+            margin: 30px auto;
+            padding: 0 25px;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%); /* Stylish shape */
+            animation: fadeInDown 1s ease-out 0.2s backwards;
+        }
+         html[data-theme="dark"] header {
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+         }
+
+            header h1 {
+                font-family: var(--font-family-heading);
+                font-size: 2.8em; /* Adjusted title size */
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+
+        nav {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            transition: top 0.3s ease, background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+         html[data-theme="dark"] nav {
+              border: 1px solid var(--border-color);
+         }
+
+            nav ul {
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px 20px; /* Row and column gap */
+            }
+
+                nav ul li a {
+                    text-decoration: none;
+                    color: var(--nav-text);
+                    font-weight: 500; /* Medium weight */
+                    padding: 10px 18px;
+                    border-radius: 8px;
+                    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    display: inline-block; /* Needed for transform */
+                    border: 1px solid transparent;
+                }
+
+                    nav ul li a:hover, nav ul li a.active {
+                        background-color: var(--nav-hover-bg);
+                        color: var(--nav-hover-text);
+                        transform: translateY(-3px) scale(1.03);
+                        box-shadow: 0 4px 8px rgba(0, 86, 179, 0.2);
+                        border-color: transparent;
+                    }
+                     html[data-theme="dark"] nav ul li a:hover, html[data-theme="dark"] nav ul li a.active {
+                          box-shadow: 0 4px 8px rgba(88, 166, 255, 0.3);
+                     }
+
+                    nav ul li a.active {
+                         font-weight: 700;
+                    }
+
+        main section {
+            background-color: var(--card-bg);
+            padding: 30px 35px; /* More padding */
+            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border-right: 7px solid var(--section-border); /* Changed border side for RTL */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease, transform 0.5s ease; /* Added opacity/transform */
+            opacity: 0; /* Start hidden for scroll animation */
+            transform: translateY(30px); /* Start slightly lower */
+            overflow: hidden; /* Contain elements */
+        }
+
+         main section.visible {
+            opacity: 1;
+            transform: translateY(0);
+         }
+
+            main section:hover {
+                box-shadow: var(--card-hover-shadow);
+                transform: translateY(-8px); /* Slightly larger lift */
+                border-right-color: var(--section-hover-border); /* Change border on hover */
+            }
+
+        main h2 {
+            font-family: var(--font-family-heading);
+            font-size: 2.0em; /* Adjusted section titles */
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--border-color); /* Use variable */
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        main h3 {
+            font-family: var(--font-family-hebrew); /* Ensure consistent font */
+            font-size: 1.5em; /* Adjusted sub-section titles */
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-weight: 600; /* Bold */
+             border-bottom: 1px dashed var(--border-color);
+             padding-bottom: 8px;
+             width: fit-content;
+        }
+
+        main h4 {
+            font-size: 1.2em; /* Adjusted slightly */
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        p, li {
+            margin-bottom: 1em;
+             color: var(--text-color);
+             font-weight: 400; /* Regular weight for readability */
+             font-size: 1.05em;
+        }
+
+        ul, ol {
+            padding-right: 25px; /* Indentation for RTL lists */
+        }
+         li::marker { /* Style list markers */
+            color: var(--primary-color);
+         }
+
+        .formula-block {
+            background-color: var(--formula-bg);
+            padding: 15px 10px; /* Adjusted padding */
+            margin: 25px auto; /* Center block */
+            border-radius: 8px;
+            overflow-x: auto; /* Handle long formulas */
+            text-align: center;
+            border: 1px solid var(--formula-border);
+            max-width: 100%;
+            transition: box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+             position: relative; /* For potential ::before/::after */
+        }
+        .formula-block:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+        }
+         html[data-theme="dark"] .formula-block:hover {
+             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+         }
+
+
+            /* Force LTR for math layout & prevent clipping */
+            .formula-block .katex-display, .formula-block .katex {
+                margin: 0;
+                direction: ltr !important; /* CRITICAL FOR RTL ISSUE */
+                unicode-bidi: embed !important; /* CRITICAL FOR RTL ISSUE */
+                text-align: center; /* Center content within LTR block */
+                padding: 10px 0; /* ADDED PADDING to prevent clipping */
+                overflow-x: auto; /* Scroll long equations */
+                overflow-y: hidden;
+                display: block; /* Make sure it behaves as a block */
+                 color: var(--katex-display-color); /* Use variable */
+            }
+
+        /* Style KaTeX inline math */
+        span.katex {
+            font-size: 1.1em; /* Adjusted inline math size */
+            color: var(--katex-inline-color); /* Use variable */
+             direction: ltr !important; /* Inline math also LTR */
+             unicode-bidi: embed !important;
+             padding: 0 2px; /* Inline padding */
+             vertical-align: middle; /* Better alignment with text */
+             transition: color var(--transition-speed) ease; /* Smooth color change */
+        }
+
+        .definition {
+            border-right: 5px solid var(--definition-border); /* Use accent color, RTL */
+            border-left: none; /* Remove left border */
+            padding: 15px 20px 15px 15px;
+            margin: 25px 0;
+            background-color: var(--definition-bg); /* Very light yellow/cream */
+            border-radius: 8px;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+         html[data-theme="dark"] .definition {
+             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+         }
+            .definition h4 {
+                 color: var(--definition-heading); /* Match border */
+                 margin-top: 0;
+                 margin-bottom: 10px;
+                 border-bottom: none; /* Remove underline from H4 */
+             }
+
+        .highlight {
+            background-color: var(--highlight-color);
+            padding: 3px 8px; /* More padding */
+            border-radius: 5px;
+            font-weight: 500; /* Medium weight */
+            border: 1px solid #f5c6cb; /* Border matching background */
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        html[data-theme="dark"] .highlight {
+            border-color: var(--border-color);
+        }
+
+        .example {
+            border: 1px dashed var(--example-border);
+            padding: 20px 25px;
+            margin-top: 25px;
+            border-radius: 8px;
+            background-color: var(--example-bg);
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+            .example h4 {
+                margin-top: 0;
+                color: var(--secondary-color);
+                font-weight: bold;
+                 border-bottom: none; /* Remove underline */
+            }
+
+        /* --- Chart Container --- */
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 30px; /* Space between charts */
+            margin-top: 25px;
+            justify-content: space-around; /* Distribute space */
+        }
+
+        .chart-wrapper {
+            flex: 1 1 400px; /* Allow flex grow/shrink, basis 400px */
+            min-width: 300px; /* Minimum width before wrapping */
+            max-width: 45%; /* Limit max width */
+            background-color: var(--card-bg); /* Match card bg */
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+             transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        .chart-wrapper h5 {
+             text-align: center;
+             margin-bottom: 15px;
+             font-size: 1.1em;
+             color: var(--secondary-color);
+             font-weight: 600;
+        }
+
+
+        /* --- Dark Mode Toggle Button --- */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px; /* Positioned left */
+            z-index: 1001; /* Above nav */
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            transition: all var(--transition-speed) ease, transform 0.2s ease;
+            overflow: hidden; /* Hide the icon that's moving out */
+        }
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--card-hover-shadow);
+            color: var(--accent-color);
+        }
+        .dark-mode-toggle .fa-sun,
+        .dark-mode-toggle .fa-moon {
+             position: absolute;
+             transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+        }
+
+        /* Light mode: Sun is visible, Moon is hidden and moved */
+        html:not([data-theme="dark"]) .dark-mode-toggle .fa-sun {
+             transform: translateY(0) rotate(0deg);
+             opacity: 1;
+        }
+        html:not([data-theme="dark"]) .dark-mode-toggle .fa-moon {
+            transform: translateY(100%) rotate(180deg);
+             opacity: 0;
+        }
+
+        /* Dark mode: Moon is visible, Sun is hidden and moved */
+        html[data-theme="dark"] .dark-mode-toggle .fa-sun {
+             transform: translateY(-100%) rotate(-180deg);
+             opacity: 0;
+         }
+        html[data-theme="dark"] .dark-mode-toggle .fa-moon {
+             transform: translateY(0) rotate(0deg);
+             opacity: 1;
+        }
+
+
+        /* CSS Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+             .container { max-width: 90%; }
+             main h2 { font-size: 1.8em; }
+             main h3 { font-size: 1.4em; }
+             .chart-wrapper { max-width: 100%; flex-basis: 100%;} /* Stack charts */
+        }
+
+        @media (max-width: 768px) {
+             html { font-size: 95%; }
+             .container { padding: 0 15px; }
+             header h1 { font-size: 2.3em; }
+             nav ul { gap: 8px 15px; }
+             nav ul li a { padding: 8px 14px; }
+             main section { padding: 25px 30px; }
+             main h2 { font-size: 1.7em; }
+             main h3 { font-size: 1.3em; }
+             .dark-mode-toggle { width: 45px; height: 45px; font-size: 1.3rem; top: 15px; left: 15px; }
+        }
+
+        @media (max-width: 576px) {
+             html { font-size: 90%; }
+             header h1 { font-size: 2.0em; }
+             header { clip-path: none; border-radius: 0 0 10px 10px; padding: 30px 15px;}
+             nav ul { flex-direction: column; align-items: stretch; text-align: center; gap: 10px; }
+             nav ul li { width: 100%; }
+              nav ul li a { width: 100%; } /* Make links full width */
+             main section { padding: 20px 25px; border-right-width: 5px; }
+             main h2 { font-size: 1.5em; }
+             main h3 { font-size: 1.2em; }
+             .formula-block { padding: 15px 10px; }
+             .dark-mode-toggle { width: 40px; height: 40px; font-size: 1.2rem; top: 10px; left: 10px; }
+             .chart-container { gap: 20px; }
+             .chart-wrapper { padding: 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header>
+        <h1>שיעור 1: האנטגרל המסוים</h1>
+    </header>
+
+    <div class="container">
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#derivative-review" class="nav-link">חזרה על נגזרת</a></li>
+                <li><a href="#indefinite-integral" class="nav-link">האנטגרל הלא מסוים</a></li>
+                <li><a href="#notation" class="nav-link">סימון ודוגמא</a></li>
+                <li><a href="#integral-table" class="nav-link">נוסחאות אינטגרציה</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="derivative-review">
+                <h2>חזרה על נגזרת</h2>
+                <p>תהי פונקציה <span class="katex">\(f(x)\)</span> מוגדרת בסביבה של נקודה <span class="katex">\(x_0\)</span>. אז הנגזרת של <span class="katex">\(f\)</span> בנקודה <span class="katex">\(x_0\)</span> מוגדרת על ידי הגבול:</p>
+                <div class="formula-block" title="הגדרת הנגזרת">
+                    $$ f'(x_0) = \lim_{h \to 0} \frac{f(x_0+h) - f(x_0)}{h} $$
+                </div>
+                <p>(הערה: בטקסט המקורי נרשם <span class="katex">\(x \to 0\)</span> ו- <span class="katex">\(x\)</span> במכנה, הוחלף ב-<span class="katex">\(h\)</span> למען הבהירות המקובלת).</p>
+            </section>
+
+            <section id="indefinite-integral">
+                <h2>האנטגרל הלא מסוים</h2>
+                <p>מציאת האנטגרל היא הפעולה ההפוכה למציאת נגזרת, אך לא באופן נקודתי כמו הנגזרת, אלא באופן רחב יותר – בקטע.</p>
+
+                <div class="definition">
+                    <h4>הגדרה: האנטגרל הלא מסוים</h4>
+                    <p>האנטגרל הלא מסוים של פונקציה <span class="katex">\(f(x)\)</span> המוגדרת בקטע <span class="katex">\(I\)</span>, הוא פונקציה (אם קיימת) <span class="katex">\(F(x)\)</span> המקיימת:</p>
+                    <div class="formula-block">
+                        $$ F'(x) = f(x) $$
+                    </div>
+                    <p>לכל <span class="katex">\(x \in I\)</span>.</p>
+                </div>
+
+                <p>כאן <span class="katex">\(I\)</span> יכול להיות קטע חסום או לא, פתוח או סגור. פונקציה <span class="katex">\(F\)</span> כזאת נקראת גם <strong>הפונקציה הקדומה</strong> של <span class="katex">\(f\)</span> ב-<span class="katex">\(I\)</span>.</p>
+
+                <h3>הערה לגבי קבוע האינטגרציה</h3>
+                <p>
+                    כמובן שאם <span class="katex">\(F'(x) = f(x)\)</span>, ואם נגדיר <span class="katex">\(H(x) = F(x) + C\)</span> כאשר <span class="katex">\(C\)</span> הוא קבוע ממשי כלשהו, אז גם <span class="katex">\(H'(x) = F'(x) + 0 = f(x)\)</span>. כלומר, גם <span class="katex">\(H\)</span> היא פונקציה קדומה של <span class="katex">\(f\)</span>.
+                </p>
+                <p>
+                    גם להפך, אם <span class="katex">\(F\)</span> ו-<span class="katex">\(H\)</span> הן שתי פונקציות קדומות של <span class="katex">\(f\)</span> באותו קטע <span class="katex">\(I\)</span>, אז <span class="katex">\(H'(x) = f(x)\)</span> ו-<span class="katex">\(F'(x) = f(x)\)</span>. לכן, הנגזרת של ההפרש ביניהן היא אפס: <span class="katex">\((H(x) - F(x))' = H'(x) - F'(x) = f(x) - f(x) = 0\)</span>.
+                    פונקציה שהנגזרת שלה היא אפס בכל הקטע <span class="katex">\(I\)</span> חייבת להיות פונקציה קבועה באותו קטע. כלומר, קיים קבוע <span class="katex">\(C\)</span> כך ש- <span class="katex">\(H(x) - F(x) = C\)</span>, או <span class="katex">\(H(x) = F(x) + C\)</span>.
+                </p>
+                <p>
+                    פירוש הדבר הוא שבהינתן פונקציה קדומה אחת <span class="katex">\(F\)</span> של <span class="katex">\(f\)</span>, אז קיימות אינסוף פונקציות קדומות כאלו, כולן מהצורה <span class="katex">\(H(x) = F(x) + C\)</span>, כאשר <span class="katex">\(C\)</span> הוא קבוע כלשהו. כל הפונקציות מהצורה הזו הן קדומות של <span class="katex">\(f\)</span>.
+                </p>
+                <p>
+                    מספיק למצוא פונקציה קדומה אחת, ואז אנו יודעים את כולן (עד כדי קבוע).
+                </p>
+                <p>
+                    אוסף כל הפונקציות הקדומות, וגם כל אחת מהפונקציות באוסף, נקרא <strong>האנטגרל הלא מסוים</strong> של <span class="katex">\(f\)</span> ב-<span class="katex">\(I\)</span>.
+                </p>
+            </section>
+
+            <section id="notation">
+                <h2>סימון ודוגמא</h2>
+                <h3>סימון</h3>
+                <p>הסימון המקובל לאוסף כל הפונקציות הקדומות של <span class="katex">\(f\)</span> הוא:</p>
+                <div class="formula-block" title="סימון האנטגרל הלא מסוים">
+                    $$ \int f(x) dx = F(x) + C $$
+                </div>
+                <p>כאשר <span class="katex">\(F(x)\)</span> היא פונקציה קדומה כלשהי של <span class="katex">\(f(x)\)</span>, ו-<span class="katex">\(C\)</span> הוא קבוע האינטגרציה, אשר יכול לקבל כל ערך ממשי (<span class="katex">\(C \in \mathbb{R}\)</span>). הריצה של <span class="katex">\(C\)</span> על כל הערכים הממשיים מייצגת את האוסף כולו.</p>
+
+                <div class="example">
+                    <h4>דוגמא</h4>
+                    <p>נחשב את האנטגרל של <span class="katex">\(f(x) = x\)</span>:</p>
+                    <p>אנו מחפשים פונקציה <span class="katex">\(F(x)\)</span> כך ש-<span class="katex">\(F'(x) = x\)</span>. אנו יודעים שנגזרת של חזקה מורידה את המעריך ב-1, לכן ננסה פונקציה מהצורה <span class="katex">\(ax^2\)</span>. הנגזרת היא <span class="katex">\((ax^2)' = 2ax\)</span>. כדי שזה יהיה שווה ל-<span class="katex">\(x\)</span>, נצטרך <span class="katex">\(2a=1\)</span>, כלומר <span class="katex">\(a=1/2\)</span>.
+                    לכן, פונקציה קדומה אחת היא <span class="katex">\(F(x) = \frac{x^2}{2}\)</span>.</p>
+                    <p>האנטגרל הלא מסוים הוא אוסף כל הפונקציות הקדומות:</p>
+                    <div class="formula-block">
+                        $$ \int x \, dx = \frac{x^2}{2} + C $$
+                    </div>
+                    <p>ניתן לראות זאת גרפית. הפונקציה <span class="katex">\(f(x)=x\)</span> היא קו ישר העובר דרך הראשית. הפונקציות הקדומות <span class="katex">\(F(x) = \frac{x^2}{2} + C\)</span> הן משפחה של פרבולות, המוזזות אנכית זו ביחס לזו בהתאם לערך של <span class="katex">\(C\)</span>.</p>
+                    <div class="chart-container">
+                        <div class="chart-wrapper">
+                             <h5>גרף הפונקציה <span dir="ltr">f(x) = x</span></h5>
+                             <canvas id="lineChart"></canvas>
+                         </div>
+                         <div class="chart-wrapper">
+                             <h5>גרף הפונקציות הקדומות <span dir="ltr">F(x) = x²/2 + C</span></h5>
+                             <canvas id="parabolaChart"></canvas>
+                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="integral-table">
+                <h2>נוסחאות אינטגרציה מיידיות</h2>
+                <p>
+                    עצם הגדרת האנטגרל כפעולה הפוכה לנגזרת, מובילה מייד ללוח אנטגרלים מיידיים.
+                    כל נוסחת נגזרת ידועה מובילה ישירות לנוסחת אנטגרל מתאימה.
+                </p>
+                <p>למשל, מהעובדה ש- <span class="katex">\((\sin x)' = \cos x\)</span>, נובע ש:</p>
+                <div class="formula-block">
+                    $$ \int \cos x \, dx = \sin x + C $$
+                </div>
+                <p>ובדומה, מתוך <span class="katex">\((-\cos x)' = -(-\sin x) = \sin x\)</span>, נובע:</p>
+                <div class="formula-block">
+                    $$ \int \sin x \, dx = -\cos x + C $$
+                </div>
+
+                <h3>נוסחאות אינטגרציה בסיסיות נוספות:</h3>
+                <ul>
+                    <li>
+                        <p>חזקות (כאשר <span class="katex">\(n \neq -1\)</span>):</p>
+                        <div class="formula-block">$$ \int x^n dx = \frac{x^{n+1}}{n+1} + C $$</div>
+                    </li>
+                    <li>
+                        <p>המקרה <span class="katex">\(n = -1\)</span>:</p>
+                        <div class="formula-block">$$ \int x^{-1} dx = \int \frac{1}{x} dx = \ln|x| + C $$</div>
+                        <p>(הערה: נדרש ערך מוחלט כדי להגדיר את הלוגריתם גם עבור <span class="katex">\(x<0\)</span>, בהנחה שהפונקציה המקורית מוגדרת שם).</p>
+                    </li>
+                    <li>
+                        <p>פונקציה מעריכית (בסיס e):</p>
+                        <div class="formula-block">$$ \int e^x dx = e^x + C $$</div>
+                    </li>
+                     <li>
+                        <p>פונקציה מעריכית (בסיס a):</p>
+                        <div class="formula-block">$$ \int a^x dx = \frac{a^x}{\ln a} + C \quad (a>0, a \neq 1) $$</div>
+                    </li>
+                    <li>
+                        <p>פונקצית אפס:</p>
+                        <div class="formula-block">$$ \int 0 \, dx = C $$</div>
+                    </li>
+                    <li>
+                        <p>פונקציות טריגונומטריות הפוכות:</p>
+                        <div class="formula-block">$$ \int \frac{dx}{\cos^2 x} = \tan x + C $$</div>
+                        <div class="formula-block">$$ \int \frac{dx}{\sin^2 x} = -\cot x + C $$</div>
+                    </li>
+                    <li>
+                        <p>פונקציות הקשורות לארכסינוס/ארכקוסינוס:</p>
+                        <div class="formula-block">$$ \int \frac{dx}{\sqrt{1-x^2}} = \arcsin x + C_1 = -\arccos x + C_2 $$</div>
+                         <p>(הערה: <span class="katex">\(C_1\)</span> ו-<span class="katex">\(C_2\)</span> קשורים זה בזה: <span class="katex">\(\arcsin x + \arccos x = \pi/2\)</span>).</p>
+                    </li>
+                    <li>
+                        <p>פונקציה הקשורה לארכטנגנס:</p>
+                         <div class="formula-block">$$ \int \frac{dx}{1+x^2} = \arctan x + C $$</div>
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- KaTeX JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+     <script>
+         // --- Global Chart Variables ---
+         let lineChartInstance = null;
+         let parabolaChartInstance = null;
+
+         // --- Function to Render Charts ---
+         function renderCharts() {
+             // Destroy previous charts if they exist
+             if (lineChartInstance) lineChartInstance.destroy();
+             if (parabolaChartInstance) parabolaChartInstance.destroy();
+
+             const lineCtx = document.getElementById('lineChart')?.getContext('2d'); // Get context safely
+             const parabolaCtx = document.getElementById('parabolaChart')?.getContext('2d'); // Get context safely
+
+             // Only proceed if canvas contexts are found
+             if (!lineCtx || !parabolaCtx) {
+                 console.warn("One or both chart canvas elements not found or lack context.");
+                 return; // Exit if canvas not ready
+             }
+
+             const rangeMin = -4;
+             const rangeMax = 4;
+             const step = 0.25;
+
+             const generateData = (func, min, max, step) => {
+                 const points = [];
+                 for (let x = min; x <= max; x += step) {
+                     const roundedX = Math.round(x * 100) / 100;
+                     points.push({ x: roundedX, y: func(roundedX) });
+                 }
+                 return points;
+             };
+
+             // Use CSS variables for colors
+             const axisColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-axis-color').trim();
+             const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid-color').trim();
+             const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+
+
+             const commonChartOptions = {
+                 responsive: true,
+                 maintainAspectRatio: true,
+                 aspectRatio: 1.5,
+                 interaction: {
+                     mode: 'index', // Better for comparing lines at the same x
+                     intersect: false
+                 },
+                 plugins: {
+                     tooltip: {
+                         backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                         titleColor: '#ffffff',
+                         bodyColor: '#ffffff',
+                         callbacks: {
+                             label: ctx => `${ctx.dataset.label}: (${ctx.parsed.x.toFixed(2)}, ${ctx.parsed.y.toFixed(2)})`,
+                             title: () => ''
+                         }
+                     },
+                     legend: {
+                         labels: {
+                             color: textColor // Match text color
+                         }
+                     }
+                 },
+                 scales: {
+                     x: {
+                         type: 'linear',
+                         title: {
+                             display: true,
+                             text: 'x',
+                             font: { size: 16, weight: 'bold' },
+                             color: textColor // Match text color
+                         },
+                         grid: {
+                             color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
+                             lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+                         },
+                         ticks: {
+                             font: { size: 12 },
+                             color: textColor // Match text color
+                         }
+                     },
+                     y: {
+                         title: {
+                             display: true,
+                             text: 'y',
+                             font: { size: 16, weight: 'bold' },
+                             color: textColor // Match text color
+                         },
+                         grid: {
+                             color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
+                             lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+                         },
+                         ticks: {
+                             font: { size: 12 },
+                             color: textColor // Match text color
+                         }
+                     }
+                 }
+             };
+
+             const lineData = generateData(x => x, rangeMin, rangeMax, step);
+             const parabolaDataC0 = generateData(x => (x * x) / 2, rangeMin, rangeMax, step);
+             const parabolaDataC1 = generateData(x => (x * x) / 2 + 1, rangeMin, rangeMax, step);
+             const parabolaDataC_2 = generateData(x => (x * x) / 2 - 2, rangeMin, rangeMax, step);
+
+             lineChartInstance = new Chart(lineCtx, {
+                 type: 'line',
+                 data: {
+                     datasets: [{
+                         label: 'y = x',
+                         data: lineData,
+                         borderColor: '#ffa500',
+                         backgroundColor: 'transparent',
+                         borderWidth: 2.5,
+                         pointRadius: 0,
+                         tension: 0.1
+                     }]
+                 },
+                 options: commonChartOptions
+             });
+
+             parabolaChartInstance = new Chart(parabolaCtx, {
+                 type: 'line',
+                 data: {
+                     datasets: [
+                         {
+                             label: 'y = x²/2 + 1',
+                             data: parabolaDataC1,
+                             borderColor: '#f0ad4e',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         },
+                         {
+                             label: 'y = x²/2',
+                             data: parabolaDataC0,
+                             borderColor: '#fd7e14',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         },
+                         {
+                             label: 'y = x²/2 - 2',
+                             data: parabolaDataC_2,
+                             borderColor: '#dc3545',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         }
+                     ]
+                 },
+                 options: commonChartOptions
+             });
+         }
+
+         document.addEventListener('DOMContentLoaded', function() {
+             // --- 1. KaTeX Rendering ---
+              try {
+                  renderMathInElement(document.body, {
+                     delimiters: [
+                         {left: '$$', right: '$$', display: true},
+                         {left: '\\[', right: '\\]', display: true},
+                         {left: '\\(', right: '\\)', display: false},
+                         {left: '$', right: '$', display: false}
+                     ],
+                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'], // Ignore canvas
+                     ignoredClasses: ['no-math'],
+                     throwOnError: false
+                  });
+             } catch (error) {
+                 console.error("KaTeX auto-rendering failed:", error);
+             }
+
+             // --- 2. Active Navigation Link Highlighting ---
+              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+              const sections = document.querySelectorAll('main section');
+              const navElement = document.querySelector('nav');
+              const navHeight = navElement ? navElement.offsetHeight : 60;
+
+             function changeActiveLink() {
+                 let currentSectionId = '';
+                 const scrollPosition = window.scrollY;
+
+                 sections.forEach(section => {
+                     const sectionTop = section.offsetTop - navHeight - 50; // Adjusted offset
+                     if (scrollPosition >= sectionTop) {
+                         currentSectionId = section.getAttribute('id');
+                     }
+                 });
+
+                 // Handle edge cases (top/bottom)
+                 if (scrollPosition < sections[0].offsetTop - navHeight - 50) {
+                     currentSectionId = sections[0].getAttribute('id');
+                 }
+                 if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight - 2) { // More reliable bottom check
+                     currentSectionId = sections[sections.length - 1].getAttribute('id');
+                 }
+
+                 navLinks.forEach(link => {
+                      link.classList.remove('active');
+                      if (link.getAttribute('href') === '#' + currentSectionId) {
+                          link.classList.add('active');
+                      }
+                  });
+              }
+             window.addEventListener('scroll', changeActiveLink);
+             setTimeout(changeActiveLink, 150); // Delay slightly more
+
+              // --- 3. Section Fade-in Animation on Scroll ---
+               const observerOptions = {
+                  root: null,
+                   rootMargin: '0px 0px -50px 0px',
+                   threshold: 0.1
+              };
+
+               const observerCallback = (entries, observer) => {
+                  entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                          entry.target.classList.add('visible');
+                         observer.unobserve(entry.target);
+                      }
+                  });
+              };
+
+              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+              sections.forEach(section => {
+                  scrollObserver.observe(section);
+               });
+
+             // --- 4. Dark Mode ---
+             const darkModeToggle = document.getElementById('darkModeToggle');
+             const htmlElement = document.documentElement;
+
+             // Function to apply theme
+             const applyTheme = (theme) => {
+                 htmlElement.setAttribute('data-theme', theme);
+                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
+                 localStorage.setItem('theme', theme); // Save preference
+             };
+
+             // Check for saved theme on load
+             const savedTheme = localStorage.getItem('theme');
+             // Check for system preference if no saved theme
+             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+             // Initialize theme
+             if (savedTheme) {
+                 applyTheme(savedTheme);
+             } else {
+                 applyTheme('light'); // Default to light always
+             }
+
+             // Toggle button event listener
+             darkModeToggle.addEventListener('click', () => {
+                 const currentTheme = htmlElement.getAttribute('data-theme');
+                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                 applyTheme(newTheme);
+                 // Re-render charts after theme change
+                 // Use a small delay to allow CSS transitions to start if needed
+                 setTimeout(renderCharts, 100);
+             });
+
+             // Listen for system theme changes (optional)
+             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                // Only change if no theme was explicitly set by the user via toggle
+                if (!localStorage.getItem('theme')) {
+                     const newTheme = e.matches ? 'dark' : 'light';
+                     applyTheme(newTheme);
+                     setTimeout(renderCharts, 100); // Re-render on system change too
+                }
+             });
+
+            // --- 5. Initial Chart Rendering ---
+            // Render charts after the rest of the DOM setup is complete
+            renderCharts();
+
+          });
+      </script>
+
+</body>
+</html>

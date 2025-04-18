@@ -1,0 +1,1522 @@
+<!-- filename: lesson_2_indefinite_integral.html -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שיעור 2: אינטגרל לא מסוים</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-color: #0a5a8d; /* Deeper Blue */
+            --secondary-color: #495057; /* Dark Gray */
+            --accent-color: #f0ad4e; /* Orange/Yellow Accent */
+            --highlight-color: #fdebd0; /* Softer Highlight */
+            --bg-color: #fdfcfb; /* Off-white / Creamy */
+            --text-color: #343a40; /* Darker Text */
+            --border-color: #ced4da;
+            --font-family-hebrew: 'Assistant', 'Rubik', sans-serif;
+            --font-family-heading: 'Orbitron', 'Assistant', sans-serif;
+            --card-bg: #ffffff;
+            --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px; /* More rounded */
+            --header-bg: linear-gradient(135deg, var(--primary-color), #007bb5);
+            --header-text: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --nav-text: var(--primary-color);
+            --nav-hover-bg: var(--primary-color);
+            --nav-hover-text: #ffffff;
+            --section-border: var(--primary-color);
+            --section-hover-border: var(--accent-color);
+            --formula-bg: #f8f9fa;
+            --formula-border: #e9ecef;
+            --definition-bg: #fffaf0;
+            --definition-border: var(--accent-color);
+            --definition-heading: var(--accent-color);
+            --example-bg: #f8f9fa;
+            --example-border: var(--secondary-color);
+            --katex-inline-color: var(--primary-color);
+            --katex-display-color: var(--text-color);
+            --body-pattern: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e9ecef" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            --transition-speed: 0.4s;
+            --chart-axis-color: #000000; /* Default light axis */
+            --chart-grid-color: rgba(128, 128, 128, 0.2);
+        }
+
+        /* --- Dark Mode Variables --- */
+        html[data-theme="dark"] {
+            --primary-color: #58a6ff; /* Lighter Blue */
+            --secondary-color: #8b949e; /* Lighter Gray */
+            --accent-color: #f7b731; /* Brighter Yellow */
+            --highlight-color: #2d333b; /* Darker Highlight */
+            --bg-color: #0d1117; /* Very Dark Gray/Black */
+            --text-color: #c9d1d9; /* Light Gray Text */
+            --border-color: #30363d;
+            --card-bg: #161b22; /* Dark Card Background */
+            --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            --header-bg: linear-gradient(135deg, #1f6feb, #21262d);
+            --header-text: #e6edf3;
+            --nav-bg: rgba(22, 27, 34, 0.85); /* Darker Nav */
+            --nav-text: var(--primary-color);
+            --nav-hover-bg: var(--primary-color);
+            --nav-hover-text: #0d1117;
+            --section-border: var(--primary-color);
+            --section-hover-border: var(--accent-color);
+            --formula-bg: #1c2128; /* Darker Formula Block */
+            --formula-border: #30363d;
+            --definition-bg: #20242a; /* Darker Definition */
+            --definition-border: var(--accent-color);
+            --definition-heading: var(--accent-color);
+            --example-bg: #1c2128; /* Darker Example Block */
+            --example-border: var(--secondary-color);
+            --katex-inline-color: #79c0ff; /* Lighter Blue for Inline Katex */
+            --katex-display-color: var(--text-color);
+            --body-pattern: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2330363d" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            --chart-axis-color: #ffffff; /* Dark axis */
+            --chart-grid-color: rgba(128, 128, 128, 0.2); /* Grid can stay the same or be slightly adjusted */
+        }
+
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; /* Added transition for smooth theme change */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 100%; /* Base 16px */
+        }
+
+        body {
+            font-family: var(--font-family-hebrew);
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            background-image: var(--body-pattern);
+            font-weight: 300; /* Lighter default weight */
+        }
+
+        .container {
+            max-width: 900px; /* Adjusted max-width for better readability */
+            margin: 30px auto;
+            padding: 0 25px;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%); /* Stylish shape */
+            animation: fadeInDown 1s ease-out 0.2s backwards;
+        }
+         html[data-theme="dark"] header {
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+         }
+
+            header h1 {
+                font-family: var(--font-family-heading);
+                font-size: 2.8em; /* Adjusted title size */
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+
+        nav {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            transition: top 0.3s ease, background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+         html[data-theme="dark"] nav {
+              border: 1px solid var(--border-color);
+         }
+
+            nav ul {
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px 20px; /* Row and column gap */
+            }
+
+                nav ul li a {
+                    text-decoration: none;
+                    color: var(--nav-text);
+                    font-weight: 500; /* Medium weight */
+                    padding: 10px 18px;
+                    border-radius: 8px;
+                    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    display: inline-block; /* Needed for transform */
+                    border: 1px solid transparent;
+                }
+
+                    nav ul li a:hover, nav ul li a.active {
+                        background-color: var(--nav-hover-bg);
+                        color: var(--nav-hover-text);
+                        transform: translateY(-3px) scale(1.03);
+                        box-shadow: 0 4px 8px rgba(0, 86, 179, 0.2);
+                        border-color: transparent;
+                    }
+                     html[data-theme="dark"] nav ul li a:hover, html[data-theme="dark"] nav ul li a.active {
+                          box-shadow: 0 4px 8px rgba(88, 166, 255, 0.3);
+                     }
+
+                    nav ul li a.active {
+                         font-weight: 700;
+                    }
+
+        main section {
+            background-color: var(--card-bg);
+            padding: 30px 35px; /* More padding */
+            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border-right: 7px solid var(--section-border); /* Changed border side for RTL */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease, transform 0.5s ease; /* Added opacity/transform */
+    opacity: 1;
+    transform: translateY(0);
+            overflow: hidden; /* Contain elements */
+        }
+
+         main section.visible {
+            opacity: 1;
+            transform: translateY(0);
+         }
+
+            main section:hover {
+                box-shadow: var(--card-hover-shadow);
+                transform: translateY(-8px); /* Slightly larger lift */
+                border-right-color: var(--section-hover-border); /* Change border on hover */
+            }
+
+        main h2 {
+            font-family: var(--font-family-heading);
+            font-size: 2.0em; /* Adjusted section titles */
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--border-color); /* Use variable */
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        main h3 {
+            font-family: var(--font-family-hebrew); /* Ensure consistent font */
+            font-size: 1.5em; /* Adjusted sub-section titles */
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-weight: 600; /* Bold */
+             border-bottom: 1px dashed var(--border-color);
+             padding-bottom: 8px;
+             width: fit-content;
+        }
+
+        main h4 {
+            font-size: 1.2em; /* Adjusted slightly */
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        p, li {
+            margin-bottom: 1em;
+             color: var(--text-color);
+             font-weight: 400; /* Regular weight for readability */
+             font-size: 1.05em;
+        }
+
+        ul, ol {
+            padding-right: 25px; /* Indentation for RTL lists */
+        }
+         li::marker { /* Style list markers */
+            color: var(--primary-color);
+         }
+
+        .formula-block {
+            background-color: var(--formula-bg);
+            padding: 15px 10px; /* Adjusted padding */
+            margin: 25px auto; /* Center block */
+            border-radius: 8px;
+            overflow-x: auto; /* Handle long formulas */
+            text-align: center;
+            border: 1px solid var(--formula-border);
+            max-width: 100%;
+            transition: box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+             position: relative; /* For potential ::before/::after */
+        }
+        .formula-block:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+        }
+         html[data-theme="dark"] .formula-block:hover {
+             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+         }
+
+            /* Force LTR for math layout & prevent clipping */
+            .formula-block div.math, .formula-block span.math { /* UPDATED SELECTOR */
+                margin: 0 auto; /* Center math block */
+                direction: ltr !important; /* CRITICAL FOR RTL ISSUE */
+                unicode-bidi: embed !important; /* CRITICAL FOR RTL ISSUE */
+                text-align: center; /* Center content within LTR block */
+                padding: 10px 5px; /* ADDED PADDING to prevent clipping */
+                overflow-x: auto; /* Scroll long equations */
+                overflow-y: hidden;
+                display: block; /* Make sure it behaves as a block */
+                 color: var(--katex-display-color); /* Use variable */
+                 max-width: 100%; /* Ensure it doesn't overflow parent */
+            }
+
+        /* Style KaTeX inline math */
+        span.math { /* UPDATED SELECTOR */
+            font-size: 1.1em; /* Adjusted inline math size */
+            color: var(--katex-inline-color); /* Use variable */
+             direction: ltr !important; /* Inline math also LTR */
+             unicode-bidi: embed !important;
+             padding: 0 2px; /* Inline padding */
+             vertical-align: middle; /* Better alignment with text */
+             transition: color var(--transition-speed) ease; /* Smooth color change */
+        }
+
+        .definition {
+            border-right: 5px solid var(--definition-border); /* Use accent color, RTL */
+            border-left: none; /* Remove left border */
+            padding: 15px 20px 15px 15px;
+            margin: 25px 0;
+            background-color: var(--definition-bg); /* Very light yellow/cream */
+            border-radius: 8px;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+         html[data-theme="dark"] .definition {
+             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+         }
+            .definition h4 {
+                 color: var(--definition-heading); /* Match border */
+                 margin-top: 0;
+                 margin-bottom: 10px;
+                 border-bottom: none; /* Remove underline from H4 */
+             }
+
+        .highlight {
+            background-color: var(--highlight-color);
+            padding: 3px 8px; /* More padding */
+            border-radius: 5px;
+            font-weight: 500; /* Medium weight */
+            border: 1px solid #f5c6cb; /* Border matching background */
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        html[data-theme="dark"] .highlight {
+            border-color: var(--border-color);
+        }
+
+        .example {
+            border: 1px dashed var(--example-border);
+            padding: 20px 25px;
+            margin-top: 25px;
+            border-radius: 8px;
+            background-color: var(--example-bg);
+             transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+            .example h4 {
+                margin-top: 0;
+                color: var(--secondary-color);
+                font-weight: bold;
+                 border-bottom: none; /* Remove underline */
+            }
+
+        /* --- Chart Container --- */
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 30px; /* Space between charts */
+            margin-top: 25px;
+            justify-content: space-around; /* Distribute space */
+        }
+
+        .chart-wrapper {
+            flex: 1 1 400px; /* Allow flex grow/shrink, basis 400px */
+            min-width: 300px; /* Minimum width before wrapping */
+            max-width: 45%; /* Limit max width */
+            background-color: var(--card-bg); /* Match card bg */
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+             transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        .chart-wrapper h5 {
+             text-align: center;
+             margin-bottom: 15px;
+             font-size: 1.1em;
+             color: var(--secondary-color);
+             font-weight: 600;
+        }
+
+
+        /* --- Dark Mode Toggle Button --- */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px; /* Positioned left */
+            z-index: 1001; /* Above nav */
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            transition: all var(--transition-speed) ease, transform 0.2s ease;
+            overflow: hidden; /* Hide the icon that's moving out */
+        }
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--card-hover-shadow);
+            color: var(--accent-color);
+        }
+        .dark-mode-toggle .fa-sun,
+        .dark-mode-toggle .fa-moon {
+             position: absolute;
+             transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+        }
+
+        /* Light mode: Sun is visible, Moon is hidden and moved */
+        html:not([data-theme="dark"]) .dark-mode-toggle .fa-sun {
+             transform: translateY(0) rotate(0deg);
+             opacity: 1;
+        }
+        html:not([data-theme="dark"]) .dark-mode-toggle .fa-moon {
+            transform: translateY(100%) rotate(180deg);
+             opacity: 0;
+        }
+
+        /* Dark mode: Moon is visible, Sun is hidden and moved */
+        html[data-theme="dark"] .dark-mode-toggle .fa-sun {
+             transform: translateY(-100%) rotate(-180deg);
+             opacity: 0;
+         }
+        html[data-theme="dark"] .dark-mode-toggle .fa-moon {
+             transform: translateY(0) rotate(0deg);
+             opacity: 1;
+        }
+
+
+        /* CSS Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+             .container { max-width: 90%; }
+             main h2 { font-size: 1.8em; }
+             main h3 { font-size: 1.4em; }
+             .chart-wrapper { max-width: 100%; flex-basis: 100%;} /* Stack charts */
+        }
+
+        @media (max-width: 768px) {
+             html { font-size: 95%; }
+             .container { padding: 0 15px; }
+             header h1 { font-size: 2.3em; }
+             nav ul { gap: 8px 15px; }
+             nav ul li a { padding: 8px 14px; }
+             main section { padding: 25px 30px; }
+             main h2 { font-size: 1.7em; }
+             main h3 { font-size: 1.3em; }
+             .dark-mode-toggle { width: 45px; height: 45px; font-size: 1.3rem; top: 15px; left: 15px; }
+        }
+
+        @media (max-width: 576px) {
+             html { font-size: 90%; }
+             header h1 { font-size: 2.0em; }
+             header { clip-path: none; border-radius: 0 0 10px 10px; padding: 30px 15px;}
+             nav ul { flex-direction: column; align-items: stretch; text-align: center; gap: 10px; }
+             nav ul li { width: 100%; }
+              nav ul li a { width: 100%; } /* Make links full width */
+             main section { padding: 20px 25px; border-right-width: 5px; }
+             main h2 { font-size: 1.5em; }
+             main h3 { font-size: 1.2em; }
+             .formula-block { padding: 15px 10px; }
+             .dark-mode-toggle { width: 40px; height: 40px; font-size: 1.2rem; top: 10px; left: 10px; }
+             .chart-container { gap: 20px; }
+             .chart-wrapper { padding: 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header>
+        <h1>שיעור 2: אינטגרל לא מסוים</h1>
+    </header>
+
+    <div class="container">
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#review" class="nav-link">סקירה (שיעור 1)</a></li>
+                <li><a href="#no-integral" class="nav-link">מתי אין אינטגרל</a></li>
+                <li><a href="#partial-fractions-example" class="nav-link">דוגמה: שברים חלקיים</a></li>
+                <li><a href="#integration-by-parts" class="nav-link">אינטגרציה בחלקים</a></li>
+                <li><a href="#by-parts-examples" class="nav-link">דוגמאות א"ב</a></li>
+                <li><a href="#substitution-method" class="nav-link">שיטת ההצבה</a></li>
+                <li><a href="#substitution-examples" class="nav-link">דוגמאות הצבה</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="review">
+                <h2>1. סקירה משיעור קודם</h2>
+                <p>קרדיטים ליקיר והלל.</p>
+                <p>עבור פונקציה <span class="math" dir="ltr">\(f\)</span> המוגדרת בקטע <span class="math" dir="ltr">\(I\)</span> ב-<span class="math" dir="ltr">\(\mathbb{R}\)</span> (חסום או לא חסום), ראינו בשיעור מס' 1 בעיקר את הדברים הבאים:</p>
+                <ul>
+                    <li>אם פונקציה <span class="math" dir="ltr">\(F(x)\)</span> מוגדרת ב-<span class="math" dir="ltr">\(I\)</span> ו-<span class="math" dir="ltr">\(F'(x) = f(x)\)</span>, אז <span class="math" dir="ltr">\(F\)</span> נקראת <strong>הפונקציה הקדומה</strong> של <span class="math" dir="ltr">\(f\)</span>, או <strong>אינטגרל לא מסוים</strong> של <span class="math" dir="ltr">\(f\)</span>.</li>
+                    <li>בהינתן קדומה <span class="math" dir="ltr">\(F\)</span> של <span class="math" dir="ltr">\(f\)</span>, אז <span class="math" dir="ltr">\(G\)</span> היא קדומה של <span class="math" dir="ltr">\(f\)</span> אם ורק אם <span class="math" dir="ltr">\(F(x) - G(x) = C\)</span>, כאשר <span class="math" dir="ltr">\(C\)</span> קבוע.</li>
+                    <li>הסימון <span class="math" dir="ltr">\(\int f(x) \, dx\)</span> מוגדר להיות אוסף כל הפונקציות הקדומות של <span class="math" dir="ltr">\(f\)</span>, ומספיק למצוא אחת כזו ולהוסיף קבוע <span class="math" dir="ltr">\(C\)</span>. כך למשל, מכיוון ש-<span class="math" dir="ltr">\((\frac{1}{2}x^2)' = x\)</span>, אז <span class="math" dir="ltr">\(\int x \, dx = \frac{1}{2}x^2 + C\)</span> (<span class="math" dir="ltr">\(C\)</span> קבוע ממשי כלשהו).</li>
+                    <li>
+                        <h3>כללי אריתמטיקה לאינטגרציה:</h3>
+                        <div class="formula-block"><div class="math" dir="ltr">$$ \int a \cdot f(x) \, dx = a \int f(x) \, dx $$</div></div>
+                        <div class="formula-block"><div class="math" dir="ltr">$$ \int (f(x) + g(x)) \, dx = \int f(x) \, dx + \int g(x) \, dx $$</div></div>
+                    </li>
+                    <li>מכל נוסחת נגזרת נובעת מייד נוסחה לאינטגרל. למשל, מ-<span class="math" dir="ltr">\((\sin x)' = \cos x\)</span> נובע <span class="math" dir="ltr">\(\int \cos x \, dx = \sin x + C\)</span>. מכך מקבלים לוח של אינטגרלים מיידיים שהם היפוך של הנגזרות של הפונקציות האלמנטריות הפשוטות ביותר.</li>
+                    <li>יישום של כללי האריתמטיקה ולוח האינטגרלים המיידיים לפתרון אינטגרלים נקרא באופן כללי <strong>שיטת הפירוק</strong>. ראינו מספר דוגמאות.</li>
+                </ul>
+            </section>
+
+            <section id="no-integral">
+                <h2>2. מתי אין אינטגרל לא מסוים?</h2>
+                <p>לא לכל פונקציה יש אינטגרל לא מסוים (כלומר, פונקציה קדומה). למשל, הפונקציה <span class="math" dir="ltr">\(f(x) = \lfloor x \rfloor\)</span> (פונקציית הערך השלם) בקטע <span class="math" dir="ltr">\([0, 2)\)</span> נראית כך:</p>
+<canvas id="stepChart" width="600" height="400" style="max-width:100%; display:block; margin: 2em auto;"></canvas>
+                <p>אכן, לפי משפט מאינפי 1 (משפט דארבו), לנגזרת יכולות להיות רק נקודות אי-רציפות ממין שני. לעומת זאת, לפונקציה <span class="math" dir="ltr">\(\lfloor x \rfloor\)</span> יש נקודת אי-רציפות ממין ראשון ('קפיצה') בנקודה <span class="math" dir="ltr">\(x=1\)</span>, ולכן היא אינה יכולה להיות נגזרת של שום פונקציה בקטע <span class="math" dir="ltr">\([0, 2)\)</span>.</p>
+            </section>
+
+            <section id="partial-fractions-example">
+                <h2>3. דוגמה: פירוק לשברים חלקיים</h2>
+                <p>מצא את האינטגרל:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{dx}{x^2-5x+6} $$</div></div>
+                <p>ראשית, נפרק את המכנה לגורמים:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ x^2-5x+6 = (x-2)(x-3) $$</div></div>
+                <p>לכן האינטגרל הוא:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{(x-2)(x-3)} dx $$</div></div>
+                <p>ניעזר בפירוק לשברים חלקיים. נחפש קבועים <span class="math" dir="ltr">\(A, B\)</span> כך ש:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{(x-2)(x-3)} = \frac{A}{x-2} + \frac{B}{x-3} $$</div></div>
+                <p>נכפיל במכנה המשותף:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ 1 = A(x-3) + B(x-2) $$</div></div>
+                <p>נציב <span class="math" dir="ltr">\(x=2\)</span> ונקבל <span class="math" dir="ltr">\(1 = A(2-3) + B(0) \implies 1 = -A \implies A = -1\)</span>.</p>
+                <p>נציב <span class="math" dir="ltr">\(x=3\)</span> ונקבל <span class="math" dir="ltr">\(1 = A(0) + B(3-2) \implies 1 = B \implies B = 1\)</span>.</p>
+                <p>לכן הפירוק הוא:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{(x-2)(x-3)} = \frac{-1}{x-2} + \frac{1}{x-3} = \frac{1}{x-3} - \frac{1}{x-2} $$</div></div>
+                <p>נחזור לאינטגרל:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \left( \frac{1}{x-3} - \frac{1}{x-2} \right) dx $$</div></div>
+                <p>נשתמש בלינאריות האינטגרל ובנוסחה <span class="math" dir="ltr">\(\int \frac{1}{ax+b} dx = \frac{1}{a} \ln|ax+b| + C\)</span>:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{x-3} dx - \int \frac{1}{x-2} dx = \ln|x-3| - \ln|x-2| + C $$</div></div>
+                <p>ניתן לכתוב זאת גם כך:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \ln\left|\frac{x-3}{x-2}\right| + C $$</div></div>
+            </section>
+
+            <section id="integration-by-parts">
+                <h2>4. שיטה שנייה: אינטגרציה בחלקים</h2>
+                <p>שיטה זו מבוססת על הנוסחה לנגזרת של מכפלת שתי פונקציות <span class="math" dir="ltr">\(u(x)\)</span> ו-<span class="math" dir="ltr">\(v(x)\)</span>:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ (u \cdot v)' = u'v + uv' $$</div></div>
+                <p>נבצע אינטגרציה על שני האגפים. מאחר שאינטגרציה היא פעולה הפוכה לגזירה (עד כדי קבוע), נקבל:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ uv = \int (u'v + uv') dx = \int u'v \, dx + \int uv' \, dx $$</div></div>
+                <p>מכאן, על ידי העברת אגפים, נקבל את <strong>כלל האינטגרציה בחלקים (א"ב)</strong>:</p>
+<div class="formula-block">
+  <div class="math" dir="ltr">
+    $$ \int uv' \, dx = uv - \int u'v \, dx $$
+  </div>
+</div>
+
+                <p>למטרותינו יספיק לדעת כי הכלל נכון עבור פונקציות <span class="math" dir="ltr">\(u, v\)</span> בעלות נגזרות רציפות, אם כי הוא נכון אף בתנאים חלשים יותר.</p>
+            </section>
+
+            <section id="by-parts-usage">
+                <h2>5. אופן השימוש באינטגרציה בחלקים</h2>
+                <p>כדי לחשב אינטגרל מהצורה <span class="math" dir="ltr">\(\int f(x) \cdot h(x) \, dx\)</span> באמצעות אינטגרציה בחלקים, עלינו לזהות חלק אחד מהמכפלה כ-<span class="math" dir="ltr">\(u\)</span> ואת החלק השני (כולל <span class="math" dir="ltr">\(dx\)</span>) כ-<span class="math" dir="ltr">\(dv = v' dx\)</span>.</p>
+                <p>לאחר הבחירה:</p>
+                <ol>
+                    <li>גוזרים את <span class="math" dir="ltr">\(u\)</span> כדי למצוא את <span class="math" dir="ltr">\(du = u' dx\)</span>.</li>
+                    <li>מבצעים אינטגרציה ל-<span class="math" dir="ltr">\(dv\)</span> כדי למצוא את <span class="math" dir="ltr">\(v\)</span> (מספיקה פונקציה קדומה אחת, ללא הקבוע <span class="math" dir="ltr">\(C\)</span>).</li>
+                    <li>מציבים את <span class="math" dir="ltr">\(u, v, du\)</span> בנוסחה: <span class="math" dir="ltr">\(\int u \, dv = uv - \int v \, du\)</span>.</li>
+                </ol>
+                <p>המטרה היא שהאינטגרל החדש, <span class="math" dir="ltr">\(\int v \, du\)</span>, יהיה פשוט יותר לחישוב מהאינטגרל המקורי. הבחירה של <span class="math" dir="ltr">\(u\)</span> ו-<span class="math" dir="ltr">\(dv\)</span> היא קריטית להצלחת השיטה.</p>
+             </section>
+
+             <section id="by-parts-examples">
+                <h2>6-13. דוגמאות לאינטגרציה בחלקים</h2>
+
+                <div class="example">
+                    <h4>דוגמה (נקודה 6)</h4>
+                    <p>חשב <span class="math" dir="ltr">\(I = \int x e^x dx\)</span>.</p>
+                    <p>נבחר:</p>
+                    <ul>
+                        <li><span class="math" dir="ltr">\(u = x\)</span></li>
+                        <li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
+                    </ul>
+                    <p>ואז:</p>
+                    <ul>
+                        <li><span class="math" dir="ltr">\(du = 1 \cdot dx = dx\)</span></li>
+                        <li><span class="math" dir="ltr">\(v = \int e^x dx = e^x\)</span></li>
+                    </ul>
+                    <p>נציב בנוסחה:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int u \, dv = uv - \int v \, du $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x e^x - \int e^x dx = x e^x - e^x + C $$</div></div>
+                     <p>נשים לב שאם היינו בוחרים אחרת (<span class="math" dir="ltr">\(u=e^x, dv=x dx\)</span>), היינו מקבלים <span class="math" dir="ltr">\(du = e^x dx, v = \frac{x^2}{2}\)</span>, והאינטגרל החדש היה <span class="math" dir="ltr">\(\int v \, du = \int \frac{x^2}{2} e^x dx\)</span>, שהוא מסובך יותר מהמקורי (החזקה של <span class="math" dir="ltr">\(x\)</span> גדלה).</p>
+                 </div>
+
+                 <div class="example">
+                     <h4>דוגמה (נקודה 7)</h4>
+                     <p>חשב <span class="math" dir="ltr">\(I = \int \ln x \, dx\)</span> (עבור <span class="math" dir="ltr">\(x > 0\)</span>).</p>
+                     <p>לכאורה אין כאן מכפלה, אלא פונקציה יחידה. אך ניתן לכתוב זאת כ-<span class="math" dir="ltr">\(I = \int 1 \cdot \ln x \, dx\)</span>.</p>
+                     <p>נבחר:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(u = \ln x\)</span></li>
+                         <li><span class="math" dir="ltr">\(dv = 1 \cdot dx = dx\)</span></li>
+                     </ul>
+                     <p>ואז:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(du = \frac{1}{x} dx\)</span></li>
+                         <li><span class="math" dir="ltr">\(v = \int dx = x\)</span></li>
+                     </ul>
+                     <p>נציב בנוסחה:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \ln x - \int x \cdot \frac{1}{x} dx = x \ln x - \int 1 \, dx $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \ln x - x + C $$</div></div>
+                 </div>
+
+                 <div class="example">
+                     <h4>דוגמה (נקודה 8)</h4>
+                     <p>חשב <span class="math" dir="ltr">\(I = \int e^x \sin x \, dx\)</span>.</p>
+                     <p>נבחר:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(u = \sin x\)</span></li>
+                         <li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
+                     </ul>
+                     <p>ואז:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(du = \cos x \, dx\)</span></li>
+                         <li><span class="math" dir="ltr">\(v = e^x\)</span></li>
+                     </ul>
+                     <p>נציב בנוסחה:</p>
+                      <div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - \int e^x \cos x \, dx $$</div></div>
+                     <p>האינטגרל באגף ימין 'מאותו סוג' כמו המקורי. נטפל בו שוב באמצעות אינטגרציה בחלקים:</p>
+                     <p>עבור <span class="math" dir="ltr">\(\int e^x \cos x \, dx\)</span>, נבחר:</p>
+                      <ul>
+                         <li><span class="math" dir="ltr">\(u = \cos x\)</span></li>
+                         <li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
+                     </ul>
+                     <p>ואז:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(du = -\sin x \, dx\)</span></li>
+                         <li><span class="math" dir="ltr">\(v = e^x\)</span></li>
+                     </ul>
+                     <p>ולכן:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ \int e^x \cos x \, dx = e^x \cos x - \int e^x (-\sin x) \, dx = e^x \cos x + \int e^x \sin x \, dx $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ \int e^x \cos x \, dx = e^x \cos x + I $$</div></div>
+                     <p>נציב בחזרה בביטוי עבור <span class="math" dir="ltr">\(I\)</span>:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - (e^x \cos x + I) $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - e^x \cos x - I $$</div></div>
+                     <p>נעביר אגפים:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ 2I = e^x \sin x - e^x \cos x $$</div></div>
+                     <p>ולבסוף (נוסיף את קבוע האינטגרציה):</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{e^x (\sin x - \cos x)}{2} + C $$</div></div>
+                 </div>
+
+                <div class="example">
+                    <h4>דוגמה (נקודה 9): נוסחת נסיגה</h4>
+                    <p>מצא נוסחת נסיגה עבור <span class="math" dir="ltr">\(I_n = \int \sin^n x \, dx\)</span>, כאשר <span class="math" dir="ltr">\(n \ge 0\)</span> הוא מספר שלם.</p>
+                    <p>מקרים בסיסיים:</p>
+                    <ul>
+                        <li><span class="math" dir="ltr">\(I_0 = \int \sin^0 x \, dx = \int 1 \, dx = x + C\)</span></li>
+                        <li><span class="math" dir="ltr">\(I_1 = \int \sin^1 x \, dx = -\cos x + C\)</span></li>
+                    </ul>
+                    <p>נניח <span class="math" dir="ltr">\(n \ge 2\)</span>. נכתוב:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n = \int \sin^{n-1} x \cdot \sin x \, dx $$</div></div>
+                    <p>נבחר לאינטגרציה בחלקים:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(u = \sin^{n-1} x\)</span></li>
+                         <li><span class="math" dir="ltr">\(dv = \sin x \, dx\)</span></li>
+                     </ul>
+                     <p>ואז:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(du = (n-1)\sin^{n-2} x \cdot \cos x \, dx\)</span></li>
+                         <li><span class="math" dir="ltr">\(v = -\cos x\)</span></li>
+                     </ul>
+                    <p>נציב בנוסחה:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n = uv - \int v \, du = (-\cos x)(\sin^{n-1} x) - \int (-\cos x) (n-1)\sin^{n-2} x \cos x \, dx $$</div></div>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x \cos^2 x \, dx $$</div></div>
+                    <p>נשתמש בזהות <span class="math" dir="ltr">\(\cos^2 x = 1 - \sin^2 x\)</span>:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x (1 - \sin^2 x) \, dx $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int (\sin^{n-2} x - \sin^n x) \, dx $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x \, dx - (n-1) \int \sin^n x \, dx $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} - (n-1) I_n $$</div></div>
+                    <p>נעביר אגפים כדי לבודד את <span class="math" dir="ltr">\(I_n\)</span>:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n + (n-1) I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ n I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} $$</div></div>
+                    <p>ולכן, נוסחת הנסיגה היא:</p>
+<div class="formula-block">
+  <div class="math" dir="ltr">
+    $$ I_n = \frac{-\cos x \sin^{n-1} x}{n} + \frac{n-1}{n} I_{n-2} $$
+  </div>
+</div>
+
+                    <p>נוסחה זו מאפשרת לחשב את <span class="math" dir="ltr">\(I_n\)</span> לכל <span class="math" dir="ltr">\(n\)</span> זוגי על בסיס <span class="math" dir="ltr">\(I_0\)</span>, ולכל <span class="math" dir="ltr">\(n\)</span> אי-זוגי על בסיס <span class="math" dir="ltr">\(I_1\)</span>.</p>
+                    <p>למשל, עבור <span class="math" dir="ltr">\(n=2\)</span>:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ I_2 = \int \sin^2 x \, dx = \frac{-\cos x \sin^{1} x}{2} + \frac{2-1}{2} I_{2-2} = \frac{-\cos x \sin x}{2} + \frac{1}{2} I_0 $$</div></div>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ I_2 = \frac{-\cos x \sin x}{2} + \frac{1}{2} (x + C_0) = \frac{x}{2} - \frac{\sin(2x)}{4} + C $$</div></div>
+                    <p>(השתמשנו ב-<span class="math" dir="ltr">\(\sin(2x) = 2 \sin x \cos x\)</span> ובקליטת הקבוע <span class="math" dir="ltr">\(C_0/2\)</span> לתוך <span class="math" dir="ltr">\(C\)</span>).</p>
+                </div>
+
+                <div class="example">
+                     <h4>דוגמה (נקודה 10)</h4>
+                     <p>חשב <span class="math" dir="ltr">\(I = \int x^2 \sin x \, dx\)</span>.</p>
+                     <p>נבחר:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(u = x^2\)</span></li>
+                         <li><span class="math" dir="ltr">\(dv = \sin x \, dx\)</span></li>
+                     </ul>
+                     <p>ואז:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(du = 2x \, dx\)</span></li>
+                         <li><span class="math" dir="ltr">\(v = -\cos x\)</span></li>
+                     </ul>
+                     <p>נציב בנוסחה:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x^2 (-\cos x) - \int (-\cos x) (2x \, dx) = -x^2 \cos x + 2 \int x \cos x \, dx $$</div></div>
+                     <p>האינטגרל החדש, <span class="math" dir="ltr">\(\int x \cos x \, dx\)</span>, פשוט יותר. נחשב אותו בנפרד בעזרת א"ב:</p>
+                     <p>עבור <span class="math" dir="ltr">\(\int x \cos x \, dx\)</span>, נבחר:</p>
+                      <ul>
+                         <li><span class="math" dir="ltr">\(u = x\)</span></li>
+                         <li><span class="math" dir="ltr">\(dv = \cos x \, dx\)</span></li>
+                     </ul>
+                     <p>ואז:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(du = dx\)</span></li>
+                         <li><span class="math" dir="ltr">\(v = \sin x\)</span></li>
+                     </ul>
+                      <div class="formula-block"><div class="math" dir="ltr">$$ \int x \cos x \, dx = x \sin x - \int \sin x \, dx = x \sin x - (-\cos x) = x \sin x + \cos x $$</div></div>
+                     <p>נציב תוצאה זו חזרה בביטוי עבור <span class="math" dir="ltr">\(I\)</span>:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = -x^2 \cos x + 2 (x \sin x + \cos x) + C $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = -x^2 \cos x + 2x \sin x + 2 \cos x + C $$</div></div>
+                 </div>
+
+                 <div class="example">
+                     <h4>דוגמה (נקודה 11)</h4>
+                     <p>חשב <span class="math" dir="ltr">\(I = \int x \tan^2 x \, dx\)</span>.</p>
+                     <p>נבחר:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(u = x\)</span></li>
+                         <li><span class="math" dir="ltr">\(dv = \tan^2 x \, dx\)</span></li>
+                     </ul>
+                     <p>ואז:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(du = dx\)</span></li>
+                     </ul>
+                     <p>נמצא את <span class="math" dir="ltr">\(v\)</span>:</p>
+                     <p>נשתמש בזהות <span class="math" dir="ltr">\(\tan^2 x = \sec^2 x - 1 = \frac{1}{\cos^2 x} - 1\)</span>.</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ v = \int \tan^2 x \, dx = \int \left( \frac{1}{\cos^2 x} - 1 \right) dx = \tan x - x $$</div></div>
+                     <p>נציב בנוסחה:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = uv - \int v \, du = x (\tan x - x) - \int (\tan x - x) dx $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - \left( \int \tan x \, dx - \int x \, dx \right) $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - \int \frac{\sin x}{\cos x} dx + \int x \, dx $$</div></div>
+                      <p>נחשב את האינטגרלים הנותרים:</p>
+                      <ul>
+                           <li><span class="math" dir="ltr">\(\int x \, dx = \frac{x^2}{2}\)</span></li>
+                           <li><span class="math" dir="ltr">\(\int \frac{\sin x}{\cos x} dx = \int \frac{-(\cos x)'}{\cos x} dx = -\ln|\cos x|\)</span> (השתמשנו בכלל <span class="math" dir="ltr">\(\int \frac{h'(x)}{h(x)} dx = \ln|h(x)|\)</span>).</li>
+                      </ul>
+                     <p>נציב בחזרה:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - (-\ln|\cos x|) + \frac{x^2}{2} + C $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - \frac{x^2}{2} + \ln|\cos x| + C $$</div></div>
+                 </div>
+
+                <div class="example">
+                     <h4>דוגמה (נקודה 12): הוכחה באינדוקציה בעזרת א"ב</h4>
+                     <p>נוכיח את הנוסחה <span class="math" dir="ltr">\(\int x^n dx = \frac{x^{n+1}}{n+1} + C\)</span> לכל <span class="math" dir="ltr">\(n \ge 0\)</span> שלם, באמצעות אינטגרציה בחלקים ואינדוקציה.</p>
+                     <p><strong>בסיס האינדוקציה (<span class="math" dir="ltr">\(n=0\)</span>):</strong></p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_0 = \int x^0 dx = \int 1 \, dx = x + C = \frac{x^{0+1}}{0+1} + C $$</div></div>
+                     <p>הנוסחה נכונה עבור <span class="math" dir="ltr">\(n=0\)</span>.</p>
+                     <p><strong>הנחת האינדוקציה:</strong></p>
+                     <p>נניח שהנוסחה נכונה עבור <span class="math" dir="ltr">\(n=k\)</span> כלשהו, כלומר <span class="math" dir="ltr">\(I_k = \int x^k dx = \frac{x^{k+1}}{k+1} + C\)</span>.</p>
+                     <p><strong>צעד האינדוקציה:</strong></p>
+                     <p>נוכיח את נכונות הנוסחה עבור <span class="math" dir="ltr">\(n=k+1\)</span>. נרשום:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \int x^{k+1} dx = \int x \cdot x^k dx $$</div></div>
+                     <p>נשתמש בא"ב עם:</p>
+                      <ul>
+                         <li><span class="math" dir="ltr">\(u = x\)</span></li>
+                         <li><span class="math" dir="ltr">\(dv = x^k dx\)</span></li>
+                     </ul>
+                     <p>ואז:</p>
+                     <ul>
+                         <li><span class="math" dir="ltr">\(du = dx\)</span></li>
+                         <li><span class="math" dir="ltr">\(v = \int x^k dx = \frac{x^{k+1}}{k+1}\)</span> (לפי הנחת האינדוקציה, ללא הקבוע <span class="math" dir="ltr">\(C\)</span>)</li>
+                     </ul>
+                     <p>נציב בנוסחה:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = u v - \int v \, du = x \cdot \frac{x^{k+1}}{k+1} - \int \frac{x^{k+1}}{k+1} dx $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+1} - \frac{1}{k+1} \int x^{k+1} dx $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+1} - \frac{1}{k+1} I_{k+1} $$</div></div>
+                      <p>נעביר אגפים:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} + \frac{1}{k+1} I_{k+1} = \frac{x^{k+2}}{k+1} $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( 1 + \frac{1}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( \frac{k+1+1}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( \frac{k+2}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
+                     <p>נכפיל ב- <span class="math" dir="ltr">\(\frac{k+1}{k+2}\)</span> (מותר כי <span class="math" dir="ltr">\(k \ge 0 \implies k+2 \ne 0\)</span>):</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+2} $$</div></div>
+                     <p>נוסיף את קבוע האינטגרציה:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \int x^{k+1} dx = \frac{x^{(k+1)+1}}{(k+1)+1} + C $$</div></div>
+                     <p>זו הנוסחה עבור <span class="math" dir="ltr">\(n=k+1\)</span>, ולכן ההוכחה באינדוקציה הושלמה.</p>
+                     <p><strong>הערה:</strong> הנוסחה <span class="math" dir="ltr">\(\int x^n dx = \frac{x^{n+1}}{n+1} + C\)</span> נכונה לכל <span class="math" dir="ltr">\(n \in \mathbb{R}\)</span> כאשר <span class="math" dir="ltr">\(n \ne -1\)</span> (ובתחום <span class="math" dir="ltr">\(x>0\)</span> אם <span class="math" dir="ltr">\(n\)</span> אינו שלם). ההוכחה באינדוקציה כאן תקפה רק ל-<span class="math" dir="ltr">\(n\)</span> שלם אי-שלילי.</p>
+                 </div>
+
+                 <div class="example">
+                    <h4>הערה (נקודה 13): הקבוע <span class="math" dir="ltr">\(C_0\)</span> בחישוב <span class="math" dir="ltr">\(v\)</span></h4>
+                    <p>בנוסחת האינטגרציה בחלקים <span class="math" dir="ltr">\(\int u \, dv = uv - \int v \, du\)</span>, הפונקציה <span class="math" dir="ltr">\(v\)</span> היא קדומה של <span class="math" dir="ltr">\(v'\)</span> (או <span class="math" dir="ltr">\(dv = v' dx\)</span>). קדומה זו נקבעת עד כדי קבוע חיבורי. מה יקרה אם נבחר <span class="math" dir="ltr">\(v + C_0\)</span> במקום <span class="math" dir="ltr">\(v\)</span>, כאשר <span class="math" dir="ltr">\(C_0\)</span> הוא קבוע כלשהו?</p>
+                    <p>נציב בנוסחה:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ \int u \, dv = u(v+C_0) - \int (v+C_0) du $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ = uv + uC_0 - \left( \int v \, du + \int C_0 \, du \right) $$</div></div>
+                     <p>מכיוון ש-<span class="math" dir="ltr">\(du = u' dx\)</span>, אז <span class="math" dir="ltr">\(\int C_0 \, du = \int C_0 u' dx = C_0 \int u' dx = C_0 u\)</span> (עד כדי קבוע אינטגרציה סופי).</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ = uv + uC_0 - \int v \, du - C_0 u $$</div></div>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ = uv - \int v \, du $$</div></div>
+                     <p>קיבלנו בדיוק את הנוסחה המקורית. פירוש הדבר הוא שאין צורך להוסיף קבוע אינטגרציה כאשר מחשבים את <span class="math" dir="ltr">\(v\)</span> מתוך <span class="math" dir="ltr">\(dv\)</span> במסגרת שיטת האינטגרציה בחלקים. מספיק לבחור קדומה אחת ספציפית (בדרך כלל הפשוטה ביותר, עם <span class="math" dir="ltr">\(C_0=0\)</span>).</p>
+                 </div>
+
+             </section>
+
+            <section id="substitution-method">
+                <h2>14. שיטה שלישית: שיטת ההצבה (שינוי משתנה)</h2>
+                <p>השיטה הראשונה (פירוק) נסמכת על אינטגרלים מיידיים ולינאריות. השיטה השנייה (אינטגרציה בחלקים) מתבססת על נוסחת נגזרת מכפלה. שיטת ההצבה מתבססת על <strong>כלל השרשרת</strong> לגזירת פונקציה מורכבת.</p>
+                <p>ניזכר בכלל השרשרת: אם <span class="math" dir="ltr">\(g(t)\)</span> גזירה בקטע <span class="math" dir="ltr">\(I_1\)</span>, ואם <span class="math" dir="ltr">\(F(x)\)</span> גזירה בקטע <span class="math" dir="ltr">\(I_2\)</span> כך שתמונת <span class="math" dir="ltr">\(g\)</span> מוכלת ב-<span class="math" dir="ltr">\(I_2\)</span> (<span class="math" dir="ltr">\(g(I_1) \subseteq I_2\)</span>), אז ההרכבה <span class="math" dir="ltr">\(F(g(t))\)</span> גזירה ב-<span class="math" dir="ltr">\(I_1\)</span> ומתקיים:</p>
+                <div class="formula-block"><div class="math" dir="ltr">$$ \frac{d}{dt} [F(g(t))] = F'(g(t)) \cdot g'(t) $$</div></div>
+                 <p>לכל <span class="math" dir="ltr">\(t \in I_1\)</span>.</p>
+                 <p>מכאן, לפי הגדרת האינטגרל הלא מסוים כפעולה הפוכה לגזירה, נקבל:</p>
+                  <div class="formula-block"><div class="math" dir="ltr">$$ \int F'(g(t)) \cdot g'(t) \, dt = F(g(t)) + C $$</div></div>
+                 <p>כעת, נניח ש-<span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה של פונקציה <span class="math" dir="ltr">\(f\)</span>, כלומר <span class="math" dir="ltr">\(F'(x) = f(x)\)</span> לכל <span class="math" dir="ltr">\(x\)</span> בקטע <span class="math" dir="ltr">\(I_2\)</span>. נוכל להציב זאת בנוסחה הקודמת ולקבל את <strong>כלל ההצבה</strong>:</p>
+<div class="formula-block">
+  <div class="math" dir="ltr">
+    $$ \int f(g(t)) \cdot g'(t) \, dt = F(g(t)) + C $$
+  </div>
+</div>
+
+                  <p>כאשר <span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה של <span class="math" dir="ltr">\(f\)</span>.</p>
+                  <p>לעיתים מסמנים את ההצבה <span class="math" dir="ltr">\(x = g(t)\)</span>. אז <span class="math" dir="ltr">\(dx = g'(t) dt\)</span> (באופן פורמלי). כלל ההצבה מאפשר לנו להחליף את האינטגרל המורכב (לפי <span class="math" dir="ltr">\(t\)</span>) באינטגרל (לפי <span class="math" dir="ltr">\(x\)</span>) שאולי קל יותר לחישוב:</p>
+                 <div class="formula-block"><div class="math" dir="ltr">$$ \int f(g(t)) g'(t) \, dt = \int f(x) \, dx \bigg|_{x=g(t)} = F(x) \bigg|_{x=g(t)} + C = F(g(t)) + C $$</div></div>
+                 <p>נראה את השימוש בכלל ההצבה במספר דוגמאות.</p>
+            </section>
+
+             <section id="substitution-examples">
+                <h2>15-18. דוגמאות לשיטת ההצבה</h2>
+
+                 <div class="example">
+                    <h4>דוגמה (נקודה 15)</h4>
+                    <p>חשב <span class="math" dir="ltr">\(I = \int \sin^2 x \cos x \, dx\)</span>.</p>
+                    <p>נשים לב ש-<span class="math" dir="ltr">\(\cos x\)</span> היא הנגזרת של <span class="math" dir="ltr">\(\sin x\)</span>. זה מרמז על הצבה.</p>
+                    <p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(x) = \sin x\)</span>.</p>
+                    <p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(x) dx = \cos x \, dx\)</span>.</p>
+                    <p>נציב באינטגרל:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \underbrace{(\sin x)^2}_{u^2} \underbrace{\cos x \, dx}_{du} = \int u^2 \, du $$</div></div>
+                     <p>זהו אינטגרל מיידי:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ \int u^2 \, du = \frac{u^3}{3} + C $$</div></div>
+                     <p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(x\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = \sin x\)</span>:</p>
+                      <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{(\sin x)^3}{3} + C = \frac{\sin^3 x}{3} + C $$</div></div>
+                      <p>ניתן לראות שזה מתאים לכלל ההצבה: כאן <span class="math" dir="ltr">\(g(x)=\sin x\)</span>, <span class="math" dir="ltr">\(f(u)=u^2\)</span>, <span class="math" dir="ltr">\(F(u)=u^3/3\)</span>, ואכן <span class="math" dir="ltr">\(\int f(g(x))g'(x) dx = \int (\sin x)^2 \cos x dx = F(g(x))+C = \frac{(\sin x)^3}{3}+C\)</span>.</p>
+                 </div>
+
+                 <div class="example">
+                     <h4>דוגמה (נקודה 16)</h4>
+                     <p>חשב <span class="math" dir="ltr">\(I = \int t e^{t^2} dt\)</span>.</p>
+                      <p>נשים לב שהנגזרת של המעריך <span class="math" dir="ltr">\(t^2\)</span> היא <span class="math" dir="ltr">\(2t\)</span>, שדומה לגורם <span class="math" dir="ltr">\(t\)</span> שמחוץ למעריך.</p>
+                      <p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(t) = t^2\)</span>.</p>
+                      <p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(t) dt = 2t \, dt\)</span>.</p>
+                      <p>נבודד את <span class="math" dir="ltr">\(t \, dt\)</span> מתוך הדיפרנציאל: <span class="math" dir="ltr">\(t \, dt = \frac{1}{2} du\)</span>.</p>
+                      <p>נציב באינטגרל:</p>
+                       <div class="formula-block"><div class="math" dir="ltr">$$ I = \int e^{t^2} (t \, dt) = \int e^u \left( \frac{1}{2} du \right) = \frac{1}{2} \int e^u \, du $$</div></div>
+                      <p>זהו אינטגרל מיידי:</p>
+                       <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{2} \int e^u \, du = \frac{1}{2} e^u + C $$</div></div>
+                      <p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(t\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = t^2\)</span>:</p>
+                      <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{2} e^{t^2} + C $$</div></div>
+                      <p>ניתן לראות שזה מתאים לכלל ההצבה: <span class="math" dir="ltr">\(I = \frac{1}{2} \int e^{t^2} (2t) dt\)</span>. כאן <span class="math" dir="ltr">\(g(t)=t^2\)</span>, <span class="math" dir="ltr">\(f(u)=e^u\)</span>, <span class="math" dir="ltr">\(F(u)=e^u\)</span>. התוצאה היא <span class="math" dir="ltr">\(\frac{1}{2} F(g(t)) + C = \frac{1}{2} e^{t^2} + C\)</span>.</p>
+                 </div>
+
+                 <div class="example">
+                    <h4>דוגמה (נקודה 17): אינטגרל לוגריתמי</h4>
+                    <p>חשב <span class="math" dir="ltr">\(I = \int \frac{g'(t)}{g(t)} dt\)</span>, כאשר <span class="math" dir="ltr">\(g(t) \ne 0\)</span>.</p>
+                    <p>זוהי צורה מוכרת שמתאימה להצבה.</p>
+                    <p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(t)\)</span>.</p>
+                    <p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(t) dt\)</span>.</p>
+                     <p>נציב באינטגרל:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{g(t)} g'(t) dt = \int \frac{1}{u} du $$</div></div>
+                    <p>זהו אינטגרל מיידי:</p>
+                    <div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{1}{u} du = \ln|u| + C $$</div></div>
+                     <p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(t\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = g(t)\)</span>:</p>
+<div class="formula-block">
+  <div class="math" dir="ltr">
+    $$ I = \int \frac{g'(t)}{g(t)} \, dt = \ln|g(t)| + C $$
+  </div>
+</div>
+
+                 </div>
+
+                 <div class="example">
+                     <h4>דוגמה (נקודה 18): מקרה פרטי - הצבה לינארית</h4>
+                     <p>נניח שאנו יודעים לחשב <span class="math" dir="ltr">\(\int h(x) dx = H(x) + C\)</span>.</p>
+                     <p>מהו האינטגרל <span class="math" dir="ltr">\(I = \int h(ax+b) dx\)</span>, כאשר <span class="math" dir="ltr">\(a, b\)</span> קבועים ו-<span class="math" dir="ltr">\(a \ne 0\)</span>?</p>
+                     <p>נשתמש בהצבה: <span class="math" dir="ltr">\(u = ax+b\)</span>.</p>
+                     <p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = a \, dx\)</span>.</p>
+                     <p>נבודד את <span class="math" dir="ltr">\(dx\)</span>: <span class="math" dir="ltr">\(dx = \frac{1}{a} du\)</span>.</p>
+                     <p>נציב באינטגרל:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int h(ax+b) dx = \int h(u) \left( \frac{1}{a} du \right) = \frac{1}{a} \int h(u) du $$</div></div>
+                     <p>אנו יודעים ש-<span class="math" dir="ltr">\(\int h(u) du = H(u) + C\)</span>. לכן:</p>
+                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{a} H(u) + C' $$</div></div>
+                      <p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(x\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = ax+b\)</span>:</p>
+<div class="formula-block">
+  <div class="math" dir="ltr">
+    $$ \int h(ax + b) \, dx = \frac{1}{a} H(ax + b) + C $$
+  </div>
+</div>
+
+
+                     <p><strong>דוגמה לשימוש:</strong></p>
+                     <p>אנו יודעים ש-<span class="math" dir="ltr">\(\int \cos x \, dx = \sin x + C\)</span> (כלומר <span class="math" dir="ltr">\(h(x)=\cos x, H(x)=\sin x\)</span>).</p>
+                     <p>לכן, לפי כלל ההצבה הלינארית (<span class="math" dir="ltr">\(a=3, b=-5\)</span>):</p>
+                      <div class="formula-block"><div class="math" dir="ltr">$$ \int \cos(3x-5) dx = \frac{\sin(3x-5)}{3} + C $$</div></div>
+
+                     <p><strong>דוגמה נוספת:</strong></p>
+                      <p>אנו יודעים ש-<span class="math" dir="ltr">\(\int \frac{1}{\cos^2 x} dx = \tan x + C\)</span> (כלומר <span class="math" dir="ltr">\(h(x)=1/\cos^2 x, H(x)=\tan x\)</span>).</p>
+                     <p>לכן, לפי כלל ההצבה הלינארית (<span class="math" dir="ltr">\(a=2, b=-1\)</span>):</p>
+                      <div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{\cos^2(2x-1)} = \frac{\tan(2x-1)}{2} + C $$</div></div>
+                 </div>
+             </section>
+
+        </main>
+    </div>
+
+    <!-- KaTeX JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+     <script>
+         // --- Global Chart Variables ---
+         // (Chart variables are kept for template consistency, but not used in this specific page)
+         let lineChartInstance = null;
+         let parabolaChartInstance = null;
+
+         // --- Function to Render Charts (Kept for template consistency) ---
+         function renderCharts() {
+             // Destroy previous charts if they exist
+             if (lineChartInstance) lineChartInstance.destroy();
+             if (parabolaChartInstance) parabolaChartInstance.destroy();
+
+             const lineCtx = document.getElementById('lineChart')?.getContext('2d'); // Get context safely
+             const parabolaCtx = document.getElementById('parabolaChart')?.getContext('2d'); // Get context safely
+
+             // Only proceed if canvas contexts are found
+             if (!lineCtx || !parabolaCtx) {
+                 // console.warn("One or both chart canvas elements not found or lack context.");
+                 return; // Exit if canvas not ready
+             }
+
+             const rangeMin = -4;
+             const rangeMax = 4;
+             const step = 0.25;
+
+             const generateData = (func, min, max, step) => {
+                 const points = [];
+                 for (let x = min; x <= max; x += step) {
+                     const roundedX = Math.round(x * 100) / 100;
+                     points.push({ x: roundedX, y: func(roundedX) });
+                 }
+                 return points;
+             };
+
+             // Use CSS variables for colors
+             const axisColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-axis-color').trim();
+             const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid-color').trim();
+             const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+
+
+             const commonChartOptions = {
+                 responsive: true,
+                 maintainAspectRatio: true,
+                 aspectRatio: 1.5,
+                 interaction: {
+                     mode: 'index', // Better for comparing lines at the same x
+                     intersect: false
+                 },
+                 plugins: {
+                     tooltip: {
+                         backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                         titleColor: '#ffffff',
+                         bodyColor: '#ffffff',
+                         callbacks: {
+                             label: ctx => `${ctx.dataset.label}: (${ctx.parsed.x.toFixed(2)}, ${ctx.parsed.y.toFixed(2)})`,
+                             title: () => ''
+                         }
+                     },
+                     legend: {
+                         labels: {
+                             color: textColor // Match text color
+                         }
+                     }
+                 },
+                 scales: {
+                     x: {
+                         type: 'linear',
+                         title: {
+                             display: true,
+                             text: 'x',
+                             font: { size: 16, weight: 'bold' },
+                             color: textColor // Match text color
+                         },
+                         grid: {
+                             color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
+                             lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+                         },
+                         ticks: {
+                             font: { size: 12 },
+                             color: textColor // Match text color
+                         }
+                     },
+                     y: {
+                         title: {
+                             display: true,
+                             text: 'y',
+                             font: { size: 16, weight: 'bold' },
+                             color: textColor // Match text color
+                         },
+                         grid: {
+                             color: ctx => ctx.tick.value === 0 ? axisColor : gridColor,
+                             lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+                         },
+                         ticks: {
+                             font: { size: 12 },
+                             color: textColor // Match text color
+                         }
+                     }
+                 }
+             };
+
+             const lineData = generateData(x => x, rangeMin, rangeMax, step);
+             const parabolaDataC0 = generateData(x => (x * x) / 2, rangeMin, rangeMax, step);
+             const parabolaDataC1 = generateData(x => (x * x) / 2 + 1, rangeMin, rangeMax, step);
+             const parabolaDataC_2 = generateData(x => (x * x) / 2 - 2, rangeMin, rangeMax, step);
+
+             lineChartInstance = new Chart(lineCtx, {
+                 type: 'line',
+                 data: {
+                     datasets: [{
+                         label: 'y = x',
+                         data: lineData,
+                         borderColor: '#ffa500',
+                         backgroundColor: 'transparent',
+                         borderWidth: 2.5,
+                         pointRadius: 0,
+                         tension: 0.1
+                     }]
+                 },
+                 options: commonChartOptions
+             });
+
+             parabolaChartInstance = new Chart(parabolaCtx, {
+                 type: 'line',
+                 data: {
+                     datasets: [
+                         {
+                             label: 'y = x²/2 + 1',
+                             data: parabolaDataC1,
+                             borderColor: '#f0ad4e',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         },
+                         {
+                             label: 'y = x²/2',
+                             data: parabolaDataC0,
+                             borderColor: '#fd7e14',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         },
+                         {
+                             label: 'y = x²/2 - 2',
+                             data: parabolaDataC_2,
+                             borderColor: '#dc3545',
+                             backgroundColor: 'transparent',
+                             borderWidth: 2.5,
+                             pointRadius: 0,
+                             tension: 0.4
+                         }
+                     ]
+                 },
+                 options: commonChartOptions
+             });
+         }
+
+         document.addEventListener('DOMContentLoaded', function() {
+             // --- 1. KaTeX Rendering ---
+              try {
+                  renderMathInElement(document.body, {
+                     delimiters: [
+                         {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')}, // Wrap in div.math LTR
+                         {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')}, // Wrap in div.math LTR
+                         {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')}, // Wrap in span.math LTR
+                         {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')}    // Wrap in span.math LTR
+                     ],
+                      preProcess: (math) => {
+                         // Ensure backslashes are properly escaped for KaTeX
+                         return math.replace(/\\\\/g, '\\');
+                     },
+                      // Custom wrapper logic
+                     renderers: [
+                        {
+                            matcher: /^\$\$([\s\S]*?)\$\$$/, // Matches $$...$$
+                            renderer: (match) => {
+                                const math = match[1];
+                                const div = document.createElement('div');
+                                div.className = 'math';
+                                div.setAttribute('dir', 'ltr');
+                                try {
+                                    katex.render(math, div, { displayMode: true, throwOnError: false });
+                                } catch (e) {
+                                    div.textContent = `Error rendering: ${math} (${e.message})`;
+                                    console.error("KaTeX render error:", e);
+                                }
+                                return div.outerHTML;
+                            }
+                        },
+                         {
+                             matcher: /^\\\[([\s\S]*?)\\\]$/, // Matches \[...\]
+                             renderer: (match) => {
+                                 const math = match[1];
+                                 const div = document.createElement('div');
+                                 div.className = 'math';
+                                 div.setAttribute('dir', 'ltr');
+                                 try {
+                                     katex.render(math, div, { displayMode: true, throwOnError: false });
+                                 } catch (e) {
+                                     div.textContent = `Error rendering: ${math} (${e.message})`;
+                                     console.error("KaTeX render error:", e);
+                                 }
+                                 return div.outerHTML;
+                             }
+                         },
+                         {
+                             matcher: /^\\\(([\s\S]*?)\\\)$/, // Matches \(...\)
+                             renderer: (match) => {
+                                 const math = match[1];
+                                 const span = document.createElement('span');
+                                 span.className = 'math';
+                                 span.setAttribute('dir', 'ltr');
+                                 try {
+                                     katex.render(math, span, { displayMode: false, throwOnError: false });
+                                 } catch (e) {
+                                     span.textContent = `Error rendering: ${math} (${e.message})`;
+                                     console.error("KaTeX render error:", e);
+                                 }
+                                 return span.outerHTML;
+                             }
+                         },
+                           {
+                             matcher: /^\$([\s\S]*?)\$$/, // Matches $...$
+                             renderer: (match) => {
+                                 const math = match[1];
+                                 const span = document.createElement('span');
+                                 span.className = 'math';
+                                 span.setAttribute('dir', 'ltr');
+                                 try {
+                                     katex.render(math, span, { displayMode: false, throwOnError: false });
+                                 } catch (e) {
+                                     span.textContent = `Error rendering: ${math} (${e.message})`;
+                                     console.error("KaTeX render error:", e);
+                                 }
+                                 return span.outerHTML;
+                             }
+                         }
+                     ],
+                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas'], // Ignore canvas
+                     ignoredClasses: ['no-math'],
+                     throwOnError: false
+                  });
+
+                  // Move rendered math into .formula-block where appropriate
+                  // Find all display math divs generated by auto-render that are direct children of body or main container
+                  document.querySelectorAll('body > div.math, .container > div.math, section > div.math').forEach(mathDiv => {
+                      // Check if it *should* be in a formula block (heuristic: is it standalone?)
+                      // A simple check: if previous and next siblings are not inline elements or text nodes, wrap it.
+                      const prev = mathDiv.previousElementSibling;
+                      const next = mathDiv.nextElementSibling;
+                      let shouldWrap = true;
+                      // Add more checks if needed
+                      if (prev && prev.tagName === 'P' && next && next.tagName === 'P'){
+                           // Assume it should be wrapped
+                      }
+
+                      if (shouldWrap && !mathDiv.parentElement.classList.contains('formula-block')) {
+                         const formulaBlock = document.createElement('div');
+                         formulaBlock.className = 'formula-block';
+                         mathDiv.parentNode.insertBefore(formulaBlock, mathDiv);
+                         formulaBlock.appendChild(mathDiv);
+                      } else if (mathDiv.parentElement.tagName !== 'DIV' || !mathDiv.parentElement.classList.contains('formula-block')){
+                           // If it's inside something else but not formula-block, maybe wrap it
+                           const formulaBlock = document.createElement('div');
+                           formulaBlock.className = 'formula-block';
+                           mathDiv.parentNode.insertBefore(formulaBlock, mathDiv);
+                           formulaBlock.appendChild(mathDiv);
+                      }
+                  });
+
+                 // Re-run renderMathInElement on the potentially modified structure *if needed*,
+                 // but the initial render should handle spans correctly.
+                 // Ensure formula blocks correctly wrap ONLY display math.
+                  document.querySelectorAll('.formula-block').forEach(block => {
+                    // Ensure only display math is inside
+                    if (block.querySelector('span.math')) {
+                        console.warn("Inline math found inside formula-block:", block);
+                    }
+                     if (!block.querySelector('div.math')) {
+                         // If a block was created empty or wrongly, remove it or fix it
+                        // console.warn("Empty formula-block found:", block);
+                     }
+                     // Ensure KaTeX structure is properly nested
+                     const mathDiv = block.querySelector('div.math');
+                     if(mathDiv && mathDiv.children.length === 1 && mathDiv.children[0].classList.contains('katex-display')) {
+                       // Standard KaTeX structure, looks okay.
+                     }
+                  });
+
+
+             } catch (error) {
+                 console.error("KaTeX auto-rendering failed:", error);
+             }
+
+             // --- 2. Active Navigation Link Highlighting ---
+              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+              const sections = document.querySelectorAll('main section');
+              const navElement = document.querySelector('nav');
+              const navHeight = navElement ? navElement.offsetHeight : 60;
+
+             function changeActiveLink() {
+                 let currentSectionId = '';
+                 const scrollPosition = window.scrollY;
+
+                 sections.forEach(section => {
+                     const sectionTop = section.offsetTop - navHeight - 50; // Adjusted offset
+                     if (scrollPosition >= sectionTop) {
+                         currentSectionId = section.getAttribute('id');
+                     }
+                 });
+
+                 // Handle edge cases (top/bottom)
+                 if (sections.length > 0 && scrollPosition < sections[0].offsetTop - navHeight - 50) {
+                     currentSectionId = sections[0].getAttribute('id');
+                 }
+                 if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight - 2) { // More reliable bottom check
+                     if (sections.length > 0) {
+                        currentSectionId = sections[sections.length - 1].getAttribute('id');
+                     }
+                 }
+
+                 navLinks.forEach(link => {
+                      link.classList.remove('active');
+                      if (link.getAttribute('href') === '#' + currentSectionId) {
+                          link.classList.add('active');
+                      }
+                  });
+              }
+             window.addEventListener('scroll', changeActiveLink);
+             setTimeout(changeActiveLink, 150); // Delay slightly more
+
+              // --- 3. Section Fade-in Animation on Scroll ---
+               const observerOptions = {
+                  root: null,
+                   rootMargin: '0px 0px -50px 0px',
+                   threshold: 0.1
+              };
+
+               const observerCallback = (entries, observer) => {
+                  entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                          entry.target.classList.add('visible');
+                         observer.unobserve(entry.target);
+                      }
+                  });
+              };
+
+              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+              sections.forEach(section => {
+                  scrollObserver.observe(section);
+               });
+
+             // --- 4. Dark Mode ---
+             const darkModeToggle = document.getElementById('darkModeToggle');
+             const htmlElement = document.documentElement;
+
+             // Function to apply theme
+             const applyTheme = (theme) => {
+                 htmlElement.setAttribute('data-theme', theme);
+                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
+                 localStorage.setItem('theme', theme); // Save preference
+             };
+
+             // Check for saved theme on load
+             const savedTheme = localStorage.getItem('theme');
+             // Check for system preference if no saved theme
+             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+             // Initialize theme
+             if (savedTheme) {
+                 applyTheme(savedTheme);
+             } else {
+                 applyTheme('light'); // Default to light always
+             }
+
+             // Toggle button event listener
+             darkModeToggle.addEventListener('click', () => {
+                 const currentTheme = htmlElement.getAttribute('data-theme');
+                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                 applyTheme(newTheme);
+                 // Re-render charts after theme change (if any exist)
+                 // Use a small delay to allow CSS transitions to start if needed
+                 // setTimeout(renderCharts, 100); // Commented out as no charts on this page
+             });
+
+             // Listen for system theme changes (optional)
+             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                // Only change if no theme was explicitly set by the user via toggle
+                if (!localStorage.getItem('theme')) {
+                     const newTheme = e.matches ? 'dark' : 'light';
+                     applyTheme(newTheme);
+                     // setTimeout(renderCharts, 100); // Commented out as no charts on this page
+                }
+             });
+
+            // --- 5. Initial Chart Rendering ---
+            // Render charts after the rest of the DOM setup is complete
+            // renderCharts(); // Commented out as no charts on this page
+
+          });
+      </script>
+<script>
+// --- Global Chart Reference ---
+let stepChartInstance = null;
+
+// --- Function to get current theme colors from CSS Variables ---
+function getChartColors() {
+    const style = getComputedStyle(document.documentElement);
+    // Helper to get color or return fallback
+    const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
+
+    return {
+        // Use '--chart-axis-color' for axes/grid-at-zero, fallback to text color or black/white
+        axisColor: getColor('--chart-axis-color', getColor('--text-color', '#000000')),
+        // Use '--chart-grid-color' for general grid lines, fallback to a light/dark gray
+        gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
+        // Use '--text-color' for labels/titles, fallback to black/white
+        textColor: getColor('--text-color', '#000000'),
+        // Use '--primary-color' for the main graph elements, fallback to blue
+        primaryColor: getColor('--primary-color', '#007bff'),
+        // Use '--card-bg' for the 'open' circle fill, fallback to white
+        bgColor: getColor('--card-bg', '#ffffff')
+    };
+}
+
+
+// --- Function to create or update the step chart ---
+function renderStepChart() {
+    const colors = getChartColors(); // Get current colors based on theme
+
+    const chartData = {
+        datasets: [
+             // Line for 0 <= x < 1
+            {
+                label: 'f(x) = ⌊x⌋ (0<=x<1)',
+                data: Array.from({ length: 100 }, (_, i) => ({ x: i * 0.01, y: 0 })), // Points from x=0.00 to x=0.99
+                borderColor: colors.primaryColor,
+                backgroundColor: 'transparent',
+                showLine: true,
+                borderWidth: 3,
+                pointRadius: 0,
+                order: 1 // Draw lines behind points
+            },
+            // Line for 1 <= x < 2
+            {
+                label: 'f(x) = ⌊x⌋ (1<=x<2)',
+                 data: Array.from({ length: 100 }, (_, i) => ({ x: 1 + i * 0.01, y: 1 })), // Points from x=1.00 to x=1.99
+                borderColor: colors.primaryColor,
+                backgroundColor: 'transparent',
+                showLine: true,
+                borderWidth: 3,
+                pointRadius: 0,
+                order: 1 // Draw lines behind points
+            },
+            // Closed circles (function value is defined here)
+            {
+                type: 'scatter',
+                label: 'Closed Points',
+                data: [{ x: 0, y: 0 }, { x: 1, y: 1 }],
+                pointBackgroundColor: colors.primaryColor,
+                pointBorderColor: colors.primaryColor,
+                pointRadius: 5,
+                pointStyle: 'circle',
+                order: 0 // Draw points on top
+            },
+            // Open circles (limit points)
+            {
+                type: 'scatter',
+                label: 'Open Points',
+                data: [{ x: 1, y: 0 }, { x: 2, y: 1 }],
+                pointBackgroundColor: colors.bgColor, // Use background color for 'open' effect
+                pointBorderColor: colors.primaryColor,
+                pointRadius: 5,
+                pointBorderWidth: 2,
+                pointStyle: 'circle',
+                order: 0 // Draw points on top
+            }
+        ]
+    };
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                enabled: true,
+                callbacks: {
+                    label: ctx => `f(${ctx.parsed.x.toFixed(2)}) = ${ctx.parsed.y}`,
+                    title: () => ''
+                }
+            }
+        },
+        scales: {
+            x: {
+                type: 'linear',
+                min: -0.2,
+                max: 2.2,
+                border: { // Controls the axis line itself
+                    display: true,
+                    color: colors.axisColor // Use theme color
+                },
+                ticks: {
+                    stepSize: 0.5,
+                    color: colors.textColor // Use theme color for labels
+                },
+                title: {
+                    display: true,
+                    text: 'x',
+                    font: { size: 14, weight: 'bold' },
+                    color: colors.textColor // Use theme color for title
+                },
+                grid: {
+                    // color for grid lines (special case for axis line at 0)
+                    color: ctx => ctx.tick.value === 0 ? colors.axisColor : colors.gridColor,
+                    lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1 // Thicker line at 0
+                }
+            },
+            y: {
+                min: -0.5,
+                max: 1.5,
+                 border: { // Controls the axis line itself
+                    display: true,
+                    color: colors.axisColor // Use theme color
+                },
+                ticks: {
+                    stepSize: 0.5,
+                    color: colors.textColor // Use theme color for labels
+                },
+                title: {
+                    display: true,
+                    text: 'f(x)',
+                    font: { size: 14, weight: 'bold' },
+                    color: colors.textColor // Use theme color for title
+                },
+                grid: {
+                    // color for grid lines (special case for axis line at 0)
+                    color: ctx => ctx.tick.value === 0 ? colors.axisColor : colors.gridColor,
+                    lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1 // Thicker line at 0
+                }
+            }
+        }
+    };
+
+    // Get canvas context
+    const ctx = document.getElementById('stepChart')?.getContext('2d');
+    if (!ctx) {
+        console.error("Canvas element 'stepChart' not found.");
+        return; // Exit if canvas not found
+    }
+
+    // If chart already exists, update it; otherwise, create it
+    if (stepChartInstance) {
+        stepChartInstance.data = chartData;
+        stepChartInstance.options = chartOptions;
+        stepChartInstance.update();
+    } else {
+        stepChartInstance = new Chart(ctx, {
+            type: 'scatter', // Base type allows mixing lines and points
+            data: chartData,
+            options: chartOptions
+        });
+    }
+}
+
+// --- Initial Render ---
+// Make sure this runs after the DOM is ready and CSS variables are set.
+// It should be called inside your 'DOMContentLoaded' event listener.
+// Example: document.addEventListener('DOMContentLoaded', renderStepChart);
+// OR if you call it directly here, ensure the script tag is at the end of the body.
+renderStepChart();
+
+// --- IMPORTANT ---
+// You also need to call `renderStepChart()` again whenever the theme changes.
+// Add this line inside your dark mode toggle event listener (and the system preference listener, if you have one), preferably with a small delay:
+// setTimeout(renderStepChart, 50);</script>
+
+</body>
+</html>
+
+</body>
+</html>
