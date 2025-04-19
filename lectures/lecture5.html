@@ -931,7 +931,7 @@ header {
 <section id="definite-integral">
 <h2>האינטגרל המסויים</h2>
 <h3>הקדמה</h3>
-<p>האינטגרל המסויים של פונקציה ממשית של משתנה אחד (ממשי) הוא הבסיס לעיקר השימושים של תורת האינטגרציה – בהנדסה, חקלאות ובעצם בכל תחום מדעי שיש בו מדידה. הוא בעיקר (ולא האינטגרל הלא מסויים) זה אשר זוכה להכללה במימדים גבוהים יותר כפי שנראה בהמשך הקורס. ב'עולם הגיאומטרי' המוכר לנו מחשבים בעזרתו שטחים (לאו דווקא של קבוצות מישוריות), אורכי קווים, נפחים. קיים קשר הדוק בין האינטגרル המסויים לבין לא מסויים. קשר זה הוצג כבר (אם כי לא בצורה פורמלית) בשיעור הקודם, בסעיף הנוגע לשטח מתחת גרף פונקציה.</p>
+<p>האינטגרל המסויים של פונקציה ממשית של משתנה אחד (ממשי) הוא הבסיס לעיקר השימושים של תורת האינטגרציה – בהנדסה, חקלאות ובעצם בכל תחום מדעי שיש בו מדידה. הוא בעיקר (ולא האינטגרל הלא מסויים) זה אשר זוכה להכללה במימדים גבוהים יותר כפי שנראה בהמשך הקורס. ב'עולם הגיאומטרי' המוכר לנו מחשבים בעזרתו שטחים (לאו דווקא של קבוצות מישוריות), אורכי קווים, נפחים. קיים קשר הדוק בין האינטגרל המסויים לבין לא מסויים. קשר זה הוצג כבר (אם כי לא בצורה פורמלית) בשיעור הקודם, בסעיף הנוגע לשטח מתחת גרף פונקציה.</p>
 <div class="definition">
 <h4>הגדרה: חלוקה (Partition)</h4>
 <p>
@@ -996,6 +996,23 @@ header {
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
 <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+
+<!-- Initialize KaTeX rendering -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\begin{aligned}', right: '\\end{aligned}', display: true}
+      ],
+      throwOnError: false,
+      strict: false
+    });
+  });
+</script>
 
 <!-- כפתור חזרה לדף הראשי -->
 <a href="../index.html" style="
