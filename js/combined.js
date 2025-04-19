@@ -182,12 +182,124 @@ function showAddLectureForm() {
         <input type="text" id="lecture-title" required>
       </div>
       <div class="form-group">
-        <label for="lecture-content">תוכן השיעור (HTML)</label>
-        <textarea id="lecture-content" rows="10" required></textarea>
+        <label>תוכן השיעור</label>
+        <div class="input-options">
+          <div class="option-tabs">
+            <button type="button" class="option-tab active" data-tab="upload">העלאת קובץ HTML</button>
+            <button type="button" class="option-tab" data-tab="paste">הדבקת HTML</button>
+          </div>
+          <div class="option-content active" id="upload-content">
+            <label for="lecture-html-file" class="file-upload-label">
+              <i class="fas fa-upload"></i>
+              בחר קובץ HTML
+            </label>
+            <input type="file" id="lecture-html-file" accept=".html,.htm" style="display: none;">
+            <div id="file-name-display" class="file-name-display">לא נבחר קובץ</div>
+          </div>
+          <div class="option-content" id="paste-content">
+            <textarea id="lecture-content" rows="10" placeholder="הדבק את קוד ה-HTML כאן"></textarea>
+          </div>
+        </div>
       </div>
       <button type="submit" class="button">הוסף שיעור</button>
     </form>
+    
+    <style>
+      .input-options {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      
+      .option-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--border-color);
+      }
+      
+      .option-tab {
+        flex: 1;
+        background: none;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        text-align: center;
+        color: var(--text-light);
+        transition: all 0.3s ease;
+      }
+      
+      .option-tab.active {
+        background-color: var(--primary-color);
+        color: white;
+      }
+      
+      .option-content {
+        display: none;
+        padding: 15px;
+      }
+      
+      .option-content.active {
+        display: block;
+      }
+      
+      .file-upload-label {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      .file-upload-label:hover {
+        background-color: var(--primary-light);
+      }
+      
+      .file-name-display {
+        margin-top: 10px;
+        padding: 8px;
+        background-color: var(--bg-color);
+        border-radius: 4px;
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+      
+      #lecture-content {
+        width: 100%;
+        resize: vertical;
+      }
+    </style>
   `;
+  
+  // Handle option tab switching
+  const optionTabs = modalContent.querySelectorAll('.option-tab');
+  optionTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Update active tab
+      optionTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      
+      // Update active content
+      const tabType = tab.dataset.tab;
+      const contentElements = modalContent.querySelectorAll('.option-content');
+      contentElements.forEach(el => el.classList.remove('active'));
+      modalContent.querySelector(`#${tabType}-content`).classList.add('active');
+    });
+  });
+  
+  // File input change handler
+  const fileInput = document.getElementById('lecture-html-file');
+  const fileNameDisplay = document.getElementById('file-name-display');
+  
+  if (fileInput && fileNameDisplay) {
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        fileNameDisplay.textContent = fileInput.files[0].name;
+      } else {
+        fileNameDisplay.textContent = 'לא נבחר קובץ';
+      }
+    });
+  }
   
   // Add event listener to form submission
   const form = document.getElementById('add-lecture-form');
@@ -197,18 +309,59 @@ function showAddLectureForm() {
       
       const lectureNumber = document.getElementById('lecture-number').value;
       const lectureTitle = document.getElementById('lecture-title').value;
-      const lectureContent = document.getElementById('lecture-content').value;
+      let lectureContent = '';
       
-      // Here you would normally send this data to your server
-      // For now, we'll just show a success message
-      alert(`השיעור נוסף בהצלחה: שיעור ${lectureNumber} - ${lectureTitle}`);
+      // Get content based on active tab
+      const activeTab = modalContent.querySelector('.option-tab.active').dataset.tab;
       
-      // Close the modal
-      adminModal.style.display = 'none';
-      
-      // TODO: In a real implementation, this would create a new lecture file
-      // and update the list of available lectures
+      if (activeTab === 'upload') {
+        const fileInput = document.getElementById('lecture-html-file');
+        if (fileInput.files.length === 0) {
+          alert('אנא בחר קובץ HTML');
+          return;
+        }
+        
+        // Read the file content
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+          lectureContent = e.target.result;
+          // Continue with lecture creation
+          createNewLecture(lectureNumber, lectureTitle, lectureContent);
+        };
+        
+        reader.onerror = function() {
+          alert('שגיאה בקריאת הקובץ');
+        };
+        
+        reader.readAsText(file);
+      } else {
+        // Get content from textarea
+        lectureContent = document.getElementById('lecture-content').value;
+        if (!lectureContent.trim()) {
+          alert('אנא הכנס תוכן HTML');
+          return;
+        }
+        
+        // Continue with lecture creation
+        createNewLecture(lectureNumber, lectureTitle, lectureContent);
+      }
     });
+  }
+  
+  // Function to handle lecture creation after content is available
+  function createNewLecture(number, title, content) {
+    // Here you would normally send this data to your server
+    // For now, we'll just show a success message
+    alert(`השיעור נוסף בהצלחה: שיעור ${number} - ${title}`);
+    
+    // Close the modal
+    adminModal.style.display = 'none';
+    
+    // TODO: In a real implementation, this would create a new lecture file
+    // and update the list of available lectures
+    console.log('Lecture content:', content.substring(0, 100) + '...');
   }
   
   // Show the modal
