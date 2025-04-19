@@ -681,7 +681,7 @@ header {
 <p>נהוג לסמן את הדיפרנציאל של פונקציית הזהות <span class="math" dir="ltr">\(f(x)=x\)</span> פשוט כ-<span class="math" dir="ltr">\(dx\)</span>. כלומר, <span class="math" dir="ltr">\(dx\)</span> הוא האופרטור הלינארי שמחזיר את הקלט שלו: <span class="math" dir="ltr">\(dx(\Delta x) = \Delta x\)</span>.</p>
 <p>כעת, אם <span class="math" dir="ltr">\(h(x)\)</span> היא פונקציה אחרת שגזירה ב-<span class="math" dir="ltr">\(x_0\)</span>, ניתן לכתוב את הדיפרנציאל שלה כך:</p>
 <div class="formula-block"><div class="math" dir="ltr">$$ dh_{x_0}(\Delta x) = h'(x_0) \cdot \Delta x = h'(x_0) \cdot dx(\Delta x) $$</div></div>
-<p>בכתיב מקוצר (שמשמיט את המשתנה <span class="math" dir="ltr">\(\Delta x\)</span> ואת הנקודה <span class="math" dir="ltr">\(x_0\)</span>), מקבלים את הקשר המוכר:</p>
+<p>בכתיב מקוצר (שמשמיט את המשתנה <span class="math" dir="ltr">\(\Delta x\)</span> ואת הנקודה <span class="math" dir="ltr">\(x_0\)</span> באגף ימין), מקבלים את הקשר המוכר:</p>
 <div class="formula-block"><div class="math" dir="ltr">$$ dh = h'(x) \, dx $$</div></div>
 <p>כאן <span class="math" dir="ltr">\(dh\)</span> ו-<span class="math" dir="ltr">\(dx\)</span> הם אופרטורי הדיפרנציאל, ו-<span class="math" dir="ltr">\(h'(x)\)</span> היא פונקציה (ערך הנגזרת בנקודה <span class="math" dir="ltr">\(x\)</span>).</p>
 </section>
@@ -1108,5 +1108,26 @@ $$
 ">
   🏠 חזרה למסך הראשי
 </a>
-<script src="../js/dark-mode.js"></script></body>
+<script src="../js/dark-mode.js"></script>
+
+<!-- Add KaTeX initialization script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Initialize KaTeX rendering
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: true},
+        {left: "\\(", right: "\\)", display: false},
+        {left: "\\[", right: "\\]", display: true}
+      ],
+      throwOnError: false,
+      strict: false,
+      trust: true
+    });
+    
+    console.log("KaTeX rendering initialized");
+  });
+</script>
+</body>
 </html>

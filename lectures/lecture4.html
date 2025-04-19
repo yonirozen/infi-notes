@@ -801,6 +801,18 @@
 <p>הסוג הראשון של אינטגרלים יהיה מהצורה:</p>
 <div class="formula-block"><div class="math" dir="ltr">$$ \int R(\sin x, \cos x) \, dx $$</div></div>
 <p>כאשר <span class="math" dir="ltr">\(R(s,t)\)</span> היא פונקציה רציונלית של שני משתנים.</p>
+
+<!-- Add missing chart containers -->
+<div class="chart-container">
+    <h5>פונקציות בסיסיות</h5>
+    <canvas id="lineChart"></canvas>
+</div>
+
+<div class="chart-container">
+    <h5>פונקציות פרבוליות</h5>
+    <canvas id="parabolaChart"></canvas>
+</div>
+
 <p>למשל, עבור הפונקציה של משתנה אחד:</p>
 <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{2\sin x \cos x}{\sin x - 5\cos x} $$</div></div>
 <p>כאן הפונקציה הרציונלית המתאימה היא <span class="math" dir="ltr">\(R(s,t) = \frac{2st}{s-5t}\)</span>, והאינטגרל הוא <span class="math" dir="ltr">\(\int f(x) dx = \int R(\sin x, \cos x) dx\)</span>.</p>
@@ -889,6 +901,17 @@
 <div class="chart-container">
 <div class="charts">
 <canvas id="tanChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+
+<div class="chart-container">
+<div class="chart-wrapper">
+<h5>פונקצית הקוסינוס</h5>
+<div class="chart-container">
+<div class="charts">
+<canvas id="cosChart"></canvas>
 </div>
 </div>
 </div>
@@ -1510,5 +1533,120 @@
     ">
       🏠 חזרה למסך הראשי
     </a>
+    
+<!-- Add initialization for the missing area charts -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Initialize area_a_b canvas
+    const ctxAreaAB = document.getElementById('canvas_area_a_b').getContext('2d');
+    if (ctxAreaAB) {
+      new Chart(ctxAreaAB, {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'f(x)',
+            data: Array.from({length: 100}, (_, i) => {
+              const x = i / 10;
+              return {x: x, y: 0.5*x*x + 1};
+            }),
+            borderColor: '#0a5a8d',
+            backgroundColor: 'rgba(10, 90, 141, 0.2)',
+            fill: 'origin',
+            pointRadius: 0,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {display: false}
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              position: 'bottom',
+              title: {display: true, text: 'x'},
+              min: 0,
+              max: 10,
+              grid: {
+                color: ctx => ctx.tick.value === 0 ? '#333333' : 'rgba(128, 128, 128, 0.2)',
+                lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+              }
+            },
+            y: {
+              title: {display: true, text: 'f(x)'},
+              grid: {
+                color: ctx => ctx.tick.value === 0 ? '#333333' : 'rgba(128, 128, 128, 0.2)',
+                lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Initialize area_delta_s canvas
+    const ctxAreaDeltaS = document.getElementById('canvas_area_delta_s').getContext('2d');
+    if (ctxAreaDeltaS) {
+      new Chart(ctxAreaDeltaS, {
+        type: 'line',
+        data: {
+          datasets: [
+            {
+              label: 'f(x)',
+              data: Array.from({length: 100}, (_, i) => {
+                const x = i / 10;
+                return {x: x, y: 0.5*x*x + 1};
+              }),
+              borderColor: '#0a5a8d',
+              backgroundColor: 'transparent',
+              fill: false,
+              pointRadius: 0,
+              tension: 0.4
+            },
+            {
+              label: 'Δs area',
+              data: Array.from({length: 20}, (_, i) => {
+                const x = 4 + i / 10;
+                return {x: x, y: 0.5*x*x + 1};
+              }),
+              borderColor: '#f0ad4e',
+              backgroundColor: 'rgba(240, 173, 78, 0.3)',
+              fill: 'origin',
+              pointRadius: 0,
+              tension: 0.4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {display: false}
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              position: 'bottom',
+              title: {display: true, text: 'x'},
+              min: 0,
+              max: 10,
+              grid: {
+                color: ctx => ctx.tick.value === 0 ? '#333333' : 'rgba(128, 128, 128, 0.2)',
+                lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+              }
+            },
+            y: {
+              title: {display: true, text: 'f(x)'},
+              grid: {
+                color: ctx => ctx.tick.value === 0 ? '#333333' : 'rgba(128, 128, 128, 0.2)',
+                lineWidth: ctx => ctx.tick.value === 0 ? 2 : 1
+              }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
