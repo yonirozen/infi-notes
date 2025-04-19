@@ -4,13 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>סיכומי אינפי 2</title>
+  
+  <!-- Preload critical resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap" as="style">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
   
-  <!-- Netlify Identity Widget -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Deferred font loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  
+  <!-- Netlify Identity Widget - load async -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
   
   <style>
     :root {
@@ -559,98 +565,7 @@
     </footer>
   </div>
 
-  <!-- Dark Mode JavaScript -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Function to load available lectures
-      function loadLectures() {
-        const lecturesContainer = document.getElementById('lectures-container');
-        
-        // Array of confirmed lectures (currently 7)
-        const availableLectures = [1, 2, 3, 4, 5, 6, 7];
-        
-        // Create a card for each available lecture
-        availableLectures.forEach(num => {
-          // Format the lecture number with leading zero if needed
-          const paddedNum = num.toString().padStart(2, '0');
-          
-          // Create lecture card
-          const card = document.createElement('a');
-          card.href = `lectures/lecture${num}.html`;
-          card.className = 'lecture-card';
-          
-          // Card content
-          card.innerHTML = `
-            <div class="card-content">
-              <div>
-                <h2 class="card-title">שיעור ${num}</h2>
-              </div>
-              <div class="card-footer">
-                <span class="view-button">
-                  <i class="fas fa-arrow-left"></i>
-                  צפייה בשיעור
-                </span>
-              </div>
-            </div>
-          `;
-          
-          // Add card to container
-          lecturesContainer.appendChild(card);
-        });
-        
-        // Check for additional lectures using fetch
-        checkForAdditionalLectures(availableLectures);
-      }
-      
-      // Function to check if there are additional lectures beyond the known ones
-      function checkForAdditionalLectures(knownLectures) {
-        const maxToCheck = 20; // Reasonable upper limit to check
-        const lecturesContainer = document.getElementById('lectures-container');
-        
-        // Check for lecture files beyond our known list
-        for (let i = Math.max(...knownLectures) + 1; i <= maxToCheck; i++) {
-          fetch(`lectures/lecture${i}.html`, { method: 'HEAD' })
-            .then(response => {
-              if (response.ok) {
-                // File exists, create a card for it
-                const paddedNum = i.toString().padStart(2, '0');
-                
-                const card = document.createElement('a');
-                card.href = `lectures/lecture${i}.html`;
-                card.className = 'lecture-card';
-                
-                card.innerHTML = `
-                  <div class="card-content">
-                    <div>
-                      <h2 class="card-title">שיעור ${i}</h2>
-                    </div>
-                    <div class="card-footer">
-                      <span class="view-button">
-                        <i class="fas fa-arrow-left"></i>
-                        צפייה בשיעור
-                      </span>
-                    </div>
-                  </div>
-                `;
-                
-                lecturesContainer.appendChild(card);
-              }
-            })
-            .catch(() => {
-              // File doesn't exist, do nothing
-            });
-        }
-      }
-      
-      // Load lectures when the page loads
-      loadLectures();
-    });
-  </script>
-  
-  <!-- Add reference to our central dark mode script -->
-  <script src="js/dark-mode.js"></script>
-  
-  <!-- Add reference to our authentication script -->
-  <script src="js/auth.js"></script>
+  <!-- Single combined script for better performance -->
+  <script src="js/combined.js" defer></script>
 </body>
 </html>

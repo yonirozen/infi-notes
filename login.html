@@ -4,13 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>התחברות - סיכומי אינפי 2</title>
+  
+  <!-- Preload critical resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap" as="style">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
   
-  <!-- Netlify Identity Widget -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Deferred font loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  
+  <!-- Netlify Identity Widget - load async -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
   
   <style>
     :root {
@@ -297,84 +303,7 @@
     </div>
   </div>
 
-  <script>
-    // Handle authentication state changes
-    netlifyIdentity.on('init', user => {
-      if (user) {
-        handleUserLoggedIn(user);
-      }
-    });
-
-    netlifyIdentity.on('login', user => {
-      handleUserLoggedIn(user);
-      // Close the modal
-      netlifyIdentity.close();
-    });
-
-    netlifyIdentity.on('logout', () => {
-      const notLoggedIn = document.getElementById('not-logged-in');
-      const loggedIn = document.getElementById('logged-in');
-      
-      notLoggedIn.style.display = 'block';
-      loggedIn.classList.remove('visible');
-    });
-
-    function handleUserLoggedIn(user) {
-      const notLoggedIn = document.getElementById('not-logged-in');
-      const loggedIn = document.getElementById('logged-in');
-      const userName = document.getElementById('user-name');
-      
-      // Show logged in UI
-      notLoggedIn.style.display = 'none';
-      loggedIn.classList.add('visible');
-      
-      // Set user name
-      if (user.user_metadata && user.user_metadata.full_name) {
-        userName.textContent = user.user_metadata.full_name;
-      } else {
-        userName.textContent = user.email;
-      }
-      
-      // Store user in localStorage
-      localStorage.setItem('netlifyUser', JSON.stringify({
-        email: user.email,
-        name: user.user_metadata?.full_name || user.email
-      }));
-    }
-
-    // Event listeners
-    document.getElementById('logout-button').addEventListener('click', () => {
-      netlifyIdentity.logout();
-      localStorage.removeItem('netlifyUser');
-    });
-
-    document.getElementById('go-to-home').addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
-
-    // Dark mode toggle
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    
-    // Check for saved dark mode preference
-    if (localStorage.getItem('darkMode') === 'enabled' || 
-        (localStorage.getItem('darkMode') === null && 
-         window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      darkModeToggle.setAttribute('aria-pressed', 'true');
-    }
-    
-    // Toggle dark mode
-    darkModeToggle.addEventListener('click', () => {
-      if (document.documentElement.getAttribute('data-theme') === 'dark') {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('darkMode', 'disabled');
-        darkModeToggle.setAttribute('aria-pressed', 'false');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('darkMode', 'enabled');
-        darkModeToggle.setAttribute('aria-pressed', 'true');
-      }
-    });
-  </script>
+  <!-- Single combined script for better performance -->
+  <script src="js/combined.js" defer></script>
 </body>
 </html> 

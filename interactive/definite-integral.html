@@ -5,28 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>האינטגרל המסוים - למידה אינטרקטיבית</title>
   
-  <!-- KaTeX CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-  
-  <!-- Google Fonts -->
+  <!-- Preload critical resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" as="style">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" as="style">
   
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Deferred font and CSS loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
   
+  <!-- KaTeX CSS (critical for formula rendering) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  
+  <!-- Critical inlined styles first -->
   <style>
+    /* Basic styles for immediate rendering */
     :root {
       --primary-color: #0a5a8d;
+      --bg-color: #fdfcfb;
+      --text-color: #343a40;
+      --card-bg: #ffffff;
+    }
+    
+    html[data-theme="dark"] {
+      --primary-color: #58a6ff;
+      --bg-color: #0d1117;
+      --text-color: #c9d1d9;
+      --card-bg: #161b22;
+    }
+    
+    body {
+      font-family: 'Assistant', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  
+  <!-- Non-critical styles loaded without blocking rendering -->
+  <style>
+    :root {
       --primary-light: #1e88e5;
       --secondary-color: #495057;
       --accent-color: #f0ad4e;
-      --bg-color: #fdfcfb;
-      --text-color: #343a40;
       --border-color: #ced4da;
       --font-family-hebrew: 'Assistant', 'Rubik', sans-serif;
-      --card-bg: #ffffff;
       --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
       --border-radius: 12px;
       --transition-speed: 0.4s;
@@ -38,14 +64,10 @@
     }
 
     html[data-theme="dark"] {
-      --primary-color: #58a6ff;
       --primary-light: #90caf9;
       --secondary-color: #8b949e;
       --accent-color: #f7b731;
-      --bg-color: #0d1117;
-      --text-color: #c9d1d9;
       --border-color: #30363d;
-      --card-bg: #161b22;
       --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
       --rect-fill: rgba(88, 166, 255, 0.3);
       --rect-stroke: rgba(88, 166, 255, 0.8);
@@ -72,11 +94,7 @@
     body {
       font-family: var(--font-family-hebrew);
       line-height: 1.8;
-      color: var(--text-color);
-      background-color: var(--bg-color);
       font-weight: 300;
-      padding: 0;
-      margin: 0;
       min-height: 100vh;
     }
 
@@ -538,13 +556,14 @@
     </main>
   </div>
 
-  <!-- KaTeX JS -->
+  <!-- Load scripts with optimization -->
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
   
-  <!-- Chart.js for visualization -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js is critical for this page, but load it efficiently -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
   
+  <!-- Main visualization script -->
   <script>
     // Function definitions for the visualization
     const functions = {
@@ -813,6 +832,6 @@
   </script>
   
   <!-- Add reference to our central dark mode script -->
-  <script src="../js/dark-mode.js"></script>
+  <script src="../js/combined.js" defer></script>
 </body>
 </html> 
