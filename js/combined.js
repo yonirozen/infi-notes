@@ -360,38 +360,36 @@ function initAuth() {
   const logoutButton = document.getElementById('logout-button');
   const userGreeting = document.getElementById('user-greeting');
   const userName = document.getElementById('user-name');
+  const adminControls = document.getElementById('admin-controls');
   
   // For the login page specific elements
   const notLoggedIn = document.getElementById('not-logged-in');
   const loggedIn = document.getElementById('logged-in');
   const goToHomeButton = document.getElementById('go-to-home');
   
-  // If we're on a page without auth UI, exit gracefully
-  if ((!loginButton && !notLoggedIn) || (!signupButton && !notLoggedIn)) {
+  // If no auth buttons found, exit early but still check for admin controls
+  if (!loginButton && !signupButton && !notLoggedIn) {
+    // Still check for and handle admin controls
+    const currentUser = getCurrentUser();
+    if (currentUser && adminControls) {
+      if (hasRole(currentUser, 'admin')) {
+        adminControls.style.display = 'flex';
+      } else {
+        adminControls.style.display = 'none';
+      }
+    }
     return;
   }
   
-  // Event handlers for Netlify Identity
-  netlifyIdentity.on('init', user => {
-    updateAuthUI(user, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn);
-  });
-  
-  netlifyIdentity.on('login', user => {
-    updateAuthUI(user, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn);
-    netlifyIdentity.close();
-  });
-  
-  netlifyIdentity.on('logout', () => {
-    updateAuthUI(null, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn);
-  });
-  
-  // Check for saved user in localStorage (in case Netlify Identity is slow to init)
+  // Check for saved user in localStorage first (faster than waiting for netlifyIdentity.init)
   const savedUser = localStorage.getItem('netlifyUser');
   if (savedUser) {
     try {
       const userObj = JSON.parse(savedUser);
+      console.log("Found saved user:", userObj);
+      
       if (userGreeting) userGreeting.style.display = 'flex';
-      if (userName) userName.textContent = userObj.name;
+      if (userName) userName.textContent = userObj.name || userObj.email;
       if (loginButton) loginButton.style.display = 'none';
       if (signupButton) signupButton.style.display = 'none';
       if (logoutButton) logoutButton.style.display = 'flex';
@@ -399,10 +397,35 @@ function initAuth() {
       // Login page specific
       if (notLoggedIn) notLoggedIn.style.display = 'none';
       if (loggedIn) loggedIn.classList.add('visible');
+      
+      // Show admin controls if user has admin role
+      if (adminControls && userObj.roles && userObj.roles.includes('admin')) {
+        adminControls.style.display = 'flex';
+      } else if (adminControls) {
+        adminControls.style.display = 'none';
+      }
     } catch (e) {
       console.error('Error parsing saved user', e);
+      localStorage.removeItem('netlifyUser'); // Clear corrupt data
     }
   }
+  
+  // Event handlers for Netlify Identity
+  netlifyIdentity.on('init', user => {
+    console.log("Netlify Identity init with user:", user);
+    updateAuthUI(user, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn, adminControls);
+  });
+  
+  netlifyIdentity.on('login', user => {
+    console.log("Netlify Identity login:", user);
+    updateAuthUI(user, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn, adminControls);
+    netlifyIdentity.close();
+  });
+  
+  netlifyIdentity.on('logout', () => {
+    console.log("Netlify Identity logout");
+    updateAuthUI(null, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn, adminControls);
+  });
   
   // Logout button event listener
   if (logoutButton) {
@@ -421,9 +444,11 @@ function initAuth() {
 }
 
 // Update UI based on authentication state
-function updateAuthUI(user, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn) {
+function updateAuthUI(user, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn, adminControls) {
   if (user) {
     // User is logged in
+    console.log("Updating UI for logged in user:", user.email);
+    
     if (loginButton) loginButton.style.display = 'none';
     if (signupButton) signupButton.style.display = 'none';
     if (logoutButton) logoutButton.style.display = 'flex';
@@ -446,7 +471,6 @@ function updateAuthUI(user, loginButton, signupButton, logoutButton, userGreetin
     const roles = user.app_metadata && user.app_metadata.roles ? user.app_metadata.roles : [];
     
     // Show admin controls if user has admin role
-    const adminControls = document.getElementById('admin-controls');
     if (adminControls) {
       if (hasRole(user, 'admin')) {
         adminControls.style.display = 'flex';
@@ -463,6 +487,8 @@ function updateAuthUI(user, loginButton, signupButton, logoutButton, userGreetin
     }));
   } else {
     // User is logged out
+    console.log("Updating UI for logged out user");
+    
     if (loginButton) loginButton.style.display = 'flex';
     if (signupButton) signupButton.style.display = 'flex';
     if (logoutButton) logoutButton.style.display = 'none';
@@ -473,7 +499,6 @@ function updateAuthUI(user, loginButton, signupButton, logoutButton, userGreetin
     if (loggedIn) loggedIn.classList.remove('visible');
     
     // Hide admin controls
-    const adminControls = document.getElementById('admin-controls');
     if (adminControls) adminControls.style.display = 'none';
     
     // Remove user info from localStorage
@@ -520,8 +545,8 @@ window.addEventListener('load', function() {
   // Load lectures if we're on the index page
   loadLectures();
   
-  // Initialize auth with a small delay to ensure Netlify Identity has loaded
-  setTimeout(initAuth, 100);
+  // Initialize auth first to properly handle the user state
+  initAuth();
   
   // Initialize admin panel (depends on auth being initialized)
   setTimeout(initAdminPanel, 200);
