@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>התחברות - סיכומי אינפי 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+  <style>
+    :root {
+      --primary-color: #0a5a8d;
+      --primary-light: #1e88e5;
+      --secondary-color: #495057;
+      --accent-color: #f0ad4e;
+      --bg-color: #f8f9fa;
+      --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e9ecef' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      --text-color: #343a40;
+      --text-light: #6c757d;
+      --card-bg: #ffffff;
+      --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      --border-radius: 16px;
+      --transition-speed: 0.3s;
+      --border-color: #dee2e6;
+    }
+
+    html[data-theme="dark"] {
+      --primary-color: #58a6ff;
+      --primary-light: #90caf9;
+      --secondary-color: #8b949e;
+      --accent-color: #f7b731;
+      --bg-color: #0d1117;
+      --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23161b22' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      --text-color: #c9d1d9;
+      --text-light: #8b949e;
+      --card-bg: #161b22;
+      --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      --border-color: #30363d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color var(--transition-speed) ease, 
+                  color var(--transition-speed) ease, 
+                  border-color var(--transition-speed) ease, 
+                  box-shadow var(--transition-speed) ease;
+    }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: var(--bg-color);
+      background-image: var(--bg-pattern);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .header p {
+      color: var(--text-light);
+    }
+
+    .login-card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-right: 5px solid var(--primary-color);
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      margin: 15px 0;
+      transition: background-color 0.3s;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background-color: var(--primary-light);
+    }
+
+    .button.secondary {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+
+    .button.secondary:hover {
+      background-color: rgba(10, 90, 141, 0.1);
+    }
+
+    .description {
+      text-align: center;
+      color: var(--text-light);
+      margin: 1.5rem 0;
+    }
+
+    .feature-list {
+      margin: 1.5rem 0;
+    }
+
+    .feature-list li {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .feature-list i {
+      color: var(--accent-color);
+      margin-left: 0.5rem;
+    }
+
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background-color: var(--card-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease, transform 0.2s ease;
+      overflow: hidden;
+    }
+
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: var(--card-hover-shadow);
+      color: var(--accent-color);
+    }
+
+    .dark-mode-toggle .fa-sun,
+    .dark-mode-toggle .fa-moon {
+      position: absolute;
+      transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+    }
+
+    html:not([data-theme="dark"]) .dark-mode-toggle .fa-sun {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    html:not([data-theme="dark"]) .dark-mode-toggle .fa-moon {
+      transform: translateY(100%) rotate(180deg);
+      opacity: 0;
+    }
+
+    html[data-theme="dark"] .dark-mode-toggle .fa-sun {
+      transform: translateY(-100%) rotate(-180deg);
+      opacity: 0;
+    }
+
+    html[data-theme="dark"] .dark-mode-toggle .fa-moon {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      background-color: var(--card-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease, transform 0.2s ease;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      transform: scale(1.1);
+      box-shadow: var(--card-hover-shadow);
+      color: var(--accent-color);
+    }
+
+    .user-info {
+      text-align: center;
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: rgba(10, 90, 141, 0.1);
+      border-radius: 8px;
+      display: none;
+    }
+
+    .user-info.visible {
+      display: block;
+    }
+
+    .user-info .username {
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    /* Netlify Identity widget overrides to match our theme */
+    .netlify-identity-menu {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="החלף מצב תצוגה" aria-pressed="false">
+    <i class="fas fa-sun"></i>
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <a href="index.html" class="back-button" aria-label="Back to home">
+    <i class="fas fa-chevron-right"></i>
+  </a>
+
+  <div class="container">
+    <header class="header">
+      <h1>התחברות</h1>
+      <p>התחבר כדי לגשת לתוכן מותאם אישית ולשמור את ההתקדמות שלך</p>
+    </header>
+
+    <div class="login-card">
+      <div id="not-logged-in">
+        <button class="button" onclick="netlifyIdentity.open('login')">התחברות</button>
+        <button class="button secondary" onclick="netlifyIdentity.open('signup')">הרשמה</button>
+        
+        <div class="description">
+          <p>הרשמה מאפשרת לך:</p>
+        </div>
+        
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> לשמור את ההתקדמות שלך בלמידה</li>
+          <li><i class="fas fa-check-circle"></i> לגשת לתוכן בלעדי</li>
+          <li><i class="fas fa-check-circle"></i> להשתתף בדיונים בפורום</li>
+        </ul>
+      </div>
+      
+      <div id="logged-in" class="user-info">
+        <p>ברוך הבא, <span class="username" id="user-name">משתמש</span>!</p>
+        <p>התחברת בהצלחה למערכת.</p>
+        <button class="button" id="go-to-home">חזרה לדף הבית</button>
+        <button class="button secondary" id="logout-button">התנתקות</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Handle authentication state changes
+    netlifyIdentity.on('init', user => {
+      if (user) {
+        handleUserLoggedIn(user);
+      }
+    });
+
+    netlifyIdentity.on('login', user => {
+      handleUserLoggedIn(user);
+      // Close the modal
+      netlifyIdentity.close();
+    });
+
+    netlifyIdentity.on('logout', () => {
+      const notLoggedIn = document.getElementById('not-logged-in');
+      const loggedIn = document.getElementById('logged-in');
+      
+      notLoggedIn.style.display = 'block';
+      loggedIn.classList.remove('visible');
+    });
+
+    function handleUserLoggedIn(user) {
+      const notLoggedIn = document.getElementById('not-logged-in');
+      const loggedIn = document.getElementById('logged-in');
+      const userName = document.getElementById('user-name');
+      
+      // Show logged in UI
+      notLoggedIn.style.display = 'none';
+      loggedIn.classList.add('visible');
+      
+      // Set user name
+      if (user.user_metadata && user.user_metadata.full_name) {
+        userName.textContent = user.user_metadata.full_name;
+      } else {
+        userName.textContent = user.email;
+      }
+      
+      // Store user in localStorage
+      localStorage.setItem('netlifyUser', JSON.stringify({
+        email: user.email,
+        name: user.user_metadata?.full_name || user.email
+      }));
+    }
+
+    // Event listeners
+    document.getElementById('logout-button').addEventListener('click', () => {
+      netlifyIdentity.logout();
+      localStorage.removeItem('netlifyUser');
+    });
+
+    document.getElementById('go-to-home').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled' || 
+        (localStorage.getItem('darkMode') === null && 
+         window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      darkModeToggle.setAttribute('aria-pressed', 'true');
+    }
+    
+    // Toggle dark mode
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('darkMode', 'disabled');
+        darkModeToggle.setAttribute('aria-pressed', 'false');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('darkMode', 'enabled');
+        darkModeToggle.setAttribute('aria-pressed', 'true');
+      }
+    });
+  </script>
+</body>
+</html> 
