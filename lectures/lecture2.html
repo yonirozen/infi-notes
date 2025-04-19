@@ -1,23 +1,20 @@
 <!-- filename: lesson_2_indefinite_integral.html -->
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+
+<html dir="rtl" lang="he">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>שיעור 2: אינטגרל לא מסוים</title>
-
-    <!-- KaTeX CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>שיעור 2: אינטגרל לא מסוים</title>
+<!-- KaTeX CSS -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&amp;family=Orbitron:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome for Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
         :root {
@@ -479,466 +476,505 @@
              .chart-wrapper { padding: 15px; }
         }
 
-    </style>
+    
+/* Back Button */
+.back-nav {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    text-decoration: none;
+}
+
+.back-nav:hover {
+    transform: translateX(-5px);
+    box-shadow: var(--card-hover-shadow);
+    color: var(--accent-color);
+}
+
+.back-nav i {
+    margin-left: 8px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: var(--header-text);
+    font-size: 0.85rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+}
+
+.breadcrumb a {
+    color: var(--header-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.breadcrumb .separator {
+    margin: 0 5px;
+}
+
+/* Adjust existing header padding */
+header {
+    padding-top: 50px;
+}
+</style>
 </head>
 <body>
-
-    <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <header>
-        <h1>שיעור 2: אינטגרל לא מסוים</h1>
-    </header>
-
-    <div class="container">
-        <nav id="main-nav">
-            <ul>
-                <li><a href="#review" class="nav-link">סקירה (שיעור 1)</a></li>
-                <li><a href="#no-integral" class="nav-link">מתי אין אינטגרל</a></li>
-                <li><a href="#partial-fractions-example" class="nav-link">דוגמה: שברים חלקיים</a></li>
-                <li><a href="#integration-by-parts" class="nav-link">אינטגרציה בחלקים</a></li>
-                <li><a href="#by-parts-examples" class="nav-link">דוגמאות א"ב</a></li>
-                <li><a href="#substitution-method" class="nav-link">שיטת ההצבה</a></li>
-                <li><a href="#substitution-examples" class="nav-link">דוגמאות הצבה</a></li>
-            </ul>
-        </nav>
-
-        <main>
-            <section id="review">
-                <h2>1. סקירה משיעור קודם</h2>
-                <p>קרדיטים ליקיר והלל.</p>
-                <p>עבור פונקציה <span class="math" dir="ltr">\(f\)</span> המוגדרת בקטע <span class="math" dir="ltr">\(I\)</span> ב-<span class="math" dir="ltr">\(\mathbb{R}\)</span> (חסום או לא חסום), ראינו בשיעור מס' 1 בעיקר את הדברים הבאים:</p>
-                <ul>
-                    <li>אם פונקציה <span class="math" dir="ltr">\(F(x)\)</span> מוגדרת ב-<span class="math" dir="ltr">\(I\)</span> ו-<span class="math" dir="ltr">\(F'(x) = f(x)\)</span>, אז <span class="math" dir="ltr">\(F\)</span> נקראת <strong>הפונקציה הקדומה</strong> של <span class="math" dir="ltr">\(f\)</span>, או <strong>אינטגרל לא מסוים</strong> של <span class="math" dir="ltr">\(f\)</span>.</li>
-                    <li>בהינתן קדומה <span class="math" dir="ltr">\(F\)</span> של <span class="math" dir="ltr">\(f\)</span>, אז <span class="math" dir="ltr">\(G\)</span> היא קדומה של <span class="math" dir="ltr">\(f\)</span> אם ורק אם <span class="math" dir="ltr">\(F(x) - G(x) = C\)</span>, כאשר <span class="math" dir="ltr">\(C\)</span> קבוע.</li>
-                    <li>הסימון <span class="math" dir="ltr">\(\int f(x) \, dx\)</span> מוגדר להיות אוסף כל הפונקציות הקדומות של <span class="math" dir="ltr">\(f\)</span>, ומספיק למצוא אחת כזו ולהוסיף קבוע <span class="math" dir="ltr">\(C\)</span>. כך למשל, מכיוון ש-<span class="math" dir="ltr">\((\frac{1}{2}x^2)' = x\)</span>, אז <span class="math" dir="ltr">\(\int x \, dx = \frac{1}{2}x^2 + C\)</span> (<span class="math" dir="ltr">\(C\)</span> קבוע ממשי כלשהו).</li>
-                    <li>
-                        <h3>כללי אריתמטיקה לאינטגרציה:</h3>
-                        <div class="formula-block"><div class="math" dir="ltr">$$ \int a \cdot f(x) \, dx = a \int f(x) \, dx $$</div></div>
-                        <div class="formula-block"><div class="math" dir="ltr">$$ \int (f(x) + g(x)) \, dx = \int f(x) \, dx + \int g(x) \, dx $$</div></div>
-                    </li>
-                    <li>מכל נוסחת נגזרת נובעת מייד נוסחה לאינטגרל. למשל, מ-<span class="math" dir="ltr">\((\sin x)' = \cos x\)</span> נובע <span class="math" dir="ltr">\(\int \cos x \, dx = \sin x + C\)</span>. מכך מקבלים לוח של אינטגרלים מיידיים שהם היפוך של הנגזרות של הפונקציות האלמנטריות הפשוטות ביותר.</li>
-                    <li>יישום של כללי האריתמטיקה ולוח האינטגרלים המיידיים לפתרון אינטגרלים נקרא באופן כללי <strong>שיטת הפירוק</strong>. ראינו מספר דוגמאות.</li>
-                </ul>
-            </section>
-
-            <section id="no-integral">
-                <h2>2. מתי אין אינטגרל לא מסוים?</h2>
-                <p>לא לכל פונקציה יש אינטגרל לא מסוים (כלומר, פונקציה קדומה). למשל, הפונקציה <span class="math" dir="ltr">\(f(x) = \lfloor x \rfloor\)</span> (פונקציית הערך השלם) בקטע <span class="math" dir="ltr">\([0, 2)\)</span> נראית כך:</p>
-<canvas id="stepChart" width="600" height="400" style="max-width:100%; display:block; margin: 2em auto;"></canvas>
-                <p>אכן, לפי משפט מאינפי 1 (משפט דארבו), לנגזרת יכולות להיות רק נקודות אי-רציפות ממין שני. לעומת זאת, לפונקציה <span class="math" dir="ltr">\(\lfloor x \rfloor\)</span> יש נקודת אי-רציפות ממין ראשון ('קפיצה') בנקודה <span class="math" dir="ltr">\(x=1\)</span>, ולכן היא אינה יכולה להיות נגזרת של שום פונקציה בקטע <span class="math" dir="ltr">\([0, 2)\)</span>.</p>
-            </section>
-
-            <section id="partial-fractions-example">
-                <h2>3. דוגמה: פירוק לשברים חלקיים</h2>
-                <p>מצא את האינטגרל:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{dx}{x^2-5x+6} $$</div></div>
-                <p>ראשית, נפרק את המכנה לגורמים:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ x^2-5x+6 = (x-2)(x-3) $$</div></div>
-                <p>לכן האינטגרל הוא:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{(x-2)(x-3)} dx $$</div></div>
-                <p>ניעזר בפירוק לשברים חלקיים. נחפש קבועים <span class="math" dir="ltr">\(A, B\)</span> כך ש:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{(x-2)(x-3)} = \frac{A}{x-2} + \frac{B}{x-3} $$</div></div>
-                <p>נכפיל במכנה המשותף:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ 1 = A(x-3) + B(x-2) $$</div></div>
-                <p>נציב <span class="math" dir="ltr">\(x=2\)</span> ונקבל <span class="math" dir="ltr">\(1 = A(2-3) + B(0) \implies 1 = -A \implies A = -1\)</span>.</p>
-                <p>נציב <span class="math" dir="ltr">\(x=3\)</span> ונקבל <span class="math" dir="ltr">\(1 = A(0) + B(3-2) \implies 1 = B \implies B = 1\)</span>.</p>
-                <p>לכן הפירוק הוא:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{(x-2)(x-3)} = \frac{-1}{x-2} + \frac{1}{x-3} = \frac{1}{x-3} - \frac{1}{x-2} $$</div></div>
-                <p>נחזור לאינטגרל:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \left( \frac{1}{x-3} - \frac{1}{x-2} \right) dx $$</div></div>
-                <p>נשתמש בלינאריות האינטגרל ובנוסחה <span class="math" dir="ltr">\(\int \frac{1}{ax+b} dx = \frac{1}{a} \ln|ax+b| + C\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{x-3} dx - \int \frac{1}{x-2} dx = \ln|x-3| - \ln|x-2| + C $$</div></div>
-                <p>ניתן לכתוב זאת גם כך:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \ln\left|\frac{x-3}{x-2}\right| + C $$</div></div>
-            </section>
-
-            <section id="integration-by-parts">
-                <h2>4. שיטה שנייה: אינטגרציה בחלקים</h2>
-                <p>שיטה זו מבוססת על הנוסחה לנגזרת של מכפלת שתי פונקציות <span class="math" dir="ltr">\(u(x)\)</span> ו-<span class="math" dir="ltr">\(v(x)\)</span>:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ (u \cdot v)' = u'v + uv' $$</div></div>
-                <p>נבצע אינטגרציה על שני האגפים. מאחר שאינטגרציה היא פעולה הפוכה לגזירה (עד כדי קבוע), נקבל:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ uv = \int (u'v + uv') dx = \int u'v \, dx + \int uv' \, dx $$</div></div>
-                <p>מכאן, על ידי העברת אגפים, נקבל את <strong>כלל האינטגרציה בחלקים (א"ב)</strong>:</p>
+<a class="back-nav" href="../index.html">
+<i class="fas fa-chevron-right"></i>
+    חזרה לסיכומי אינפי 2
+</a>
+<!-- Dark Mode Toggle Button -->
+<button aria-label="Toggle dark mode" aria-pressed="false" class="dark-mode-toggle" id="darkModeToggle">
+<i class="fas fa-sun"></i>
+<i class="fas fa-moon"></i>
+</button>
+<header>
+<div class="breadcrumb">
+<a href="../courses.html">סיכומי קורסים</a>
+<span class="separator">/</span>
+<a href="../index.html">אינפי 2</a>
+<span class="separator">/</span>
+<span>שיעור 2</span>
+</div>
+<h1>שיעור 2: אינטגרל לא מסוים</h1>
+</header>
+<div class="container">
+<nav id="main-nav">
+<ul>
+<li><a class="nav-link" href="#review">סקירה (שיעור 1)</a></li>
+<li><a class="nav-link" href="#no-integral">מתי אין אינטגרל</a></li>
+<li><a class="nav-link" href="#partial-fractions-example">דוגמה: שברים חלקיים</a></li>
+<li><a class="nav-link" href="#integration-by-parts">אינטגרציה בחלקים</a></li>
+<li><a class="nav-link" href="#by-parts-examples">דוגמאות א"ב</a></li>
+<li><a class="nav-link" href="#substitution-method">שיטת ההצבה</a></li>
+<li><a class="nav-link" href="#substitution-examples">דוגמאות הצבה</a></li>
+</ul>
+</nav>
+<main>
+<section id="review">
+<h2>1. סקירה משיעור קודם</h2>
+<p>קרדיטים ליקיר והלל.</p>
+<p>עבור פונקציה <span class="math" dir="ltr">\(f\)</span> המוגדרת בקטע <span class="math" dir="ltr">\(I\)</span> ב-<span class="math" dir="ltr">\(\mathbb{R}\)</span> (חסום או לא חסום), ראינו בשיעור מס' 1 בעיקר את הדברים הבאים:</p>
+<ul>
+<li>אם פונקציה <span class="math" dir="ltr">\(F(x)\)</span> מוגדרת ב-<span class="math" dir="ltr">\(I\)</span> ו-<span class="math" dir="ltr">\(F'(x) = f(x)\)</span>, אז <span class="math" dir="ltr">\(F\)</span> נקראת <strong>הפונקציה הקדומה</strong> של <span class="math" dir="ltr">\(f\)</span>, או <strong>אינטגרל לא מסוים</strong> של <span class="math" dir="ltr">\(f\)</span>.</li>
+<li>בהינתן קדומה <span class="math" dir="ltr">\(F\)</span> של <span class="math" dir="ltr">\(f\)</span>, אז <span class="math" dir="ltr">\(G\)</span> היא קדומה של <span class="math" dir="ltr">\(f\)</span> אם ורק אם <span class="math" dir="ltr">\(F(x) - G(x) = C\)</span>, כאשר <span class="math" dir="ltr">\(C\)</span> קבוע.</li>
+<li>הסימון <span class="math" dir="ltr">\(\int f(x) \, dx\)</span> מוגדר להיות אוסף כל הפונקציות הקדומות של <span class="math" dir="ltr">\(f\)</span>, ומספיק למצוא אחת כזו ולהוסיף קבוע <span class="math" dir="ltr">\(C\)</span>. כך למשל, מכיוון ש-<span class="math" dir="ltr">\((\frac{1}{2}x^2)' = x\)</span>, אז <span class="math" dir="ltr">\(\int x \, dx = \frac{1}{2}x^2 + C\)</span> (<span class="math" dir="ltr">\(C\)</span> קבוע ממשי כלשהו).</li>
+<li>
+<h3>כללי אריתמטיקה לאינטגרציה:</h3>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int a \cdot f(x) \, dx = a \int f(x) \, dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int (f(x) + g(x)) \, dx = \int f(x) \, dx + \int g(x) \, dx $$</div></div>
+</li>
+<li>מכל נוסחת נגזרת נובעת מייד נוסחה לאינטגרל. למשל, מ-<span class="math" dir="ltr">\((\sin x)' = \cos x\)</span> נובע <span class="math" dir="ltr">\(\int \cos x \, dx = \sin x + C\)</span>. מכך מקבלים לוח של אינטגרלים מיידיים שהם היפוך של הנגזרות של הפונקציות האלמנטריות הפשוטות ביותר.</li>
+<li>יישום של כללי האריתמטיקה ולוח האינטגרלים המיידיים לפתרון אינטגרלים נקרא באופן כללי <strong>שיטת הפירוק</strong>. ראינו מספר דוגמאות.</li>
+</ul>
+</section>
+<section id="no-integral">
+<h2>2. מתי אין אינטגרל לא מסוים?</h2>
+<p>לא לכל פונקציה יש אינטגרל לא מסוים (כלומר, פונקציה קדומה). למשל, הפונקציה <span class="math" dir="ltr">\(f(x) = \lfloor x \rfloor\)</span> (פונקציית הערך השלם) בקטע <span class="math" dir="ltr">\([0, 2)\)</span> נראית כך:</p>
+<canvas height="400" id="stepChart" style="max-width:100%; display:block; margin: 2em auto;" width="600"></canvas>
+<p>אכן, לפי משפט מאינפי 1 (משפט דארבו), לנגזרת יכולות להיות רק נקודות אי-רציפות ממין שני. לעומת זאת, לפונקציה <span class="math" dir="ltr">\(\lfloor x \rfloor\)</span> יש נקודת אי-רציפות ממין ראשון ('קפיצה') בנקודה <span class="math" dir="ltr">\(x=1\)</span>, ולכן היא אינה יכולה להיות נגזרת של שום פונקציה בקטע <span class="math" dir="ltr">\([0, 2)\)</span>.</p>
+</section>
+<section id="partial-fractions-example">
+<h2>3. דוגמה: פירוק לשברים חלקיים</h2>
+<p>מצא את האינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{dx}{x^2-5x+6} $$</div></div>
+<p>ראשית, נפרק את המכנה לגורמים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x^2-5x+6 = (x-2)(x-3) $$</div></div>
+<p>לכן האינטגרל הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{(x-2)(x-3)} dx $$</div></div>
+<p>ניעזר בפירוק לשברים חלקיים. נחפש קבועים <span class="math" dir="ltr">\(A, B\)</span> כך ש:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{(x-2)(x-3)} = \frac{A}{x-2} + \frac{B}{x-3} $$</div></div>
+<p>נכפיל במכנה המשותף:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ 1 = A(x-3) + B(x-2) $$</div></div>
+<p>נציב <span class="math" dir="ltr">\(x=2\)</span> ונקבל <span class="math" dir="ltr">\(1 = A(2-3) + B(0) \implies 1 = -A \implies A = -1\)</span>.</p>
+<p>נציב <span class="math" dir="ltr">\(x=3\)</span> ונקבל <span class="math" dir="ltr">\(1 = A(0) + B(3-2) \implies 1 = B \implies B = 1\)</span>.</p>
+<p>לכן הפירוק הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{(x-2)(x-3)} = \frac{-1}{x-2} + \frac{1}{x-3} = \frac{1}{x-3} - \frac{1}{x-2} $$</div></div>
+<p>נחזור לאינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \left( \frac{1}{x-3} - \frac{1}{x-2} \right) dx $$</div></div>
+<p>נשתמש בלינאריות האינטגרל ובנוסחה <span class="math" dir="ltr">\(\int \frac{1}{ax+b} dx = \frac{1}{a} \ln|ax+b| + C\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{x-3} dx - \int \frac{1}{x-2} dx = \ln|x-3| - \ln|x-2| + C $$</div></div>
+<p>ניתן לכתוב זאת גם כך:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \ln\left|\frac{x-3}{x-2}\right| + C $$</div></div>
+</section>
+<section id="integration-by-parts">
+<h2>4. שיטה שנייה: אינטגרציה בחלקים</h2>
+<p>שיטה זו מבוססת על הנוסחה לנגזרת של מכפלת שתי פונקציות <span class="math" dir="ltr">\(u(x)\)</span> ו-<span class="math" dir="ltr">\(v(x)\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ (u \cdot v)' = u'v + uv' $$</div></div>
+<p>נבצע אינטגרציה על שני האגפים. מאחר שאינטגרציה היא פעולה הפוכה לגזירה (עד כדי קבוע), נקבל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ uv = \int (u'v + uv') dx = \int u'v \, dx + \int uv' \, dx $$</div></div>
+<p>מכאן, על ידי העברת אגפים, נקבל את <strong>כלל האינטגרציה בחלקים (א"ב)</strong>:</p>
 <div class="formula-block">
-  <div class="math" dir="ltr">
+<div class="math" dir="ltr">
     $$ \int uv' \, dx = uv - \int u'v \, dx $$
   </div>
 </div>
-
-                <p>למטרותינו יספיק לדעת כי הכלל נכון עבור פונקציות <span class="math" dir="ltr">\(u, v\)</span> בעלות נגזרות רציפות, אם כי הוא נכון אף בתנאים חלשים יותר.</p>
-            </section>
-
-            <section id="by-parts-usage">
-                <h2>5. אופן השימוש באינטגרציה בחלקים</h2>
-                <p>כדי לחשב אינטגרל מהצורה <span class="math" dir="ltr">\(\int f(x) \cdot h(x) \, dx\)</span> באמצעות אינטגרציה בחלקים, עלינו לזהות חלק אחד מהמכפלה כ-<span class="math" dir="ltr">\(u\)</span> ואת החלק השני (כולל <span class="math" dir="ltr">\(dx\)</span>) כ-<span class="math" dir="ltr">\(dv = v' dx\)</span>.</p>
-                <p>לאחר הבחירה:</p>
-                <ol>
-                    <li>גוזרים את <span class="math" dir="ltr">\(u\)</span> כדי למצוא את <span class="math" dir="ltr">\(du = u' dx\)</span>.</li>
-                    <li>מבצעים אינטגרציה ל-<span class="math" dir="ltr">\(dv\)</span> כדי למצוא את <span class="math" dir="ltr">\(v\)</span> (מספיקה פונקציה קדומה אחת, ללא הקבוע <span class="math" dir="ltr">\(C\)</span>).</li>
-                    <li>מציבים את <span class="math" dir="ltr">\(u, v, du\)</span> בנוסחה: <span class="math" dir="ltr">\(\int u \, dv = uv - \int v \, du\)</span>.</li>
-                </ol>
-                <p>המטרה היא שהאינטגרל החדש, <span class="math" dir="ltr">\(\int v \, du\)</span>, יהיה פשוט יותר לחישוב מהאינטגרל המקורי. הבחירה של <span class="math" dir="ltr">\(u\)</span> ו-<span class="math" dir="ltr">\(dv\)</span> היא קריטית להצלחת השיטה.</p>
-             </section>
-
-             <section id="by-parts-examples">
-                <h2>6-13. דוגמאות לאינטגרציה בחלקים</h2>
-
-                <div class="example">
-                    <h4>דוגמה (נקודה 6)</h4>
-                    <p>חשב <span class="math" dir="ltr">\(I = \int x e^x dx\)</span>.</p>
-                    <p>נבחר:</p>
-                    <ul>
-                        <li><span class="math" dir="ltr">\(u = x\)</span></li>
-                        <li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
-                    </ul>
-                    <p>ואז:</p>
-                    <ul>
-                        <li><span class="math" dir="ltr">\(du = 1 \cdot dx = dx\)</span></li>
-                        <li><span class="math" dir="ltr">\(v = \int e^x dx = e^x\)</span></li>
-                    </ul>
-                    <p>נציב בנוסחה:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int u \, dv = uv - \int v \, du $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x e^x - \int e^x dx = x e^x - e^x + C $$</div></div>
-                     <p>נשים לב שאם היינו בוחרים אחרת (<span class="math" dir="ltr">\(u=e^x, dv=x dx\)</span>), היינו מקבלים <span class="math" dir="ltr">\(du = e^x dx, v = \frac{x^2}{2}\)</span>, והאינטגרל החדש היה <span class="math" dir="ltr">\(\int v \, du = \int \frac{x^2}{2} e^x dx\)</span>, שהוא מסובך יותר מהמקורי (החזקה של <span class="math" dir="ltr">\(x\)</span> גדלה).</p>
-                 </div>
-
-                 <div class="example">
-                     <h4>דוגמה (נקודה 7)</h4>
-                     <p>חשב <span class="math" dir="ltr">\(I = \int \ln x \, dx\)</span> (עבור <span class="math" dir="ltr">\(x > 0\)</span>).</p>
-                     <p>לכאורה אין כאן מכפלה, אלא פונקציה יחידה. אך ניתן לכתוב זאת כ-<span class="math" dir="ltr">\(I = \int 1 \cdot \ln x \, dx\)</span>.</p>
-                     <p>נבחר:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(u = \ln x\)</span></li>
-                         <li><span class="math" dir="ltr">\(dv = 1 \cdot dx = dx\)</span></li>
-                     </ul>
-                     <p>ואז:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(du = \frac{1}{x} dx\)</span></li>
-                         <li><span class="math" dir="ltr">\(v = \int dx = x\)</span></li>
-                     </ul>
-                     <p>נציב בנוסחה:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \ln x - \int x \cdot \frac{1}{x} dx = x \ln x - \int 1 \, dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \ln x - x + C $$</div></div>
-                 </div>
-
-                 <div class="example">
-                     <h4>דוגמה (נקודה 8)</h4>
-                     <p>חשב <span class="math" dir="ltr">\(I = \int e^x \sin x \, dx\)</span>.</p>
-                     <p>נבחר:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(u = \sin x\)</span></li>
-                         <li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
-                     </ul>
-                     <p>ואז:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(du = \cos x \, dx\)</span></li>
-                         <li><span class="math" dir="ltr">\(v = e^x\)</span></li>
-                     </ul>
-                     <p>נציב בנוסחה:</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - \int e^x \cos x \, dx $$</div></div>
-                     <p>האינטגרל באגף ימין 'מאותו סוג' כמו המקורי. נטפל בו שוב באמצעות אינטגרציה בחלקים:</p>
-                     <p>עבור <span class="math" dir="ltr">\(\int e^x \cos x \, dx\)</span>, נבחר:</p>
-                      <ul>
-                         <li><span class="math" dir="ltr">\(u = \cos x\)</span></li>
-                         <li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
-                     </ul>
-                     <p>ואז:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(du = -\sin x \, dx\)</span></li>
-                         <li><span class="math" dir="ltr">\(v = e^x\)</span></li>
-                     </ul>
-                     <p>ולכן:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \int e^x \cos x \, dx = e^x \cos x - \int e^x (-\sin x) \, dx = e^x \cos x + \int e^x \sin x \, dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \int e^x \cos x \, dx = e^x \cos x + I $$</div></div>
-                     <p>נציב בחזרה בביטוי עבור <span class="math" dir="ltr">\(I\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - (e^x \cos x + I) $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - e^x \cos x - I $$</div></div>
-                     <p>נעביר אגפים:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ 2I = e^x \sin x - e^x \cos x $$</div></div>
-                     <p>ולבסוף (נוסיף את קבוע האינטגרציה):</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{e^x (\sin x - \cos x)}{2} + C $$</div></div>
-                 </div>
-
-                <div class="example">
-                    <h4>דוגמה (נקודה 9): נוסחת נסיגה</h4>
-                    <p>מצא נוסחת נסיגה עבור <span class="math" dir="ltr">\(I_n = \int \sin^n x \, dx\)</span>, כאשר <span class="math" dir="ltr">\(n \ge 0\)</span> הוא מספר שלם.</p>
-                    <p>מקרים בסיסיים:</p>
-                    <ul>
-                        <li><span class="math" dir="ltr">\(I_0 = \int \sin^0 x \, dx = \int 1 \, dx = x + C\)</span></li>
-                        <li><span class="math" dir="ltr">\(I_1 = \int \sin^1 x \, dx = -\cos x + C\)</span></li>
-                    </ul>
-                    <p>נניח <span class="math" dir="ltr">\(n \ge 2\)</span>. נכתוב:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n = \int \sin^{n-1} x \cdot \sin x \, dx $$</div></div>
-                    <p>נבחר לאינטגרציה בחלקים:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(u = \sin^{n-1} x\)</span></li>
-                         <li><span class="math" dir="ltr">\(dv = \sin x \, dx\)</span></li>
-                     </ul>
-                     <p>ואז:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(du = (n-1)\sin^{n-2} x \cdot \cos x \, dx\)</span></li>
-                         <li><span class="math" dir="ltr">\(v = -\cos x\)</span></li>
-                     </ul>
-                    <p>נציב בנוסחה:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n = uv - \int v \, du = (-\cos x)(\sin^{n-1} x) - \int (-\cos x) (n-1)\sin^{n-2} x \cos x \, dx $$</div></div>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x \cos^2 x \, dx $$</div></div>
-                    <p>נשתמש בזהות <span class="math" dir="ltr">\(\cos^2 x = 1 - \sin^2 x\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x (1 - \sin^2 x) \, dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int (\sin^{n-2} x - \sin^n x) \, dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x \, dx - (n-1) \int \sin^n x \, dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} - (n-1) I_n $$</div></div>
-                    <p>נעביר אגפים כדי לבודד את <span class="math" dir="ltr">\(I_n\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n + (n-1) I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ n I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} $$</div></div>
-                    <p>ולכן, נוסחת הנסיגה היא:</p>
+<p>למטרותינו יספיק לדעת כי הכלל נכון עבור פונקציות <span class="math" dir="ltr">\(u, v\)</span> בעלות נגזרות רציפות, אם כי הוא נכון אף בתנאים חלשים יותר.</p>
+</section>
+<section id="by-parts-usage">
+<h2>5. אופן השימוש באינטגרציה בחלקים</h2>
+<p>כדי לחשב אינטגרל מהצורה <span class="math" dir="ltr">\(\int f(x) \cdot h(x) \, dx\)</span> באמצעות אינטגרציה בחלקים, עלינו לזהות חלק אחד מהמכפלה כ-<span class="math" dir="ltr">\(u\)</span> ואת החלק השני (כולל <span class="math" dir="ltr">\(dx\)</span>) כ-<span class="math" dir="ltr">\(dv = v' dx\)</span>.</p>
+<p>לאחר הבחירה:</p>
+<ol>
+<li>גוזרים את <span class="math" dir="ltr">\(u\)</span> כדי למצוא את <span class="math" dir="ltr">\(du = u' dx\)</span>.</li>
+<li>מבצעים אינטגרציה ל-<span class="math" dir="ltr">\(dv\)</span> כדי למצוא את <span class="math" dir="ltr">\(v\)</span> (מספיקה פונקציה קדומה אחת, ללא הקבוע <span class="math" dir="ltr">\(C\)</span>).</li>
+<li>מציבים את <span class="math" dir="ltr">\(u, v, du\)</span> בנוסחה: <span class="math" dir="ltr">\(\int u \, dv = uv - \int v \, du\)</span>.</li>
+</ol>
+<p>המטרה היא שהאינטגרל החדש, <span class="math" dir="ltr">\(\int v \, du\)</span>, יהיה פשוט יותר לחישוב מהאינטגרל המקורי. הבחירה של <span class="math" dir="ltr">\(u\)</span> ו-<span class="math" dir="ltr">\(dv\)</span> היא קריטית להצלחת השיטה.</p>
+</section>
+<section id="by-parts-examples">
+<h2>6-13. דוגמאות לאינטגרציה בחלקים</h2>
+<div class="example">
+<h4>דוגמה (נקודה 6)</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int x e^x dx\)</span>.</p>
+<p>נבחר:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = x\)</span></li>
+<li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = 1 \cdot dx = dx\)</span></li>
+<li><span class="math" dir="ltr">\(v = \int e^x dx = e^x\)</span></li>
+</ul>
+<p>נציב בנוסחה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int u \, dv = uv - \int v \, du $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x e^x - \int e^x dx = x e^x - e^x + C $$</div></div>
+<p>נשים לב שאם היינו בוחרים אחרת (<span class="math" dir="ltr">\(u=e^x, dv=x dx\)</span>), היינו מקבלים <span class="math" dir="ltr">\(du = e^x dx, v = \frac{x^2}{2}\)</span>, והאינטגרל החדש היה <span class="math" dir="ltr">\(\int v \, du = \int \frac{x^2}{2} e^x dx\)</span>, שהוא מסובך יותר מהמקורי (החזקה של <span class="math" dir="ltr">\(x\)</span> גדלה).</p>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 7)</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int \ln x \, dx\)</span> (עבור <span class="math" dir="ltr">\(x &gt; 0\)</span>).</p>
+<p>לכאורה אין כאן מכפלה, אלא פונקציה יחידה. אך ניתן לכתוב זאת כ-<span class="math" dir="ltr">\(I = \int 1 \cdot \ln x \, dx\)</span>.</p>
+<p>נבחר:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = \ln x\)</span></li>
+<li><span class="math" dir="ltr">\(dv = 1 \cdot dx = dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = \frac{1}{x} dx\)</span></li>
+<li><span class="math" dir="ltr">\(v = \int dx = x\)</span></li>
+</ul>
+<p>נציב בנוסחה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x \ln x - \int x \cdot \frac{1}{x} dx = x \ln x - \int 1 \, dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x \ln x - x + C $$</div></div>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 8)</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int e^x \sin x \, dx\)</span>.</p>
+<p>נבחר:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = \sin x\)</span></li>
+<li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = \cos x \, dx\)</span></li>
+<li><span class="math" dir="ltr">\(v = e^x\)</span></li>
+</ul>
+<p>נציב בנוסחה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - \int e^x \cos x \, dx $$</div></div>
+<p>האינטגרל באגף ימין 'מאותו סוג' כמו המקורי. נטפל בו שוב באמצעות אינטגרציה בחלקים:</p>
+<p>עבור <span class="math" dir="ltr">\(\int e^x \cos x \, dx\)</span>, נבחר:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = \cos x\)</span></li>
+<li><span class="math" dir="ltr">\(dv = e^x dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = -\sin x \, dx\)</span></li>
+<li><span class="math" dir="ltr">\(v = e^x\)</span></li>
+</ul>
+<p>ולכן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int e^x \cos x \, dx = e^x \cos x - \int e^x (-\sin x) \, dx = e^x \cos x + \int e^x \sin x \, dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int e^x \cos x \, dx = e^x \cos x + I $$</div></div>
+<p>נציב בחזרה בביטוי עבור <span class="math" dir="ltr">\(I\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - (e^x \cos x + I) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = e^x \sin x - e^x \cos x - I $$</div></div>
+<p>נעביר אגפים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ 2I = e^x \sin x - e^x \cos x $$</div></div>
+<p>ולבסוף (נוסיף את קבוע האינטגרציה):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{e^x (\sin x - \cos x)}{2} + C $$</div></div>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 9): נוסחת נסיגה</h4>
+<p>מצא נוסחת נסיגה עבור <span class="math" dir="ltr">\(I_n = \int \sin^n x \, dx\)</span>, כאשר <span class="math" dir="ltr">\(n \ge 0\)</span> הוא מספר שלם.</p>
+<p>מקרים בסיסיים:</p>
+<ul>
+<li><span class="math" dir="ltr">\(I_0 = \int \sin^0 x \, dx = \int 1 \, dx = x + C\)</span></li>
+<li><span class="math" dir="ltr">\(I_1 = \int \sin^1 x \, dx = -\cos x + C\)</span></li>
+</ul>
+<p>נניח <span class="math" dir="ltr">\(n \ge 2\)</span>. נכתוב:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = \int \sin^{n-1} x \cdot \sin x \, dx $$</div></div>
+<p>נבחר לאינטגרציה בחלקים:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = \sin^{n-1} x\)</span></li>
+<li><span class="math" dir="ltr">\(dv = \sin x \, dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = (n-1)\sin^{n-2} x \cdot \cos x \, dx\)</span></li>
+<li><span class="math" dir="ltr">\(v = -\cos x\)</span></li>
+</ul>
+<p>נציב בנוסחה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = uv - \int v \, du = (-\cos x)(\sin^{n-1} x) - \int (-\cos x) (n-1)\sin^{n-2} x \cos x \, dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x \cos^2 x \, dx $$</div></div>
+<p>נשתמש בזהות <span class="math" dir="ltr">\(\cos^2 x = 1 - \sin^2 x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x (1 - \sin^2 x) \, dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int (\sin^{n-2} x - \sin^n x) \, dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) \int \sin^{n-2} x \, dx - (n-1) \int \sin^n x \, dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} - (n-1) I_n $$</div></div>
+<p>נעביר אגפים כדי לבודד את <span class="math" dir="ltr">\(I_n\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n + (n-1) I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ n I_n = -\cos x \sin^{n-1} x + (n-1) I_{n-2} $$</div></div>
+<p>ולכן, נוסחת הנסיגה היא:</p>
 <div class="formula-block">
-  <div class="math" dir="ltr">
+<div class="math" dir="ltr">
     $$ I_n = \frac{-\cos x \sin^{n-1} x}{n} + \frac{n-1}{n} I_{n-2} $$
   </div>
 </div>
-
-                    <p>נוסחה זו מאפשרת לחשב את <span class="math" dir="ltr">\(I_n\)</span> לכל <span class="math" dir="ltr">\(n\)</span> זוגי על בסיס <span class="math" dir="ltr">\(I_0\)</span>, ולכל <span class="math" dir="ltr">\(n\)</span> אי-זוגי על בסיס <span class="math" dir="ltr">\(I_1\)</span>.</p>
-                    <p>למשל, עבור <span class="math" dir="ltr">\(n=2\)</span>:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_2 = \int \sin^2 x \, dx = \frac{-\cos x \sin^{1} x}{2} + \frac{2-1}{2} I_{2-2} = \frac{-\cos x \sin x}{2} + \frac{1}{2} I_0 $$</div></div>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_2 = \frac{-\cos x \sin x}{2} + \frac{1}{2} (x + C_0) = \frac{x}{2} - \frac{\sin(2x)}{4} + C $$</div></div>
-                    <p>(השתמשנו ב-<span class="math" dir="ltr">\(\sin(2x) = 2 \sin x \cos x\)</span> ובקליטת הקבוע <span class="math" dir="ltr">\(C_0/2\)</span> לתוך <span class="math" dir="ltr">\(C\)</span>).</p>
-                </div>
-
-                <div class="example">
-                     <h4>דוגמה (נקודה 10)</h4>
-                     <p>חשב <span class="math" dir="ltr">\(I = \int x^2 \sin x \, dx\)</span>.</p>
-                     <p>נבחר:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(u = x^2\)</span></li>
-                         <li><span class="math" dir="ltr">\(dv = \sin x \, dx\)</span></li>
-                     </ul>
-                     <p>ואז:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(du = 2x \, dx\)</span></li>
-                         <li><span class="math" dir="ltr">\(v = -\cos x\)</span></li>
-                     </ul>
-                     <p>נציב בנוסחה:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x^2 (-\cos x) - \int (-\cos x) (2x \, dx) = -x^2 \cos x + 2 \int x \cos x \, dx $$</div></div>
-                     <p>האינטגרל החדש, <span class="math" dir="ltr">\(\int x \cos x \, dx\)</span>, פשוט יותר. נחשב אותו בנפרד בעזרת א"ב:</p>
-                     <p>עבור <span class="math" dir="ltr">\(\int x \cos x \, dx\)</span>, נבחר:</p>
-                      <ul>
-                         <li><span class="math" dir="ltr">\(u = x\)</span></li>
-                         <li><span class="math" dir="ltr">\(dv = \cos x \, dx\)</span></li>
-                     </ul>
-                     <p>ואז:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(du = dx\)</span></li>
-                         <li><span class="math" dir="ltr">\(v = \sin x\)</span></li>
-                     </ul>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ \int x \cos x \, dx = x \sin x - \int \sin x \, dx = x \sin x - (-\cos x) = x \sin x + \cos x $$</div></div>
-                     <p>נציב תוצאה זו חזרה בביטוי עבור <span class="math" dir="ltr">\(I\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = -x^2 \cos x + 2 (x \sin x + \cos x) + C $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = -x^2 \cos x + 2x \sin x + 2 \cos x + C $$</div></div>
-                 </div>
-
-                 <div class="example">
-                     <h4>דוגמה (נקודה 11)</h4>
-                     <p>חשב <span class="math" dir="ltr">\(I = \int x \tan^2 x \, dx\)</span>.</p>
-                     <p>נבחר:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(u = x\)</span></li>
-                         <li><span class="math" dir="ltr">\(dv = \tan^2 x \, dx\)</span></li>
-                     </ul>
-                     <p>ואז:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(du = dx\)</span></li>
-                     </ul>
-                     <p>נמצא את <span class="math" dir="ltr">\(v\)</span>:</p>
-                     <p>נשתמש בזהות <span class="math" dir="ltr">\(\tan^2 x = \sec^2 x - 1 = \frac{1}{\cos^2 x} - 1\)</span>.</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ v = \int \tan^2 x \, dx = \int \left( \frac{1}{\cos^2 x} - 1 \right) dx = \tan x - x $$</div></div>
-                     <p>נציב בנוסחה:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = uv - \int v \, du = x (\tan x - x) - \int (\tan x - x) dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - \left( \int \tan x \, dx - \int x \, dx \right) $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - \int \frac{\sin x}{\cos x} dx + \int x \, dx $$</div></div>
-                      <p>נחשב את האינטגרלים הנותרים:</p>
-                      <ul>
-                           <li><span class="math" dir="ltr">\(\int x \, dx = \frac{x^2}{2}\)</span></li>
-                           <li><span class="math" dir="ltr">\(\int \frac{\sin x}{\cos x} dx = \int \frac{-(\cos x)'}{\cos x} dx = -\ln|\cos x|\)</span> (השתמשנו בכלל <span class="math" dir="ltr">\(\int \frac{h'(x)}{h(x)} dx = \ln|h(x)|\)</span>).</li>
-                      </ul>
-                     <p>נציב בחזרה:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - (-\ln|\cos x|) + \frac{x^2}{2} + C $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - \frac{x^2}{2} + \ln|\cos x| + C $$</div></div>
-                 </div>
-
-                <div class="example">
-                     <h4>דוגמה (נקודה 12): הוכחה באינדוקציה בעזרת א"ב</h4>
-                     <p>נוכיח את הנוסחה <span class="math" dir="ltr">\(\int x^n dx = \frac{x^{n+1}}{n+1} + C\)</span> לכל <span class="math" dir="ltr">\(n \ge 0\)</span> שלם, באמצעות אינטגרציה בחלקים ואינדוקציה.</p>
-                     <p><strong>בסיס האינדוקציה (<span class="math" dir="ltr">\(n=0\)</span>):</strong></p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_0 = \int x^0 dx = \int 1 \, dx = x + C = \frac{x^{0+1}}{0+1} + C $$</div></div>
-                     <p>הנוסחה נכונה עבור <span class="math" dir="ltr">\(n=0\)</span>.</p>
-                     <p><strong>הנחת האינדוקציה:</strong></p>
-                     <p>נניח שהנוסחה נכונה עבור <span class="math" dir="ltr">\(n=k\)</span> כלשהו, כלומר <span class="math" dir="ltr">\(I_k = \int x^k dx = \frac{x^{k+1}}{k+1} + C\)</span>.</p>
-                     <p><strong>צעד האינדוקציה:</strong></p>
-                     <p>נוכיח את נכונות הנוסחה עבור <span class="math" dir="ltr">\(n=k+1\)</span>. נרשום:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \int x^{k+1} dx = \int x \cdot x^k dx $$</div></div>
-                     <p>נשתמש בא"ב עם:</p>
-                      <ul>
-                         <li><span class="math" dir="ltr">\(u = x\)</span></li>
-                         <li><span class="math" dir="ltr">\(dv = x^k dx\)</span></li>
-                     </ul>
-                     <p>ואז:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(du = dx\)</span></li>
-                         <li><span class="math" dir="ltr">\(v = \int x^k dx = \frac{x^{k+1}}{k+1}\)</span> (לפי הנחת האינדוקציה, ללא הקבוע <span class="math" dir="ltr">\(C\)</span>)</li>
-                     </ul>
-                     <p>נציב בנוסחה:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = u v - \int v \, du = x \cdot \frac{x^{k+1}}{k+1} - \int \frac{x^{k+1}}{k+1} dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+1} - \frac{1}{k+1} \int x^{k+1} dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+1} - \frac{1}{k+1} I_{k+1} $$</div></div>
-                      <p>נעביר אגפים:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} + \frac{1}{k+1} I_{k+1} = \frac{x^{k+2}}{k+1} $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( 1 + \frac{1}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( \frac{k+1+1}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( \frac{k+2}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
-                     <p>נכפיל ב- <span class="math" dir="ltr">\(\frac{k+1}{k+2}\)</span> (מותר כי <span class="math" dir="ltr">\(k \ge 0 \implies k+2 \ne 0\)</span>):</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+2} $$</div></div>
-                     <p>נוסיף את קבוע האינטגרציה:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \int x^{k+1} dx = \frac{x^{(k+1)+1}}{(k+1)+1} + C $$</div></div>
-                     <p>זו הנוסחה עבור <span class="math" dir="ltr">\(n=k+1\)</span>, ולכן ההוכחה באינדוקציה הושלמה.</p>
-                     <p><strong>הערה:</strong> הנוסחה <span class="math" dir="ltr">\(\int x^n dx = \frac{x^{n+1}}{n+1} + C\)</span> נכונה לכל <span class="math" dir="ltr">\(n \in \mathbb{R}\)</span> כאשר <span class="math" dir="ltr">\(n \ne -1\)</span> (ובתחום <span class="math" dir="ltr">\(x>0\)</span> אם <span class="math" dir="ltr">\(n\)</span> אינו שלם). ההוכחה באינדוקציה כאן תקפה רק ל-<span class="math" dir="ltr">\(n\)</span> שלם אי-שלילי.</p>
-                 </div>
-
-                 <div class="example">
-                    <h4>הערה (נקודה 13): הקבוע <span class="math" dir="ltr">\(C_0\)</span> בחישוב <span class="math" dir="ltr">\(v\)</span></h4>
-                    <p>בנוסחת האינטגרציה בחלקים <span class="math" dir="ltr">\(\int u \, dv = uv - \int v \, du\)</span>, הפונקציה <span class="math" dir="ltr">\(v\)</span> היא קדומה של <span class="math" dir="ltr">\(v'\)</span> (או <span class="math" dir="ltr">\(dv = v' dx\)</span>). קדומה זו נקבעת עד כדי קבוע חיבורי. מה יקרה אם נבחר <span class="math" dir="ltr">\(v + C_0\)</span> במקום <span class="math" dir="ltr">\(v\)</span>, כאשר <span class="math" dir="ltr">\(C_0\)</span> הוא קבוע כלשהו?</p>
-                    <p>נציב בנוסחה:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \int u \, dv = u(v+C_0) - \int (v+C_0) du $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ = uv + uC_0 - \left( \int v \, du + \int C_0 \, du \right) $$</div></div>
-                     <p>מכיוון ש-<span class="math" dir="ltr">\(du = u' dx\)</span>, אז <span class="math" dir="ltr">\(\int C_0 \, du = \int C_0 u' dx = C_0 \int u' dx = C_0 u\)</span> (עד כדי קבוע אינטגרציה סופי).</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ = uv + uC_0 - \int v \, du - C_0 u $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ = uv - \int v \, du $$</div></div>
-                     <p>קיבלנו בדיוק את הנוסחה המקורית. פירוש הדבר הוא שאין צורך להוסיף קבוע אינטגרציה כאשר מחשבים את <span class="math" dir="ltr">\(v\)</span> מתוך <span class="math" dir="ltr">\(dv\)</span> במסגרת שיטת האינטגרציה בחלקים. מספיק לבחור קדומה אחת ספציפית (בדרך כלל הפשוטה ביותר, עם <span class="math" dir="ltr">\(C_0=0\)</span>).</p>
-                 </div>
-
-             </section>
-
-            <section id="substitution-method">
-                <h2>14. שיטה שלישית: שיטת ההצבה (שינוי משתנה)</h2>
-                <p>השיטה הראשונה (פירוק) נסמכת על אינטגרלים מיידיים ולינאריות. השיטה השנייה (אינטגרציה בחלקים) מתבססת על נוסחת נגזרת מכפלה. שיטת ההצבה מתבססת על <strong>כלל השרשרת</strong> לגזירת פונקציה מורכבת.</p>
-                <p>ניזכר בכלל השרשרת: אם <span class="math" dir="ltr">\(g(t)\)</span> גזירה בקטע <span class="math" dir="ltr">\(I_1\)</span>, ואם <span class="math" dir="ltr">\(F(x)\)</span> גזירה בקטע <span class="math" dir="ltr">\(I_2\)</span> כך שתמונת <span class="math" dir="ltr">\(g\)</span> מוכלת ב-<span class="math" dir="ltr">\(I_2\)</span> (<span class="math" dir="ltr">\(g(I_1) \subseteq I_2\)</span>), אז ההרכבה <span class="math" dir="ltr">\(F(g(t))\)</span> גזירה ב-<span class="math" dir="ltr">\(I_1\)</span> ומתקיים:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ \frac{d}{dt} [F(g(t))] = F'(g(t)) \cdot g'(t) $$</div></div>
-                 <p>לכל <span class="math" dir="ltr">\(t \in I_1\)</span>.</p>
-                 <p>מכאן, לפי הגדרת האינטגרל הלא מסוים כפעולה הפוכה לגזירה, נקבל:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \int F'(g(t)) \cdot g'(t) \, dt = F(g(t)) + C $$</div></div>
-                 <p>כעת, נניח ש-<span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה של פונקציה <span class="math" dir="ltr">\(f\)</span>, כלומר <span class="math" dir="ltr">\(F'(x) = f(x)\)</span> לכל <span class="math" dir="ltr">\(x\)</span> בקטע <span class="math" dir="ltr">\(I_2\)</span>. נוכל להציב זאת בנוסחה הקודמת ולקבל את <strong>כלל ההצבה</strong>:</p>
+<p>נוסחה זו מאפשרת לחשב את <span class="math" dir="ltr">\(I_n\)</span> לכל <span class="math" dir="ltr">\(n\)</span> זוגי על בסיס <span class="math" dir="ltr">\(I_0\)</span>, ולכל <span class="math" dir="ltr">\(n\)</span> אי-זוגי על בסיס <span class="math" dir="ltr">\(I_1\)</span>.</p>
+<p>למשל, עבור <span class="math" dir="ltr">\(n=2\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_2 = \int \sin^2 x \, dx = \frac{-\cos x \sin^{1} x}{2} + \frac{2-1}{2} I_{2-2} = \frac{-\cos x \sin x}{2} + \frac{1}{2} I_0 $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_2 = \frac{-\cos x \sin x}{2} + \frac{1}{2} (x + C_0) = \frac{x}{2} - \frac{\sin(2x)}{4} + C $$</div></div>
+<p>(השתמשנו ב-<span class="math" dir="ltr">\(\sin(2x) = 2 \sin x \cos x\)</span> ובקליטת הקבוע <span class="math" dir="ltr">\(C_0/2\)</span> לתוך <span class="math" dir="ltr">\(C\)</span>).</p>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 10)</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int x^2 \sin x \, dx\)</span>.</p>
+<p>נבחר:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = x^2\)</span></li>
+<li><span class="math" dir="ltr">\(dv = \sin x \, dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = 2x \, dx\)</span></li>
+<li><span class="math" dir="ltr">\(v = -\cos x\)</span></li>
+</ul>
+<p>נציב בנוסחה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x^2 (-\cos x) - \int (-\cos x) (2x \, dx) = -x^2 \cos x + 2 \int x \cos x \, dx $$</div></div>
+<p>האינטגרל החדש, <span class="math" dir="ltr">\(\int x \cos x \, dx\)</span>, פשוט יותר. נחשב אותו בנפרד בעזרת א"ב:</p>
+<p>עבור <span class="math" dir="ltr">\(\int x \cos x \, dx\)</span>, נבחר:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = x\)</span></li>
+<li><span class="math" dir="ltr">\(dv = \cos x \, dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = dx\)</span></li>
+<li><span class="math" dir="ltr">\(v = \sin x\)</span></li>
+</ul>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int x \cos x \, dx = x \sin x - \int \sin x \, dx = x \sin x - (-\cos x) = x \sin x + \cos x $$</div></div>
+<p>נציב תוצאה זו חזרה בביטוי עבור <span class="math" dir="ltr">\(I\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = -x^2 \cos x + 2 (x \sin x + \cos x) + C $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = -x^2 \cos x + 2x \sin x + 2 \cos x + C $$</div></div>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 11)</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int x \tan^2 x \, dx\)</span>.</p>
+<p>נבחר:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = x\)</span></li>
+<li><span class="math" dir="ltr">\(dv = \tan^2 x \, dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = dx\)</span></li>
+</ul>
+<p>נמצא את <span class="math" dir="ltr">\(v\)</span>:</p>
+<p>נשתמש בזהות <span class="math" dir="ltr">\(\tan^2 x = \sec^2 x - 1 = \frac{1}{\cos^2 x} - 1\)</span>.</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ v = \int \tan^2 x \, dx = \int \left( \frac{1}{\cos^2 x} - 1 \right) dx = \tan x - x $$</div></div>
+<p>נציב בנוסחה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = uv - \int v \, du = x (\tan x - x) - \int (\tan x - x) dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - \left( \int \tan x \, dx - \int x \, dx \right) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - \int \frac{\sin x}{\cos x} dx + \int x \, dx $$</div></div>
+<p>נחשב את האינטגרלים הנותרים:</p>
+<ul>
+<li><span class="math" dir="ltr">\(\int x \, dx = \frac{x^2}{2}\)</span></li>
+<li><span class="math" dir="ltr">\(\int \frac{\sin x}{\cos x} dx = \int \frac{-(\cos x)'}{\cos x} dx = -\ln|\cos x|\)</span> (השתמשנו בכלל <span class="math" dir="ltr">\(\int \frac{h'(x)}{h(x)} dx = \ln|h(x)|\)</span>).</li>
+</ul>
+<p>נציב בחזרה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - x^2 - (-\ln|\cos x|) + \frac{x^2}{2} + C $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x \tan x - \frac{x^2}{2} + \ln|\cos x| + C $$</div></div>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 12): הוכחה באינדוקציה בעזרת א"ב</h4>
+<p>נוכיח את הנוסחה <span class="math" dir="ltr">\(\int x^n dx = \frac{x^{n+1}}{n+1} + C\)</span> לכל <span class="math" dir="ltr">\(n \ge 0\)</span> שלם, באמצעות אינטגרציה בחלקים ואינדוקציה.</p>
+<p><strong>בסיס האינדוקציה (<span class="math" dir="ltr">\(n=0\)</span>):</strong></p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_0 = \int x^0 dx = \int 1 \, dx = x + C = \frac{x^{0+1}}{0+1} + C $$</div></div>
+<p>הנוסחה נכונה עבור <span class="math" dir="ltr">\(n=0\)</span>.</p>
+<p><strong>הנחת האינדוקציה:</strong></p>
+<p>נניח שהנוסחה נכונה עבור <span class="math" dir="ltr">\(n=k\)</span> כלשהו, כלומר <span class="math" dir="ltr">\(I_k = \int x^k dx = \frac{x^{k+1}}{k+1} + C\)</span>.</p>
+<p><strong>צעד האינדוקציה:</strong></p>
+<p>נוכיח את נכונות הנוסחה עבור <span class="math" dir="ltr">\(n=k+1\)</span>. נרשום:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \int x^{k+1} dx = \int x \cdot x^k dx $$</div></div>
+<p>נשתמש בא"ב עם:</p>
+<ul>
+<li><span class="math" dir="ltr">\(u = x\)</span></li>
+<li><span class="math" dir="ltr">\(dv = x^k dx\)</span></li>
+</ul>
+<p>ואז:</p>
+<ul>
+<li><span class="math" dir="ltr">\(du = dx\)</span></li>
+<li><span class="math" dir="ltr">\(v = \int x^k dx = \frac{x^{k+1}}{k+1}\)</span> (לפי הנחת האינדוקציה, ללא הקבוע <span class="math" dir="ltr">\(C\)</span>)</li>
+</ul>
+<p>נציב בנוסחה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = u v - \int v \, du = x \cdot \frac{x^{k+1}}{k+1} - \int \frac{x^{k+1}}{k+1} dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+1} - \frac{1}{k+1} \int x^{k+1} dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+1} - \frac{1}{k+1} I_{k+1} $$</div></div>
+<p>נעביר אגפים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} + \frac{1}{k+1} I_{k+1} = \frac{x^{k+2}}{k+1} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( 1 + \frac{1}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( \frac{k+1+1}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} \left( \frac{k+2}{k+1} \right) = \frac{x^{k+2}}{k+1} $$</div></div>
+<p>נכפיל ב- <span class="math" dir="ltr">\(\frac{k+1}{k+2}\)</span> (מותר כי <span class="math" dir="ltr">\(k \ge 0 \implies k+2 \ne 0\)</span>):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \frac{x^{k+2}}{k+2} $$</div></div>
+<p>נוסיף את קבוע האינטגרציה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_{k+1} = \int x^{k+1} dx = \frac{x^{(k+1)+1}}{(k+1)+1} + C $$</div></div>
+<p>זו הנוסחה עבור <span class="math" dir="ltr">\(n=k+1\)</span>, ולכן ההוכחה באינדוקציה הושלמה.</p>
+<p><strong>הערה:</strong> הנוסחה <span class="math" dir="ltr">\(\int x^n dx = \frac{x^{n+1}}{n+1} + C\)</span> נכונה לכל <span class="math" dir="ltr">\(n \in \mathbb{R}\)</span> כאשר <span class="math" dir="ltr">\(n \ne -1\)</span> (ובתחום <span class="math" dir="ltr">\(x&gt;0\)</span> אם <span class="math" dir="ltr">\(n\)</span> אינו שלם). ההוכחה באינדוקציה כאן תקפה רק ל-<span class="math" dir="ltr">\(n\)</span> שלם אי-שלילי.</p>
+</div>
+<div class="example">
+<h4>הערה (נקודה 13): הקבוע <span class="math" dir="ltr">\(C_0\)</span> בחישוב <span class="math" dir="ltr">\(v\)</span></h4>
+<p>בנוסחת האינטגרציה בחלקים <span class="math" dir="ltr">\(\int u \, dv = uv - \int v \, du\)</span>, הפונקציה <span class="math" dir="ltr">\(v\)</span> היא קדומה של <span class="math" dir="ltr">\(v'\)</span> (או <span class="math" dir="ltr">\(dv = v' dx\)</span>). קדומה זו נקבעת עד כדי קבוע חיבורי. מה יקרה אם נבחר <span class="math" dir="ltr">\(v + C_0\)</span> במקום <span class="math" dir="ltr">\(v\)</span>, כאשר <span class="math" dir="ltr">\(C_0\)</span> הוא קבוע כלשהו?</p>
+<p>נציב בנוסחה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int u \, dv = u(v+C_0) - \int (v+C_0) du $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ = uv + uC_0 - \left( \int v \, du + \int C_0 \, du \right) $$</div></div>
+<p>מכיוון ש-<span class="math" dir="ltr">\(du = u' dx\)</span>, אז <span class="math" dir="ltr">\(\int C_0 \, du = \int C_0 u' dx = C_0 \int u' dx = C_0 u\)</span> (עד כדי קבוע אינטגרציה סופי).</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ = uv + uC_0 - \int v \, du - C_0 u $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ = uv - \int v \, du $$</div></div>
+<p>קיבלנו בדיוק את הנוסחה המקורית. פירוש הדבר הוא שאין צורך להוסיף קבוע אינטגרציה כאשר מחשבים את <span class="math" dir="ltr">\(v\)</span> מתוך <span class="math" dir="ltr">\(dv\)</span> במסגרת שיטת האינטגרציה בחלקים. מספיק לבחור קדומה אחת ספציפית (בדרך כלל הפשוטה ביותר, עם <span class="math" dir="ltr">\(C_0=0\)</span>).</p>
+</div>
+</section>
+<section id="substitution-method">
+<h2>14. שיטה שלישית: שיטת ההצבה (שינוי משתנה)</h2>
+<p>השיטה הראשונה (פירוק) נסמכת על אינטגרלים מיידיים ולינאריות. השיטה השנייה (אינטגרציה בחלקים) מתבססת על נוסחת נגזרת מכפלה. שיטת ההצבה מתבססת על <strong>כלל השרשרת</strong> לגזירת פונקציה מורכבת.</p>
+<p>ניזכר בכלל השרשרת: אם <span class="math" dir="ltr">\(g(t)\)</span> גזירה בקטע <span class="math" dir="ltr">\(I_1\)</span>, ואם <span class="math" dir="ltr">\(F(x)\)</span> גזירה בקטע <span class="math" dir="ltr">\(I_2\)</span> כך שתמונת <span class="math" dir="ltr">\(g\)</span> מוכלת ב-<span class="math" dir="ltr">\(I_2\)</span> (<span class="math" dir="ltr">\(g(I_1) \subseteq I_2\)</span>), אז ההרכבה <span class="math" dir="ltr">\(F(g(t))\)</span> גזירה ב-<span class="math" dir="ltr">\(I_1\)</span> ומתקיים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{d}{dt} [F(g(t))] = F'(g(t)) \cdot g'(t) $$</div></div>
+<p>לכל <span class="math" dir="ltr">\(t \in I_1\)</span>.</p>
+<p>מכאן, לפי הגדרת האינטגרל הלא מסוים כפעולה הפוכה לגזירה, נקבל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int F'(g(t)) \cdot g'(t) \, dt = F(g(t)) + C $$</div></div>
+<p>כעת, נניח ש-<span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה של פונקציה <span class="math" dir="ltr">\(f\)</span>, כלומר <span class="math" dir="ltr">\(F'(x) = f(x)\)</span> לכל <span class="math" dir="ltr">\(x\)</span> בקטע <span class="math" dir="ltr">\(I_2\)</span>. נוכל להציב זאת בנוסחה הקודמת ולקבל את <strong>כלל ההצבה</strong>:</p>
 <div class="formula-block">
-  <div class="math" dir="ltr">
+<div class="math" dir="ltr">
     $$ \int f(g(t)) \cdot g'(t) \, dt = F(g(t)) + C $$
   </div>
 </div>
-
-                  <p>כאשר <span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה של <span class="math" dir="ltr">\(f\)</span>.</p>
-                  <p>לעיתים מסמנים את ההצבה <span class="math" dir="ltr">\(x = g(t)\)</span>. אז <span class="math" dir="ltr">\(dx = g'(t) dt\)</span> (באופן פורמלי). כלל ההצבה מאפשר לנו להחליף את האינטגרל המורכב (לפי <span class="math" dir="ltr">\(t\)</span>) באינטגרל (לפי <span class="math" dir="ltr">\(x\)</span>) שאולי קל יותר לחישוב:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int f(g(t)) g'(t) \, dt = \int f(x) \, dx \bigg|_{x=g(t)} = F(x) \bigg|_{x=g(t)} + C = F(g(t)) + C $$</div></div>
-                 <p>נראה את השימוש בכלל ההצבה במספר דוגמאות.</p>
-            </section>
-
-             <section id="substitution-examples">
-                <h2>15-18. דוגמאות לשיטת ההצבה</h2>
-
-                 <div class="example">
-                    <h4>דוגמה (נקודה 15)</h4>
-                    <p>חשב <span class="math" dir="ltr">\(I = \int \sin^2 x \cos x \, dx\)</span>.</p>
-                    <p>נשים לב ש-<span class="math" dir="ltr">\(\cos x\)</span> היא הנגזרת של <span class="math" dir="ltr">\(\sin x\)</span>. זה מרמז על הצבה.</p>
-                    <p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(x) = \sin x\)</span>.</p>
-                    <p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(x) dx = \cos x \, dx\)</span>.</p>
-                    <p>נציב באינטגרל:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \underbrace{(\sin x)^2}_{u^2} \underbrace{\cos x \, dx}_{du} = \int u^2 \, du $$</div></div>
-                     <p>זהו אינטגרל מיידי:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \int u^2 \, du = \frac{u^3}{3} + C $$</div></div>
-                     <p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(x\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = \sin x\)</span>:</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{(\sin x)^3}{3} + C = \frac{\sin^3 x}{3} + C $$</div></div>
-                      <p>ניתן לראות שזה מתאים לכלל ההצבה: כאן <span class="math" dir="ltr">\(g(x)=\sin x\)</span>, <span class="math" dir="ltr">\(f(u)=u^2\)</span>, <span class="math" dir="ltr">\(F(u)=u^3/3\)</span>, ואכן <span class="math" dir="ltr">\(\int f(g(x))g'(x) dx = \int (\sin x)^2 \cos x dx = F(g(x))+C = \frac{(\sin x)^3}{3}+C\)</span>.</p>
-                 </div>
-
-                 <div class="example">
-                     <h4>דוגמה (נקודה 16)</h4>
-                     <p>חשב <span class="math" dir="ltr">\(I = \int t e^{t^2} dt\)</span>.</p>
-                      <p>נשים לב שהנגזרת של המעריך <span class="math" dir="ltr">\(t^2\)</span> היא <span class="math" dir="ltr">\(2t\)</span>, שדומה לגורם <span class="math" dir="ltr">\(t\)</span> שמחוץ למעריך.</p>
-                      <p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(t) = t^2\)</span>.</p>
-                      <p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(t) dt = 2t \, dt\)</span>.</p>
-                      <p>נבודד את <span class="math" dir="ltr">\(t \, dt\)</span> מתוך הדיפרנציאל: <span class="math" dir="ltr">\(t \, dt = \frac{1}{2} du\)</span>.</p>
-                      <p>נציב באינטגרל:</p>
-                       <div class="formula-block"><div class="math" dir="ltr">$$ I = \int e^{t^2} (t \, dt) = \int e^u \left( \frac{1}{2} du \right) = \frac{1}{2} \int e^u \, du $$</div></div>
-                      <p>זהו אינטגרל מיידי:</p>
-                       <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{2} \int e^u \, du = \frac{1}{2} e^u + C $$</div></div>
-                      <p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(t\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = t^2\)</span>:</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{2} e^{t^2} + C $$</div></div>
-                      <p>ניתן לראות שזה מתאים לכלל ההצבה: <span class="math" dir="ltr">\(I = \frac{1}{2} \int e^{t^2} (2t) dt\)</span>. כאן <span class="math" dir="ltr">\(g(t)=t^2\)</span>, <span class="math" dir="ltr">\(f(u)=e^u\)</span>, <span class="math" dir="ltr">\(F(u)=e^u\)</span>. התוצאה היא <span class="math" dir="ltr">\(\frac{1}{2} F(g(t)) + C = \frac{1}{2} e^{t^2} + C\)</span>.</p>
-                 </div>
-
-                 <div class="example">
-                    <h4>דוגמה (נקודה 17): אינטגרל לוגריתמי</h4>
-                    <p>חשב <span class="math" dir="ltr">\(I = \int \frac{g'(t)}{g(t)} dt\)</span>, כאשר <span class="math" dir="ltr">\(g(t) \ne 0\)</span>.</p>
-                    <p>זוהי צורה מוכרת שמתאימה להצבה.</p>
-                    <p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(t)\)</span>.</p>
-                    <p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(t) dt\)</span>.</p>
-                     <p>נציב באינטגרל:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{g(t)} g'(t) dt = \int \frac{1}{u} du $$</div></div>
-                    <p>זהו אינטגרל מיידי:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{1}{u} du = \ln|u| + C $$</div></div>
-                     <p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(t\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = g(t)\)</span>:</p>
+<p>כאשר <span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה של <span class="math" dir="ltr">\(f\)</span>.</p>
+<p>לעיתים מסמנים את ההצבה <span class="math" dir="ltr">\(x = g(t)\)</span>. אז <span class="math" dir="ltr">\(dx = g'(t) dt\)</span> (באופן פורמלי). כלל ההצבה מאפשר לנו להחליף את האינטגרל המורכב (לפי <span class="math" dir="ltr">\(t\)</span>) באינטגרל (לפי <span class="math" dir="ltr">\(x\)</span>) שאולי קל יותר לחישוב:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int f(g(t)) g'(t) \, dt = \int f(x) \, dx \bigg|_{x=g(t)} = F(x) \bigg|_{x=g(t)} + C = F(g(t)) + C $$</div></div>
+<p>נראה את השימוש בכלל ההצבה במספר דוגמאות.</p>
+</section>
+<section id="substitution-examples">
+<h2>15-18. דוגמאות לשיטת ההצבה</h2>
+<div class="example">
+<h4>דוגמה (נקודה 15)</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int \sin^2 x \cos x \, dx\)</span>.</p>
+<p>נשים לב ש-<span class="math" dir="ltr">\(\cos x\)</span> היא הנגזרת של <span class="math" dir="ltr">\(\sin x\)</span>. זה מרמז על הצבה.</p>
+<p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(x) = \sin x\)</span>.</p>
+<p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(x) dx = \cos x \, dx\)</span>.</p>
+<p>נציב באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \underbrace{(\sin x)^2}_{u^2} \underbrace{\cos x \, dx}_{du} = \int u^2 \, du $$</div></div>
+<p>זהו אינטגרל מיידי:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int u^2 \, du = \frac{u^3}{3} + C $$</div></div>
+<p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(x\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = \sin x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{(\sin x)^3}{3} + C = \frac{\sin^3 x}{3} + C $$</div></div>
+<p>ניתן לראות שזה מתאים לכלל ההצבה: כאן <span class="math" dir="ltr">\(g(x)=\sin x\)</span>, <span class="math" dir="ltr">\(f(u)=u^2\)</span>, <span class="math" dir="ltr">\(F(u)=u^3/3\)</span>, ואכן <span class="math" dir="ltr">\(\int f(g(x))g'(x) dx = \int (\sin x)^2 \cos x dx = F(g(x))+C = \frac{(\sin x)^3}{3}+C\)</span>.</p>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 16)</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int t e^{t^2} dt\)</span>.</p>
+<p>נשים לב שהנגזרת של המעריך <span class="math" dir="ltr">\(t^2\)</span> היא <span class="math" dir="ltr">\(2t\)</span>, שדומה לגורם <span class="math" dir="ltr">\(t\)</span> שמחוץ למעריך.</p>
+<p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(t) = t^2\)</span>.</p>
+<p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(t) dt = 2t \, dt\)</span>.</p>
+<p>נבודד את <span class="math" dir="ltr">\(t \, dt\)</span> מתוך הדיפרנציאל: <span class="math" dir="ltr">\(t \, dt = \frac{1}{2} du\)</span>.</p>
+<p>נציב באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int e^{t^2} (t \, dt) = \int e^u \left( \frac{1}{2} du \right) = \frac{1}{2} \int e^u \, du $$</div></div>
+<p>זהו אינטגרל מיידי:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{2} \int e^u \, du = \frac{1}{2} e^u + C $$</div></div>
+<p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(t\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = t^2\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{2} e^{t^2} + C $$</div></div>
+<p>ניתן לראות שזה מתאים לכלל ההצבה: <span class="math" dir="ltr">\(I = \frac{1}{2} \int e^{t^2} (2t) dt\)</span>. כאן <span class="math" dir="ltr">\(g(t)=t^2\)</span>, <span class="math" dir="ltr">\(f(u)=e^u\)</span>, <span class="math" dir="ltr">\(F(u)=e^u\)</span>. התוצאה היא <span class="math" dir="ltr">\(\frac{1}{2} F(g(t)) + C = \frac{1}{2} e^{t^2} + C\)</span>.</p>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 17): אינטגרל לוגריתמי</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int \frac{g'(t)}{g(t)} dt\)</span>, כאשר <span class="math" dir="ltr">\(g(t) \ne 0\)</span>.</p>
+<p>זוהי צורה מוכרת שמתאימה להצבה.</p>
+<p>נבחר בהצבה: <span class="math" dir="ltr">\(u = g(t)\)</span>.</p>
+<p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = g'(t) dt\)</span>.</p>
+<p>נציב באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{g(t)} g'(t) dt = \int \frac{1}{u} du $$</div></div>
+<p>זהו אינטגרל מיידי:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{1}{u} du = \ln|u| + C $$</div></div>
+<p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(t\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = g(t)\)</span>:</p>
 <div class="formula-block">
-  <div class="math" dir="ltr">
+<div class="math" dir="ltr">
     $$ I = \int \frac{g'(t)}{g(t)} \, dt = \ln|g(t)| + C $$
   </div>
 </div>
-
-                 </div>
-
-                 <div class="example">
-                     <h4>דוגמה (נקודה 18): מקרה פרטי - הצבה לינארית</h4>
-                     <p>נניח שאנו יודעים לחשב <span class="math" dir="ltr">\(\int h(x) dx = H(x) + C\)</span>.</p>
-                     <p>מהו האינטגרל <span class="math" dir="ltr">\(I = \int h(ax+b) dx\)</span>, כאשר <span class="math" dir="ltr">\(a, b\)</span> קבועים ו-<span class="math" dir="ltr">\(a \ne 0\)</span>?</p>
-                     <p>נשתמש בהצבה: <span class="math" dir="ltr">\(u = ax+b\)</span>.</p>
-                     <p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = a \, dx\)</span>.</p>
-                     <p>נבודד את <span class="math" dir="ltr">\(dx\)</span>: <span class="math" dir="ltr">\(dx = \frac{1}{a} du\)</span>.</p>
-                     <p>נציב באינטגרל:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int h(ax+b) dx = \int h(u) \left( \frac{1}{a} du \right) = \frac{1}{a} \int h(u) du $$</div></div>
-                     <p>אנו יודעים ש-<span class="math" dir="ltr">\(\int h(u) du = H(u) + C\)</span>. לכן:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{a} H(u) + C' $$</div></div>
-                      <p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(x\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = ax+b\)</span>:</p>
+</div>
+<div class="example">
+<h4>דוגמה (נקודה 18): מקרה פרטי - הצבה לינארית</h4>
+<p>נניח שאנו יודעים לחשב <span class="math" dir="ltr">\(\int h(x) dx = H(x) + C\)</span>.</p>
+<p>מהו האינטגרל <span class="math" dir="ltr">\(I = \int h(ax+b) dx\)</span>, כאשר <span class="math" dir="ltr">\(a, b\)</span> קבועים ו-<span class="math" dir="ltr">\(a \ne 0\)</span>?</p>
+<p>נשתמש בהצבה: <span class="math" dir="ltr">\(u = ax+b\)</span>.</p>
+<p>אז הדיפרנציאל הוא: <span class="math" dir="ltr">\(du = a \, dx\)</span>.</p>
+<p>נבודד את <span class="math" dir="ltr">\(dx\)</span>: <span class="math" dir="ltr">\(dx = \frac{1}{a} du\)</span>.</p>
+<p>נציב באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int h(ax+b) dx = \int h(u) \left( \frac{1}{a} du \right) = \frac{1}{a} \int h(u) du $$</div></div>
+<p>אנו יודעים ש-<span class="math" dir="ltr">\(\int h(u) du = H(u) + C\)</span>. לכן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{a} H(u) + C' $$</div></div>
+<p>נחזור למשתנה המקורי <span class="math" dir="ltr">\(x\)</span> על ידי הצבת <span class="math" dir="ltr">\(u = ax+b\)</span>:</p>
 <div class="formula-block">
-  <div class="math" dir="ltr">
+<div class="math" dir="ltr">
     $$ \int h(ax + b) \, dx = \frac{1}{a} H(ax + b) + C $$
   </div>
 </div>
-
-
-                     <p><strong>דוגמה לשימוש:</strong></p>
-                     <p>אנו יודעים ש-<span class="math" dir="ltr">\(\int \cos x \, dx = \sin x + C\)</span> (כלומר <span class="math" dir="ltr">\(h(x)=\cos x, H(x)=\sin x\)</span>).</p>
-                     <p>לכן, לפי כלל ההצבה הלינארית (<span class="math" dir="ltr">\(a=3, b=-5\)</span>):</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ \int \cos(3x-5) dx = \frac{\sin(3x-5)}{3} + C $$</div></div>
-
-                     <p><strong>דוגמה נוספת:</strong></p>
-                      <p>אנו יודעים ש-<span class="math" dir="ltr">\(\int \frac{1}{\cos^2 x} dx = \tan x + C\)</span> (כלומר <span class="math" dir="ltr">\(h(x)=1/\cos^2 x, H(x)=\tan x\)</span>).</p>
-                     <p>לכן, לפי כלל ההצבה הלינארית (<span class="math" dir="ltr">\(a=2, b=-1\)</span>):</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{\cos^2(2x-1)} = \frac{\tan(2x-1)}{2} + C $$</div></div>
-                 </div>
-             </section>
-
-        </main>
-    </div>
-
-    <!-- KaTeX JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <!-- Global Dark Mode -->
-    <script src="../js/dark-mode.js"></script>
-
-    <!-- Custom Script for Rendering, Enhancements, and Charts -->
-     <script>
+<p><strong>דוגמה לשימוש:</strong></p>
+<p>אנו יודעים ש-<span class="math" dir="ltr">\(\int \cos x \, dx = \sin x + C\)</span> (כלומר <span class="math" dir="ltr">\(h(x)=\cos x, H(x)=\sin x\)</span>).</p>
+<p>לכן, לפי כלל ההצבה הלינארית (<span class="math" dir="ltr">\(a=3, b=-5\)</span>):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int \cos(3x-5) dx = \frac{\sin(3x-5)}{3} + C $$</div></div>
+<p><strong>דוגמה נוספת:</strong></p>
+<p>אנו יודעים ש-<span class="math" dir="ltr">\(\int \frac{1}{\cos^2 x} dx = \tan x + C\)</span> (כלומר <span class="math" dir="ltr">\(h(x)=1/\cos^2 x, H(x)=\tan x\)</span>).</p>
+<p>לכן, לפי כלל ההצבה הלינארית (<span class="math" dir="ltr">\(a=2, b=-1\)</span>):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{\cos^2(2x-1)} = \frac{\tan(2x-1)}{2} + C $$</div></div>
+</div>
+</section>
+</main>
+</div>
+<!-- KaTeX JS -->
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- Global Dark Mode -->
+<script src="../js/dark-mode.js"></script>
+<!-- Custom Script for Rendering, Enhancements, and Charts -->
+<script>
          // --- Global Chart Variables ---
          let lineChartInstance = null;
          let parabolaChartInstance = null;
@@ -1170,9 +1206,8 @@
              renderCharts();
          });
      </script>
-
-    <!-- כפתור חזרה לדף הראשי -->
-    <a href="../index.html" style="
+<!-- כפתור חזרה לדף הראשי -->
+<a href="../index.html" style="
       position: fixed;
       top: 20px;
       right: 20px;
@@ -1187,6 +1222,5 @@
     ">
       🏠 חזרה למסך הראשי
     </a>
-
 </body>
 </html>

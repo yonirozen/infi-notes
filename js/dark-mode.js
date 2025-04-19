@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (savedTheme) {
         applyTheme(savedTheme);
     } else {
-        applyTheme('light'); // Default to light always
+        applyTheme(prefersDark ? 'dark' : 'light'); // Use system preference as default
     }
 
     // Toggle button event listener

@@ -195,6 +195,87 @@
       transform: translateX(-5px);
     }
 
+    /* Section Titles */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    /* Interactive Learning Section */
+    .interactive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .interactive-card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: var(--text-color);
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      height: 250px;
+      border-right: 5px solid var(--accent-color);
+    }
+
+    .interactive-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .interactive-icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      color: var(--accent-color);
+    }
+
+    .interactive-description {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .interactive-card .card-footer {
+      justify-content: center;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .interactive-card .view-button {
+      color: var(--accent-color);
+      font-weight: 500;
+    }
+
     /* Dark Mode Toggle */
     .dark-mode-toggle {
       position: fixed;
@@ -306,6 +387,53 @@
         font-size: 1.2rem;
       }
     }
+
+    /* Back Button */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      background-color: var(--card-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease, transform 0.2s ease;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      transform: scale(1.1);
+      box-shadow: var(--card-hover-shadow);
+      color: var(--accent-color);
+    }
+
+    /* Course indicator */
+    .course-indicator {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--text-light);
+      font-size: 0.9rem;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 3px 15px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    html[data-theme="dark"] .course-indicator {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
   </style>
 </head>
 <body>
@@ -315,13 +443,40 @@
     <i class="fas fa-moon"></i>
   </button>
 
+  <a href="courses.html" class="back-button" aria-label="Back to courses">
+    <i class="fas fa-chevron-right"></i>
+  </a>
+
   <div class="container">
     <header class="header">
+      <div class="course-indicator">חשבון אינפיניטסימלי 2</div>
       <h1>סיכומי אינפי 2</h1>
-      <p>סיכומי השיעורים במבנה נוח ללמידה, הכוללים את כל הנושאים המרכזיים בקורס חשבון אינפיניטסימלי 2</p>
+      <p>
+        סיכומים מפורטים מהרצאות הקורס חשבון אינפיניטסימלי 2. הסיכומים כוללים דוגמאות, הגדרות, משפטים ואיורים להמחשה.
+      </p>
     </header>
 
+    <h2 class="section-title">סיכומי שיעורים</h2>
     <div class="lectures-grid" id="lectures-container"></div>
+
+    <h2 class="section-title">למידות אינטרקטיביות</h2>
+    <div class="interactive-grid">
+      <a href="interactive/definite-integral.html" class="interactive-card">
+        <div class="card-content">
+          <div class="interactive-icon">
+            <i class="fas fa-chart-area"></i>
+          </div>
+          <h2 class="card-title">האינטגרל המסוים</h2>
+          <p class="interactive-description">למד את מושג האינטגרל המסוים באופן חזותי עם מלבנים לקירוב השטח</p>
+          <div class="card-footer">
+            <span class="view-button">
+              <i class="fas fa-arrow-left"></i>
+              התחל ללמוד
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
 
     <footer class="footer">
       <p>כל הזכויות שמורות &copy; 2024 | סיכומי אינפי 2</p>
@@ -413,47 +568,10 @@
       
       // Load lectures when the page loads
       loadLectures();
-
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      const htmlElement = document.documentElement;
-      
-      // Function to apply theme
-      const applyTheme = (theme) => {
-        htmlElement.setAttribute('data-theme', theme);
-        if (darkModeToggle) {
-          darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
-        }
-        localStorage.setItem('globalTheme', theme);
-      };
-      
-      // Check for saved theme or system preference
-      const savedTheme = localStorage.getItem('globalTheme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      
-      // Initialize theme
-      if (savedTheme) {
-        applyTheme(savedTheme);
-      } else {
-        applyTheme(prefersDark ? 'dark' : 'light');
-      }
-      
-      // Toggle button event listener
-      if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', () => {
-          const currentTheme = htmlElement.getAttribute('data-theme');
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          applyTheme(newTheme);
-        });
-      }
-      
-      // Listen for system theme changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if (!localStorage.getItem('globalTheme')) {
-          const newTheme = e.matches ? 'dark' : 'light';
-          applyTheme(newTheme);
-        }
-      });
     });
   </script>
+  
+  <!-- Add reference to our central dark mode script -->
+  <script src="js/dark-mode.js"></script>
 </body>
 </html>

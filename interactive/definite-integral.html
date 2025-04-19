@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>האינטגרל המסוים - למידה אינטרקטיבית</title>
+  
+  <!-- KaTeX CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #0a5a8d;
+      --primary-light: #1e88e5;
+      --secondary-color: #495057;
+      --accent-color: #f0ad4e;
+      --bg-color: #fdfcfb;
+      --text-color: #343a40;
+      --border-color: #ced4da;
+      --font-family-hebrew: 'Assistant', 'Rubik', sans-serif;
+      --card-bg: #ffffff;
+      --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      --border-radius: 12px;
+      --transition-speed: 0.4s;
+      --rect-fill: rgba(10, 90, 141, 0.3);
+      --rect-stroke: rgba(10, 90, 141, 0.8);
+      --axis-color: #333;
+      --grid-color: rgba(0, 0, 0, 0.1);
+      --function-color: #e91e63;
+    }
+
+    html[data-theme="dark"] {
+      --primary-color: #58a6ff;
+      --primary-light: #90caf9;
+      --secondary-color: #8b949e;
+      --accent-color: #f7b731;
+      --bg-color: #0d1117;
+      --text-color: #c9d1d9;
+      --border-color: #30363d;
+      --card-bg: #161b22;
+      --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+      --rect-fill: rgba(88, 166, 255, 0.3);
+      --rect-stroke: rgba(88, 166, 255, 0.8);
+      --axis-color: #c9d1d9;
+      --grid-color: rgba(255, 255, 255, 0.1);
+      --function-color: #ff7597;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color var(--transition-speed) ease, 
+                color var(--transition-speed) ease, 
+                border-color var(--transition-speed) ease, 
+                box-shadow var(--transition-speed) ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 100%;
+    }
+
+    body {
+      font-family: var(--font-family-hebrew);
+      line-height: 1.8;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      font-weight: 300;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 25px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), #007bb5);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      margin-bottom: 15px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    .back-nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1002;
+      display: flex;
+      align-items: center;
+      background-color: var(--card-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      border-radius: 25px;
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease;
+      text-decoration: none;
+    }
+
+    .back-nav:hover {
+      transform: translateX(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+      color: var(--accent-color);
+    }
+
+    .back-nav i {
+      margin-left: 8px;
+    }
+
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background-color: var(--card-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease, transform 0.2s ease;
+      overflow: hidden;
+    }
+
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      color: var(--accent-color);
+    }
+
+    .dark-mode-toggle .fa-sun,
+    .dark-mode-toggle .fa-moon {
+      position: absolute;
+      transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+    }
+
+    html:not([data-theme="dark"]) .dark-mode-toggle .fa-sun {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    html:not([data-theme="dark"]) .dark-mode-toggle .fa-moon {
+      transform: translateY(100%) rotate(180deg);
+      opacity: 0;
+    }
+
+    html[data-theme="dark"] .dark-mode-toggle .fa-sun {
+      transform: translateY(-100%) rotate(-180deg);
+      opacity: 0;
+    }
+
+    html[data-theme="dark"] .dark-mode-toggle .fa-moon {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      background-color: var(--card-bg);
+      padding: 30px 35px;
+      margin-bottom: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      border-right: 7px solid var(--primary-color);
+    }
+
+    section h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+
+    section p {
+      margin-bottom: 1em;
+    }
+
+    .visualization-container {
+      position: relative;
+      width: 100%;
+      margin: 30px 0;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      background-color: var(--card-bg);
+    }
+
+    #visualization {
+      width: 100%;
+      height: 400px;
+      background-color: var(--card-bg);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 30px 0;
+      justify-content: center;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 200px;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    select, input[type="range"], input[type="number"] {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      font-family: var(--font-family-hebrew);
+    }
+
+    input[type="range"] {
+      padding: 0;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--font-family-hebrew);
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-light);
+    }
+
+    .info-box {
+      background-color: rgba(0, 86, 179, 0.1);
+      border-right: 4px solid var(--primary-color);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 6px;
+    }
+
+    .info-box p {
+      margin: 0;
+    }
+
+    .info-box strong {
+      color: var(--primary-color);
+    }
+
+    .formula {
+      text-align: center;
+      margin: 25px 0;
+      font-size: 1.2em;
+      direction: ltr;
+    }
+
+    .math {
+      display: block;
+      overflow: auto;
+    }
+    
+    /* Math styling improvements */
+    .math.inline {
+      display: inline-block;
+      margin: 0 3px;
+      vertical-align: middle;
+      color: var(--primary-color);
+      font-size: 1.1em;
+    }
+    
+    .math.display {
+      margin: 30px auto;
+      overflow-x: auto;
+      padding: 10px 0;
+      max-width: 100%;
+    }
+    
+    .katex {
+      direction: ltr !important;
+    }
+    
+    .katex-display > .katex {
+      font-size: 1.4em;
+    }
+    
+    .katex-display {
+      direction: ltr !important;
+    }
+    
+    .math-section {
+      background-color: rgba(0, 86, 179, 0.05);
+      padding: 15px 25px;
+      margin: 20px 0;
+      border-radius: var(--border-radius);
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .definition {
+      background-color: rgba(240, 173, 78, 0.1);
+      border-right: 4px solid var(--accent-color);
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 6px;
+    }
+
+    /* Area display styling */
+    .area-display {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin: 25px 0;
+      padding: 20px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--primary-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+    }
+
+    .area-item {
+      text-align: center;
+      padding: 10px 15px;
+      min-width: 200px;
+    }
+
+    .area-label {
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.1em;
+      margin-bottom: 5px;
+    }
+
+    .area-value {
+      font-size: 1.8em;
+      font-weight: 700;
+    }
+
+    .error-value {
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2em;
+      }
+      
+      section {
+        padding: 20px;
+      }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .control-group {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back-nav">
+    <i class="fas fa-chevron-right"></i>
+    חזרה לסיכומי אינפי 2
+  </a>
+
+  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+    <i class="fas fa-sun"></i>
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <header>
+    <h1>האינטגרל המסוים והקירוב באמצעות מלבנים</h1>
+    <p>למידה אינטרקטיבית על מושג האינטגרל המסוים והקשר שלו לשטח מתחת לעקומה</p>
+  </header>
+
+  <div class="container">
+    <main>
+      <section>
+        <h2>מהו האינטגרל המסוים?</h2>
+        <p>האינטגרל המסוים של פונקציה <span class="math inline">\(f(x)\)</span> בקטע <span class="math inline">\([a,b]\)</span> מוגדר כגבול של סכום רימן:</p>
+        
+        <div class="math-section">
+          <div class="formula">
+            <span class="math display" dir="ltr">$$\int_{a}^{b} f(x) \, dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \cdot \Delta x$$</span>
+          </div>
+          
+          <p>כאשר <span class="math inline" dir="ltr">\(\Delta x = \frac{b-a}{n}\)</span> הוא רוחב כל תת-קטע, ו-<span class="math inline" dir="ltr">\(x_i^*\)</span> היא נקודה כלשהי בתת-קטע ה-<span class="math inline" dir="ltr">\(i\)</span>.</p>
+        </div>
+        
+        <div class="definition">
+          <p><strong>משמעות גיאומטרית:</strong> האינטגרל המסוים מתאר את השטח בין הגרף של <span class="math inline">\(f(x)\)</span> לציר ה-<span class="math inline">\(x\)</span> בקטע <span class="math inline">\([a,b]\)</span> (כאשר <span class="math inline">\(f(x) \geq 0\)</span>).</p>
+        </div>
+        
+        <p>ניתן לחשוב על האינטגרל המסוים כסכום של אינסוף מלבנים צרים מאוד, כאשר:</p>
+        <ul>
+          <li>גובה כל מלבן הוא ערך הפונקציה <span class="math inline">\(f(x_i^*)\)</span></li>
+          <li>רוחב כל מלבן הוא <span class="math inline">\(\Delta x\)</span></li>
+          <li>השטח הכולל מתקבל כאשר <span class="math inline">\(n \to \infty\)</span>, כלומר כשכמות המלבנים גדלה לאינסוף</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>ויזואליזציה אינטרקטיבית של האינטגרל המסוים</h2>
+        <p>במרכיב האינטרקטיבי הבא תוכלו לראות כיצד מלבנים יכולים לקרב את השטח מתחת לעקומה של פונקציה. שנו את מספר המלבנים כדי לראות כיצד הקירוב משתפר ככל שמספר המלבנים גדל.</p>
+        
+        <div class="area-display">
+          <div class="area-item">
+            <div class="area-label">השטח המדוייק</div>
+            <div class="area-value" id="exact-area">0</div>
+          </div>
+          <div class="area-item">
+            <div class="area-label">השטח המקורב</div>
+            <div class="area-value" id="approx-area">0</div>
+          </div>
+          <div class="area-item">
+            <div class="area-label">שגיאת הקירוב</div>
+            <div class="area-value error-value" id="error">0</div>
+          </div>
+        </div>
+        
+        <div class="visualization-container">
+          <canvas id="visualization"></canvas>
+        </div>
+        
+        <div class="controls">
+          <div class="control-group">
+            <label for="function-select">בחר פונקציה:</label>
+            <select id="function-select">
+              <option value="x2">f(x) = x²</option>
+              <option value="sinx">f(x) = sin(x)</option>
+              <option value="ex">f(x) = e^x</option>
+              <option value="sqrtx">f(x) = √x</option>
+              <option value="lnx">f(x) = ln(x)</option>
+            </select>
+          </div>
+          
+          <div class="control-group">
+            <label for="rect-count">מספר מלבנים: <span id="rect-count-value">10</span></label>
+            <input type="range" id="rect-count" min="1" max="200" value="10">
+          </div>
+
+          <div class="control-group">
+            <label for="left-bound">גבול תחתון (a):</label>
+            <input type="number" id="left-bound" value="0" step="0.5">
+          </div>
+
+          <div class="control-group">
+            <label for="right-bound">גבול עליון (b):</label>
+            <input type="number" id="right-bound" value="2" step="0.5">
+          </div>
+          
+          <div class="control-group">
+            <label for="rect-type">שיטת קירוב:</label>
+            <select id="rect-type">
+              <option value="left">מלבני שמאל</option>
+              <option value="right">מלבני ימין</option>
+              <option value="mid">מלבני אמצע</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="info-box">
+          <p><strong>טיפ:</strong> נסה להגדיל את מספר המלבנים כדי לראות איך הקירוב משתפר.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>הבנת הקירוב</h2>
+        <p>קיימות מספר שיטות לקירוב האינטגרל המסוים באמצעות מלבנים:</p>
+        
+        <ol>
+          <li><strong>מלבני שמאל:</strong> גובה כל מלבן נקבע לפי ערך הפונקציה בקצה השמאלי של תת-הקטע</li>
+          <li><strong>מלבני ימין:</strong> גובה כל מלבן נקבע לפי ערך הפונקציה בקצה הימני של תת-הקטע</li>
+          <li><strong>מלבני אמצע:</strong> גובה כל מלבן נקבע לפי ערך הפונקציה באמצע תת-הקטע</li>
+        </ol>
+        
+        <p>כאשר הפונקציה עולה:</p>
+        <ul>
+          <li>מלבני שמאל יתנו קירוב מלמטה (יחסר)</li>
+          <li>מלבני ימין יתנו קירוב מלמעלה (יעודף)</li>
+        </ul>
+        
+        <p>כאשר הפונקציה יורדת, המצב מתהפך.</p>
+        
+        <p>ככל שמספר המלבנים גדל, הקירוב שלנו מתקרב לערך המדויק של האינטגרל, בלי קשר לשיטה שבה בחרנו.</p>
+      </section>
+    </main>
+  </div>
+
+  <!-- KaTeX JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  
+  <!-- Chart.js for visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    // Function definitions for the visualization
+    const functions = {
+      x2: {
+        fn: x => x * x,
+        label: 'f(x) = x²',
+        analyticalIntegral: (a, b) => (Math.pow(b, 3) - Math.pow(a, 3)) / 3,
+        defaultDomain: [0, 2]
+      },
+      sinx: {
+        fn: x => Math.sin(x),
+        label: 'f(x) = sin(x)',
+        analyticalIntegral: (a, b) => -Math.cos(b) + Math.cos(a),
+        defaultDomain: [0, Math.PI]
+      },
+      ex: {
+        fn: x => Math.exp(x),
+        label: 'f(x) = e^x',
+        analyticalIntegral: (a, b) => Math.exp(b) - Math.exp(a),
+        defaultDomain: [0, 2]
+      },
+      sqrtx: {
+        fn: x => Math.sqrt(Math.max(0, x)),
+        label: 'f(x) = √x',
+        analyticalIntegral: (a, b) => (2/3) * (Math.pow(Math.max(0, b), 3/2) - Math.pow(Math.max(0, a), 3/2)),
+        defaultDomain: [0, 4]
+      },
+      lnx: {
+        fn: x => Math.log(Math.max(1e-10, x)),
+        label: 'f(x) = ln(x)',
+        analyticalIntegral: (a, b) => b * Math.log(b) - b - (a * Math.log(a) - a),
+        defaultDomain: [1, 4]
+      }
+    };
+
+    // Get DOM elements
+    const canvas = document.getElementById('visualization');
+    const functionSelect = document.getElementById('function-select');
+    const rectCountInput = document.getElementById('rect-count');
+    const rectCountValue = document.getElementById('rect-count-value');
+    const leftBoundInput = document.getElementById('left-bound');
+    const rightBoundInput = document.getElementById('right-bound');
+    const rectTypeSelect = document.getElementById('rect-type');
+    const exactAreaSpan = document.getElementById('exact-area');
+    const approxAreaSpan = document.getElementById('approx-area');
+    const errorSpan = document.getElementById('error');
+
+    // Chart setup
+    let chart;
+    
+    // Initialize the visualization
+    function initVisualization() {
+      // Set up Chart.js
+      chart = new Chart(canvas, {
+        type: 'bar',
+        data: {
+          datasets: [
+            // Rectangle dataset (bars)
+            {
+              type: 'bar',
+              label: 'Rectangles',
+              data: [],
+              backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--rect-fill'),
+              borderColor: getComputedStyle(document.documentElement).getPropertyValue('--rect-stroke'),
+              borderWidth: 1,
+              barPercentage: 0.99,
+              categoryPercentage: 1.0,
+              order: 2
+            },
+            // Function curve dataset (line)
+            {
+              type: 'line',
+              label: 'Function',
+              data: [],
+              borderColor: getComputedStyle(document.documentElement).getPropertyValue('--function-color'),
+              backgroundColor: 'transparent',
+              borderWidth: 2,
+              tension: 0.1,
+              pointRadius: 0,
+              fill: false,
+              order: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: {
+            duration: 400
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              grid: {
+                color: getComputedStyle(document.documentElement).getPropertyValue('--grid-color')
+              },
+              title: {
+                display: true,
+                text: 'x',
+                color: getComputedStyle(document.documentElement).getPropertyValue('--axis-color')
+              },
+              ticks: {
+                color: getComputedStyle(document.documentElement).getPropertyValue('--axis-color')
+              }
+            },
+            y: {
+              type: 'linear',
+              beginAtZero: true,
+              grid: {
+                color: getComputedStyle(document.documentElement).getPropertyValue('--grid-color')
+              },
+              title: {
+                display: true,
+                text: 'f(x)',
+                color: getComputedStyle(document.documentElement).getPropertyValue('--axis-color')
+              },
+              ticks: {
+                color: getComputedStyle(document.documentElement).getPropertyValue('--axis-color')
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              enabled: false
+            }
+          }
+        }
+      });
+      
+      // Update the visualization based on the current settings
+      updateVisualization();
+    }
+
+    // Update the visualization based on user inputs
+    function updateVisualization() {
+      const functionKey = functionSelect.value;
+      const func = functions[functionKey];
+      const rectCount = parseInt(rectCountInput.value);
+      const rectType = rectTypeSelect.value;
+      
+      // Get bounds or use defaults
+      let leftBound = parseFloat(leftBoundInput.value);
+      let rightBound = parseFloat(rightBoundInput.value);
+      
+      // Validate bounds
+      if (isNaN(leftBound) || isNaN(rightBound) || leftBound >= rightBound) {
+        leftBound = func.defaultDomain[0];
+        rightBound = func.defaultDomain[1];
+        leftBoundInput.value = leftBound;
+        rightBoundInput.value = rightBound;
+      }
+      
+      // Calculate the exact area
+      const exactArea = func.analyticalIntegral(leftBound, rightBound);
+      
+      // Create the function curve data
+      const step = (rightBound - leftBound) / 200;
+      const curveData = [];
+      for (let x = leftBound; x <= rightBound; x += step) {
+        curveData.push({ x, y: func.fn(x) });
+      }
+      
+      // Create the rectangles data
+      const rectWidth = (rightBound - leftBound) / rectCount;
+      const rectData = [];
+      let approximateArea = 0;
+      
+      for (let i = 0; i < rectCount; i++) {
+        const rectLeft = leftBound + i * rectWidth;
+        const rectRight = rectLeft + rectWidth;
+        
+        let height;
+        if (rectType === 'left') {
+          height = func.fn(rectLeft);
+        } else if (rectType === 'right') {
+          height = func.fn(rectRight);
+        } else { // 'mid'
+          height = func.fn((rectLeft + rectRight) / 2);
+        }
+        
+        // Skip negative heights
+        if (height < 0) height = 0;
+        
+        // Add rectangle data for bar chart (center of the rectangle)
+        const x = rectLeft + rectWidth / 2;
+        rectData.push({ x, y: height });
+        
+        // Calculate area
+        const area = height * rectWidth;
+        approximateArea += area;
+      }
+      
+      // Calculate the error
+      const error = Math.abs(exactArea - approximateArea);
+      
+      // Update the info box with formatted numbers
+      exactAreaSpan.textContent = exactArea.toFixed(6);
+      approxAreaSpan.textContent = approximateArea.toFixed(6);
+      errorSpan.textContent = error.toFixed(6);
+      
+      // Update rectangle dataset
+      chart.data.datasets[0].data = rectData;
+      
+      // Adjust bar width based on number of rectangles to ensure they are adjacent
+      if (rectCount > 50) {
+        chart.data.datasets[0].barPercentage = 1.0;
+      } else {
+        chart.data.datasets[0].barPercentage = 0.99;
+      }
+      
+      // Update function curve dataset
+      chart.data.datasets[1].data = curveData;
+      
+      // Update the chart axis scales
+      chart.options.scales.x.min = leftBound;
+      chart.options.scales.x.max = rightBound;
+      
+      // Find a good y-axis range based on the function values
+      let maxY = 0;
+      for (const point of curveData) {
+        if (point.y > maxY) maxY = point.y;
+      }
+      chart.options.scales.y.min = 0;
+      chart.options.scales.y.max = maxY * 1.1; // Add 10% padding
+      
+      // Update the chart
+      chart.update();
+    }
+    
+    // Event listeners
+    functionSelect.addEventListener('change', () => {
+      const functionKey = functionSelect.value;
+      const func = functions[functionKey];
+      leftBoundInput.value = func.defaultDomain[0];
+      rightBoundInput.value = func.defaultDomain[1];
+      updateVisualization();
+    });
+    
+    rectCountInput.addEventListener('input', () => {
+      rectCountValue.textContent = rectCountInput.value;
+      updateVisualization();
+    });
+    
+    rectTypeSelect.addEventListener('change', updateVisualization);
+    leftBoundInput.addEventListener('change', updateVisualization);
+    rightBoundInput.addEventListener('change', updateVisualization);
+    
+    // Initialize KaTeX rendering
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize LaTeX rendering for the rest of the document
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '$', right: '$', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      });
+      
+      // Initialize the visualization
+      initVisualization();
+    });
+  </script>
+  
+  <!-- Add reference to our central dark mode script -->
+  <script src="../js/dark-mode.js"></script>
+</body>
+</html> 

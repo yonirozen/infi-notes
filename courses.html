@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>סיכומי קורסים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0a5a8d;
+      --primary-light: #1e88e5;
+      --secondary-color: #495057;
+      --accent-color: #f0ad4e;
+      --bg-color: #f8f9fa;
+      --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e9ecef' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      --text-color: #343a40;
+      --text-light: #6c757d;
+      --card-bg: #ffffff;
+      --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      --border-radius: 16px;
+      --transition-speed: 0.3s;
+      --border-color: #dee2e6;
+    }
+
+    html[data-theme="dark"] {
+      --primary-color: #58a6ff;
+      --primary-light: #90caf9;
+      --secondary-color: #8b949e;
+      --accent-color: #f7b731;
+      --bg-color: #0d1117;
+      --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23161b22' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      --text-color: #c9d1d9;
+      --text-light: #8b949e;
+      --card-bg: #161b22;
+      --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      --border-color: #30363d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color var(--transition-speed) ease, 
+                  color var(--transition-speed) ease, 
+                  border-color var(--transition-speed) ease, 
+                  box-shadow var(--transition-speed) ease;
+    }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: var(--bg-color);
+      background-image: var(--bg-pattern);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      position: relative;
+      display: inline-block;
+    }
+
+    .header h1::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .course-card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: var(--text-color);
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      height: 250px;
+    }
+
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .course-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background-color: var(--primary-color);
+      z-index: 1;
+    }
+
+    .course-card:hover::before {
+      background-color: var(--accent-color);
+    }
+
+    .course-icon {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-top: 1rem;
+    }
+
+    .card-content {
+      padding: 1.5rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    .card-subtitle {
+      display: none;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      color: var(--text-color);
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: auto;
+    }
+
+    .view-button {
+      font-size: 1rem;
+      color: var(--primary-light);
+      display: flex;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .view-button i {
+      margin-right: 5px;
+      transition: transform 0.2s ease;
+    }
+
+    .course-card:hover .view-button i {
+      transform: translateX(-5px);
+    }
+
+    /* Dark Mode Toggle */
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background-color: var(--card-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease, transform 0.2s ease;
+      overflow: hidden;
+    }
+
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: var(--card-hover-shadow);
+      color: var(--accent-color);
+    }
+
+    .dark-mode-toggle .fa-sun,
+    .dark-mode-toggle .fa-moon {
+      position: absolute;
+      transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+    }
+
+    html:not([data-theme="dark"]) .dark-mode-toggle .fa-sun {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    html:not([data-theme="dark"]) .dark-mode-toggle .fa-moon {
+      transform: translateY(100%) rotate(180deg);
+      opacity: 0;
+    }
+
+    html[data-theme="dark"] .dark-mode-toggle .fa-sun {
+      transform: translateY(-100%) rotate(-180deg);
+      opacity: 0;
+    }
+
+    html[data-theme="dark"] .dark-mode-toggle .fa-moon {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .course-card {
+        height: auto;
+        min-height: 240px;
+      }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1100px) {
+      .courses-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+    <i class="fas fa-sun"></i>
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <div class="container">
+    <header class="header">
+      <h1>סיכומי קורסים</h1>
+      <p>
+        ברוכים הבאים לאתר סיכומי הקורסים. כאן תוכלו למצוא סיכומים מפורטים לקורסים מרכזיים במתמטיקה.
+      </p>
+    </header>
+
+    <div class="courses-grid">
+      <!-- Math Courses -->
+      <a href="index.html" class="course-card">
+        <div class="course-icon">
+          <i class="fas fa-calculator"></i>
+        </div>
+        <div class="card-content">
+          <h2 class="card-title">חשבון אינפיניטסימלי 2</h2>
+          <p class="card-description">
+            אינטגרלים מרובים, טורי חזקות, משוואות דיפרנציאליות, וקטורים במרחב, פונקציות וקטוריות, ועוד נושאים מתקדמים באנליזה.
+          </p>
+          <div class="card-footer">
+            <div class="view-button">
+              <i class="fas fa-arrow-left"></i>
+              למעבר לסיכומים
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <!-- Placeholder for future courses -->
+      <a href="#" class="course-card">
+        <div class="course-icon">
+          <i class="fas fa-infinity"></i>
+        </div>
+        <div class="card-content">
+          <h2 class="card-title">חשבון אינפיניטסימלי 1</h2>
+          <p class="card-description">
+            גבולות, רציפות, נגזרות, חקירת פונקציות, אינטגרל מסוים ובלתי מסוים, שיטות אינטגרציה, ויישומים.
+          </p>
+          <div class="card-footer">
+            <div class="view-button">
+              <i class="fas fa-arrow-left"></i>
+              בקרוב...
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="#" class="course-card">
+        <div class="course-icon">
+          <i class="fas fa-table-cells"></i>
+        </div>
+        <div class="card-content">
+          <h2 class="card-title">אלגברה לינארית</h2>
+          <p class="card-description">
+            מטריצות, מערכות משוואות ליניאריות, מרחבים וקטוריים, טרנספורמציות לינאריות, ערכים ווקטורים עצמיים, ועוד.
+          </p>
+          <div class="card-footer">
+            <div class="view-button">
+              <i class="fas fa-arrow-left"></i>
+              בקרוב...
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Add reference to our central dark mode script -->
+  <script src="js/dark-mode.js"></script>
+</body>
+</html> 

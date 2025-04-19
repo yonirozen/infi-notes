@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+
+<html dir="rtl" lang="he">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>שיעור 1: האנטגרל המסוים</title>
-
-    <!-- KaTeX CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>שיעור 1: האנטגרל המסוים</title>
+<!-- KaTeX CSS -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&amp;family=Orbitron:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome for Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
         :root {
@@ -478,174 +475,232 @@
              .chart-wrapper { padding: 15px; }
         }
 
-    </style>
+    
+/* Back Button */
+.back-nav {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    text-decoration: none;
+}
+
+.back-nav:hover {
+    transform: translateX(-5px);
+    box-shadow: var(--card-hover-shadow);
+    color: var(--accent-color);
+}
+
+.back-nav i {
+    margin-left: 8px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: var(--header-text);
+    font-size: 0.85rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+}
+
+.breadcrumb a {
+    color: var(--header-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.breadcrumb .separator {
+    margin: 0 5px;
+}
+
+/* Adjust existing header padding */
+header {
+    padding-top: 50px;
+}
+</style>
 </head>
 <body>
-
-    <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <header>
-        <h1>שיעור 1: האנטגרל המסוים</h1>
-    </header>
-
-    <div class="container">
-        <nav id="main-nav">
-            <ul>
-                <li><a href="#derivative-review" class="nav-link">חזרה על נגזרת</a></li>
-                <li><a href="#indefinite-integral" class="nav-link">האנטגרל הלא מסוים</a></li>
-                <li><a href="#notation" class="nav-link">סימון ודוגמא</a></li>
-                <li><a href="#integral-table" class="nav-link">נוסחאות אינטגרציה</a></li>
-            </ul>
-        </nav>
-
-        <main>
-            <section id="derivative-review">
-                <h2>חזרה על נגזרת</h2>
-                <p>תהי פונקציה <span class="katex">\(f(x)\)</span> מוגדרת בסביבה של נקודה <span class="katex">\(x_0\)</span>. אז הנגזרת של <span class="katex">\(f\)</span> בנקודה <span class="katex">\(x_0\)</span> מוגדרת על ידי הגבול:</p>
-                <div class="formula-block" title="הגדרת הנגזרת">
+<a class="back-nav" href="../index.html">
+<i class="fas fa-chevron-right"></i>
+    חזרה לסיכומי אינפי 2
+</a>
+<!-- Dark Mode Toggle Button -->
+<button aria-label="Toggle dark mode" aria-pressed="false" class="dark-mode-toggle" id="darkModeToggle">
+<i class="fas fa-sun"></i>
+<i class="fas fa-moon"></i>
+</button>
+<header>
+<div class="breadcrumb">
+<a href="../courses.html">סיכומי קורסים</a>
+<span class="separator">/</span>
+<a href="../index.html">אינפי 2</a>
+<span class="separator">/</span>
+<span>שיעור 1</span>
+</div>
+<h1>שיעור 1: האנטגרל המסוים</h1>
+</header>
+<div class="container">
+<nav id="main-nav">
+<ul>
+<li><a class="nav-link" href="#derivative-review">חזרה על נגזרת</a></li>
+<li><a class="nav-link" href="#indefinite-integral">האנטגרל הלא מסוים</a></li>
+<li><a class="nav-link" href="#notation">סימון ודוגמא</a></li>
+<li><a class="nav-link" href="#integral-table">נוסחאות אינטגרציה</a></li>
+</ul>
+</nav>
+<main>
+<section id="derivative-review">
+<h2>חזרה על נגזרת</h2>
+<p>תהי פונקציה <span class="katex">\(f(x)\)</span> מוגדרת בסביבה של נקודה <span class="katex">\(x_0\)</span>. אז הנגזרת של <span class="katex">\(f\)</span> בנקודה <span class="katex">\(x_0\)</span> מוגדרת על ידי הגבול:</p>
+<div class="formula-block" title="הגדרת הנגזרת">
                     $$ f'(x_0) = \lim_{h \to 0} \frac{f(x_0+h) - f(x_0)}{h} $$
                 </div>
-                <p>(הערה: בטקסט המקורי נרשם <span class="katex">\(x \to 0\)</span> ו- <span class="katex">\(x\)</span> במכנה, הוחלף ב-<span class="katex">\(h\)</span> למען הבהירות המקובלת).</p>
-            </section>
-
-            <section id="indefinite-integral">
-                <h2>האנטגרל הלא מסוים</h2>
-                <p>מציאת האנטגרל היא הפעולה ההפוכה למציאת נגזרת, אך לא באופן נקודתי כמו הנגזרת, אלא באופן רחב יותר – בקטע.</p>
-
-                <div class="definition">
-                    <h4>הגדרה: האנטגרל הלא מסוים</h4>
-                    <p>האנטגרל הלא מסוים של פונקציה <span class="katex">\(f(x)\)</span> המוגדרת בקטע <span class="katex">\(I\)</span>, הוא פונקציה (אם קיימת) <span class="katex">\(F(x)\)</span> המקיימת:</p>
-                    <div class="formula-block">
+<p>(הערה: בטקסט המקורי נרשם <span class="katex">\(x \to 0\)</span> ו- <span class="katex">\(x\)</span> במכנה, הוחלף ב-<span class="katex">\(h\)</span> למען הבהירות המקובלת).</p>
+</section>
+<section id="indefinite-integral">
+<h2>האנטגרל הלא מסוים</h2>
+<p>מציאת האנטגרל היא הפעולה ההפוכה למציאת נגזרת, אך לא באופן נקודתי כמו הנגזרת, אלא באופן רחב יותר – בקטע.</p>
+<div class="definition">
+<h4>הגדרה: האנטגרל הלא מסוים</h4>
+<p>האנטגרל הלא מסוים של פונקציה <span class="katex">\(f(x)\)</span> המוגדרת בקטע <span class="katex">\(I\)</span>, הוא פונקציה (אם קיימת) <span class="katex">\(F(x)\)</span> המקיימת:</p>
+<div class="formula-block">
                         $$ F'(x) = f(x) $$
                     </div>
-                    <p>לכל <span class="katex">\(x \in I\)</span>.</p>
-                </div>
-
-                <p>כאן <span class="katex">\(I\)</span> יכול להיות קטע חסום או לא, פתוח או סגור. פונקציה <span class="katex">\(F\)</span> כזאת נקראת גם <strong>הפונקציה הקדומה</strong> של <span class="katex">\(f\)</span> ב-<span class="katex">\(I\)</span>.</p>
-
-                <h3>הערה לגבי קבוע האינטגרציה</h3>
-                <p>
+<p>לכל <span class="katex">\(x \in I\)</span>.</p>
+</div>
+<p>כאן <span class="katex">\(I\)</span> יכול להיות קטע חסום או לא, פתוח או סגור. פונקציה <span class="katex">\(F\)</span> כזאת נקראת גם <strong>הפונקציה הקדומה</strong> של <span class="katex">\(f\)</span> ב-<span class="katex">\(I\)</span>.</p>
+<h3>הערה לגבי קבוע האינטגרציה</h3>
+<p>
                     כמובן שאם <span class="katex">\(F'(x) = f(x)\)</span>, ואם נגדיר <span class="katex">\(H(x) = F(x) + C\)</span> כאשר <span class="katex">\(C\)</span> הוא קבוע ממשי כלשהו, אז גם <span class="katex">\(H'(x) = F'(x) + 0 = f(x)\)</span>. כלומר, גם <span class="katex">\(H\)</span> היא פונקציה קדומה של <span class="katex">\(f\)</span>.
                 </p>
-                <p>
+<p>
                     גם להפך, אם <span class="katex">\(F\)</span> ו-<span class="katex">\(H\)</span> הן שתי פונקציות קדומות של <span class="katex">\(f\)</span> באותו קטע <span class="katex">\(I\)</span>, אז <span class="katex">\(H'(x) = f(x)\)</span> ו-<span class="katex">\(F'(x) = f(x)\)</span>. לכן, הנגזרת של ההפרש ביניהן היא אפס: <span class="katex">\((H(x) - F(x))' = H'(x) - F'(x) = f(x) - f(x) = 0\)</span>.
                     פונקציה שהנגזרת שלה היא אפס בכל הקטע <span class="katex">\(I\)</span> חייבת להיות פונקציה קבועה באותו קטע. כלומר, קיים קבוע <span class="katex">\(C\)</span> כך ש- <span class="katex">\(H(x) - F(x) = C\)</span>, או <span class="katex">\(H(x) = F(x) + C\)</span>.
                 </p>
-                <p>
+<p>
                     פירוש הדבר הוא שבהינתן פונקציה קדומה אחת <span class="katex">\(F\)</span> של <span class="katex">\(f\)</span>, אז קיימות אינסוף פונקציות קדומות כאלו, כולן מהצורה <span class="katex">\(H(x) = F(x) + C\)</span>, כאשר <span class="katex">\(C\)</span> הוא קבוע כלשהו. כל הפונקציות מהצורה הזו הן קדומות של <span class="katex">\(f\)</span>.
                 </p>
-                <p>
+<p>
                     מספיק למצוא פונקציה קדומה אחת, ואז אנו יודעים את כולן (עד כדי קבוע).
                 </p>
-                <p>
+<p>
                     אוסף כל הפונקציות הקדומות, וגם כל אחת מהפונקציות באוסף, נקרא <strong>האנטגרל הלא מסוים</strong> של <span class="katex">\(f\)</span> ב-<span class="katex">\(I\)</span>.
                 </p>
-            </section>
-
-            <section id="notation">
-                <h2>סימון ודוגמא</h2>
-                <h3>סימון</h3>
-                <p>הסימון המקובל לאוסף כל הפונקציות הקדומות של <span class="katex">\(f\)</span> הוא:</p>
-                <div class="formula-block" title="סימון האנטגרל הלא מסוים">
+</section>
+<section id="notation">
+<h2>סימון ודוגמא</h2>
+<h3>סימון</h3>
+<p>הסימון המקובל לאוסף כל הפונקציות הקדומות של <span class="katex">\(f\)</span> הוא:</p>
+<div class="formula-block" title="סימון האנטגרל הלא מסוים">
                     $$ \int f(x) dx = F(x) + C $$
                 </div>
-                <p>כאשר <span class="katex">\(F(x)\)</span> היא פונקציה קדומה כלשהי של <span class="katex">\(f(x)\)</span>, ו-<span class="katex">\(C\)</span> הוא קבוע האינטגרציה, אשר יכול לקבל כל ערך ממשי (<span class="katex">\(C \in \mathbb{R}\)</span>). הריצה של <span class="katex">\(C\)</span> על כל הערכים הממשיים מייצגת את האוסף כולו.</p>
-
-                <div class="example">
-                    <h4>דוגמא</h4>
-                    <p>נחשב את האנטגרל של <span class="katex">\(f(x) = x\)</span>:</p>
-                    <p>אנו מחפשים פונקציה <span class="katex">\(F(x)\)</span> כך ש-<span class="katex">\(F'(x) = x\)</span>. אנו יודעים שנגזרת של חזקה מורידה את המעריך ב-1, לכן ננסה פונקציה מהצורה <span class="katex">\(ax^2\)</span>. הנגזרת היא <span class="katex">\((ax^2)' = 2ax\)</span>. כדי שזה יהיה שווה ל-<span class="katex">\(x\)</span>, נצטרך <span class="katex">\(2a=1\)</span>, כלומר <span class="katex">\(a=1/2\)</span>.
+<p>כאשר <span class="katex">\(F(x)\)</span> היא פונקציה קדומה כלשהי של <span class="katex">\(f(x)\)</span>, ו-<span class="katex">\(C\)</span> הוא קבוע האינטגרציה, אשר יכול לקבל כל ערך ממשי (<span class="katex">\(C \in \mathbb{R}\)</span>). הריצה של <span class="katex">\(C\)</span> על כל הערכים הממשיים מייצגת את האוסף כולו.</p>
+<div class="example">
+<h4>דוגמא</h4>
+<p>נחשב את האנטגרל של <span class="katex">\(f(x) = x\)</span>:</p>
+<p>אנו מחפשים פונקציה <span class="katex">\(F(x)\)</span> כך ש-<span class="katex">\(F'(x) = x\)</span>. אנו יודעים שנגזרת של חזקה מורידה את המעריך ב-1, לכן ננסה פונקציה מהצורה <span class="katex">\(ax^2\)</span>. הנגזרת היא <span class="katex">\((ax^2)' = 2ax\)</span>. כדי שזה יהיה שווה ל-<span class="katex">\(x\)</span>, נצטרך <span class="katex">\(2a=1\)</span>, כלומר <span class="katex">\(a=1/2\)</span>.
                     לכן, פונקציה קדומה אחת היא <span class="katex">\(F(x) = \frac{x^2}{2}\)</span>.</p>
-                    <p>האנטגרל הלא מסוים הוא אוסף כל הפונקציות הקדומות:</p>
-                    <div class="formula-block">
+<p>האנטגרל הלא מסוים הוא אוסף כל הפונקציות הקדומות:</p>
+<div class="formula-block">
                         $$ \int x \, dx = \frac{x^2}{2} + C $$
                     </div>
-                    <p>ניתן לראות זאת גרפית. הפונקציה <span class="katex">\(f(x)=x\)</span> היא קו ישר העובר דרך הראשית. הפונקציות הקדומות <span class="katex">\(F(x) = \frac{x^2}{2} + C\)</span> הן משפחה של פרבולות, המוזזות אנכית זו ביחס לזו בהתאם לערך של <span class="katex">\(C\)</span>.</p>
-                    <div class="chart-container">
-                        <div class="chart-wrapper">
-                             <h5>גרף הפונקציה <span dir="ltr">f(x) = x</span></h5>
-                             <canvas id="lineChart"></canvas>
-                         </div>
-                         <div class="chart-wrapper">
-                             <h5>גרף הפונקציות הקדומות <span dir="ltr">F(x) = x²/2 + C</span></h5>
-                             <canvas id="parabolaChart"></canvas>
-                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="integral-table">
-                <h2>נוסחאות אינטגרציה מיידיות</h2>
-                <p>
+<p>ניתן לראות זאת גרפית. הפונקציה <span class="katex">\(f(x)=x\)</span> היא קו ישר העובר דרך הראשית. הפונקציות הקדומות <span class="katex">\(F(x) = \frac{x^2}{2} + C\)</span> הן משפחה של פרבולות, המוזזות אנכית זו ביחס לזו בהתאם לערך של <span class="katex">\(C\)</span>.</p>
+<div class="chart-container">
+<div class="chart-wrapper">
+<h5>גרף הפונקציה <span dir="ltr">f(x) = x</span></h5>
+<canvas id="lineChart"></canvas>
+</div>
+<div class="chart-wrapper">
+<h5>גרף הפונקציות הקדומות <span dir="ltr">F(x) = x²/2 + C</span></h5>
+<canvas id="parabolaChart"></canvas>
+</div>
+</div>
+</div>
+</section>
+<section id="integral-table">
+<h2>נוסחאות אינטגרציה מיידיות</h2>
+<p>
                     עצם הגדרת האנטגרל כפעולה הפוכה לנגזרת, מובילה מייד ללוח אנטגרלים מיידיים.
                     כל נוסחת נגזרת ידועה מובילה ישירות לנוסחת אנטגרל מתאימה.
                 </p>
-                <p>למשל, מהעובדה ש- <span class="katex">\((\sin x)' = \cos x\)</span>, נובע ש:</p>
-                <div class="formula-block">
+<p>למשל, מהעובדה ש- <span class="katex">\((\sin x)' = \cos x\)</span>, נובע ש:</p>
+<div class="formula-block">
                     $$ \int \cos x \, dx = \sin x + C $$
                 </div>
-                <p>ובדומה, מתוך <span class="katex">\((-\cos x)' = -(-\sin x) = \sin x\)</span>, נובע:</p>
-                <div class="formula-block">
+<p>ובדומה, מתוך <span class="katex">\((-\cos x)' = -(-\sin x) = \sin x\)</span>, נובע:</p>
+<div class="formula-block">
                     $$ \int \sin x \, dx = -\cos x + C $$
                 </div>
-
-                <h3>נוסחאות אינטגרציה בסיסיות נוספות:</h3>
-                <ul>
-                    <li>
-                        <p>חזקות (כאשר <span class="katex">\(n \neq -1\)</span>):</p>
-                        <div class="formula-block">$$ \int x^n dx = \frac{x^{n+1}}{n+1} + C $$</div>
-                    </li>
-                    <li>
-                        <p>המקרה <span class="katex">\(n = -1\)</span>:</p>
-                        <div class="formula-block">$$ \int x^{-1} dx = \int \frac{1}{x} dx = \ln|x| + C $$</div>
-                        <p>(הערה: נדרש ערך מוחלט כדי להגדיר את הלוגריתם גם עבור <span class="katex">\(x<0\)</span>, בהנחה שהפונקציה המקורית מוגדרת שם).</p>
-                    </li>
-                    <li>
-                        <p>פונקציה מעריכית (בסיס e):</p>
-                        <div class="formula-block">$$ \int e^x dx = e^x + C $$</div>
-                    </li>
-                     <li>
-                        <p>פונקציה מעריכית (בסיס a):</p>
-                        <div class="formula-block">$$ \int a^x dx = \frac{a^x}{\ln a} + C \quad (a>0, a \neq 1) $$</div>
-                    </li>
-                    <li>
-                        <p>פונקצית אפס:</p>
-                        <div class="formula-block">$$ \int 0 \, dx = C $$</div>
-                    </li>
-                    <li>
-                        <p>פונקציות טריגונומטריות הפוכות:</p>
-                        <div class="formula-block">$$ \int \frac{dx}{\cos^2 x} = \tan x + C $$</div>
-                        <div class="formula-block">$$ \int \frac{dx}{\sin^2 x} = -\cot x + C $$</div>
-                    </li>
-                    <li>
-                        <p>פונקציות הקשורות לארכסינוס/ארכקוסינוס:</p>
-                        <div class="formula-block">$$ \int \frac{dx}{\sqrt{1-x^2}} = \arcsin x + C_1 = -\arccos x + C_2 $$</div>
-                         <p>(הערה: <span class="katex">\(C_1\)</span> ו-<span class="katex">\(C_2\)</span> קשורים זה בזה: <span class="katex">\(\arcsin x + \arccos x = \pi/2\)</span>).</p>
-                    </li>
-                    <li>
-                        <p>פונקציה הקשורה לארכטנגנס:</p>
-                         <div class="formula-block">$$ \int \frac{dx}{1+x^2} = \arctan x + C $$</div>
-                    </li>
-                </ul>
-            </section>
-
-        </main>
-    </div>
-
-    <!-- KaTeX JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <!-- Global Dark Mode -->
-    <script src="../js/dark-mode.js"></script>
-
-    <!-- Custom Script for Rendering, Enhancements, and Charts -->
-     <script>
+<h3>נוסחאות אינטגרציה בסיסיות נוספות:</h3>
+<ul>
+<li>
+<p>חזקות (כאשר <span class="katex">\(n \neq -1\)</span>):</p>
+<div class="formula-block">$$ \int x^n dx = \frac{x^{n+1}}{n+1} + C $$</div>
+</li>
+<li>
+<p>המקרה <span class="katex">\(n = -1\)</span>:</p>
+<div class="formula-block">$$ \int x^{-1} dx = \int \frac{1}{x} dx = \ln|x| + C $$</div>
+<p>(הערה: נדרש ערך מוחלט כדי להגדיר את הלוגריתם גם עבור <span class="katex">\(x&lt;0\)</span>, בהנחה שהפונקציה המקורית מוגדרת שם).</p>
+</li>
+<li>
+<p>פונקציה מעריכית (בסיס e):</p>
+<div class="formula-block">$$ \int e^x dx = e^x + C $$</div>
+</li>
+<li>
+<p>פונקציה מעריכית (בסיס a):</p>
+<div class="formula-block">$$ \int a^x dx = \frac{a^x}{\ln a} + C \quad (a&gt;0, a \neq 1) $$</div>
+</li>
+<li>
+<p>פונקצית אפס:</p>
+<div class="formula-block">$$ \int 0 \, dx = C $$</div>
+</li>
+<li>
+<p>פונקציות טריגונומטריות הפוכות:</p>
+<div class="formula-block">$$ \int \frac{dx}{\cos^2 x} = \tan x + C $$</div>
+<div class="formula-block">$$ \int \frac{dx}{\sin^2 x} = -\cot x + C $$</div>
+</li>
+<li>
+<p>פונקציות הקשורות לארכסינוס/ארכקוסינוס:</p>
+<div class="formula-block">$$ \int \frac{dx}{\sqrt{1-x^2}} = \arcsin x + C_1 = -\arccos x + C_2 $$</div>
+<p>(הערה: <span class="katex">\(C_1\)</span> ו-<span class="katex">\(C_2\)</span> קשורים זה בזה: <span class="katex">\(\arcsin x + \arccos x = \pi/2\)</span>).</p>
+</li>
+<li>
+<p>פונקציה הקשורה לארכטנגנס:</p>
+<div class="formula-block">$$ \int \frac{dx}{1+x^2} = \arctan x + C $$</div>
+</li>
+</ul>
+</section>
+</main>
+</div>
+<!-- KaTeX JS -->
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- Global Dark Mode -->
+<script src="../js/dark-mode.js"></script>
+<!-- Custom Script for Rendering, Enhancements, and Charts -->
+<script>
          // --- Global Chart Variables ---
          let lineChartInstance = null;
          let parabolaChartInstance = null;
@@ -877,8 +932,6 @@
              renderCharts();
          });
      </script>
-
-
 <!-- כפתור חזרה לדף הראשי -->
 <a href="../index.html" style="
   position: fixed;
@@ -895,6 +948,5 @@
 ">
   🏠 חזרה למסך הראשי
 </a>
-
 </body>
 </html>

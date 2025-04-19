@@ -1,26 +1,22 @@
 <!-- filename: infi2_lesson7.html -->
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+
+<html dir="rtl" lang="he">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אינפי 2 - שיעור 7</title>
-
-    <!-- KaTeX CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Shared Dark Mode CSS -->
-    <link rel="stylesheet" href="../styles/dark-mode.css">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>אינפי 2 - שיעור 7</title>
+<!-- KaTeX CSS -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&amp;family=Orbitron:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome for Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<!-- Shared Dark Mode CSS -->
+<link href="../styles/dark-mode.css" rel="stylesheet"/>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
         :root {
@@ -567,197 +563,255 @@
         .katex { vertical-align: baseline; }
         p .math, li .math { line-height: 1; } /* Prevent inline math from increasing line height too much */
 
-    </style>
+    
+/* Back Button */
+.back-nav {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    text-decoration: none;
+}
+
+.back-nav:hover {
+    transform: translateX(-5px);
+    box-shadow: var(--card-hover-shadow);
+    color: var(--accent-color);
+}
+
+.back-nav i {
+    margin-left: 8px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: var(--header-text);
+    font-size: 0.85rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+}
+
+.breadcrumb a {
+    color: var(--header-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.breadcrumb .separator {
+    margin: 0 5px;
+}
+
+/* Adjust existing header padding */
+header {
+    padding-top: 50px;
+}
+</style>
 </head>
 <body>
-
-    <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <header>
-        <h1>אינפי 2 - שיעור 7</h1>
-        <div class="credits">קרדיטים לניב והלל</div>
-    </header>
-
-    <div class="container">
-        <nav id="main-nav">
-          <ul>
-            <li><a href="#lebesgue-intro" class="nav-link" dir="rtl">מידה 0 ומשפט לבג</a></li>
-            <li><a href="#measure-zero-def" class="nav-link" dir="rtl">הגדרה: מידה 0</a></li>
-            <li><a href="#measure-zero-examples" class="nav-link" dir="rtl">דוגמאות: מידה 0</a></li>
-            <li><a href="#lebesgue-theorem" class="nav-link" dir="rtl">משפט לבג</a></li>
-            <li><a href="#integral-properties" class="nav-link" dir="rtl">תכונות האינטגרל</a></li>
-            <li><a href="#prop-scalar" class="nav-link" dir="rtl">כפל בקבוע</a></li>
-            <li><a href="#prop-sum" class="nav-link" dir="rtl">סכום פונקציות</a></li>
-            <li><a href="#prop-product" class="nav-link" dir="rtl">מכפלת פונקציות</a></li>
-            <li><a href="#prop-reciprocal" class="nav-link" dir="rtl">הופכי של פונקציה</a></li>
-            <li><a href="#prop-restrict" class="nav-link" dir="rtl">צמצום קטע</a></li>
-            <li><a href="#prop-additivity" class="nav-link" dir="rtl">אדיטיביות</a></li>
-            <li><a href="#prop-notation" class="nav-link" dir="rtl">סימונים והכללות</a></li>
-            <li><a href="#example-step" class="nav-link" dir="rtl">דוגמה: פונקציית מדרגה</a></li>
-            <li><a href="#prop-nonnegative" class="nav-link" dir="rtl">אי-שליליות</a></li>
-            <li><a href="#prop-monotonicity" class="nav-link" dir="rtl">מונוטוניות</a></li>
-            <li><a href="#prop-strict-pos" class="nav-link" dir="rtl">חיוביות ממש</a></li>
-            <li><a href="#prop-triangle" class="nav-link" dir="rtl">אי-שוויון המשולש</a></li>
-            <li><a href="#ivt-integrals" class="nav-link" dir="rtl">משפט ערך הביניים לאינטגרלים</a></li>
-          </ul>
-        </nav>
-
-        <main>
-            <section id="lebesgue-intro">
-                <h2>מידה 0, משפט לבג</h2>
-                <p>את משפט המחץ אודות הקשר שבין אינטגרביליות לרציפות לא נוכיח.</p>
-                <p>לפני שנציג אותו אנו זקוקים להגדרה.</p>
-            </section>
-
-            <section id="measure-zero-def">
-                <h3>הגדרה: מידה 0</h3>
-                <div class="definition">
-                    <h4>מידה 0</h4>
-                    <p>קבוצת נקודות <span class="math" dir="ltr">\(E \subseteq \mathbb{R}\)</span> נקראת בעלת <strong>מידה 0</strong>, אמ"מ לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> יש סדרת קטעים <span class="math" dir="ltr">\(\{I_n\}_{n=1}^{\infty}\)</span> כך ש <span class="math" dir="ltr">\(E \subseteq \bigcup_{n=1}^{\infty} I_n\)</span> וסכום אורכי הקטעים קטן מ-<span class="math" dir="ltr">\(\varepsilon\)</span>.</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ \sum_{n=1}^\infty \text{length}(I_n) < \varepsilon $$</div></div>
-                </div>
-            </section>
-
-            <section id="measure-zero-examples">
-                <h3>דוגמאות: מידה 0</h3>
-                <div class="example">
-                    <h4>קבוצה סופית</h4>
-                    <p>כל קבוצה סופית <span class="math" dir="ltr">\(\{a_1, a_2, \dots, a_k\}\)</span> היא בעלת מידה 0.</p>
-                    <p>הוכחה: יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. ניקח סביב כל <span class="math" dir="ltr">\(a_i\)</span> קטע <span class="math" dir="ltr">\(I_i\)</span> באורך <span class="math" dir="ltr">\(\frac{\varepsilon}{k}\)</span>. אז <span class="math" dir="ltr">\(\{a_1, \dots, a_k\} \subseteq \bigcup_{i=1}^k I_i\)</span> וסכום האורכים הוא <span class="math" dir="ltr">\(\sum_{i=1}^k \frac{\varepsilon}{k} = k \cdot \frac{\varepsilon}{k} = \varepsilon\)</span>. (כדי לקבל <span class="math" dir="ltr"><< \varepsilon\)</span>, ניקח קטעים באורך <span class="math" dir="ltr">\(\frac{\varepsilon}{2k}\)</span>).
+<a class="back-nav" href="../index.html">
+<i class="fas fa-chevron-right"></i>
+    חזרה לסיכומי אינפי 2
+</a>
+<!-- Dark Mode Toggle Button -->
+<button aria-label="Toggle dark mode" aria-pressed="false" class="dark-mode-toggle" id="darkModeToggle">
+<i class="fas fa-sun"></i>
+<i class="fas fa-moon"></i>
+</button>
+<header>
+<div class="breadcrumb">
+<a href="../courses.html">סיכומי קורסים</a>
+<span class="separator">/</span>
+<a href="../index.html">אינפי 2</a>
+<span class="separator">/</span>
+<span>שיעור 7</span>
+</div>
+<h1>אינפי 2 - שיעור 7</h1>
+<div class="credits">קרדיטים לניב והלל</div>
+</header>
+<div class="container">
+<nav id="main-nav">
+<ul>
+<li><a class="nav-link" dir="rtl" href="#lebesgue-intro">מידה 0 ומשפט לבג</a></li>
+<li><a class="nav-link" dir="rtl" href="#measure-zero-def">הגדרה: מידה 0</a></li>
+<li><a class="nav-link" dir="rtl" href="#measure-zero-examples">דוגמאות: מידה 0</a></li>
+<li><a class="nav-link" dir="rtl" href="#lebesgue-theorem">משפט לבג</a></li>
+<li><a class="nav-link" dir="rtl" href="#integral-properties">תכונות האינטגרל</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-scalar">כפל בקבוע</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-sum">סכום פונקציות</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-product">מכפלת פונקציות</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-reciprocal">הופכי של פונקציה</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-restrict">צמצום קטע</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-additivity">אדיטיביות</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-notation">סימונים והכללות</a></li>
+<li><a class="nav-link" dir="rtl" href="#example-step">דוגמה: פונקציית מדרגה</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-nonnegative">אי-שליליות</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-monotonicity">מונוטוניות</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-strict-pos">חיוביות ממש</a></li>
+<li><a class="nav-link" dir="rtl" href="#prop-triangle">אי-שוויון המשולש</a></li>
+<li><a class="nav-link" dir="rtl" href="#ivt-integrals">משפט ערך הביניים לאינטגרלים</a></li>
+</ul>
+</nav>
+<main>
+<section id="lebesgue-intro">
+<h2>מידה 0, משפט לבג</h2>
+<p>את משפט המחץ אודות הקשר שבין אינטגרביליות לרציפות לא נוכיח.</p>
+<p>לפני שנציג אותו אנו זקוקים להגדרה.</p>
+</section>
+<section id="measure-zero-def">
+<h3>הגדרה: מידה 0</h3>
+<div class="definition">
+<h4>מידה 0</h4>
+<p>קבוצת נקודות <span class="math" dir="ltr">\(E \subseteq \mathbb{R}\)</span> נקראת בעלת <strong>מידה 0</strong>, אמ"מ לכל <span class="math" dir="ltr">\(\varepsilon &gt; 0\)</span> יש סדרת קטעים <span class="math" dir="ltr">\(\{I_n\}_{n=1}^{\infty}\)</span> כך ש <span class="math" dir="ltr">\(E \subseteq \bigcup_{n=1}^{\infty} I_n\)</span> וסכום אורכי הקטעים קטן מ-<span class="math" dir="ltr">\(\varepsilon\)</span>.</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sum_{n=1}^\infty \text{length}(I_n) &lt; \varepsilon $$</div></div>
+</div>
+</section>
+<section id="measure-zero-examples">
+<h3>דוגמאות: מידה 0</h3>
+<div class="example">
+<h4>קבוצה סופית</h4>
+<p>כל קבוצה סופית <span class="math" dir="ltr">\(\{a_1, a_2, \dots, a_k\}\)</span> היא בעלת מידה 0.</p>
+<p>הוכחה: יהי <span class="math" dir="ltr">\(\varepsilon &gt; 0\)</span>. ניקח סביב כל <span class="math" dir="ltr">\(a_i\)</span> קטע <span class="math" dir="ltr">\(I_i\)</span> באורך <span class="math" dir="ltr">\(\frac{\varepsilon}{k}\)</span>. אז <span class="math" dir="ltr">\(\{a_1, \dots, a_k\} \subseteq \bigcup_{i=1}^k I_i\)</span> וסכום האורכים הוא <span class="math" dir="ltr">\(\sum_{i=1}^k \frac{\varepsilon}{k} = k \cdot \frac{\varepsilon}{k} = \varepsilon\)</span>. (כדי לקבל <span class="math" dir="ltr">&lt;&lt; \varepsilon\)</span>, ניקח קטעים באורך <span class="math" dir="ltr">\(\frac{\varepsilon}{2k}\)</span>).
                 </p></div>
-                 <div class="example">
-                    <h4>קבוצה בת מניה</h4>
-                    <p>כל קבוצה בת מנייה <span class="math" dir="ltr">\(\{b_1, b_2, b_3, \dots\}\)</span> היא בעלת מידה 0.</p>
-                    <p>הוכחה: יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. נקח סביב כל <span class="math" dir="ltr">\(b_i\)</span> קטע <span class="math" dir="ltr">\(I_i\)</span> באורך <span class="math" dir="ltr">\(\frac{\varepsilon}{2^i}\)</span>. אז <span class="math" dir="ltr">\(\{b_n\}_{n=1}^\infty \subseteq \bigcup_{n=1}^\infty I_n\)</span> וסכום האורכים הוא:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ \sum_{n=1}^\infty \text{length}(I_n) = \sum_{n=1}^\infty \frac{\varepsilon}{2^n} = \varepsilon \sum_{n=1}^\infty \left(\frac{1}{2}\right)^n = \varepsilon \cdot \frac{1/2}{1-1/2} = \varepsilon \cdot 1 = \varepsilon $$</div></div>
-                     <p>(כדי לקבל <span class="math" dir="ltr"><< \varepsilon\)</span>, ניקח למשל קטעים באורך <span class="math" dir="ltr">\(\frac{\varepsilon}{2^{i+1}}\)</span>).</p>
-                     <p>לדוגמה, קבוצת המספרים הרציונליים <span class="math" dir="ltr">\(\mathbb{Q}\)</span> היא בת מנייה ולכן בעלת מידה 0.</p>
-                 </div>
-            </section>
-
-            <section id="lebesgue-theorem">
-                <h2>משפט לבג</h2>
-                <div class="definition">
-                    <h4>משפט לבג</h4>
-                    <p>פונקציה חסומה בקטע <span class="math" dir="ltr">\([a,b]\)</span> היא אינטגרבילית רימן <span class="math" dir="ltr">\(\iff\)</span> קבוצת נקודות אי הרציפות שלה בעלת מידה 0.</p>
-                </div>
-                 <p><strong>הערה:</strong> לפי משפט לבג קל להוכיח המשפט מס' 27 משיעור 6 (שאם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ו-<span class="math" dir="ltr">\(f^*\)</span> שונה ממנה במספר סופי של נקודות אז <span class="math" dir="ltr">\(f^*\)</span> אינטגרבילית ו-<span class="math" dir="ltr">\(\int f = \int f^*\)</span>).</p>
-                 <p><strong>הוכחה (בעזרת לבג):</strong></p>
-                 <ul>
-                     <li><strong>כיוון (<span class="math" dir="ltr">\(\Leftarrow\)</span>):</strong> אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית, אז לפי לבג, קבוצת נקודות אי הרציפות שלה, <span class="math" dir="ltr">\(D_f\)</span>, בעלת מידה 0. קבוצת נקודות אי הרציפות של <span class="math" dir="ltr">\(f^*\)</span>, <span class="math" dir="ltr">\(D_{f^*}\)</span>, שונה מ-<span class="math" dir="ltr">\(D_f\)</span> רק במספר סופי של נקודות (אלו שבהן <span class="math" dir="ltr">\(f \ne f^*\)</span>, ונקודות שבהן <span class="math" dir="ltr">\(f\)</span> רציפה אך <span class="math" dir="ltr">\(f^*\)</span> לא, או להפך). איחוד של קבוצה בעלת מידה 0 עם קבוצה סופית (שהיא גם בעלת מידה 0) הוא קבוצה בעלת מידה 0. לכן <span class="math" dir="ltr">\(D_{f^*}\)</span> בעלת מידה 0, ולפי לבג, <span class="math" dir="ltr">\(f^*\)</span> אינטגרבילית.</li>
-                     <li><strong>שוויון האינטגרלים:</strong> כמובן ש-<span class="math" dir="ltr">\(\int_a^b f(x) dx = \int_a^b f^*(x) dx\)</span>. ניקח סדרת חלוקות נורמליות <span class="math" dir="ltr">\(\{T_n\}\)</span> (<span class="math" dir="ltr">\(\lambda(T_n) \to 0\)</span>). ניתן לבחור בכל תת-קטע <span class="math" dir="ltr">\(\Delta x_i\)</span> נקודה <span class="math" dir="ltr">\(\zeta_i\)</span> שבה <span class="math" dir="ltr">\(f(\zeta_i) = f^*(\zeta_i)\)</span> (זה אפשרי כל עוד רוחב הקטע קטן מספיק כדי שלא יכיל רק נקודות שבהן הן שונות). כך נקבל עבור סדרת חלוקות נורמליות סידרת סכומי רימן זהים עבור שתי הפונקציות, השואפים כמובן לאותו גבול.</li>
-                </ul>
-            </section>
-
-            <section id="integral-properties">
-                 <h2>תכונות האינטגרל המסוים</h2>
-                 <p>נחזור לשגרת המשפטים ה'רגילים'.</p>
-
-                 <h3 id="prop-scalar">1. כפל בקבוע</h3>
-                 <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>, ובנוסף <span class="math" dir="ltr">\(c\)</span> הוא קבוע, אז <span class="math" dir="ltr">\(cf\)</span> אינטגרבילית ו-</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b c f(x) dx = c \int_a^b f(x) dx $$</div></div>
-                 <p><strong>הוכחה:</strong> כל סכום רימן <span class="math" dir="ltr">\(\sigma(cf, T, \{\zeta_i\}) = \sum (c f(\zeta_i)) \Delta x_i = c \sum f(\zeta_i) \Delta x_i = c \cdot \sigma(f, T, \{\zeta_i\})\)</span>. כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, אגף ימין שואף ל-<span class="math" dir="ltr">\(c \int_a^b f dx\)</span>, ולכן גם אגף שמאל, שפירושו <span class="math" dir="ltr">\(cf\)</span> אינטגרבילית ושערך האינטגרל הוא <span class="math" dir="ltr">\(c \int_a^b f dx\)</span>.</p>
-
-                 <h3 id="prop-sum">2. סכום פונקציות</h3>
-                 <p>אם <span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות ב-<span class="math" dir="ltr">\([a,b]\)</span> אז גם <span class="math" dir="ltr">\(f+h\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b (f(x)+h(x)) dx = \int_a^b f(x) dx + \int_a^b h(x) dx $$</div></div>
-                 <p><strong>הוכחה:</strong> שוב, כל סכום רימן <span class="math" dir="ltr">\(\sigma(f+h, T, \{\zeta_i\}) = \sum (f(\zeta_i)+h(\zeta_i)) \Delta x_i = \sum f(\zeta_i) \Delta x_i + \sum h(\zeta_i) \Delta x_i = \sigma(f, T, \{\zeta_i\}) + \sigma(h, T, \{\zeta_i\})\)</span>. כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, אגף ימין שואף לסכום האינטגרלים, ולכן גם אגף שמאל.</p>
-
-                 <h3 id="prop-product">3. מכפלת פונקציות</h3>
-                 <p>אם <span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות ב-<span class="math" dir="ltr">\([a,b]\)</span> אז גם <span class="math" dir="ltr">\(f \cdot h\)</span> אינטגרבילית שם (אך אין נוסחה כללית ל-<span class="math" dir="ltr">\(\int_a^b f(x) h(x) dx\)</span>).</p>
-                 <p><strong>הוכחה:</strong>
+<div class="example">
+<h4>קבוצה בת מניה</h4>
+<p>כל קבוצה בת מנייה <span class="math" dir="ltr">\(\{b_1, b_2, b_3, \dots\}\)</span> היא בעלת מידה 0.</p>
+<p>הוכחה: יהי <span class="math" dir="ltr">\(\varepsilon &gt; 0\)</span>. נקח סביב כל <span class="math" dir="ltr">\(b_i\)</span> קטע <span class="math" dir="ltr">\(I_i\)</span> באורך <span class="math" dir="ltr">\(\frac{\varepsilon}{2^i}\)</span>. אז <span class="math" dir="ltr">\(\{b_n\}_{n=1}^\infty \subseteq \bigcup_{n=1}^\infty I_n\)</span> וסכום האורכים הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sum_{n=1}^\infty \text{length}(I_n) = \sum_{n=1}^\infty \frac{\varepsilon}{2^n} = \varepsilon \sum_{n=1}^\infty \left(\frac{1}{2}\right)^n = \varepsilon \cdot \frac{1/2}{1-1/2} = \varepsilon \cdot 1 = \varepsilon $$</div></div>
+<p>(כדי לקבל <span class="math" dir="ltr">&lt;&lt; \varepsilon\)</span>, ניקח למשל קטעים באורך <span class="math" dir="ltr">\(\frac{\varepsilon}{2^{i+1}}\)</span>).</p>
+<p>לדוגמה, קבוצת המספרים הרציונליים <span class="math" dir="ltr">\(\mathbb{Q}\)</span> היא בת מנייה ולכן בעלת מידה 0.</p>
+</div>
+</section>
+<section id="lebesgue-theorem">
+<h2>משפט לבג</h2>
+<div class="definition">
+<h4>משפט לבג</h4>
+<p>פונקציה חסומה בקטע <span class="math" dir="ltr">\([a,b]\)</span> היא אינטגרבילית רימן <span class="math" dir="ltr">\(\iff\)</span> קבוצת נקודות אי הרציפות שלה בעלת מידה 0.</p>
+</div>
+<p><strong>הערה:</strong> לפי משפט לבג קל להוכיח המשפט מס' 27 משיעור 6 (שאם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ו-<span class="math" dir="ltr">\(f^*\)</span> שונה ממנה במספר סופי של נקודות אז <span class="math" dir="ltr">\(f^*\)</span> אינטגרבילית ו-<span class="math" dir="ltr">\(\int f = \int f^*\)</span>).</p>
+<p><strong>הוכחה (בעזרת לבג):</strong></p>
+<ul>
+<li><strong>כיוון (<span class="math" dir="ltr">\(\Leftarrow\)</span>):</strong> אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית, אז לפי לבג, קבוצת נקודות אי הרציפות שלה, <span class="math" dir="ltr">\(D_f\)</span>, בעלת מידה 0. קבוצת נקודות אי הרציפות של <span class="math" dir="ltr">\(f^*\)</span>, <span class="math" dir="ltr">\(D_{f^*}\)</span>, שונה מ-<span class="math" dir="ltr">\(D_f\)</span> רק במספר סופי של נקודות (אלו שבהן <span class="math" dir="ltr">\(f \ne f^*\)</span>, ונקודות שבהן <span class="math" dir="ltr">\(f\)</span> רציפה אך <span class="math" dir="ltr">\(f^*\)</span> לא, או להפך). איחוד של קבוצה בעלת מידה 0 עם קבוצה סופית (שהיא גם בעלת מידה 0) הוא קבוצה בעלת מידה 0. לכן <span class="math" dir="ltr">\(D_{f^*}\)</span> בעלת מידה 0, ולפי לבג, <span class="math" dir="ltr">\(f^*\)</span> אינטגרבילית.</li>
+<li><strong>שוויון האינטגרלים:</strong> כמובן ש-<span class="math" dir="ltr">\(\int_a^b f(x) dx = \int_a^b f^*(x) dx\)</span>. ניקח סדרת חלוקות נורמליות <span class="math" dir="ltr">\(\{T_n\}\)</span> (<span class="math" dir="ltr">\(\lambda(T_n) \to 0\)</span>). ניתן לבחור בכל תת-קטע <span class="math" dir="ltr">\(\Delta x_i\)</span> נקודה <span class="math" dir="ltr">\(\zeta_i\)</span> שבה <span class="math" dir="ltr">\(f(\zeta_i) = f^*(\zeta_i)\)</span> (זה אפשרי כל עוד רוחב הקטע קטן מספיק כדי שלא יכיל רק נקודות שבהן הן שונות). כך נקבל עבור סדרת חלוקות נורמליות סידרת סכומי רימן זהים עבור שתי הפונקציות, השואפים כמובן לאותו גבול.</li>
+</ul>
+</section>
+<section id="integral-properties">
+<h2>תכונות האינטגרל המסוים</h2>
+<p>נחזור לשגרת המשפטים ה'רגילים'.</p>
+<h3 id="prop-scalar">1. כפל בקבוע</h3>
+<p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>, ובנוסף <span class="math" dir="ltr">\(c\)</span> הוא קבוע, אז <span class="math" dir="ltr">\(cf\)</span> אינטגרבילית ו-</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b c f(x) dx = c \int_a^b f(x) dx $$</div></div>
+<p><strong>הוכחה:</strong> כל סכום רימן <span class="math" dir="ltr">\(\sigma(cf, T, \{\zeta_i\}) = \sum (c f(\zeta_i)) \Delta x_i = c \sum f(\zeta_i) \Delta x_i = c \cdot \sigma(f, T, \{\zeta_i\})\)</span>. כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, אגף ימין שואף ל-<span class="math" dir="ltr">\(c \int_a^b f dx\)</span>, ולכן גם אגף שמאל, שפירושו <span class="math" dir="ltr">\(cf\)</span> אינטגרבילית ושערך האינטגרל הוא <span class="math" dir="ltr">\(c \int_a^b f dx\)</span>.</p>
+<h3 id="prop-sum">2. סכום פונקציות</h3>
+<p>אם <span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות ב-<span class="math" dir="ltr">\([a,b]\)</span> אז גם <span class="math" dir="ltr">\(f+h\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b (f(x)+h(x)) dx = \int_a^b f(x) dx + \int_a^b h(x) dx $$</div></div>
+<p><strong>הוכחה:</strong> שוב, כל סכום רימן <span class="math" dir="ltr">\(\sigma(f+h, T, \{\zeta_i\}) = \sum (f(\zeta_i)+h(\zeta_i)) \Delta x_i = \sum f(\zeta_i) \Delta x_i + \sum h(\zeta_i) \Delta x_i = \sigma(f, T, \{\zeta_i\}) + \sigma(h, T, \{\zeta_i\})\)</span>. כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, אגף ימין שואף לסכום האינטגרלים, ולכן גם אגף שמאל.</p>
+<h3 id="prop-product">3. מכפלת פונקציות</h3>
+<p>אם <span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות ב-<span class="math" dir="ltr">\([a,b]\)</span> אז גם <span class="math" dir="ltr">\(f \cdot h\)</span> אינטגרבילית שם (אך אין נוסחה כללית ל-<span class="math" dir="ltr">\(\int_a^b f(x) h(x) dx\)</span>).</p>
+<p><strong>הוכחה:</strong>
                  נשתמש בקריטריון רימן לאינטגרביליות. נניח ש-<span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות, לכן הן חסומות. נסמן <span class="math" dir="ltr">\(|f(x)| \le K\)</span> ו-<span class="math" dir="ltr">\(|h(x)| \le L\)</span> לכל <span class="math" dir="ltr">\(x \in [a,b]\)</span>.
                  לכל <span class="math" dir="ltr">\(x, z \in [a,b]\)</span> מתקיים:
                  </p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} |(f \cdot h)(z) - (f \cdot h)(x)| &= |f(z)h(z) - f(x)h(x)| \\ &= |f(z)h(z) - f(x)h(z) + f(x)h(z) - f(x)h(x)| \\ &= |(f(z)-f(x))h(z) + f(x)(h(z)-h(x))| \\ &\le |f(z)-f(x)| |h(z)| + |f(x)| |h(z)-h(x)| \\ &\le |f(z)-f(x)| \cdot L + K \cdot |h(z)-h(x)| \end{aligned} $$</div></div>
-                 <p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} |(f \cdot h)(z) - (f \cdot h)(x)| &amp;= |f(z)h(z) - f(x)h(x)| \\ &amp;= |f(z)h(z) - f(x)h(z) + f(x)h(z) - f(x)h(x)| \\ &amp;= |(f(z)-f(x))h(z) + f(x)(h(z)-h(x))| \\ &amp;\le |f(z)-f(x)| |h(z)| + |f(x)| |h(z)-h(x)| \\ &amp;\le |f(z)-f(x)| \cdot L + K \cdot |h(z)-h(x)| \end{aligned} $$</div></div>
+<p>
                  אם נסמן את התנודה של <span class="math" dir="ltr">\(f\)</span> בקטע <span class="math" dir="ltr">\(I \subseteq [a,b]\)</span> ב-<span class="math" dir="ltr">\(\omega_I(f)\)</span> ובדומה עבור <span class="math" dir="ltr">\(h\)</span> ו-<span class="math" dir="ltr">\(f \cdot h\)</span>, נקבל מהאי-שוויון לעיל שלכל קטע <span class="math" dir="ltr">\(I \subseteq [a,b]\)</span>:
                  </p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ (\star) \quad \omega_I(f \cdot h) \le L \cdot \omega_I(f) + K \cdot \omega_I(h) $$</div></div>
-                  <p>תהי כעת <span class="math" dir="ltr">\(T = \{x_0, x_1, \dots, x_k\}\)</span> חלוקה של <span class="math" dir="ltr">\([a,b]\)</span> עם הסימונים המקובלים. אז סכום רימן העליון פחות התחתון עבור <span class="math" dir="ltr">\(f \cdot h\)</span> מקיים:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} S_T(f \cdot h) - s_T(f \cdot h) &= \sum_{i=1}^k \omega_{\Delta x_i}(f \cdot h) \Delta x_i \\ &\le \sum_{i=1}^k (L \cdot \omega_{\Delta x_i}(f) + K \cdot \omega_{\Delta x_i}(h)) \Delta x_i \quad (\text{using } \star) \\ &= L \sum_{i=1}^k \omega_{\Delta x_i}(f) \Delta x_i + K \sum_{i=1}^k \omega_{\Delta x_i}(h) \Delta x_i \\ &= L (S_T(f) - s_T(f)) + K (S_T(h) - s_T(h)) \end{aligned} $$</div></div>
-                 <p>
-                 מכיוון ש-<span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות, לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span> קיימת חלוקה <span class="math" dir="ltr">\(T\)</span> (או שעבור <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>) כך ש-<span class="math" dir="ltr">\(S_T(f) - s_T(f) \to 0\)</span> ו-<span class="math" dir="ltr">\(S_T(h) - s_T(h) \to 0\)</span>.
+<div class="formula-block"><div class="math" dir="ltr">$$ (\star) \quad \omega_I(f \cdot h) \le L \cdot \omega_I(f) + K \cdot \omega_I(h) $$</div></div>
+<p>תהי כעת <span class="math" dir="ltr">\(T = \{x_0, x_1, \dots, x_k\}\)</span> חלוקה של <span class="math" dir="ltr">\([a,b]\)</span> עם הסימונים המקובלים. אז סכום רימן העליון פחות התחתון עבור <span class="math" dir="ltr">\(f \cdot h\)</span> מקיים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} S_T(f \cdot h) - s_T(f \cdot h) &amp;= \sum_{i=1}^k \omega_{\Delta x_i}(f \cdot h) \Delta x_i \\ &amp;\le \sum_{i=1}^k (L \cdot \omega_{\Delta x_i}(f) + K \cdot \omega_{\Delta x_i}(h)) \Delta x_i \quad (\text{using } \star) \\ &amp;= L \sum_{i=1}^k \omega_{\Delta x_i}(f) \Delta x_i + K \sum_{i=1}^k \omega_{\Delta x_i}(h) \Delta x_i \\ &amp;= L (S_T(f) - s_T(f)) + K (S_T(h) - s_T(h)) \end{aligned} $$</div></div>
+<p>
+                 מכיוון ש-<span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות, לכל <span class="math" dir="ltr">\(\varepsilon &gt; 0\)</span> קיימת חלוקה <span class="math" dir="ltr">\(T\)</span> (או שעבור <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>) כך ש-<span class="math" dir="ltr">\(S_T(f) - s_T(f) \to 0\)</span> ו-<span class="math" dir="ltr">\(S_T(h) - s_T(h) \to 0\)</span>.
                  לכן, עבור אותה חלוקה <span class="math" dir="ltr">\(T\)</span> (או כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>), גם <span class="math" dir="ltr">\(S_T(f \cdot h) - s_T(f \cdot h) \to L \cdot 0 + K \cdot 0 = 0\)</span>.
                  כמובן <span class="math" dir="ltr">\(f \cdot h\)</span> חסומה (כי <span class="math" dir="ltr">\(|f \cdot h| \le K \cdot L\)</span>), ולפי קריטריון רימן, <span class="math" dir="ltr">\(f \cdot h\)</span> אינטגרבילית.
                  </p>
-
-                 <h3 id="prop-reciprocal">4. הופכי של פונקציה</h3>
-                  <p>אם <span class="math" dir="ltr">\(h\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> וגם <span class="math" dir="ltr">\(|h(x)| \ge c\)</span> עבור <span class="math" dir="ltr">\(c > 0\)</span> קבוע, אז <span class="math" dir="ltr">\(1/h\)</span> אינטגרבילית.</p>
-                  <p><strong>הוכחה:</strong>
+<h3 id="prop-reciprocal">4. הופכי של פונקציה</h3>
+<p>אם <span class="math" dir="ltr">\(h\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> וגם <span class="math" dir="ltr">\(|h(x)| \ge c\)</span> עבור <span class="math" dir="ltr">\(c &gt; 0\)</span> קבוע, אז <span class="math" dir="ltr">\(1/h\)</span> אינטגרבילית.</p>
+<p><strong>הוכחה:</strong>
                   תחילה, <span class="math" dir="ltr">\(|1/h(x)| \le 1/c\)</span>, לכן <span class="math" dir="ltr">\(1/h\)</span> חסומה.
                   בנוסף, לכל <span class="math" dir="ltr">\(x, z \in [a,b]\)</span>:
                   </p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \left| \frac{1}{h(z)} - \frac{1}{h(x)} \right| = \left| \frac{h(x) - h(z)}{h(x) h(z)} \right| = \frac{|h(x) - h(z)|}{|h(x)| |h(z)|} \le \frac{|h(x) - h(z)|}{c \cdot c} = \frac{|h(x) - h(z)|}{c^2} $$</div></div>
-                 <p>לכן, לכל קטע <span class="math" dir="ltr">\(I \subseteq [a,b]\)</span>,</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \omega_I(1/h) \le \frac{1}{c^2} \omega_I(h) $$</div></div>
-                  <p>ואז לכל חלוקה <span class="math" dir="ltr">\(T\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ 0 \le S_T(1/h) - s_T(1/h) = \sum_{i=1}^k \omega_{\Delta x_i}(1/h) \Delta x_i \le \sum_{i=1}^k \frac{1}{c^2} \omega_{\Delta x_i}(h) \Delta x_i = \frac{1}{c^2} (S_T(h) - s_T(h)) $$</div></div>
-                 <p>מכיוון ש-<span class="math" dir="ltr">\(h\)</span> אינטגרבילית, <span class="math" dir="ltr">\(S_T(h) - s_T(h) \to 0\)</span> כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>. לפי משפט הסנדוויץ', גם <span class="math" dir="ltr">\(S_T(1/h) - s_T(1/h) \to 0\)</span>. מכיוון ש-<span class="math" dir="ltr">\(1/h\)</span> חסומה, היא אינטגרבילית לפי קריטריון רימן.</p>
-                  <p><strong>הערה:</strong> אם אין <span class="math" dir="ltr">\(c>0\)</span> כך ש-<span class="math" dir="ltr">\(|h(x)| \ge c\)</span> לכל <span class="math" dir="ltr">\(x\)</span>, אז <span class="math" dir="ltr">\(1/h\)</span> לא חסומה (כי <span class="math" dir="ltr">\(h\)</span> מתקרבת ל-0) ובוודאי אינה אינטגרבילית. לכן, התנאי <span class="math" dir="ltr">\(|h(x)| \ge c > 0\)</span> הוא תנאי הכרחי ומספיק לאינטגרביליות של <span class="math" dir="ltr">\(1/h\)</span>, בהינתן ש-<span class="math" dir="ltr">\(h\)</span> אינטגרבילית.</p>
-                 <p><strong>מסקנה:</strong> אם <span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות ו-<span class="math" dir="ltr">\(|h(x)| \ge c > 0\)</span>, אז גם <span class="math" dir="ltr">\(f/h\)</span> אינטגרבילית (כי <span class="math" dir="ltr">\(f/h = f \cdot (1/h)\)</span> ולפי סעיפים (3) ו-(4)).</p>
-
-                 <h3 id="prop-restrict">5. צמצום קטע</h3>
-                  <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\([a,b] \supseteq [\alpha, \beta]\)</span>, אז <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([\alpha, \beta]\)</span>.</p>
-                  <p><strong>הוכחה:</strong>
+<div class="formula-block"><div class="math" dir="ltr">$$ \left| \frac{1}{h(z)} - \frac{1}{h(x)} \right| = \left| \frac{h(x) - h(z)}{h(x) h(z)} \right| = \frac{|h(x) - h(z)|}{|h(x)| |h(z)|} \le \frac{|h(x) - h(z)|}{c \cdot c} = \frac{|h(x) - h(z)|}{c^2} $$</div></div>
+<p>לכן, לכל קטע <span class="math" dir="ltr">\(I \subseteq [a,b]\)</span>,</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \omega_I(1/h) \le \frac{1}{c^2} \omega_I(h) $$</div></div>
+<p>ואז לכל חלוקה <span class="math" dir="ltr">\(T\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ 0 \le S_T(1/h) - s_T(1/h) = \sum_{i=1}^k \omega_{\Delta x_i}(1/h) \Delta x_i \le \sum_{i=1}^k \frac{1}{c^2} \omega_{\Delta x_i}(h) \Delta x_i = \frac{1}{c^2} (S_T(h) - s_T(h)) $$</div></div>
+<p>מכיוון ש-<span class="math" dir="ltr">\(h\)</span> אינטגרבילית, <span class="math" dir="ltr">\(S_T(h) - s_T(h) \to 0\)</span> כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>. לפי משפט הסנדוויץ', גם <span class="math" dir="ltr">\(S_T(1/h) - s_T(1/h) \to 0\)</span>. מכיוון ש-<span class="math" dir="ltr">\(1/h\)</span> חסומה, היא אינטגרבילית לפי קריטריון רימן.</p>
+<p><strong>הערה:</strong> אם אין <span class="math" dir="ltr">\(c&gt;0\)</span> כך ש-<span class="math" dir="ltr">\(|h(x)| \ge c\)</span> לכל <span class="math" dir="ltr">\(x\)</span>, אז <span class="math" dir="ltr">\(1/h\)</span> לא חסומה (כי <span class="math" dir="ltr">\(h\)</span> מתקרבת ל-0) ובוודאי אינה אינטגרבילית. לכן, התנאי <span class="math" dir="ltr">\(|h(x)| \ge c &gt; 0\)</span> הוא תנאי הכרחי ומספיק לאינטגרביליות של <span class="math" dir="ltr">\(1/h\)</span>, בהינתן ש-<span class="math" dir="ltr">\(h\)</span> אינטגרבילית.</p>
+<p><strong>מסקנה:</strong> אם <span class="math" dir="ltr">\(f, h\)</span> אינטגרביליות ו-<span class="math" dir="ltr">\(|h(x)| \ge c &gt; 0\)</span>, אז גם <span class="math" dir="ltr">\(f/h\)</span> אינטגרבילית (כי <span class="math" dir="ltr">\(f/h = f \cdot (1/h)\)</span> ולפי סעיפים (3) ו-(4)).</p>
+<h3 id="prop-restrict">5. צמצום קטע</h3>
+<p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\([a,b] \supseteq [\alpha, \beta]\)</span>, אז <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([\alpha, \beta]\)</span>.</p>
+<p><strong>הוכחה:</strong>
                   ודאי <span class="math" dir="ltr">\(f\)</span> חסומה ב-<span class="math" dir="ltr">\([\alpha, \beta]\)</span> (כי היא חסומה ב-<span class="math" dir="ltr">\([a,b]\)</span>).
                   תהי כעת <span class="math" dir="ltr">\(T'\)</span> חלוקה של <span class="math" dir="ltr">\([\alpha, \beta]\)</span>. ניתן, על ידי הוספת נקודות מימין ל-<span class="math" dir="ltr">\(\beta\)</span> (עד <span class="math" dir="ltr">\(b\)</span>) ומשמאל ל-<span class="math" dir="ltr">\(\alpha\)</span> (עד <span class="math" dir="ltr">\(a\)</span>), להשלים אותה לחלוקה <span class="math" dir="ltr">\(T\)</span> של <span class="math" dir="ltr">\([a,b]\)</span> כך ש-<span class="math" dir="ltr">\(\lambda(T) = \lambda(T')\)</span> (כלומר, לא להוסיף נקודות שיוצרות קטעים ארוכים יותר מאלו שב-<span class="math" dir="ltr">\(T'\)</span>, או פשוט להבטיח ש-<span class="math" dir="ltr">\(\lambda(T)\)</span> קטן כרצוננו אם <span class="math" dir="ltr">\(\lambda(T')\)</span> קטן כרצוננו).
                    אז סכום רימן (הפרש עליון-תחתון) עבור <span class="math" dir="ltr">\(f\)</span> מעל <span class="math" dir="ltr">\(T'\)</span> מקיים:
                   </p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ 0 \le \sum_{i \in T'} \omega_{\Delta x_i}(f) \Delta x_i \le \sum_{i \in T} \omega_{\Delta x_i}(f) \Delta x_i = S_T(f) - s_T(f) $$</div></div>
-                   <p>כאשר <span class="math" dir="ltr">\(\lambda(T') \to 0\)</span>, ניתן להבטיח שגם <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>. מכיוון ש-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית על <span class="math" dir="ltr">\([a,b]\)</span>, אז <span class="math" dir="ltr">\(S_T(f) - s_T(f) \to 0\)</span>. לפי משפט הסנדוויץ', גם <span class="math" dir="ltr">\(\sum_{i \in T'} \omega_{\Delta x_i}(f) \Delta x_i = S_{T'}(f) - s_{T'}(f) \to 0\)</span>.
+<div class="formula-block"><div class="math" dir="ltr">$$ 0 \le \sum_{i \in T'} \omega_{\Delta x_i}(f) \Delta x_i \le \sum_{i \in T} \omega_{\Delta x_i}(f) \Delta x_i = S_T(f) - s_T(f) $$</div></div>
+<p>כאשר <span class="math" dir="ltr">\(\lambda(T') \to 0\)</span>, ניתן להבטיח שגם <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>. מכיוון ש-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית על <span class="math" dir="ltr">\([a,b]\)</span>, אז <span class="math" dir="ltr">\(S_T(f) - s_T(f) \to 0\)</span>. לפי משפט הסנדוויץ', גם <span class="math" dir="ltr">\(\sum_{i \in T'} \omega_{\Delta x_i}(f) \Delta x_i = S_{T'}(f) - s_{T'}(f) \to 0\)</span>.
                    מכיוון ש-<span class="math" dir="ltr">\(f\)</span> חסומה על <span class="math" dir="ltr">\([\alpha, \beta]\)</span>, היא אינטגרבילית על <span class="math" dir="ltr">\([\alpha, \beta]\)</span> לפי קריטריון רימן.</p>
-
-                 <h3 id="prop-additivity">6. אדיטיביות על קטעים</h3>
-                  <p>אם <span class="math" dir="ltr">\(a < c < b\)</span>, ו-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית על <span class="math" dir="ltr">\([a,c]\)</span> ועל <span class="math" dir="ltr">\([c,b]\)</span>, אז <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = \int_a^c f(x) dx + \int_c^b f(x) dx $$</div></div>
-                  <p><strong>הוכחה:</strong> (רעיון דומה לסעיפים 16-17 בשיעור 6)</p>
-                  <p><strong>אינטגרביליות:</strong> ודאי <span class="math" dir="ltr">\(f\)</span> חסומה על <span class="math" dir="ltr">\([a,b]\)</span> (כי היא חסומה בכל תת-קטע). יהי <span class="math" dir="ltr">\(\varepsilon > 0\)</span>. לפי הנתון, קיימת חלוקה <span class="math" dir="ltr">\(T_1\)</span> של <span class="math" dir="ltr">\([a,c]\)</span> כך ש-<span class="math" dir="ltr">\(S_{T_1}(f) - s_{T_1}(f) < \varepsilon/2\)</span>. בדומה, קיימת חלוקה <span class="math" dir="ltr">\(T_2\)</span> של <span class="math" dir="ltr">\([c,b]\)</span> כך ש-<span class="math" dir="ltr">\(S_{T_2}(f) - s_{T_2}(f) < \varepsilon/2\)</span>.
+<h3 id="prop-additivity">6. אדיטיביות על קטעים</h3>
+<p>אם <span class="math" dir="ltr">\(a &lt; c &lt; b\)</span>, ו-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית על <span class="math" dir="ltr">\([a,c]\)</span> ועל <span class="math" dir="ltr">\([c,b]\)</span>, אז <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = \int_a^c f(x) dx + \int_c^b f(x) dx $$</div></div>
+<p><strong>הוכחה:</strong> (רעיון דומה לסעיפים 16-17 בשיעור 6)</p>
+<p><strong>אינטגרביליות:</strong> ודאי <span class="math" dir="ltr">\(f\)</span> חסומה על <span class="math" dir="ltr">\([a,b]\)</span> (כי היא חסומה בכל תת-קטע). יהי <span class="math" dir="ltr">\(\varepsilon &gt; 0\)</span>. לפי הנתון, קיימת חלוקה <span class="math" dir="ltr">\(T_1\)</span> של <span class="math" dir="ltr">\([a,c]\)</span> כך ש-<span class="math" dir="ltr">\(S_{T_1}(f) - s_{T_1}(f) &lt; \varepsilon/2\)</span>. בדומה, קיימת חלוקה <span class="math" dir="ltr">\(T_2\)</span> של <span class="math" dir="ltr">\([c,b]\)</span> כך ש-<span class="math" dir="ltr">\(S_{T_2}(f) - s_{T_2}(f) &lt; \varepsilon/2\)</span>.
                   נגדיר <span class="math" dir="ltr">\(T \stackrel{\text{def}}{=} T_1 \cup T_2\)</span>. זוהי חלוקה של <span class="math" dir="ltr">\([a,b]\)</span>. מתקיים:
                   </p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ S_T(f) = S_{T_1}(f) + S_{T_2}(f) $$</div></div>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ s_T(f) = s_{T_1}(f) + s_{T_2}(f) $$</div></div>
-                  <p>ולכן</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ S_T(f) - s_T(f) = (S_{T_1}(f) - s_{T_1}(f)) + (S_{T_2}(f) - s_{T_2}(f)) < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon $$</div></div>
-                  <p>לפי קריטריון רימן, <span class="math" dir="ltr">\(f\)</span> אינטגרבילית על <span class="math" dir="ltr">\([a,b]\)</span>.</p>
-                  <p><strong>שוויון האינטגרלים:</strong> ניקח סדרת חלוקות נורמליות <span class="math" dir="ltr">\(\{T_{n,1}\}_{n=1}^\infty\)</span> עבור <span class="math" dir="ltr">\([a,c]\)</span> וסדרת חלוקות נורמליות <span class="math" dir="ltr">\(\{T_{n,2}\}_{n=1}^\infty\)</span> עבור <span class="math" dir="ltr">\([c,b]\)</span>. לכל <span class="math" dir="ltr">\(n\)</span>, נבחר נקודות <span class="math" dir="ltr">\(\{\zeta_{i,1}\}\)</span> ב-<span class="math" dir="ltr">\(T_{n,1}\)</span> ו-<span class="math" dir="ltr">\(\{\zeta_{i,2}\}\)</span> ב-<span class="math" dir="ltr">\(T_{n,2}\)</span>, ונגדיר את סכומי רימן <span class="math" dir="ltr">\(\sigma_{n,1}\)</span> ו-<span class="math" dir="ltr">\(\sigma_{n,2}\)</span> בהתאמה.
+<div class="formula-block"><div class="math" dir="ltr">$$ S_T(f) = S_{T_1}(f) + S_{T_2}(f) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ s_T(f) = s_{T_1}(f) + s_{T_2}(f) $$</div></div>
+<p>ולכן</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ S_T(f) - s_T(f) = (S_{T_1}(f) - s_{T_1}(f)) + (S_{T_2}(f) - s_{T_2}(f)) &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon $$</div></div>
+<p>לפי קריטריון רימן, <span class="math" dir="ltr">\(f\)</span> אינטגרבילית על <span class="math" dir="ltr">\([a,b]\)</span>.</p>
+<p><strong>שוויון האינטגרלים:</strong> ניקח סדרת חלוקות נורמליות <span class="math" dir="ltr">\(\{T_{n,1}\}_{n=1}^\infty\)</span> עבור <span class="math" dir="ltr">\([a,c]\)</span> וסדרת חלוקות נורמליות <span class="math" dir="ltr">\(\{T_{n,2}\}_{n=1}^\infty\)</span> עבור <span class="math" dir="ltr">\([c,b]\)</span>. לכל <span class="math" dir="ltr">\(n\)</span>, נבחר נקודות <span class="math" dir="ltr">\(\{\zeta_{i,1}\}\)</span> ב-<span class="math" dir="ltr">\(T_{n,1}\)</span> ו-<span class="math" dir="ltr">\(\{\zeta_{i,2}\}\)</span> ב-<span class="math" dir="ltr">\(T_{n,2}\)</span>, ונגדיר את סכומי רימן <span class="math" dir="ltr">\(\sigma_{n,1}\)</span> ו-<span class="math" dir="ltr">\(\sigma_{n,2}\)</span> בהתאמה.
                   נגדיר <span class="math" dir="ltr">\(T_n = T_{n,1} \cup T_{n,2}\)</span>. זו סדרת חלוקות נורמליות של <span class="math" dir="ltr">\([a,b]\)</span> (כי <span class="math" dir="ltr">\(\lambda(T_n) = \max(\lambda(T_{n,1}), \lambda(T_{n,2})) \to 0\)</span>).
                   סכום רימן המתאים ל-<span class="math" dir="ltr">\(T_n\)</span> עם הנקודות <span class="math" dir="ltr">\(\{\zeta_{i,1}\} \cup \{\zeta_{i,2}\}\)</span> הוא <span class="math" dir="ltr">\(\sigma_n = \sigma_{n,1} + \sigma_{n,2}\)</span>.
                   כאשר <span class="math" dir="ltr">\(n \to \infty\)</span>:
                   </p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \underbrace{\sigma_n}_{\to \int_a^b f dx} = \underbrace{\sigma_{n,1}}_{\to \int_a^c f dx} + \underbrace{\sigma_{n,2}}_{\to \int_c^b f dx} $$</div></div>
-                 <p>ומכאן נובע השוויון המבוקש.</p>
-
-                 <h3 id="prop-notation">7. סימונים והכללות</h3>
-                 <p><strong>סימון:</strong></p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \underbrace{\sigma_n}_{\to \int_a^b f dx} = \underbrace{\sigma_{n,1}}_{\to \int_a^c f dx} + \underbrace{\sigma_{n,2}}_{\to \int_c^b f dx} $$</div></div>
+<p>ומכאן נובע השוויון המבוקש.</p>
+<h3 id="prop-notation">7. סימונים והכללות</h3>
+<p><strong>סימון:</strong></p>
+<ul>
+<li>אם <span class="math" dir="ltr">\(a &gt; b\)</span> ו-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית על <span class="math" dir="ltr">\([b,a]\)</span>, נסמן:</li>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = - \int_b^a f(x) dx $$</div></div>
+<li>אם <span class="math" dir="ltr">\(b = a\)</span>, אז נגדיר כמצופה:</li>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^a f(x) dx = 0 $$</div></div>
+</ul>
+<p><strong>טענה:</strong> בסימונים אלו נכונה הנוסחה <span class="math" dir="ltr">\(\int_a^b f(x) dx = \int_a^c f(x) dx + \int_c^b f(x) dx\)</span> בכל סדר של הנקודות <span class="math" dir="ltr">\(a, b, c\)</span>, בתנאי ש-<span class="math" dir="ltr">\(f\)</span> מוגדרת ואינטגרבילית בכל הקטעים הרלוונטיים (שחלקם אולי "ברברס").</p>
+<p><strong>הוכחה:</strong> יש <span class="math" dir="ltr">\(3! = 6\)</span> אפשרויות לסדר הנקודות:</p>
+<ol>
+<li><span class="math" dir="ltr">\(a<c<b\)< span="">: זו הטענה בסעיף 6.</c<b\)<></span></li>
+<li><span class="math" dir="ltr">\(a<b<c\)< span="">: אנחנו רוצים להוכיח <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי סעיף 6, <span class="math" dir="ltr">\(\int_a^c = \int_a^b + \int_b^c\)</span>. נעביר אגפים: <span class="math" dir="ltr">\(\int_a^b = \int_a^c - \int_b^c = \int_a^c + \int_c^b\)</span> (לפי הסימון החדש).</b<c\)<></span></li>
+<li><span class="math" dir="ltr">\(b<a<c\)< span="">: רוצים <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי 6, <span class="math" dir="ltr">\(\int_b^c = \int_b^a + \int_a^c\)</span>. נעביר: <span class="math" dir="ltr">\(\int_b^a = \int_b^c - \int_a^c\)</span>. נהפוך סימנים: <span class="math" dir="ltr">\(-\int_a^b = -\int_c^b - (-\int_c^a)\)</span>. נכפיל ב-<span class="math" dir="ltr">\(-1\)</span>: <span class="math" dir="ltr">\(\int_a^b = \int_c^b - \int_c^a = -\int_b^c + \int_a^c\)</span>. לא בדיוק מה שרצינו. ננסה אחרת: <span class="math" dir="ltr">\(\int_b^c = \int_b^a + \int_a^c \Rightarrow \int_a^b = -\int_b^a = -(\int_b^c - \int_a^c) = \int_a^c - \int_b^c = \int_a^c + \int_c^b\)</span>. זה עובד.</a<c\)<></span></li>
+<li><span class="math" dir="ltr">\(b<c<a\)< span="">: רוצים <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי 6, <span class="math" dir="ltr">\(\int_b^a = \int_b^c + \int_c^a\)</span>. אז <span class="math" dir="ltr">\(\int_a^b = -\int_b^a = -(\int_b^c + \int_c^a) = -\int_b^c - \int_c^a = \int_c^b + \int_a^c\)</span>. עובד.</c<a\)<></span></li>
+<li><span class="math" dir="ltr">\(c<a<b\)< span="">: רוצים <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי 6, <span class="math" dir="ltr">\(\int_c^b = \int_c^a + \int_a^b\)</span>. נעביר: <span class="math" dir="ltr">\(\int_a^b = \int_c^b - \int_c^a = \int_c^b + \int_a^c\)</span>. עובד.</a<b\)<></span></li>
+<li><span class="math" dir="ltr">\(c<b<a\)< span="">: רוצים <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי 6, <span class="math" dir="ltr">\(\int_c^a = \int_c^b + \int_b^a\)</span>. נעביר: <span class="math" dir="ltr">\(\int_c^b = \int_c^a - \int_b^a\)</span>. אז <span class="math" dir="ltr">\(\int_a^c + \int_c^b = \int_a^c + (\int_c^a - \int_b^a) = \int_a^c - \int_a^c - \int_b^a = -\int_b^a = \int_a^b\)</span>. עובד.</b<a\)<></span></li>
+</ol>
+<p><strong>טענת המשך:</strong> בתנאים דומים נכונה הנוסחה הבאה לכל <span class="math" dir="ltr">\(n \ge 1\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = \int_a^{c_1} f(x) dx + \int_{c_1}^{c_2} f(x) dx + \dots + \int_{c_n}^b f(x) dx $$</div></div>
+<p>(כאשר <span class="math" dir="ltr">\(a, c_1, c_2, \dots, c_n, b\)</span> הן נקודות כלשהן).</p>
+<p><strong>הוכחה:</strong> באינדוקציה על <span class="math" dir="ltr">\(n\)</span>.
                  <ul>
-                   <li>אם <span class="math" dir="ltr">\(a > b\)</span> ו-<span class="math" dir="ltr">\(f\)</span> אינטגרבילית על <span class="math" dir="ltr">\([b,a]\)</span>, נסמן:</li>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = - \int_b^a f(x) dx $$</div></div>
-                   <li>אם <span class="math" dir="ltr">\(b = a\)</span>, אז נגדיר כמצופה:</li>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^a f(x) dx = 0 $$</div></div>
-                 </ul>
-                 <p><strong>טענה:</strong> בסימונים אלו נכונה הנוסחה <span class="math" dir="ltr">\(\int_a^b f(x) dx = \int_a^c f(x) dx + \int_c^b f(x) dx\)</span> בכל סדר של הנקודות <span class="math" dir="ltr">\(a, b, c\)</span>, בתנאי ש-<span class="math" dir="ltr">\(f\)</span> מוגדרת ואינטגרבילית בכל הקטעים הרלוונטיים (שחלקם אולי "ברברס").</p>
-                 <p><strong>הוכחה:</strong> יש <span class="math" dir="ltr">\(3! = 6\)</span> אפשרויות לסדר הנקודות:</p>
-                 <ol>
-                     <li><span class="math" dir="ltr">\(a<c<b\)</span>: זו הטענה בסעיף 6.</li>
-                     <li><span class="math" dir="ltr">\(a<b<c\)</span>: אנחנו רוצים להוכיח <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי סעיף 6, <span class="math" dir="ltr">\(\int_a^c = \int_a^b + \int_b^c\)</span>. נעביר אגפים: <span class="math" dir="ltr">\(\int_a^b = \int_a^c - \int_b^c = \int_a^c + \int_c^b\)</span> (לפי הסימון החדש).</li>
-                     <li><span class="math" dir="ltr">\(b<a<c\)</span>: רוצים <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי 6, <span class="math" dir="ltr">\(\int_b^c = \int_b^a + \int_a^c\)</span>. נעביר: <span class="math" dir="ltr">\(\int_b^a = \int_b^c - \int_a^c\)</span>. נהפוך סימנים: <span class="math" dir="ltr">\(-\int_a^b = -\int_c^b - (-\int_c^a)\)</span>. נכפיל ב-<span class="math" dir="ltr">\(-1\)</span>: <span class="math" dir="ltr">\(\int_a^b = \int_c^b - \int_c^a = -\int_b^c + \int_a^c\)</span>. לא בדיוק מה שרצינו. ננסה אחרת: <span class="math" dir="ltr">\(\int_b^c = \int_b^a + \int_a^c \Rightarrow \int_a^b = -\int_b^a = -(\int_b^c - \int_a^c) = \int_a^c - \int_b^c = \int_a^c + \int_c^b\)</span>. זה עובד.</li>
-                     <li><span class="math" dir="ltr">\(b<c<a\)</span>: רוצים <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי 6, <span class="math" dir="ltr">\(\int_b^a = \int_b^c + \int_c^a\)</span>. אז <span class="math" dir="ltr">\(\int_a^b = -\int_b^a = -(\int_b^c + \int_c^a) = -\int_b^c - \int_c^a = \int_c^b + \int_a^c\)</span>. עובד.</li>
-                     <li><span class="math" dir="ltr">\(c<a<b\)</span>: רוצים <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי 6, <span class="math" dir="ltr">\(\int_c^b = \int_c^a + \int_a^b\)</span>. נעביר: <span class="math" dir="ltr">\(\int_a^b = \int_c^b - \int_c^a = \int_c^b + \int_a^c\)</span>. עובד.</li>
-                     <li><span class="math" dir="ltr">\(c<b<a\)</span>: רוצים <span class="math" dir="ltr">\(\int_a^b = \int_a^c + \int_c^b\)</span>. לפי 6, <span class="math" dir="ltr">\(\int_c^a = \int_c^b + \int_b^a\)</span>. נעביר: <span class="math" dir="ltr">\(\int_c^b = \int_c^a - \int_b^a\)</span>. אז <span class="math" dir="ltr">\(\int_a^c + \int_c^b = \int_a^c + (\int_c^a - \int_b^a) = \int_a^c - \int_a^c - \int_b^a = -\int_b^a = \int_a^b\)</span>. עובד.</li>
-                 </ol>
-                 <p><strong>טענת המשך:</strong> בתנאים דומים נכונה הנוסחה הבאה לכל <span class="math" dir="ltr">\(n \ge 1\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = \int_a^{c_1} f(x) dx + \int_{c_1}^{c_2} f(x) dx + \dots + \int_{c_n}^b f(x) dx $$</div></div>
-                 <p>(כאשר <span class="math" dir="ltr">\(a, c_1, c_2, \dots, c_n, b\)</span> הן נקודות כלשהן).</p>
-                 <p><strong>הוכחה:</strong> באינדוקציה על <span class="math" dir="ltr">\(n\)</span>.
-                 <ul>
-                    <li>בסיס (<span class="math" dir="ltr">\(n=1\)</span>): <span class="math" dir="ltr">\(\int_a^b = \int_a^{c_1} + \int_{c_1}^b\)</span>. זו הטענה הקודמת עם <span class="math" dir="ltr">\(c=c_1\)</span>.</li>
-                    <li>הנחה: נניח נכון עבור <span class="math" dir="ltr">\(n=k-1\)</span>.</li>
-                    <li>צעד (<span class="math" dir="ltr">\(n=k\)</span>):
+<li>בסיס (<span class="math" dir="ltr">\(n=1\)</span>): <span class="math" dir="ltr">\(\int_a^b = \int_a^{c_1} + \int_{c_1}^b\)</span>. זו הטענה הקודמת עם <span class="math" dir="ltr">\(c=c_1\)</span>.</li>
+<li>הנחה: נניח נכון עבור <span class="math" dir="ltr">\(n=k-1\)</span>.</li>
+<li>צעד (<span class="math" dir="ltr">\(n=k\)</span>):
                        <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^{c_1} + \int_{c_1}^{c_2} + \dots + \int_{c_{k-1}}^{c_k} + \int_{c_k}^b $$</div></div>
                         לפי הנחת האינדוקציה עבור הנקודות <span class="math" dir="ltr">\(a, c_1, \dots, c_{k-1}, c_k\)</span>:
                        <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^{c_k} = \int_a^{c_1} + \dots + \int_{c_{k-1}}^{c_k} $$</div></div>
@@ -765,178 +819,169 @@
                         <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^{c_k} + \int_{c_k}^b $$</div></div>
                         ולפי הטענה הקודמת (עם <span class="math" dir="ltr">\(a, c_k, b\)</span>), זה שווה ל-<span class="math" dir="ltr">\(\int_a^b\)</span>. מש"ל.
                     </li>
-                 </ul>
-                 </p>
-            </section>
-
-            <section id="example-step">
-                <h3>8. דוגמה: פונקציית מדרגה</h3>
-                <p>תהי <span class="math" dir="ltr">\(f(x) = \begin{cases} 1, & 0 \le x \le 1 \\ 2, & 1 < x \le 2 \end{cases}\)</span>.</p>
-                <div class="chart-container">
-                     <h5>גרף הפונקציה <span class="math" dir="ltr">\(f(x)\)</span></h5>
-                     <canvas id="stepFunctionChart"></canvas>
-                </div>
-                 <p><span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([0,1]\)</span> (כי היא קבועה שם) וב-<span class="math" dir="ltr">\([1,2]\)</span> (כי היא קבועה שם, למעט נקודה אחת <span class="math" dir="ltr">\(x=1\)</span> שבה היא לא מוגדרת לפי ההגדרה השנייה, אך ניתן להגדיר <span class="math" dir="ltr">\(f(1)=1\)</span> או <span class="math" dir="ltr">\(f(1)=2\)</span>, זה לא משנה לאינטגרביליות ולערך האינטגרל. יש לה נקודת אי רציפות אחת ב-<span class="math" dir="ltr">\(x=1\)</span> בקטע <span class="math" dir="ltr">\([0,2]\)</span>, ולכן היא אינטגרבילית גם ב-<span class="math" dir="ltr">\([0,2]\)</span>).</p>
-                 <p>לפי סעיף 6, <span class="math" dir="ltr">\( \int_0^2 f(x) dx = \int_0^1 f(x) dx + \int_1^2 f(x) dx \)</span>.</p>
-                 <ul>
-                   <li><span class="math" dir="ltr">\(\int_0^1 f(x) dx = \int_0^1 1 dx = 1 \cdot (1-0) = 1\)</span>.</li>
-                   <li><span class="math" dir="ltr">\(\int_1^2 f(x) dx = \int_1^2 2 dx = 2 \cdot (2-1) = 2\)</span> (הערך ב-<span class="math" dir="ltr">\(x=1\)</span> לא משנה לאינטגרל).</li>
-                 </ul>
-                 <p>בסה"כ <span class="math" dir="ltr">\( \int_0^2 f(x) dx = 1 + 2 = 3 \)</span>. הגיוני מאוד ואפילו נכון (זה השטח של שני מלבנים).</p>
-            </section>
-
-            <section id="prop-nonnegative">
-                 <h3>9. אי-שליליות</h3>
-                 <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(f(x) \ge 0\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז <span class="math" dir="ltr">\(\int_a^b f(x) dx \ge 0\)</span>.</p>
-                 <p><strong>הוכחה:</strong> כל סכום רימן <span class="math" dir="ltr">\(\sigma(f, T, \{\zeta_i\}) = \sum f(\zeta_i) \Delta x_i\)</span> הוא אי-שלילי (כי <span class="math" dir="ltr">\(f(\zeta_i) \ge 0\)</span> ו-<span class="math" dir="ltr">\(\Delta x_i > 0\)</span>). הגבול של סדרה אי-שלילית הוא אי-שלילי.</p>
-            </section>
-
-             <section id="prop-monotonicity">
-                 <h3>10. מונוטוניות</h3>
-                 <p>אם <span class="math" dir="ltr">\(f \ge g\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span> ושתיהן אינטגרביליות, אז <span class="math" dir="ltr">\(\int_a^b f(x) dx \ge \int_a^b g(x) dx\)</span>.</p>
-                 <p><strong>הוכחה:</strong> נגדיר <span class="math" dir="ltr">\(h(x) = f(x) - g(x)\)</span>. אז <span class="math" dir="ltr">\(h(x) \ge 0\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span>. הפונקציה <span class="math" dir="ltr">\(h\)</span> אינטגרבילית (לפי סעיפים 2, 1). לכן, לפי סעיף 9:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b h(x) dx \ge 0 $$</div></div>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b (f(x) - g(x)) dx \ge 0 $$</div></div>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx - \int_a^b g(x) dx \ge 0 $$</div></div>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx \ge \int_a^b g(x) dx $$</div></div>
-            </section>
-
-            <section id="prop-strict-pos">
-                <h3>11. חיוביות ממש</h3>
-                <p>מעניין יותר הוא המשפט הבא:</p>
-                <p><strong>משפט:</strong> אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(f(x) > 0\)</span> לכל <span class="math" dir="ltr">\(x \in [a,b]\)</span>, אז <span class="math" dir="ltr">\(\int_a^b f(x) dx > 0\)</span>.</p>
-                <p><strong>הוכחה:</strong> נניח בשלילה שזה לא מתקיים. מכיוון שידוע (מסעיף 9) ש-<span class="math" dir="ltr">\(\int_a^b f(x) dx \ge 0\)</span>, ההנחה בשלילה היא ש-<span class="math" dir="ltr">\(\int_a^b f(x) dx = 0\)</span>.</p>
-                <p>במצב כזה מתקיים:</p>
-                 <ul>
-                     <li>(א) לכל תת-קטע <span class="math" dir="ltr">\([\alpha, \beta] \subseteq [a,b]\)</span>, מתקיים <span class="math" dir="ltr">\(\int_\alpha^\beta f(x) dx = 0\)</span>.
+</ul>
+</p>
+</section>
+<section id="example-step">
+<h3>8. דוגמה: פונקציית מדרגה</h3>
+<p>תהי <span class="math" dir="ltr">\(f(x) = \begin{cases} 1, &amp; 0 \le x \le 1 \\ 2, &amp; 1 &lt; x \le 2 \end{cases}\)</span>.</p>
+<div class="chart-container">
+<h5>גרף הפונקציה <span class="math" dir="ltr">\(f(x)\)</span></h5>
+<canvas id="stepFunctionChart"></canvas>
+</div>
+<p><span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([0,1]\)</span> (כי היא קבועה שם) וב-<span class="math" dir="ltr">\([1,2]\)</span> (כי היא קבועה שם, למעט נקודה אחת <span class="math" dir="ltr">\(x=1\)</span> שבה היא לא מוגדרת לפי ההגדרה השנייה, אך ניתן להגדיר <span class="math" dir="ltr">\(f(1)=1\)</span> או <span class="math" dir="ltr">\(f(1)=2\)</span>, זה לא משנה לאינטגרביליות ולערך האינטגרל. יש לה נקודת אי רציפות אחת ב-<span class="math" dir="ltr">\(x=1\)</span> בקטע <span class="math" dir="ltr">\([0,2]\)</span>, ולכן היא אינטגרבילית גם ב-<span class="math" dir="ltr">\([0,2]\)</span>).</p>
+<p>לפי סעיף 6, <span class="math" dir="ltr">\( \int_0^2 f(x) dx = \int_0^1 f(x) dx + \int_1^2 f(x) dx \)</span>.</p>
+<ul>
+<li><span class="math" dir="ltr">\(\int_0^1 f(x) dx = \int_0^1 1 dx = 1 \cdot (1-0) = 1\)</span>.</li>
+<li><span class="math" dir="ltr">\(\int_1^2 f(x) dx = \int_1^2 2 dx = 2 \cdot (2-1) = 2\)</span> (הערך ב-<span class="math" dir="ltr">\(x=1\)</span> לא משנה לאינטגרל).</li>
+</ul>
+<p>בסה"כ <span class="math" dir="ltr">\( \int_0^2 f(x) dx = 1 + 2 = 3 \)</span>. הגיוני מאוד ואפילו נכון (זה השטח של שני מלבנים).</p>
+</section>
+<section id="prop-nonnegative">
+<h3>9. אי-שליליות</h3>
+<p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(f(x) \ge 0\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז <span class="math" dir="ltr">\(\int_a^b f(x) dx \ge 0\)</span>.</p>
+<p><strong>הוכחה:</strong> כל סכום רימן <span class="math" dir="ltr">\(\sigma(f, T, \{\zeta_i\}) = \sum f(\zeta_i) \Delta x_i\)</span> הוא אי-שלילי (כי <span class="math" dir="ltr">\(f(\zeta_i) \ge 0\)</span> ו-<span class="math" dir="ltr">\(\Delta x_i &gt; 0\)</span>). הגבול של סדרה אי-שלילית הוא אי-שלילי.</p>
+</section>
+<section id="prop-monotonicity">
+<h3>10. מונוטוניות</h3>
+<p>אם <span class="math" dir="ltr">\(f \ge g\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span> ושתיהן אינטגרביליות, אז <span class="math" dir="ltr">\(\int_a^b f(x) dx \ge \int_a^b g(x) dx\)</span>.</p>
+<p><strong>הוכחה:</strong> נגדיר <span class="math" dir="ltr">\(h(x) = f(x) - g(x)\)</span>. אז <span class="math" dir="ltr">\(h(x) \ge 0\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span>. הפונקציה <span class="math" dir="ltr">\(h\)</span> אינטגרבילית (לפי סעיפים 2, 1). לכן, לפי סעיף 9:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b h(x) dx \ge 0 $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b (f(x) - g(x)) dx \ge 0 $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx - \int_a^b g(x) dx \ge 0 $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx \ge \int_a^b g(x) dx $$</div></div>
+</section>
+<section id="prop-strict-pos">
+<h3>11. חיוביות ממש</h3>
+<p>מעניין יותר הוא המשפט הבא:</p>
+<p><strong>משפט:</strong> אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(f(x) &gt; 0\)</span> לכל <span class="math" dir="ltr">\(x \in [a,b]\)</span>, אז <span class="math" dir="ltr">\(\int_a^b f(x) dx &gt; 0\)</span>.</p>
+<p><strong>הוכחה:</strong> נניח בשלילה שזה לא מתקיים. מכיוון שידוע (מסעיף 9) ש-<span class="math" dir="ltr">\(\int_a^b f(x) dx \ge 0\)</span>, ההנחה בשלילה היא ש-<span class="math" dir="ltr">\(\int_a^b f(x) dx = 0\)</span>.</p>
+<p>במצב כזה מתקיים:</p>
+<ul>
+<li>(א) לכל תת-קטע <span class="math" dir="ltr">\([\alpha, \beta] \subseteq [a,b]\)</span>, מתקיים <span class="math" dir="ltr">\(\int_\alpha^\beta f(x) dx = 0\)</span>.
                          (הסבר: <span class="math" dir="ltr">\(0 = \int_a^b f = \int_a^\alpha f + \int_\alpha^\beta f + \int_\beta^b f\)</span>. כל אחד מ-3 האינטגרלים באגף ימין אי-שלילי (כי <span class="math" dir="ltr">\(f \ge 0\)</span>). סכום של אי-שליליים הוא 0 רק אם כל אחד מהם הוא 0. בפרט, <span class="math" dir="ltr">\(\int_\alpha^\beta f dx = 0\)</span>).</li>
-                    <li>(ב) לכל <span class="math" dir="ltr">\(\varepsilon > 0\)</span>, ניתן למצוא קטע <span class="math" dir="ltr">\(\Delta \subseteq [a,b]\)</span> (קטן כרצוננו) כך ש-<span class="math" dir="ltr">\(f(x) \le \varepsilon\)</span> לכל <span class="math" dir="ltr">\(x \in \Delta\)</span>.
-                        (הסבר: לפי הגדרת אינטגרל רימן, <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} S_T(f) = \int_a^b f dx = 0\)</span>, כאשר <span class="math" dir="ltr">\(S_T(f) = \sum_{i=1}^k M_i \Delta x_i\)</span> הוא הסכום העליון. עבור <span class="math" dir="ltr">\(\varepsilon' = \varepsilon (b-a)\)</span>, קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(\lambda(T) < \delta\)</span> אז <span class="math" dir="ltr">\(S_T(f) < \varepsilon'\)</span>. כלומר <span class="math" dir="ltr">\(\sum M_i \Delta x_i < \varepsilon (b-a)\)</span>. אם היה מתקיים <span class="math" dir="ltr">\(M_i \ge \varepsilon\)</span> לכל <span class="math" dir="ltr">\(i\)</span>, אז <span class="math" dir="ltr">\(\sum M_i \Delta x_i \ge \sum \varepsilon \Delta x_i = \varepsilon \sum \Delta x_i = \varepsilon (b-a)\)</span>, וזו סתירה. לכן, בהכרח יש לפחות קטע אחד <span class="math" dir="ltr">\(\Delta x_i\)</span> בחלוקה <span class="math" dir="ltr">\(T\)</span> שעבורו <span class="math" dir="ltr">\(M_i < \varepsilon\)</span>. כלומר, <span class="math" dir="ltr">\(\sup_{x \in \Delta x_i} f(x) < \varepsilon\)</span>, ובפרט <span class="math" dir="ltr">\(f(x) < \varepsilon\)</span> לכל <span class="math" dir="ltr">\(x \in \Delta x_i\)</span>. נוכל גם לדרוש שרוחב הקטע יהיה קטן כרצוננו ע"י בחירת חלוקה <span class="math" dir="ltr">\(T\)</span> עם <span class="math" dir="ltr">\(\lambda(T)\)</span> קטן מספיק.)</li>
-                 </ul>
-                 <p>כעת נמצא סדרת קטעים מכונסים וסדרת אפסילונים שיובילו לסתירה.</p>
-                 <p>לפי (ב) עם <span class="math" dir="ltr">\(\varepsilon=1\)</span>, יש קטע <span class="math" dir="ltr">\([\alpha_1, \beta_1] \subseteq [a,b]\)</span> כך ש-<span class="math" dir="ltr">\(\beta_1 - \alpha_1 < 1\)</span> ולכל <span class="math" dir="ltr">\(x \in [\alpha_1, \beta_1]\)</span> מתקיים <span class="math" dir="ltr">\(f(x) \le 1\)</span>.</p>
-                 <p>לפי (ב) על הקטע <span class="math" dir="ltr">\([\alpha_1, \beta_1]\)</span> (שגם בו האינטגרל 0, לפי (א)) עם <span class="math" dir="ltr">\(\varepsilon=1/2\)</span>, יש תת-קטע <span class="math" dir="ltr">\([\alpha_2, \beta_2] \subseteq [\alpha_1, \beta_1]\)</span> כך ש-<span class="math" dir="ltr">\(\beta_2 - \alpha_2 < 1/2\)</span> ולכל <span class="math" dir="ltr">\(x \in [\alpha_2, \beta_2]\)</span> מתקיים <span class="math" dir="ltr">\(f(x) \le 1/2\)</span>.</p>
-                 <p>נמשיך כך וניצור סדרה אינסופית של קטעים סגורים המכילים זה את זה:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ [a,b] \supseteq [\alpha_1, \beta_1] \supseteq [\alpha_2, \beta_2] \supseteq \dots \supseteq [\alpha_k, \beta_k] \supseteq \dots $$</div></div>
-                 <p>כך ש-<span class="math" dir="ltr">\(\beta_k - \alpha_k < 1/k\)</span> ולכל <span class="math" dir="ltr">\(x \in [\alpha_k, \beta_k]\)</span> מתקיים <span class="math" dir="ltr">\((\star) \quad f(x) \le 1/k\)</span>.</p>
-                  <p>לפי למת קנטור לקטעים סגורים, מכיוון שאורך הקטעים שואף ל-0 (<span class="math" dir="ltr">\(\beta_k - \alpha_k \to 0\)</span>), קיימת נקודה יחידה <span class="math" dir="ltr">\(x_0\)</span> המשותפת לכל הקטעים: <span class="math" dir="ltr">\(x_0 \in \bigcap_{k=1}^\infty [\alpha_k, \beta_k]\)</span>.</p>
-                  <p>מכיוון ש-<span class="math" dir="ltr">\(x_0 \in [\alpha_k, \beta_k]\)</span> לכל <span class="math" dir="ltr">\(k\)</span>, לפי <span class="math" dir="ltr">\((\star)\)</span> מתקיים <span class="math" dir="ltr">\(f(x_0) \le 1/k\)</span> לכל <span class="math" dir="ltr">\(k \ge 1\)</span>. כאשר <span class="math" dir="ltr">\(k \to \infty\)</span>, נקבל <span class="math" dir="ltr">\(f(x_0) \le 0\)</span>.</p>
-                  <p>וזו סתירה לנתון ש-<span class="math" dir="ltr">\(f(x) > 0\)</span> לכל <span class="math" dir="ltr">\(x \in [a,b]\)</span>.</p>
-                  <p>לכן ההנחה בשלילה שגויה, ובהכרח <span class="math" dir="ltr">\(\int_a^b f(x) dx > 0\)</span>. מש"ל.</p>
-                <p><strong>משפט (גרסה חזקה יותר עבור פונקציה רציפה):</strong> תהי <span class="math" dir="ltr">\(f(x)\)</span> רציפה ב-<span class="math" dir="ltr">\([a,b]\)</span>, <span class="math" dir="ltr">\(f(x) \ge 0\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span> אך <span class="math" dir="ltr">\(f \not\equiv 0\)</span> (כלומר, <span class="math" dir="ltr">\(f\)</span> אינה זהותית פונקצית האפס), אז <span class="math" dir="ltr">\(\int_a^b f(x) dx > 0\)</span>.</p>
-                 <p><strong>הוכחה:</strong> מכיוון ש-<span class="math" dir="ltr">\(f \not\equiv 0\)</span> ו-<span class="math" dir="ltr">\(f \ge 0\)</span>, קיימת נקודה <span class="math" dir="ltr">\(x_0 \in [a,b]\)</span> כך ש-<span class="math" dir="ltr">\(f(x_0) = L > 0\)</span>.
-                 מרציפות <span class="math" dir="ltr">\(f\)</span> ב-<span class="math" dir="ltr">\(x_0\)</span>, עבור <span class="math" dir="ltr">\(\varepsilon = L/2 > 0\)</span>, קיים <span class="math" dir="ltr">\(\delta > 0\)</span> כך שאם <span class="math" dir="ltr">\(|x-x_0| < \delta\)</span> (ו-<span class="math" dir="ltr">\(x \in [a,b]\)</span>), אז <span class="math" dir="ltr">\(|f(x) - f(x_0)| < L/2\)</span>.
-                 זה גורר <span class="math" dir="ltr">\(f(x) > f(x_0) - L/2 = L - L/2 = L/2\)</span>.
-                 כלומר, קיים קטע <span class="math" dir="ltr">\([\alpha, \beta] \subseteq [a,b]\)</span> המכיל את <span class="math" dir="ltr">\(x_0\)</span> (למשל, <span class="math" dir="ltr">\([\max(a, x_0-\delta/2), \min(b, x_0+\delta/2)]\)</span>) כך ש-<span class="math" dir="ltr">\(f(x) \ge L/2\)</span> לכל <span class="math" dir="ltr">\(x \in [\alpha, \beta]\)</span>, ואורך הקטע <span class="math" dir="ltr">\(\beta - \alpha > 0\)</span>.
+<li>(ב) לכל <span class="math" dir="ltr">\(\varepsilon &gt; 0\)</span>, ניתן למצוא קטע <span class="math" dir="ltr">\(\Delta \subseteq [a,b]\)</span> (קטן כרצוננו) כך ש-<span class="math" dir="ltr">\(f(x) \le \varepsilon\)</span> לכל <span class="math" dir="ltr">\(x \in \Delta\)</span>.
+                        (הסבר: לפי הגדרת אינטגרל רימן, <span class="math" dir="ltr">\(\lim_{\lambda(T) \to 0} S_T(f) = \int_a^b f dx = 0\)</span>, כאשר <span class="math" dir="ltr">\(S_T(f) = \sum_{i=1}^k M_i \Delta x_i\)</span> הוא הסכום העליון. עבור <span class="math" dir="ltr">\(\varepsilon' = \varepsilon (b-a)\)</span>, קיים <span class="math" dir="ltr">\(\delta &gt; 0\)</span> כך שאם <span class="math" dir="ltr">\(\lambda(T) &lt; \delta\)</span> אז <span class="math" dir="ltr">\(S_T(f) &lt; \varepsilon'\)</span>. כלומר <span class="math" dir="ltr">\(\sum M_i \Delta x_i &lt; \varepsilon (b-a)\)</span>. אם היה מתקיים <span class="math" dir="ltr">\(M_i \ge \varepsilon\)</span> לכל <span class="math" dir="ltr">\(i\)</span>, אז <span class="math" dir="ltr">\(\sum M_i \Delta x_i \ge \sum \varepsilon \Delta x_i = \varepsilon \sum \Delta x_i = \varepsilon (b-a)\)</span>, וזו סתירה. לכן, בהכרח יש לפחות קטע אחד <span class="math" dir="ltr">\(\Delta x_i\)</span> בחלוקה <span class="math" dir="ltr">\(T\)</span> שעבורו <span class="math" dir="ltr">\(M_i &lt; \varepsilon\)</span>. כלומר, <span class="math" dir="ltr">\(\sup_{x \in \Delta x_i} f(x) &lt; \varepsilon\)</span>, ובפרט <span class="math" dir="ltr">\(f(x) &lt; \varepsilon\)</span> לכל <span class="math" dir="ltr">\(x \in \Delta x_i\)</span>. נוכל גם לדרוש שרוחב הקטע יהיה קטן כרצוננו ע"י בחירת חלוקה <span class="math" dir="ltr">\(T\)</span> עם <span class="math" dir="ltr">\(\lambda(T)\)</span> קטן מספיק.)</li>
+</ul>
+<p>כעת נמצא סדרת קטעים מכונסים וסדרת אפסילונים שיובילו לסתירה.</p>
+<p>לפי (ב) עם <span class="math" dir="ltr">\(\varepsilon=1\)</span>, יש קטע <span class="math" dir="ltr">\([\alpha_1, \beta_1] \subseteq [a,b]\)</span> כך ש-<span class="math" dir="ltr">\(\beta_1 - \alpha_1 &lt; 1\)</span> ולכל <span class="math" dir="ltr">\(x \in [\alpha_1, \beta_1]\)</span> מתקיים <span class="math" dir="ltr">\(f(x) \le 1\)</span>.</p>
+<p>לפי (ב) על הקטע <span class="math" dir="ltr">\([\alpha_1, \beta_1]\)</span> (שגם בו האינטגרל 0, לפי (א)) עם <span class="math" dir="ltr">\(\varepsilon=1/2\)</span>, יש תת-קטע <span class="math" dir="ltr">\([\alpha_2, \beta_2] \subseteq [\alpha_1, \beta_1]\)</span> כך ש-<span class="math" dir="ltr">\(\beta_2 - \alpha_2 &lt; 1/2\)</span> ולכל <span class="math" dir="ltr">\(x \in [\alpha_2, \beta_2]\)</span> מתקיים <span class="math" dir="ltr">\(f(x) \le 1/2\)</span>.</p>
+<p>נמשיך כך וניצור סדרה אינסופית של קטעים סגורים המכילים זה את זה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ [a,b] \supseteq [\alpha_1, \beta_1] \supseteq [\alpha_2, \beta_2] \supseteq \dots \supseteq [\alpha_k, \beta_k] \supseteq \dots $$</div></div>
+<p>כך ש-<span class="math" dir="ltr">\(\beta_k - \alpha_k &lt; 1/k\)</span> ולכל <span class="math" dir="ltr">\(x \in [\alpha_k, \beta_k]\)</span> מתקיים <span class="math" dir="ltr">\((\star) \quad f(x) \le 1/k\)</span>.</p>
+<p>לפי למת קנטור לקטעים סגורים, מכיוון שאורך הקטעים שואף ל-0 (<span class="math" dir="ltr">\(\beta_k - \alpha_k \to 0\)</span>), קיימת נקודה יחידה <span class="math" dir="ltr">\(x_0\)</span> המשותפת לכל הקטעים: <span class="math" dir="ltr">\(x_0 \in \bigcap_{k=1}^\infty [\alpha_k, \beta_k]\)</span>.</p>
+<p>מכיוון ש-<span class="math" dir="ltr">\(x_0 \in [\alpha_k, \beta_k]\)</span> לכל <span class="math" dir="ltr">\(k\)</span>, לפי <span class="math" dir="ltr">\((\star)\)</span> מתקיים <span class="math" dir="ltr">\(f(x_0) \le 1/k\)</span> לכל <span class="math" dir="ltr">\(k \ge 1\)</span>. כאשר <span class="math" dir="ltr">\(k \to \infty\)</span>, נקבל <span class="math" dir="ltr">\(f(x_0) \le 0\)</span>.</p>
+<p>וזו סתירה לנתון ש-<span class="math" dir="ltr">\(f(x) &gt; 0\)</span> לכל <span class="math" dir="ltr">\(x \in [a,b]\)</span>.</p>
+<p>לכן ההנחה בשלילה שגויה, ובהכרח <span class="math" dir="ltr">\(\int_a^b f(x) dx &gt; 0\)</span>. מש"ל.</p>
+<p><strong>משפט (גרסה חזקה יותר עבור פונקציה רציפה):</strong> תהי <span class="math" dir="ltr">\(f(x)\)</span> רציפה ב-<span class="math" dir="ltr">\([a,b]\)</span>, <span class="math" dir="ltr">\(f(x) \ge 0\)</span> ב-<span class="math" dir="ltr">\([a,b]\)</span> אך <span class="math" dir="ltr">\(f \not\equiv 0\)</span> (כלומר, <span class="math" dir="ltr">\(f\)</span> אינה זהותית פונקצית האפס), אז <span class="math" dir="ltr">\(\int_a^b f(x) dx &gt; 0\)</span>.</p>
+<p><strong>הוכחה:</strong> מכיוון ש-<span class="math" dir="ltr">\(f \not\equiv 0\)</span> ו-<span class="math" dir="ltr">\(f \ge 0\)</span>, קיימת נקודה <span class="math" dir="ltr">\(x_0 \in [a,b]\)</span> כך ש-<span class="math" dir="ltr">\(f(x_0) = L &gt; 0\)</span>.
+                 מרציפות <span class="math" dir="ltr">\(f\)</span> ב-<span class="math" dir="ltr">\(x_0\)</span>, עבור <span class="math" dir="ltr">\(\varepsilon = L/2 &gt; 0\)</span>, קיים <span class="math" dir="ltr">\(\delta &gt; 0\)</span> כך שאם <span class="math" dir="ltr">\(|x-x_0| &lt; \delta\)</span> (ו-<span class="math" dir="ltr">\(x \in [a,b]\)</span>), אז <span class="math" dir="ltr">\(|f(x) - f(x_0)| &lt; L/2\)</span>.
+                 זה גורר <span class="math" dir="ltr">\(f(x) &gt; f(x_0) - L/2 = L - L/2 = L/2\)</span>.
+                 כלומר, קיים קטע <span class="math" dir="ltr">\([\alpha, \beta] \subseteq [a,b]\)</span> המכיל את <span class="math" dir="ltr">\(x_0\)</span> (למשל, <span class="math" dir="ltr">\([\max(a, x_0-\delta/2), \min(b, x_0+\delta/2)]\)</span>) כך ש-<span class="math" dir="ltr">\(f(x) \ge L/2\)</span> לכל <span class="math" dir="ltr">\(x \in [\alpha, \beta]\)</span>, ואורך הקטע <span class="math" dir="ltr">\(\beta - \alpha &gt; 0\)</span>.
                   ואז, לפי מונוטוניות האינטגרל (סעיף 10):
                  </p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = \int_a^\alpha f(x) dx + \int_\alpha^\beta f(x) dx + \int_\beta^b f(x) dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = \int_a^\alpha f(x) dx + \int_\alpha^\beta f(x) dx + \int_\beta^b f(x) dx $$</div></div>
                   מכיוון ש-<span class="math" dir="ltr">\(f \ge 0\)</span>, האינטגרלים הראשון והשלישי אי-שליליים. לכן:
                  <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx \ge \int_\alpha^\beta f(x) dx $$</div></div>
                  בקטע <span class="math" dir="ltr">\([\alpha, \beta]\)</span> מתקיים <span class="math" dir="ltr">\(f(x) \ge L/2\)</span>, לכן שוב ממונוטוניות:
                  <div class="formula-block"><div class="math" dir="ltr">$$ \int_\alpha^\beta f(x) dx \ge \int_\alpha^\beta \frac{L}{2} dx = \frac{L}{2} (\beta - \alpha) $$</div></div>
-                 מכיוון ש-<span class="math" dir="ltr">\(L > 0\)</span> ו-<span class="math" dir="ltr">\(\beta - \alpha > 0\)</span>, נקבל <span class="math" dir="ltr">\(\frac{L}{2}(\beta - \alpha) > 0\)</span>.
-                  לכן <span class="math" dir="ltr">\(\int_a^b f(x) dx > 0\)</span>. מש"ל.
+                 מכיוון ש-<span class="math" dir="ltr">\(L &gt; 0\)</span> ו-<span class="math" dir="ltr">\(\beta - \alpha &gt; 0\)</span>, נקבל <span class="math" dir="ltr">\(\frac{L}{2}(\beta - \alpha) &gt; 0\)</span>.
+                  לכן <span class="math" dir="ltr">\(\int_a^b f(x) dx &gt; 0\)</span>. מש"ל.
             </section>
-
-             <section id="prop-triangle">
-                <h3>12. אי-שוויון המשולש לאינטגרלים</h3>
-                <p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז גם <span class="math" dir="ltr">\(|f|\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ (\star) \quad \left| \int_a^b f(x) dx \right| \le \int_a^b |f(x)| dx $$</div></div>
-                 <p>(זה בעצם אי שוויון המשולש עבור אינטגרלים).</p>
-                  <p><strong>הוכחה:</strong></p>
-                  <p><strong>אינטגרביליות של <span class="math" dir="ltr">\(|f|\)</span>:</strong>
-                  <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ולכן חסומה. אם <span class="math" dir="ltr">\(|f(x)| \le M\)</span>, אז גם <span class="math" dir="ltr">\(| |f(x)| | \le M\)</span>, כלומר <span class="math" dir="ltr">\(|f|\)</span> חסומה.
+<section id="prop-triangle">
+<h3>12. אי-שוויון המשולש לאינטגרלים</h3>
+<p>אם <span class="math" dir="ltr">\(f\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז גם <span class="math" dir="ltr">\(|f|\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> ו-</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ (\star) \quad \left| \int_a^b f(x) dx \right| \le \int_a^b |f(x)| dx $$</div></div>
+<p>(זה בעצם אי שוויון המשולש עבור אינטגרלים).</p>
+<p><strong>הוכחה:</strong></p>
+<p><strong>אינטגרביליות של <span class="math" dir="ltr">\(|f|\)</span>:</strong>
+<span class="math" dir="ltr">\(f\)</span> אינטגרבילית ולכן חסומה. אם <span class="math" dir="ltr">\(|f(x)| \le M\)</span>, אז גם <span class="math" dir="ltr">\(| |f(x)| | \le M\)</span>, כלומר <span class="math" dir="ltr">\(|f|\)</span> חסומה.
                   כעת, נשתמש באי-שוויון המשולש ההפוך למספרים: <span class="math" dir="ltr">\(||a| - |b|| \le |a-b|\)</span>. לכן לכל <span class="math" dir="ltr">\(x, z \in [a,b]\)</span>:
                   </p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ ||f(x)| - |f(z)|| \le |f(x) - f(z)| $$</div></div>
-                  <p>מכאן נובע שלכל קטע <span class="math" dir="ltr">\(I \subseteq [a,b]\)</span>, התנודה של <span class="math" dir="ltr">\(|f|\)</span> ב-<span class="math" dir="ltr">\(I\)</span> קטנה או שווה לתנודה של <span class="math" dir="ltr">\(f\)</span> ב-<span class="math" dir="ltr">\(I\)</span>:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \omega_I(|f|) \le \omega_I(f) $$</div></div>
-                  <p>לכן, לכל חלוקה <span class="math" dir="ltr">\(T\)</span>:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ 0 \le S_T(|f|) - s_T(|f|) = \sum \omega_{\Delta x_i}(|f|) \Delta x_i \le \sum \omega_{\Delta x_i}(f) \Delta x_i = S_T(f) - s_T(f) $$</div></div>
-                  <p>כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, <span class="math" dir="ltr">\(S_T(f) - s_T(f) \to 0\)</span> (כי <span class="math" dir="ltr">\(f\)</span> אינטגרבילית). לפי משפט הסנדוויץ', גם <span class="math" dir="ltr">\(S_T(|f|) - s_T(|f|) \to 0\)</span>. מכיוון ש-<span class="math" dir="ltr">\(|f|\)</span> חסומה, היא אינטגרבילית לפי קריטריון רימן.</p>
-                   <p><strong>הוכחת האי-שוויון <span class="math" dir="ltr">\((\star)\)</span>:</strong>
+<div class="formula-block"><div class="math" dir="ltr">$$ ||f(x)| - |f(z)|| \le |f(x) - f(z)| $$</div></div>
+<p>מכאן נובע שלכל קטע <span class="math" dir="ltr">\(I \subseteq [a,b]\)</span>, התנודה של <span class="math" dir="ltr">\(|f|\)</span> ב-<span class="math" dir="ltr">\(I\)</span> קטנה או שווה לתנודה של <span class="math" dir="ltr">\(f\)</span> ב-<span class="math" dir="ltr">\(I\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \omega_I(|f|) \le \omega_I(f) $$</div></div>
+<p>לכן, לכל חלוקה <span class="math" dir="ltr">\(T\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ 0 \le S_T(|f|) - s_T(|f|) = \sum \omega_{\Delta x_i}(|f|) \Delta x_i \le \sum \omega_{\Delta x_i}(f) \Delta x_i = S_T(f) - s_T(f) $$</div></div>
+<p>כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, <span class="math" dir="ltr">\(S_T(f) - s_T(f) \to 0\)</span> (כי <span class="math" dir="ltr">\(f\)</span> אינטגרבילית). לפי משפט הסנדוויץ', גם <span class="math" dir="ltr">\(S_T(|f|) - s_T(|f|) \to 0\)</span>. מכיוון ש-<span class="math" dir="ltr">\(|f|\)</span> חסומה, היא אינטגרבילית לפי קריטריון רימן.</p>
+<p><strong>הוכחת האי-שוויון <span class="math" dir="ltr">\((\star)\)</span>:</strong>
                    ידוע שלכל <span class="math" dir="ltr">\(x\)</span> מתקיים <span class="math" dir="ltr">\(-|f(x)| \le f(x) \le |f(x)|\)</span>.
                    מכיוון ש-<span class="math" dir="ltr">\(f\)</span> ו-<span class="math" dir="ltr">\(|f|\)</span> אינטגרביליות, ניתן להפעיל אינטגרל על האי-שוויון ולקבל (לפי מונוטוניות, סעיף 10):
                    </p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b (-|f(x)|) dx \le \int_a^b f(x) dx \le \int_a^b |f(x)| dx $$</div></div>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ - \int_a^b |f(x)| dx \le \int_a^b f(x) dx \le \int_a^b |f(x)| dx $$</div></div>
-                   <p>וזה בדיוק אומר ש:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \left| \int_a^b f(x) dx \right| \le \int_a^b |f(x)| dx $$</div></div>
-                   <p>מש"ל.</p>
-                   <p><strong>דרך הוכחה נוספת לאי-שוויון <span class="math" dir="ltr">\((\star)\)</span>:</strong>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b (-|f(x)|) dx \le \int_a^b f(x) dx \le \int_a^b |f(x)| dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ - \int_a^b |f(x)| dx \le \int_a^b f(x) dx \le \int_a^b |f(x)| dx $$</div></div>
+<p>וזה בדיוק אומר ש:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \left| \int_a^b f(x) dx \right| \le \int_a^b |f(x)| dx $$</div></div>
+<p>מש"ל.</p>
+<p><strong>דרך הוכחה נוספת לאי-שוויון <span class="math" dir="ltr">\((\star)\)</span>:</strong>
                    לפי אי שוויון המשולש למספרים, לכל סכום רימן <span class="math" dir="ltr">\(\sigma(f, T, \{\zeta_i\}) = \sum f(\zeta_i) \Delta x_i\)</span> מתקיים:
                    </p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \left| \sum_{i=1}^k f(\zeta_i) \Delta x_i \right| \le \sum_{i=1}^k |f(\zeta_i) \Delta x_i| = \sum_{i=1}^k |f(\zeta_i)| \Delta x_i $$</div></div>
-                    <p>אגף ימין הוא סכום רימן של <span class="math" dir="ltr">\(|f|\)</span> עבור אותה חלוקה ואותן נקודות. כשנשאיף <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, אגף שמאל ישאף ל-<span class="math" dir="ltr">\(|\int_a^b f(x) dx|\)</span> ואגף ימין ישאף ל-<span class="math" dir="ltr">\(\int_a^b |f(x)| dx\)</span>. מכיוון שהאי-שוויון נשמר בגבול, נקבל את <span class="math" dir="ltr">\((\star)\)</span>. מש"ל.</p>
-
-                 <div class="example">
-                     <h4>דוגמה לכך שההיפך אינו נכון</h4>
-                     <p>הכיוון ההפוך אינו נכון: ייתכן ש-<span class="math" dir="ltr">\(|f|\)</span> אינטגרבילית אך <span class="math" dir="ltr">\(f\)</span> לא.</p>
-                     <p>ניקח את פונקציית דיריכלה מוזזת:</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ D(x) = \begin{cases} 1 & x \in \mathbb{Q} \\ -1 & x \notin \mathbb{Q} \end{cases} $$</div></div>
-                     <p>בקטע <span class="math" dir="ltr">\([0,1]\)</span>, <span class="math" dir="ltr">\(D(x)\)</span> אינה אינטגרבילית (לפי משפט לבג, קבוצת אי הרציפות היא <span class="math" dir="ltr">\([0,1]\)</span> שאינה בעלת מידה 0; או לפי סכומי רימן, הסכום העליון תמיד 1 והתחתון תמיד -1).</p>
-                      <p>אך <span class="math" dir="ltr">\(|D(x)| \equiv 1\)</span> לכל <span class="math" dir="ltr">\(x\)</span>. זו פונקציה קבועה ולכן אינטגרבילית, ו-<span class="math" dir="ltr">\(\int_0^1 |D(x)| dx = \int_0^1 1 dx = 1\)</span>.</p>
-                 </div>
-             </section>
-
-             <section id="ivt-integrals">
-                 <h2>13. משפט ערך הביניים לאינטגרלים</h2>
-                 <p>יש את משפט ערך הביניים לפונקציות רציפות, לפונקציות גזירות (משפט לגראנז'), ומסתבר שיש גם לאינטגרלים מסוימים.</p>
-                 <div class="definition">
-                     <h4>משפט ערך הביניים המוכלל לאינטגרלים</h4>
-                     <p>תהי <span class="math" dir="ltr">\(f(x)\)</span> רציפה ב-<span class="math" dir="ltr">\([a,b]\)</span>, ו-<span class="math" dir="ltr">\(g(x)\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> עם סימן קבוע (כלומר, <span class="math" dir="ltr">\(\forall x: g(x) \ge 0\)</span> או <span class="math" dir="ltr">\(\forall x: g(x) \le 0\)</span>).
+<div class="formula-block"><div class="math" dir="ltr">$$ \left| \sum_{i=1}^k f(\zeta_i) \Delta x_i \right| \le \sum_{i=1}^k |f(\zeta_i) \Delta x_i| = \sum_{i=1}^k |f(\zeta_i)| \Delta x_i $$</div></div>
+<p>אגף ימין הוא סכום רימן של <span class="math" dir="ltr">\(|f|\)</span> עבור אותה חלוקה ואותן נקודות. כשנשאיף <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>, אגף שמאל ישאף ל-<span class="math" dir="ltr">\(|\int_a^b f(x) dx|\)</span> ואגף ימין ישאף ל-<span class="math" dir="ltr">\(\int_a^b |f(x)| dx\)</span>. מכיוון שהאי-שוויון נשמר בגבול, נקבל את <span class="math" dir="ltr">\((\star)\)</span>. מש"ל.</p>
+<div class="example">
+<h4>דוגמה לכך שההיפך אינו נכון</h4>
+<p>הכיוון ההפוך אינו נכון: ייתכן ש-<span class="math" dir="ltr">\(|f|\)</span> אינטגרבילית אך <span class="math" dir="ltr">\(f\)</span> לא.</p>
+<p>ניקח את פונקציית דיריכלה מוזזת:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ D(x) = \begin{cases} 1 &amp; x \in \mathbb{Q} \\ -1 &amp; x \notin \mathbb{Q} \end{cases} $$</div></div>
+<p>בקטע <span class="math" dir="ltr">\([0,1]\)</span>, <span class="math" dir="ltr">\(D(x)\)</span> אינה אינטגרבילית (לפי משפט לבג, קבוצת אי הרציפות היא <span class="math" dir="ltr">\([0,1]\)</span> שאינה בעלת מידה 0; או לפי סכומי רימן, הסכום העליון תמיד 1 והתחתון תמיד -1).</p>
+<p>אך <span class="math" dir="ltr">\(|D(x)| \equiv 1\)</span> לכל <span class="math" dir="ltr">\(x\)</span>. זו פונקציה קבועה ולכן אינטגרבילית, ו-<span class="math" dir="ltr">\(\int_0^1 |D(x)| dx = \int_0^1 1 dx = 1\)</span>.</p>
+</div>
+</section>
+<section id="ivt-integrals">
+<h2>13. משפט ערך הביניים לאינטגרלים</h2>
+<p>יש את משפט ערך הביניים לפונקציות רציפות, לפונקציות גזירות (משפט לגראנז'), ומסתבר שיש גם לאינטגרלים מסוימים.</p>
+<div class="definition">
+<h4>משפט ערך הביניים המוכלל לאינטגרלים</h4>
+<p>תהי <span class="math" dir="ltr">\(f(x)\)</span> רציפה ב-<span class="math" dir="ltr">\([a,b]\)</span>, ו-<span class="math" dir="ltr">\(g(x)\)</span> אינטגרבילית ב-<span class="math" dir="ltr">\([a,b]\)</span> עם סימן קבוע (כלומר, <span class="math" dir="ltr">\(\forall x: g(x) \ge 0\)</span> או <span class="math" dir="ltr">\(\forall x: g(x) \le 0\)</span>).
                      אז קיימת נקודה <span class="math" dir="ltr">\(c \in [a,b]\)</span> כך ש-</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ (\star) \quad \int_a^b f(x) g(x) dx = f(c) \int_a^b g(x) dx $$</div></div>
-                 </div>
-                 <p><strong>הוכחה:</strong>
+<div class="formula-block"><div class="math" dir="ltr">$$ (\star) \quad \int_a^b f(x) g(x) dx = f(c) \int_a^b g(x) dx $$</div></div>
+</div>
+<p><strong>הוכחה:</strong>
                  ראשית, הפונקציה <span class="math" dir="ltr">\(f \cdot g\)</span> אינטגרבילית (כי <span class="math" dir="ltr">\(f\)</span> רציפה ולכן אינטגרבילית, <span class="math" dir="ltr">\(g\)</span> אינטגרבילית, ומכפלת אינטגרביליות היא אינטגרבילית - סעיף 3).
                  נניח בהגבלת הכלליות כי <span class="math" dir="ltr">\(g(x) \ge 0\)</span> לכל <span class="math" dir="ltr">\(x \in [a,b]\)</span> (אם <span class="math" dir="ltr">\(g \le 0\)</span>, נפעיל את המשפט על <span class="math" dir="ltr">\(-g\)</span> ו-<span class="math" dir="ltr">\(f\)</span>).
                  </p>
-                  <p><span class="math" dir="ltr">\(f\)</span> רציפה בקטע סגור <span class="math" dir="ltr">\([a,b]\)</span>, לכן היא חסומה ואף מקבלת מקסימום <span class="math" dir="ltr">\(M\)</span> ומינימום <span class="math" dir="ltr">\(m\)</span> בקטע (ממשפט ויירשטראס). כלומר, קיימים <span class="math" dir="ltr">\(x_m, x_M \in [a,b]\)</span> כך ש-<span class="math" dir="ltr">\(f(x_m)=m\)</span>, <span class="math" dir="ltr">\(f(x_M)=M\)</span>, ולכל <span class="math" dir="ltr">\(x \in [a,b]\)</span> מתקיים <span class="math" dir="ltr">\(m \le f(x) \le M\)</span>.</p>
-                  <p>מכיוון ש-<span class="math" dir="ltr">\(g(x) \ge 0\)</span>, נכפיל את האי-שוויון ב-<span class="math" dir="ltr">\(g(x)\)</span>:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ m g(x) \le f(x) g(x) \le M g(x) $$</div></div>
-                  <p>נפעיל אינטגרל על האי-שוויון (לפי מונוטוניות, סעיף 10):</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b m g(x) dx \le \int_a^b f(x) g(x) dx \le \int_a^b M g(x) dx $$</div></div>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ (\divideontimes) \quad m \int_a^b g(x) dx \le \int_a^b f(x) g(x) dx \le M \int_a^b g(x) dx $$</div></div>
-                   <p>כעת, יש שני מקרים:</p>
-                   <p><strong>מקרה 1:</strong> <span class="math" dir="ltr">\(\int_a^b g(x) dx = 0\)</span>.
+<p><span class="math" dir="ltr">\(f\)</span> רציפה בקטע סגור <span class="math" dir="ltr">\([a,b]\)</span>, לכן היא חסומה ואף מקבלת מקסימום <span class="math" dir="ltr">\(M\)</span> ומינימום <span class="math" dir="ltr">\(m\)</span> בקטע (ממשפט ויירשטראס). כלומר, קיימים <span class="math" dir="ltr">\(x_m, x_M \in [a,b]\)</span> כך ש-<span class="math" dir="ltr">\(f(x_m)=m\)</span>, <span class="math" dir="ltr">\(f(x_M)=M\)</span>, ולכל <span class="math" dir="ltr">\(x \in [a,b]\)</span> מתקיים <span class="math" dir="ltr">\(m \le f(x) \le M\)</span>.</p>
+<p>מכיוון ש-<span class="math" dir="ltr">\(g(x) \ge 0\)</span>, נכפיל את האי-שוויון ב-<span class="math" dir="ltr">\(g(x)\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ m g(x) \le f(x) g(x) \le M g(x) $$</div></div>
+<p>נפעיל אינטגרל על האי-שוויון (לפי מונוטוניות, סעיף 10):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b m g(x) dx \le \int_a^b f(x) g(x) dx \le \int_a^b M g(x) dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ (\divideontimes) \quad m \int_a^b g(x) dx \le \int_a^b f(x) g(x) dx \le M \int_a^b g(x) dx $$</div></div>
+<p>כעת, יש שני מקרים:</p>
+<p><strong>מקרה 1:</strong> <span class="math" dir="ltr">\(\int_a^b g(x) dx = 0\)</span>.
                    מכיוון ש-<span class="math" dir="ltr">\(g(x) \ge 0\)</span>, זה קורה אם ורק אם <span class="math" dir="ltr">\(g(x) = 0\)</span> כמעט בכל מקום (במקרה ש-<span class="math" dir="ltr">\(g\)</span> רציפה, זה קורה רק אם <span class="math" dir="ltr">\(g \equiv 0\)</span>).
                     מהאי-שוויון <span class="math" dir="ltr">\((\divideontimes)\)</span> נקבל:
                    </p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ m \cdot 0 \le \int_a^b f(x) g(x) dx \le M \cdot 0 $$</div></div>
-                    <p>כלומר, <span class="math" dir="ltr">\(\int_a^b f(x) g(x) dx = 0\)</span>.
+<div class="formula-block"><div class="math" dir="ltr">$$ m \cdot 0 \le \int_a^b f(x) g(x) dx \le M \cdot 0 $$</div></div>
+<p>כלומר, <span class="math" dir="ltr">\(\int_a^b f(x) g(x) dx = 0\)</span>.
                    במקרה זה, הנוסחה <span class="math" dir="ltr">\((\star)\)</span> הופכת ל-<span class="math" dir="ltr">\(0 = f(c) \cdot 0\)</span>, שמתקיימת לכל <span class="math" dir="ltr">\(c \in [a,b]\)</span>.</p>
-                   <p><strong>מקרה 2:</strong> <span class="math" dir="ltr">\(\int_a^b g(x) dx > 0\)</span>.
+<p><strong>מקרה 2:</strong> <span class="math" dir="ltr">\(\int_a^b g(x) dx &gt; 0\)</span>.
                    (זה קורה אם <span class="math" dir="ltr">\(g \ge 0\)</span> אינטגרבילית ולא שווה זהותית ל-0 כמעט בכל מקום).
                    במקרה זה, ניתן לחלק את האי-שוויון <span class="math" dir="ltr">\((\divideontimes)\)</span> ב-<span class="math" dir="ltr">\(\int_a^b g(x) dx\)</span> (שהוא מספר חיובי) ולקבל:
                    </p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ m \le \frac{\int_a^b f(x) g(x) dx}{\int_a^b g(x) dx} \le M $$</div></div>
-                    <p>נסמן <span class="math" dir="ltr">\(Y = \frac{\int_a^b f(x) g(x) dx}{\int_a^b g(x) dx}\)</span>. קיבלנו <span class="math" dir="ltr">\(m \le Y \le M\)</span>.
+<div class="formula-block"><div class="math" dir="ltr">$$ m \le \frac{\int_a^b f(x) g(x) dx}{\int_a^b g(x) dx} \le M $$</div></div>
+<p>נסמן <span class="math" dir="ltr">\(Y = \frac{\int_a^b f(x) g(x) dx}{\int_a^b g(x) dx}\)</span>. קיבלנו <span class="math" dir="ltr">\(m \le Y \le M\)</span>.
                     מכיוון ש-<span class="math" dir="ltr">\(f\)</span> רציפה ב-<span class="math" dir="ltr">\([a,b]\)</span>, והיא מקבלת את הערכים <span class="math" dir="ltr">\(m\)</span> ו-<span class="math" dir="ltr">\(M\)</span> בקטע, אז לפי משפט ערך הביניים הרגיל לפונקציות רציפות, <span class="math" dir="ltr">\(f\)</span> מקבלת כל ערך בין <span class="math" dir="ltr">\(m\)</span> ל-<span class="math" dir="ltr">\(M\)</span>. בפרט, קיים <span class="math" dir="ltr">\(c \in [a,b]\)</span> כך ש-<span class="math" dir="ltr">\(f(c) = Y\)</span>.</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ f(c) = \frac{\int_a^b f(x) g(x) dx}{\int_a^b g(x) dx} $$</div></div>
-                    <p>ומכאן נובעת הנוסחה <span class="math" dir="ltr">\((\star)\)</span>.</p>
-                 <p><strong>תרגיל:</strong> הראה/י שניתן בכל מקרה להבטיח אי שוויונים חדים/חזקים, כלומר <span class="math" dir="ltr">\(a<c<b\)</span> (אלא אם <span class="math" dir="ltr">\(f\)</span> קבועה או <span class="math" dir="ltr">\(g \equiv 0\)</span>). סוף.</p>
-                 <div class="definition">
-                     <h4>משפט ערך הביניים הראשון לאינטגרלים (מקרה פרטי)</h4>
-                     <p>אם <span class="math" dir="ltr">\(f\)</span> רציפה ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז קיימת נקודה <span class="math" dir="ltr">\(c \in [a,b]\)</span> כך ש-</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = f(c) (b-a) $$</div></div>
-                     <p><strong>הוכחה:</strong> זהו מקרה פרטי של המשפט המוכלל עם <span class="math" dir="ltr">\(g(x) \equiv 1\)</span>. הפונקציה <span class="math" dir="ltr">\(g(x)=1\)</span> היא אינטגרבילית ואי-שלילית. האינטגרל שלה הוא <span class="math" dir="ltr">\(\int_a^b 1 dx = b-a\)</span>. הצבה בנוסחה <span class="math" dir="ltr">\((\star)\)</span> נותנת את התוצאה.</p>
-                 </div>
-             </section>
-        </main>
-    </div>
-
-    <!-- KaTeX JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <!-- Shared Dark Mode JavaScript -->
-    <script src="../scripts/dark-mode.js"></script>
-
-    <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
-    <script>
+<div class="formula-block"><div class="math" dir="ltr">$$ f(c) = \frac{\int_a^b f(x) g(x) dx}{\int_a^b g(x) dx} $$</div></div>
+<p>ומכאן נובעת הנוסחה <span class="math" dir="ltr">\((\star)\)</span>.</p>
+<p><strong>תרגיל:</strong> הראה/י שניתן בכל מקרה להבטיח אי שוויונים חדים/חזקים, כלומר <span class="math" dir="ltr">\(a<c<b\)< span=""> (אלא אם <span class="math" dir="ltr">\(f\)</span> קבועה או <span class="math" dir="ltr">\(g \equiv 0\)</span>). סוף.</c<b\)<></span></p>
+<div class="definition">
+<h4>משפט ערך הביניים הראשון לאינטגרלים (מקרה פרטי)</h4>
+<p>אם <span class="math" dir="ltr">\(f\)</span> רציפה ב-<span class="math" dir="ltr">\([a,b]\)</span>, אז קיימת נקודה <span class="math" dir="ltr">\(c \in [a,b]\)</span> כך ש-</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int_a^b f(x) dx = f(c) (b-a) $$</div></div>
+<p><strong>הוכחה:</strong> זהו מקרה פרטי של המשפט המוכלל עם <span class="math" dir="ltr">\(g(x) \equiv 1\)</span>. הפונקציה <span class="math" dir="ltr">\(g(x)=1\)</span> היא אינטגרבילית ואי-שלילית. האינטגרל שלה הוא <span class="math" dir="ltr">\(\int_a^b 1 dx = b-a\)</span>. הצבה בנוסחה <span class="math" dir="ltr">\((\star)\)</span> נותנת את התוצאה.</p>
+</div>
+</section>
+</main>
+</div>
+<!-- KaTeX JS -->
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- Shared Dark Mode JavaScript -->
+<script src="../scripts/dark-mode.js"></script>
+<!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
+<script>
         // --- Global Chart References ---
         let stepFunctionChart = null;
 
@@ -1280,7 +1325,6 @@
 
          });
      </script>
-
 <!-- כפתור חזרה לדף הראשי -->
 <a href="../index.html" style="
   position: fixed;
@@ -1297,6 +1341,5 @@
 ">
   🏠 חזרה למסך הראשי
 </a>
-
 </body>
 </html>

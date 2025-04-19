@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+
+<html dir="rtl" lang="he">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אינפי 2 - שיעור 4</title>
-
-    <!-- KaTeX CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>אינפי 2 - שיעור 4</title>
+<!-- KaTeX CSS -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&amp;family=Orbitron:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome for Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
         :root {
@@ -552,123 +549,182 @@
         .katex { vertical-align: baseline; }
         p .math, li .math { line-height: 1; } /* Prevent inline math from increasing line height too much */
 
+        /* Back Button */
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            box-shadow: var(--card-shadow);
+            transition: all var(--transition-speed) ease;
+            text-decoration: none;
+        }
+
+        .back-nav:hover {
+            transform: translateX(-5px);
+            box-shadow: var(--card-hover-shadow);
+            color: var(--accent-color);
+        }
+
+        .back-nav i {
+            margin-left: 8px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            color: var(--header-text);
+            font-size: 0.85rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            opacity: 0.8;
+        }
+
+        .breadcrumb a {
+            color: var(--header-text);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 5px;
+        }
+
+        /* Adjust existing header padding */
+        header {
+            padding-top: 50px;
+        }
     </style>
 </head>
 <body>
-
-    <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <header>
-        <h1>אינפי 2 - שיעור מספר 4</h1>
-        <div class="credits">קרדיט להלל</div>
-    </header>
-
-    <div class="container">
+<a class="back-nav" href="../index.html">
+<i class="fas fa-chevron-right"></i>
+        חזרה לסיכומי אינפי 2
+    </a>
+<!-- Dark Mode Toggle Button -->
+<button aria-label="Toggle dark mode" aria-pressed="false" class="dark-mode-toggle" id="darkModeToggle">
+<i class="fas fa-sun"></i>
+<i class="fas fa-moon"></i>
+</button>
+<header>
+<div class="breadcrumb">
+<a href="../courses.html">סיכומי קורסים</a>
+<span class="separator">/</span>
+<a href="../index.html">אינפי 2</a>
+<span class="separator">/</span>
+<span>שיעור 4</span>
+</div>
+<h1>אינפי 2 - שיעור 4</h1>
+<div class="credits">מטח ע"י יונתן רוזן</div>
+</header>
+<div class="container">
 <nav id="main-nav">
-  <ul>
-    <li><a href="#problem1" class="nav-link" dir="rtl">בעיה 1: מציאת פונקציה</a></li>
-    <li><a href="#problem2" class="nav-link" dir="rtl">בעיה 2: שטח</a></li>
-    <li><a href="#area-properties" class="nav-link" dir="rtl">תכונות שטח</a></li>
-    <li><a href="#area-function" class="nav-link" dir="rtl">פונקציית שטח</a></li>
-    <li><a href="#negative-area" class="nav-link" dir="rtl">שטח שלילי וקיזוז</a></li>
-    <li><a href="#rational-functions" class="nav-link" dir="rtl">פונ' רציונליות</a></li>
-    <li><a href="#type1-integrals" class="nav-link" dir="rtl">סוג 1: R(sin,cos)</a></li>
-    <li><a href="#example-sin" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \frac{1}{\sin x} \, dx \)</span></a></li>
-    <li><a href="#type2-integrals" class="nav-link" dir="rtl">סוג 2: R(x, √(a²-x²))</a></li>
-    <li><a href="#type3-integrals" class="nav-link" dir="rtl">סוג 3: R(x, √(a²+x²))</a></li>
-    <li><a href="#type4-integrals" class="nav-link" dir="rtl">סוג 4: R(x, √(x²-a²))</a></li>
-    <li><a href="#example-sqrt" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \frac{1}{x^2 \sqrt{x^2 - 1}} \, dx \)</span></a></li>
-    <li><a href="#special-cases" class="nav-link" dir="rtl">מקרים מיוחדים</a></li>
-    <li><a href="#special-case1" class="nav-link" dir="rtl">מקרה 1: R(cos²x, sinx)cosx</a></li>
-    <li><a href="#example-cos3" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \cos^3 x \cdots \)</span></a></li>
-    <li><a href="#example-sin5" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \sin^5 x \, dx \)</span></a></li>
-    <li><a href="#special-case2" class="nav-link" dir="rtl">מקרה 2: R(sin²x, cos²x)</a></li>
-    <li><a href="#example-tan" class="nav-link" dir="rtl">דוגמה: <span class="math" dir="ltr">\( \int \frac{1+\sin^2 x}{1+\cos^2 x} \, dx \)</span></a></li>
-  </ul>
+<ul>
+<li><a class="nav-link" dir="rtl" href="#problem1">בעיה 1: מציאת פונקציה</a></li>
+<li><a class="nav-link" dir="rtl" href="#problem2">בעיה 2: שטח</a></li>
+<li><a class="nav-link" dir="rtl" href="#area-properties">תכונות שטח</a></li>
+<li><a class="nav-link" dir="rtl" href="#area-function">פונקציית שטח</a></li>
+<li><a class="nav-link" dir="rtl" href="#negative-area">שטח שלילי וקיזוז</a></li>
+<li><a class="nav-link" dir="rtl" href="#rational-functions">פונ' רציונליות</a></li>
+<li><a class="nav-link" dir="rtl" href="#type1-integrals">סוג 1: R(sin,cos)</a></li>
+<li><a class="nav-link" dir="rtl" href="#example-sin">דוגמה: <span class="math" dir="ltr">\( \int \frac{1}{\sin x} \, dx \)</span></a></li>
+<li><a class="nav-link" dir="rtl" href="#type2-integrals">סוג 2: R(x, √(a²-x²))</a></li>
+<li><a class="nav-link" dir="rtl" href="#type3-integrals">סוג 3: R(x, √(a²+x²))</a></li>
+<li><a class="nav-link" dir="rtl" href="#type4-integrals">סוג 4: R(x, √(x²-a²))</a></li>
+<li><a class="nav-link" dir="rtl" href="#example-sqrt">דוגמה: <span class="math" dir="ltr">\( \int \frac{1}{x^2 \sqrt{x^2 - 1}} \, dx \)</span></a></li>
+<li><a class="nav-link" dir="rtl" href="#special-cases">מקרים מיוחדים</a></li>
+<li><a class="nav-link" dir="rtl" href="#special-case1">מקרה 1: R(cos²x, sinx)cosx</a></li>
+<li><a class="nav-link" dir="rtl" href="#example-cos3">דוגמה: <span class="math" dir="ltr">\( \int \cos^3 x \cdots \)</span></a></li>
+<li><a class="nav-link" dir="rtl" href="#example-sin5">דוגמה: <span class="math" dir="ltr">\( \int \sin^5 x \, dx \)</span></a></li>
+<li><a class="nav-link" dir="rtl" href="#special-case2">מקרה 2: R(sin²x, cos²x)</a></li>
+<li><a class="nav-link" dir="rtl" href="#example-tan">דוגמה: <span class="math" dir="ltr">\( \int \frac{1+\sin^2 x}{1+\cos^2 x} \, dx \)</span></a></li>
+</ul>
 </nav>
-
-
-        <main>
-            <section id="intro">
-                <p>נפתח בשתי בעיות, אשר יישום של האינטגרל הלא מסוים פותר אותן.</p>
-            </section>
-
-            <section id="problem1">
-                <h2>1. בעיה 1: מציאת פונקציה לפי שיפוע</h2>
-                <p>מצא פונקציה <span class="math" dir="ltr">\(y=f(x)\)</span> המוגדרת ב-<span class="math" dir="ltr">\(\mathbb{R}\)</span>, אשר השיפוע של המשיק לה בכל נקודה <span class="math" dir="ltr">\(x\)</span> הוא <span class="math" dir="ltr">\(x\)</span>.</p>
-                <h3>פתרון:</h3>
-                <p>שיפוע המשיק הוא <span class="math" dir="ltr">\(f'(x)\)</span>, לכן צריך להתקיים <span class="math" dir="ltr">\(f'(x)=x\)</span> לכל <span class="math" dir="ltr">\(x\)</span>. על ידי אינטגרציה נקבל:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \int x \, dx = \frac{x^2}{2} + C $$</div></div>
-                <p>כמובן שיש אינסוף פונקציות כאלו, הנבדלות בקבוע <span class="math" dir="ltr">\(C\)</span>.</p>
-                <p><span class="math" dir="ltr">\(C\)</span> יקבע באופן יחיד אם נדרוש שהגרף של <span class="math" dir="ltr">\(f(x)\)</span> יעבור דרך נקודה מסוימת.</p>
-                <p>נניח למשל ש-<span class="math" dir="ltr">\((1,3)\)</span> על הגרף, כלומר <span class="math" dir="ltr">\(f(1)=3\)</span>. אזי:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ 3 = \frac{1^2}{2} + C \implies 3 = \frac{1}{2} + C \implies C = 3 - \frac{1}{2} = \frac{5}{2} $$</div></div>
-                <p>והפונקציה הספציפית היא:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{x^2}{2} + \frac{5}{2} $$</div></div>
-                <p>נביא כעת את היישום שהוא כנראה המפורסם ביותר:</p>
-            </section>
-
-            <section id="problem2">
-                <h2>2. בעיה 2: שטח בין גרף פונקציה לציר ה-X</h2>
-                <p>לפני שנתחיל, נתעכב מעט על הגדרת שטח של קבוצה מישורית <span class="math" dir="ltr">\(A \subseteq \mathbb{R}^2\)</span>.</p>
-                <p>את ההגדרה המדויקת ניתן לקראת סוף הקורס, במסגרת הדיון על אינטגרל כפול.</p>
-                <p>בשלב זה, נציין רק מספר תכונות טבעיות של פונקצית השטח אשר יספיקו לנו כעת.</p>
-
-                <h3 id="area-properties">תכונות פונקציית השטח <span class="math" dir="ltr">\(S(A)\)</span></h3>
-                <ol type="א">
-                    <li>
-                        <p><strong>עקביות:</strong> עבור <span class="math" dir="ltr">\(A\)</span> שהיא מלבן, וצלעותיה הן <span class="math" dir="ltr">\(a, b\)</span>, אזי <span class="math" dir="ltr">\(S(A) = a \cdot b\)</span>.</p>
-                    </li>
-                    <li>
-                        <p><strong>מונוטוניות:</strong> אם <span class="math" dir="ltr">\(A \subseteq B\)</span> אז <span class="math" dir="ltr">\(S(A) \le S(B)\)</span>.</p>
-                    </li>
-                    <li>
-                        <p><strong>אדיטיביות:</strong> אם <span class="math" dir="ltr">\(A\)</span> ו-<span class="math" dir="ltr">\(B\)</span> זרות (כלומר <span class="math" dir="ltr">\(A \cap B = \emptyset\)</span>, או חיתוך בעל שטח אפס), אז <span class="math" dir="ltr">\(S(A \cup B) = S(A) + S(B)\)</span>.</p>
-                    </li>
-                </ol>
-                <p>כמובן שנחשב את השטח רק עבור קבוצות <span class="math" dir="ltr">\(A\)</span> עבורן ההגדרה (שנביא בהמשך הקורס) תתאים. נראה אז גם שישנן קבוצות אשר ההגדרה אינה מתאימה להן, כלומר, קבוצות שאינן "בעלות שטח".</p>
-
-                <h3 id="area-function">חישוב שטח באמצעות פונקציית שטח</h3>
-                <p>כעת, תהי <span class="math" dir="ltr">\(f(x)\)</span> פונקציה חיובית ורציפה המוגדרת בקטע <span class="math" dir="ltr">\([a,b]\)</span>. נרצה לחשב את השטח של הקבוצה <span class="math" dir="ltr">\(A\)</span> שהיא אוסף הנקודות בין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=b\)</span> וגרף הפונקציה.</p>
-                <!-- Replaced Placeholder 3 -->
-                 <div class="chart-container">
-                    <h5>השטח מתחת לגרף <span class="math" dir="ltr">\(f(x)\)</span> בין <span class="math" dir="ltr">\(a\)</span> ל-<span class="math" dir="ltr">\(b\)</span></h5>
-                     <div class="chart-wrapper">
-                         <canvas id="canvas_area_a_b" height="200"></canvas>
-                     </div>
-                 </div>
-
-                <p>עבור <span class="math" dir="ltr">\(a \le x_0 \le b\)</span> נסמן ב-<span class="math" dir="ltr">\(A_{x_0}\)</span> את הקבוצה שהיא אוסף הנקודות בין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=x_0\)</span> וגרף הפונקציה.</p>
-                <p>לפי סימון זה <span class="math" dir="ltr">\(A = A_b\)</span> ואנו מעוניינים ב-<span class="math" dir="ltr">\(S(A_b)\)</span>. <span class="math" dir="ltr">\(S(A_{x_0})\)</span> הוא כאמור השטח של <span class="math" dir="ltr">\(A_{x_0}\)</span>.</p>
-                <p>לשם הפשטות נקצר ונכתוב <span class="math" dir="ltr">\(S(b)\)</span> או <span class="math" dir="ltr">\(S(x_0)\)</span>. נגדיר את <strong>פונקציית השטח</strong> <span class="math" dir="ltr">\(S(x) = S(A_x)\)</span> עבור <span class="math" dir="ltr">\(x \in [a,b]\)</span>.</p>
-                <p>כצפוי, <span class="math" dir="ltr">\(A_{x_0}\)</span> תתברר לפי ההגדרה המדויקת כקבוצה שעונה על ההגדרה שנביא בהמשך הקורס, כלומר קבוצה "בעלת שטח" (חשוב כאן ש-<span class="math" dir="ltr">\(f\)</span> רציפה).</p>
-                <p>כך גם עבור <span class="math" dir="ltr">\(x_0=a\)</span> (כמובן <span class="math" dir="ltr">\(S(a)=0\)</span>).</p>
-
-                <p>ניקח כעת <span class="math" dir="ltr">\(x_0\)</span> כך ש-<span class="math" dir="ltr">\(a < x_0 < b\)</span>, וניקח <span class="math" dir="ltr">\(\Delta x > 0\)</span> קטן מספיק כך ש-<span class="math" dir="ltr">\(x_0+\Delta x\)</span> היא בקטע <span class="math" dir="ltr">\([a,b]\)</span>.</p>
-                <p>לפי הסימונים שלנו, השטח שבין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=x_0, x=x_0+\Delta x\)</span> וגרף <span class="math" dir="ltr">\(f(x)\)</span> הוא:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ \Delta S = S(x_0+\Delta x) - S(x_0) \quad (*) $$</div></div>
-                <!-- Replaced Placeholder 4 -->
-                <div class="chart-container">
-                    <h5>תוספת השטח <span class="math" dir="ltr">\(\Delta S\)</span> בין <span class="math" dir="ltr">\(x_0\)</span> ל-<span class="math" dir="ltr">\(x_0+\Delta x\)</span></h5>
-                    <div class="chart-wrapper">
-                         <canvas id="canvas_area_delta_s" height="200"></canvas>
-                    </div>
-                </div>
-
-                <p><strong>הסבר ל- (*):</strong></p>
-                <p>נסמן לשם פשטות את אוסף הנקודות ששטחו <span class="math" dir="ltr">\(\Delta S\)</span> ב-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>. מתקיים:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ A_{x_0+\Delta x} = A_{x_0} \cup \hat{A}_{\Delta S} $$</div></div>
-                <p>האיחוד בצד ימין הוא איחוד של שתי קבוצות זרות (עד כדי הקו האנכי <span class="math" dir="ltr">\(x=x_0\)</span> המפריד ביניהן, שהוא בעל שטח 0).</p>
-                <p>אז לפי תכונה ג' (אדיטיביות) מתקיים:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ S(A_{x_0+\Delta x}) = S(A_{x_0}) + S(\hat{A}_{\Delta S}) $$</div></div>
-                <p>כלומר:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ S(x_0+\Delta x) = S(x_0) + \Delta S $$</div></div>
-                <p>נעביר אגפים ונקבל את (*).</p>
-
+<main>
+<section id="intro">
+<p>נפתח בשתי בעיות, אשר יישום של האינטגרל הלא מסוים פותר אותן.</p>
+</section>
+<section id="problem1">
+<h2>1. בעיה 1: מציאת פונקציה לפי שיפוע</h2>
+<p>מצא פונקציה <span class="math" dir="ltr">\(y=f(x)\)</span> המוגדרת ב-<span class="math" dir="ltr">\(\mathbb{R}\)</span>, אשר השיפוע של המשיק לה בכל נקודה <span class="math" dir="ltr">\(x\)</span> הוא <span class="math" dir="ltr">\(x\)</span>.</p>
+<h3>פתרון:</h3>
+<p>שיפוע המשיק הוא <span class="math" dir="ltr">\(f'(x)\)</span>, לכן צריך להתקיים <span class="math" dir="ltr">\(f'(x)=x\)</span> לכל <span class="math" dir="ltr">\(x\)</span>. על ידי אינטגרציה נקבל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \int x \, dx = \frac{x^2}{2} + C $$</div></div>
+<p>כמובן שיש אינסוף פונקציות כאלו, הנבדלות בקבוע <span class="math" dir="ltr">\(C\)</span>.</p>
+<p><span class="math" dir="ltr">\(C\)</span> יקבע באופן יחיד אם נדרוש שהגרף של <span class="math" dir="ltr">\(f(x)\)</span> יעבור דרך נקודה מסוימת.</p>
+<p>נניח למשל ש-<span class="math" dir="ltr">\((1,3)\)</span> על הגרף, כלומר <span class="math" dir="ltr">\(f(1)=3\)</span>. אזי:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ 3 = \frac{1^2}{2} + C \implies 3 = \frac{1}{2} + C \implies C = 3 - \frac{1}{2} = \frac{5}{2} $$</div></div>
+<p>והפונקציה הספציפית היא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{x^2}{2} + \frac{5}{2} $$</div></div>
+<p>נביא כעת את היישום שהוא כנראה המפורסם ביותר:</p>
+</section>
+<section id="problem2">
+<h2>2. בעיה 2: שטח בין גרף פונקציה לציר ה-X</h2>
+<p>לפני שנתחיל, נתעכב מעט על הגדרת שטח של קבוצה מישורית <span class="math" dir="ltr">\(A \subseteq \mathbb{R}^2\)</span>.</p>
+<p>את ההגדרה המדויקת ניתן לקראת סוף הקורס, במסגרת הדיון על אינטגרל כפול.</p>
+<p>בשלב זה, נציין רק מספר תכונות טבעיות של פונקצית השטח אשר יספיקו לנו כעת.</p>
+<h3 id="area-properties">תכונות פונקציית השטח <span class="math" dir="ltr">\(S(A)\)</span></h3>
+<ol type="א">
+<li>
+<p><strong>עקביות:</strong> עבור <span class="math" dir="ltr">\(A\)</span> שהיא מלבן, וצלעותיה הן <span class="math" dir="ltr">\(a, b\)</span>, אזי <span class="math" dir="ltr">\(S(A) = a \cdot b\)</span>.</p>
+</li>
+<li>
+<p><strong>מונוטוניות:</strong> אם <span class="math" dir="ltr">\(A \subseteq B\)</span> אז <span class="math" dir="ltr">\(S(A) \le S(B)\)</span>.</p>
+</li>
+<li>
+<p><strong>אדיטיביות:</strong> אם <span class="math" dir="ltr">\(A\)</span> ו-<span class="math" dir="ltr">\(B\)</span> זרות (כלומר <span class="math" dir="ltr">\(A \cap B = \emptyset\)</span>, או חיתוך בעל שטח אפס), אז <span class="math" dir="ltr">\(S(A \cup B) = S(A) + S(B)\)</span>.</p>
+</li>
+</ol>
+<p>כמובן שנחשב את השטח רק עבור קבוצות <span class="math" dir="ltr">\(A\)</span> עבורן ההגדרה (שנביא בהמשך הקורס) תתאים. נראה אז גם שישנן קבוצות אשר ההגדרה אינה מתאימה להן, כלומר, קבוצות שאינן "בעלות שטח".</p>
+<h3 id="area-function">חישוב שטח באמצעות פונקציית שטח</h3>
+<p>כעת, תהי <span class="math" dir="ltr">\(f(x)\)</span> פונקציה חיובית ורציפה המוגדרת בקטע <span class="math" dir="ltr">\([a,b]\)</span>. נרצה לחשב את השטח של הקבוצה <span class="math" dir="ltr">\(A\)</span> שהיא אוסף הנקודות בין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=b\)</span> וגרף הפונקציה.</p>
+<!-- Replaced Placeholder 3 -->
+<div class="chart-container">
+<h5>השטח מתחת לגרף <span class="math" dir="ltr">\(f(x)\)</span> בין <span class="math" dir="ltr">\(a\)</span> ל-<span class="math" dir="ltr">\(b\)</span></h5>
+<div class="chart-wrapper">
+<canvas height="200" id="canvas_area_a_b"></canvas>
+</div>
+</div>
+<p>עבור <span class="math" dir="ltr">\(a \le x_0 \le b\)</span> נסמן ב-<span class="math" dir="ltr">\(A_{x_0}\)</span> את הקבוצה שהיא אוסף הנקודות בין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=x_0\)</span> וגרף הפונקציה.</p>
+<p>לפי סימון זה <span class="math" dir="ltr">\(A = A_b\)</span> ואנו מעוניינים ב-<span class="math" dir="ltr">\(S(A_b)\)</span>. <span class="math" dir="ltr">\(S(A_{x_0})\)</span> הוא כאמור השטח של <span class="math" dir="ltr">\(A_{x_0}\)</span>.</p>
+<p>לשם הפשטות נקצר ונכתוב <span class="math" dir="ltr">\(S(b)\)</span> או <span class="math" dir="ltr">\(S(x_0)\)</span>. נגדיר את <strong>פונקציית השטח</strong> <span class="math" dir="ltr">\(S(x) = S(A_x)\)</span> עבור <span class="math" dir="ltr">\(x \in [a,b]\)</span>.</p>
+<p>כצפוי, <span class="math" dir="ltr">\(A_{x_0}\)</span> תתברר לפי ההגדרה המדויקת כקבוצה שעונה על ההגדרה שנביא בהמשך הקורס, כלומר קבוצה "בעלת שטח" (חשוב כאן ש-<span class="math" dir="ltr">\(f\)</span> רציפה).</p>
+<p>כך גם עבור <span class="math" dir="ltr">\(x_0=a\)</span> (כמובן <span class="math" dir="ltr">\(S(a)=0\)</span>).</p>
+<p>ניקח כעת <span class="math" dir="ltr">\(x_0\)</span> כך ש-<span class="math" dir="ltr">\(a &lt; x_0 &lt; b\)</span>, וניקח <span class="math" dir="ltr">\(\Delta x &gt; 0\)</span> קטן מספיק כך ש-<span class="math" dir="ltr">\(x_0+\Delta x\)</span> היא בקטע <span class="math" dir="ltr">\([a,b]\)</span>.</p>
+<p>לפי הסימונים שלנו, השטח שבין ציר ה-<span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=x_0, x=x_0+\Delta x\)</span> וגרף <span class="math" dir="ltr">\(f(x)\)</span> הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \Delta S = S(x_0+\Delta x) - S(x_0) \quad (*) $$</div></div>
+<!-- Replaced Placeholder 4 -->
+<div class="chart-container">
+<h5>תוספת השטח <span class="math" dir="ltr">\(\Delta S\)</span> בין <span class="math" dir="ltr">\(x_0\)</span> ל-<span class="math" dir="ltr">\(x_0+\Delta x\)</span></h5>
+<div class="chart-wrapper">
+<canvas height="200" id="canvas_area_delta_s"></canvas>
+</div>
+</div>
+<p><strong>הסבר ל- (*):</strong></p>
+<p>נסמן לשם פשטות את אוסף הנקודות ששטחו <span class="math" dir="ltr">\(\Delta S\)</span> ב-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>. מתקיים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ A_{x_0+\Delta x} = A_{x_0} \cup \hat{A}_{\Delta S} $$</div></div>
+<p>האיחוד בצד ימין הוא איחוד של שתי קבוצות זרות (עד כדי הקו האנכי <span class="math" dir="ltr">\(x=x_0\)</span> המפריד ביניהן, שהוא בעל שטח 0).</p>
+<p>אז לפי תכונה ג' (אדיטיביות) מתקיים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ S(A_{x_0+\Delta x}) = S(A_{x_0}) + S(\hat{A}_{\Delta S}) $$</div></div>
+<p>כלומר:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ S(x_0+\Delta x) = S(x_0) + \Delta S $$</div></div>
+<p>נעביר אגפים ונקבל את (*).</p>
 <p>
 כיצד נעריך את <span class="math" dir="ltr">\( \Delta S \)</span>? 
 הפונקציה <span class="math" dir="ltr">\( f \)</span> רציפה בקטע הסגור 
@@ -678,337 +734,309 @@
 וערך מקסימלי שנסמנו 
 <span class="math" dir="ltr">\( M \)</span> .
 </p>
-                <p>על כן, המלבן שבסיסו <span class="math" dir="ltr">\(\Delta x\)</span> וגובהו <span class="math" dir="ltr">\(m\)</span> מוכל ב-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>, ואילו המלבן שבסיסו <span class="math" dir="ltr">\(\Delta x\)</span> וגובהו <span class="math" dir="ltr">\(M\)</span> מכיל את <span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>.</p>
-                <p>אז לפי תכונה ב' (מונוטוניות), שטח המלבן הנמוך אינו גדול מ-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>, ו-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span> אינו גדול משטח המלבן הגבוה:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ m \cdot \Delta x \le \Delta S \le M \cdot \Delta x $$</div></div>
-                <p>(שוויון ממש באחד מהם אם ורק אם <span class="math" dir="ltr">\(f\)</span> קבועה בקטע <span class="math" dir="ltr">\([x_0, x_0+\Delta x]\)</span>).</p>
-                <p>נחלק ב-<span class="math" dir="ltr">\(\Delta x > 0\)</span> ונקבל:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ m \le \frac{\Delta S}{\Delta x} \le M $$</div></div>
-                <p>כאשר <span class="math" dir="ltr">\(\Delta x \to 0^+\)</span>, מכיוון ש-<span class="math" dir="ltr">\(f\)</span> רציפה ב-<span class="math" dir="ltr">\(x_0\)</span>, גם <span class="math" dir="ltr">\(m\)</span> וגם <span class="math" dir="ltr">\(M\)</span> (שהם ערכים של <span class="math" dir="ltr">\(f\)</span> בקטע <span class="math" dir="ltr">\([x_0, x_0+\Delta x]\)</span>) שואפים ל-<span class="math" dir="ltr">\(f(x_0)\)</span>. כלומר:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\Delta x \to 0^+} m = \lim_{\Delta x \to 0^+} M = f(x_0) $$</div></div>
-                <p>לכן, לפי משפט הסנדוויץ', נקבל מ-<span class="math" dir="ltr">\(m \le \frac{\Delta S}{\Delta x} \le M\)</span> ש:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\Delta x \to 0^+} \frac{\Delta S}{\Delta x} = \lim_{\Delta x \to 0^+} \frac{S(x_0+\Delta x) - S(x_0)}{\Delta x} = f(x_0) $$</div></div>
-                 <p>כלומר, פונקציית השטח <span class="math" dir="ltr">\(S(x)\)</span> גזירה מימין ב-<span class="math" dir="ltr">\(x_0\)</span> ומתקיים ש-<span class="math" dir="ltr">\(S'_+(x_0) = f(x_0)\)</span>.</p>
-                <p>באופן דומה, אם ניקח <span class="math" dir="ltr">\(\Delta x < 0\)</span>, נחלק ב-<span class="math" dir="ltr">\(-\Delta x > 0\)</span> ונגיע לאותה מסקנה עבור הגבול משמאל, <span class="math" dir="ltr">\(\lim_{\Delta x \to 0^-} \frac{S(x_0+\Delta x) - S(x_0)}{\Delta x} = f(x_0)\)</span>, כלומר <span class="math" dir="ltr">\(S'_-(x_0) = f(x_0)\)</span>.</p>
-                <p>סה"כ <span class="math" dir="ltr">\(S(x)\)</span> גזירה ב-<span class="math" dir="ltr">\(x_0\)</span> ו-<span class="math" dir="ltr">\(S'(x_0) = f(x_0)\)</span>.</p>
-                <p>טיעון זה נכון לכל <span class="math" dir="ltr">\(x_0 \in (a,b)\)</span>. בקצוות, <span class="math" dir="ltr">\(x_0=a\)</span> ו-<span class="math" dir="ltr">\(x_0=b\)</span>, הוא נכון באופן חד-צדדי: <span class="math" dir="ltr">\(S'_+(a)=f(a)\)</span> ו-<span class="math" dir="ltr">\(S'_-(b)=f(b)\)</span>.</p>
-                <p>נכתוב כעת <span class="math" dir="ltr">\(x\)</span> במקום <span class="math" dir="ltr">\(x_0\)</span>. קיבלנו בסה"כ ש-<span class="math" dir="ltr">\(S(x)\)</span> היא <strong>פונקציה קדומה</strong> ל-<span class="math" dir="ltr">\(f(x)\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span>. השטח של <span class="math" dir="ltr">\(A_x\)</span> (השטח מ-<span class="math" dir="ltr">\(a\)</span> עד <span class="math" dir="ltr">\(x\)</span>) הוא <span class="math" dir="ltr">\(S(x) = S(x)-S(a)\)</span> (כי <span class="math" dir="ltr">\(S(a)=0\)</span>). בפרט, עבור <span class="math" dir="ltr">\(x=b\)</span>, השטח שרצינו לחשב הוא <span class="math" dir="ltr">\(S(b) = S(b)-S(a)\)</span>.</p>
-
-                <p><span class="math" dir="ltr">\(S(x)\)</span> היא פונקציה קדומה מיוחדת שבנינו והוגדרה כפונקצית שטח. אם <span class="math" dir="ltr">\(F(x)\)</span> היא איזושהי פונקציה קדומה אחרת של <span class="math" dir="ltr">\(f(x)\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span>, אז יש קבוע <span class="math" dir="ltr">\(C\)</span> כך ש-<span class="math" dir="ltr">\(F(x) = S(x) + C\)</span> בקטע זה. לכן, לכל <span class="math" dir="ltr">\(x_0 \in [a,b]\)</span> מתקיים:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ F(x_0) - F(a) = (S(x_0) + C) - (S(a) + C) = S(x_0) - S(a) = S(x_0) $$</div></div>
-                <p>כלומר, הפרש הערכים של <strong>כל</strong> פונקציה קדומה בין <span class="math" dir="ltr">\(x=a\)</span> ל-<span class="math" dir="ltr">\(x=x_0\)</span> נותן את השטח <span class="math" dir="ltr">\(S(x_0)\)</span> (השטח בין ציר <span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=x_0\)</span> והגרף של <span class="math" dir="ltr">\(f\)</span>).</p>
-                <p>בפרט, <span class="math" dir="ltr">\(F(b)-F(a)\)</span> הוא השטח הרצוי מתחת לגרף של <span class="math" dir="ltr">\(f\)</span> מעל הקטע <span class="math" dir="ltr">\([a,b]\)</span>.</p>
-                <div class="definition">
-                    <h4>המשפט היסודי של החשבון הדיפרנציאלי והאינטגרלי (חלק 1)</h4>
-                    <p>אם <span class="math" dir="ltr">\(f\)</span> רציפה בקטע <span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה כלשהי של <span class="math" dir="ltr">\(f\)</span> בקטע זה (<span class="math" dir="ltr">\(F'(x)=f(x)\)</span>), אז השטח המכוון בין גרף הפונקציה <span class="math" dir="ltr">\(f\)</span> לבין ציר ה-<span class="math" dir="ltr">\(x\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span> נתון על ידי:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ \text{Area} = \int_a^b f(x) \, dx = F(b) - F(a) $$</div></div>
-                    <p>(הסימון <span class="math" dir="ltr">\(\int_a^b f(x) dx\)</span> נקרא <strong>אינטגרל מסוים</strong> ויוגדר בהמשך).</p>
-                </div>
-            </section>
-
-            <section id="negative-area">
-                <h2>שטח שלילי וקיזוז</h2>
-                <p>מה לגבי <span class="math" dir="ltr">\(f\)</span> שלילית?</p>
-                <p>אזי <span class="math" dir="ltr">\(-f\)</span> חיובית. אם <span class="math" dir="ltr">\(F\)</span> קדומה של <span class="math" dir="ltr">\(f\)</span>, אזי <span class="math" dir="ltr">\(-F\)</span> קדומה של <span class="math" dir="ltr">\(-f\)</span>. השטח שבין ציר ה-<span class="math" dir="ltr">\(x\)</span> לגרף של <span class="math" dir="ltr">\(-f\)</span> (שנמצא מעל הציר) הוא <span class="math" dir="ltr">\((-F)(b) - (-F)(a) = -(F(b) - F(a))\)</span>.</p>
-                <p>זהו השטח הגאומטרי שבין גרף <span class="math" dir="ltr">\(f\)</span> (שנמצא מתחת לציר <span class="math" dir="ltr">\(x\)</span>) לבין ציר <span class="math" dir="ltr">\(x\)</span>. מכאן שהביטוי <span class="math" dir="ltr">\(F(b)-F(a)\)</span> עבור <span class="math" dir="ltr">\(f\)</span> שלילית הוא מספר שלילי שערכו המוחלט שווה לשטח הגאומטרי. כלומר, הפרש הערכים של פונקציה קדומה של <span class="math" dir="ltr">\(f\)</span> שלילית מודד את השטח כשטח שלילי (שטח מכוון).</p>
-                <p>אם <span class="math" dir="ltr">\(f\)</span> משנה סימן בקטע <span class="math" dir="ltr">\([a,b]\)</span>, ניתן לחלק את הקטע לקטעי משנה שבהם הסימן קבוע. למשל, אם <span class="math" dir="ltr">\(f\)</span> שלילית ב-<span class="math" dir="ltr">\([a,c]\)</span> וחיובית ב-<span class="math" dir="ltr">\([c,b]\)</span>, אז:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ F(b)-F(a) = (F(b)-F(c)) + (F(c)-F(a)) $$</div></div>
-                <p>כאשר <span class="math" dir="ltr">\(F(b)-F(c)\)</span> הוא השטח החיובי מעל <span class="math" dir="ltr">\([c,b]\)</span>, ו-<span class="math" dir="ltr">\(F(c)-F(a)\)</span> הוא השטח השלילי מתחת ל-<span class="math" dir="ltr">\([a,c]\)</span>. הביטוי הכולל <span class="math" dir="ltr">\(F(b)-F(a)\)</span> מודד את השטח המכוון הכולל, כך שהשטח שמתחת לציר מתקזז עם השטח שמעל הציר.</p>
-
-                <div class="example">
-                    <h4>דוגמה: קיזוז שטחים</h4>
-                    <p>ניקח <span class="math" dir="ltr">\(f(x)=2x\)</span> בקטע <span class="math" dir="ltr">\([-1,1]\)</span>.</p>
-                    <p>הפונקציה הקדומה שלה היא <span class="math" dir="ltr">\(F(x)=x^2\)</span>.</p>
-                    <p>השטח המכוון הוא:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ F(1)-F(-1) = (1)^2 - (-1)^2 = 1-1 = 0 $$</div></div>
-                    <div class="chart-container">
-                        <div class="chart-wrapper">
-                             <h5>גרף <span class="math" dir="ltr">\(f(x)=2x\)</span> בקטע <span class="math" dir="ltr">\([-1,1]\)</span></h5>
-                             <canvas id="chart_fx_2x"></canvas>
-                        </div>
-                    </div>
-                    <p>הגרף מראה משולש שווה שטח מתחת לציר בקטע <span class="math" dir="ltr">\([-1,0]\)</span> (שטח מכוון <span class="math" dir="ltr">\(-1\)</span>) ומשולש שווה שטח מעל הציר בקטע <span class="math" dir="ltr">\([0,1]\)</span> (שטח מכוון <span class="math" dir="ltr">\(+1\)</span>). השטח המכוון הכולל הוא <span class="math" dir="ltr">\(-1 + 1 = 0\)</span>, כפי שחישבנו. השטח הגאומטרי הכולל הוא כמובן <span class="math" dir="ltr">\(|-1| + |1| = 1+1=2\)</span>.</p>
-                    <p>בהמשך נלמד על האינטגרל המסוים <span class="math" dir="ltr">\(\int_a^b f(x) dx\)</span>, ונראה שגם הוא מחשב את השטח המכוון עם קיזוזים.</p>
-                 </div>
-             </section>
-
-             <section id="substitution-methods">
-                <h2>שיטות הצבה לאינטגרלים</h2>
-                <p>נביא כעת מספר שיטות לפתרון סוגים שונים של אינטגרלים על ידי הצבה.</p>
-                <p>הבסיס לשיטות אלו הוא שבסוף נגיע לאינטגרל של פונקציה רציונלית, אשר איתו אנו יודעים להתמודד (כזכור, בתנאי שניתן לפרק את המכנה למכפלת חזקות טבעיות של גורמים פולינומיאליים לינאריים או ריבועיים אי-פריקים הזרים זה לזה).</p>
-
-                <h3 id="rational-functions">פונקציה רציונלית של שני משתנים</h3>
-                 <div class="definition">
-                    <h4>הגדרה</h4>
-                    <p>פונקציה <span class="math" dir="ltr">\(R(s,t)\)</span> נקראת <strong>פונקציה רציונלית של שני משתנים</strong> <span class="math" dir="ltr">\(s, t\)</span> אם היא מנה של שני פולינומים במשתנים <span class="math" dir="ltr">\(s\)</span> ו-<span class="math" dir="ltr">\(t\)</span>. באופן שקול, כאשר מתייחסים לאחד המשתנים כאל קבוע, היא פונקציה רציונלית במשתנה השני.</p>
-                    <p>למשל: <span class="math" dir="ltr">\(R(s,t) = \frac{2st}{2s-t}\)</span>.</p>
-                 </div>
-                <p>השימוש בפונקציות רציונליות כאלו הוא פשוט דרך נוחה להציג את סוגי האינטגרלים שנטפל בהם, אשר האינטגרנדים שלהם הם פונקציות של משתנה אחד <span class="math" dir="ltr">\(x\)</span>.</p>
-             </section>
-
-            <section id="type1-integrals">
-                 <h2>סוג 1: אינטגרלים של פונקציות רציונליות ב-<span class="math" dir="ltr">\(\sin x, \cos x\)</span></h2>
-                 <p>הסוג הראשון של אינטגרלים יהיה מהצורה:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int R(\sin x, \cos x) \, dx $$</div></div>
-                 <p>כאשר <span class="math" dir="ltr">\(R(s,t)\)</span> היא פונקציה רציונלית של שני משתנים.</p>
-                 <p>למשל, עבור הפונקציה של משתנה אחד:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{2\sin x \cos x}{\sin x - 5\cos x} $$</div></div>
-                 <p>כאן הפונקציה הרציונלית המתאימה היא <span class="math" dir="ltr">\(R(s,t) = \frac{2st}{s-5t}\)</span>, והאינטגרל הוא <span class="math" dir="ltr">\(\int f(x) dx = \int R(\sin x, \cos x) dx\)</span>.</p>
-
-                 <p>כדאי לרענן את הידע לגבי התנהגות הפונקציות הטריגונומטריות הבסיסיות <span class="math" dir="ltr">\(\sin x, \cos x, \tan x, \cot x\)</span>: המחזוריות שלהן, היכן הן חיוביות/שליליות/מתאפסות/מקבלות <span class="math" dir="ltr">\(\pm 1\)</span>, והיכן הן עולות/יורדות.</p>
-
-                 <h3>ההצבה האוניברסלית (ויירשטראס)</h3>
-                 <p>כפי שנווכח, דרכנו תהיה למצוא הצבה מתאימה שתהפוך כל אינטגרל לאינטגרל מסוג שאותו אנו יודעים לפתור (אינטגרל של פונקציה רציונלית).</p>
-                 <p>נשתמש בנוסחאות של חצי זווית:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \sin x = \frac{2\tan(x/2)}{1+\tan^2(x/2)}, \quad \cos x = \frac{1-\tan^2(x/2)}{1+\tan^2(x/2)} $$</div></div>
-                 <p>נבצע את ההצבה:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ t = \tan\left(\frac{x}{2}\right) $$</div></div>
-                 <p>"תרגום" הנוסחאות לאנטגרל שלנו באמצעות <span class="math" dir="ltr">\(t\)</span> הוא:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \sin x = \frac{2t}{1+t^2}, \quad \cos x = \frac{1-t^2}{1+t^2} $$</div></div>
-                 <p>כעת נמצא את <span class="math" dir="ltr">\(dx\)</span> במונחי <span class="math" dir="ltr">\(dt\)</span>. מ-<span class="math" dir="ltr">\(t = \tan(x/2)\)</span> נובע <span class="math" dir="ltr">\(x/2 = \arctan(t)\)</span>, ולכן <span class="math" dir="ltr">\(x = 2 \arctan(t)\)</span>.</p>
-                 <p>נגזור לפי <span class="math" dir="ltr">\(t\)</span>:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \frac{dx}{dt} = \frac{d}{dt}(2 \arctan t) = 2 \cdot \frac{1}{1+t^2} = \frac{2}{1+t^2} $$</div></div>
-                 <p>ולכן:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{2}{1+t^2} dt $$</div></div>
-
-                 <p><strong>דרך חלופית למציאת <span class="math" dir="ltr">\(dx\)</span>:</strong></p>
-                 <p>מ-<span class="math" dir="ltr">\(t = \tan(x/2)\)</span>, נגזור לפי <span class="math" dir="ltr">\(x\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{d}{dx}\left(\tan\left(\frac{x}{2}\right)\right) = \sec^2\left(\frac{x}{2}\right) \cdot \frac{1}{2} = \frac{1}{2\cos^2(x/2)} $$</div></div>
-                 <p>נשתמש בזהות <span class="math" dir="ltr">\(\cos^2(\alpha) = \frac{1+\cos(2\alpha)}{2}\)</span> עם <span class="math" dir="ltr">\(\alpha = x/2\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{1}{1+\cos x} $$</div></div>
-                 <p>נביע את <span class="math" dir="ltr">\(\cos x\)</span> באמצעות <span class="math" dir="ltr">\(t\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{1}{1 + \frac{1-t^2}{1+t^2}} = \frac{1}{\frac{(1+t^2)+(1-t^2)}{1+t^2}} = \frac{1}{\frac{2}{1+t^2}} = \frac{1+t^2}{2} $$</div></div>
-                 <p>ומכאן שוב:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{2}{1+t^2} dt $$</div></div>
-
-                 <p>בסה"כ, הצבה זו הופכת אינטגרל מסוג <span class="math" dir="ltr">\(\int R(\sin x, \cos x) dx\)</span> ל:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int R\left(\frac{2t}{1+t^2}, \frac{1-t^2}{1+t^2}\right) \frac{2}{1+t^2} dt $$</div></div>
-                 <p>האינטגרנד החדש הוא פונקציה רציונלית של <span class="math" dir="ltr">\(t\)</span>, ואחרי סידור אלגברי מקבלים אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>, שאותו אנו יודעים לפתור (עקרונית).</p>
-            </section>
-
-            <section id="example-sin">
-                <h2>5. דוגמה: <span class="math" dir="ltr">\(\int \frac{dx}{\sin x}\)</span></h2>
-                <p>זהו אינטגרל מסוג (1) (כאן <span class="math" dir="ltr">\(R(s,t) = 1/s\)</span>). נשתמש בהצבה האוניברסלית <span class="math" dir="ltr">\(t = \tan(x/2)\)</span>.</p>
-                <p>ידוע ש-<span class="math" dir="ltr">\(\sin x = \frac{2t}{1+t^2}\)</span> ו-<span class="math" dir="ltr">\(dx = \frac{2}{1+t^2} dt\)</span>. נציב:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{\frac{2t}{1+t^2}} \cdot \frac{2}{1+t^2} dt = \int \frac{1+t^2}{2t} \cdot \frac{2}{1+t^2} dt = \int \frac{1}{t} dt $$</div></div>
-                <p>זהו אינטגרל מיידי:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ I = \ln|t| + C $$</div></div>
-                <p>נחזור למשתנה <span class="math" dir="ltr">\(x\)</span>:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ I = \ln\left|\tan\left(\frac{x}{2}\right)\right| + C $$</div></div>
-                <p>(כמובן, הפתרון אינו מוגדר כאשר <span class="math" dir="ltr">\(\tan(x/2) = 0\)</span> או אינו מוגדר, כלומר <span class="math" dir="ltr">\(x/2 = k\pi\)</span> או <span class="math" dir="ltr">\(x/2 = \pi/2 + k\pi\)</span>, שזה <span class="math" dir="ltr">\(x = n\pi\)</span> עבור <span class="math" dir="ltr">\(n\)</span> שלם. זה לא מפתיע, מכיוון שאלו בדיוק הנקודות בהן <span class="math" dir="ltr">\(\sin x = 0\)</span>, והאינטגרנד המקורי אינו מוגדר).</p>
-
-                <p>אומנם ההצבה האוניברסלית הביאה לפתרון קל מאוד, אך ניתן גם אחרת (כפי שראינו בשיעור קודם או באופן דומה):</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{1}{\sin x} dx = \int \frac{\sin x}{\sin^2 x} dx = \int \frac{\sin x}{1-\cos^2 x} dx \\ & \text{Let } u = \cos x, \quad du = -\sin x dx \\ &= \int \frac{-du}{1-u^2} = \int \frac{du}{u^2-1} = \int \frac{1}{(u-1)(u+1)} du \\ &= \int \frac{1}{2} \left( \frac{1}{u-1} - \frac{1}{u+1} \right) du \\ &= \frac{1}{2} (\ln|u-1| - \ln|u+1|) + C = \frac{1}{2} \ln\left|\frac{u-1}{u+1}\right| + C \\ &= \frac{1}{2} \ln\left|\frac{\cos x - 1}{\cos x + 1}\right| + C \\ &= \frac{1}{2} \ln\left|\frac{-2\sin^2(x/2)}{2\cos^2(x/2)}\right| + C = \frac{1}{2} \ln|\tan^2(x/2)| + C \\ &= \ln|\tan(x/2)| + C \end{aligned} $$</div></div>
-                 <p>אכן, לא תמיד ההצבות שנלמד הן הדרך היחידה או הקלה ביותר.</p>
-            </section>
-
-             <section id="type2-integrals">
-                 <h2>6. סוג 2: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{a^2-x^2}) dx\)</span></h2>
-                 <p>כאן <span class="math" dir="ltr">\(a > 0\)</span> הוא קבוע, ו-<span class="math" dir="ltr">\(R(s,t)\)</span> היא פונקציה רציונלית.</p>
-                 <p>למשל, אם האינטגרנד הוא:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{x^3 (\sqrt{7-x^2})^3 + 5x}{x + \sqrt{7-x^2} - 5x^3 + 4} $$</div></div>
-                  <p>כאן <span class="math" dir="ltr">\(a = \sqrt{7}\)</span>, והפונקציה הרציונלית המתאימה היא <span class="math" dir="ltr">\(R(s,t) = \frac{s^3 t^3 + 5s}{s + t - 5s^3 + 4}\)</span>.</p>
-                  <p>גם בשיעור הקודם נתקלנו באינטגרל <span class="math" dir="ltr">\(\int \sqrt{a^2-x^2} dx\)</span>. שם <span class="math" dir="ltr">\(R(s,t)=t\)</span>.</p>
-
-                  <p>הביטוי <span class="math" dir="ltr">\(\sqrt{a^2-x^2}\)</span> מוגדר עבור <span class="math" dir="ltr">\(-a \le x \le a\)</span>.</p>
-                  <p>ההצבה הטריגונומטרית המתאימה כאן היא:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ x = a \sin t $$</div></div>
-                  <p>נבחר את התחום של <span class="math" dir="ltr">\(t\)</span> כך שיכסה את כל הערכים האפשריים של <span class="math" dir="ltr">\(x\)</span> בדיוק פעם אחת, וגם יפשט את השורש. הבחירה המקובלת היא <span class="math" dir="ltr">\(-\frac{\pi}{2} \le t \le \frac{\pi}{2}\)</span>.</p>
-                  <p>בתחום זה מתקיים <span class="math" dir="ltr">\(\cos t \ge 0\)</span>, ולכן:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{a^2-x^2} = \sqrt{a^2 - (a\sin t)^2} = \sqrt{a^2(1-\sin^2 t)} = \sqrt{a^2 \cos^2 t} = |a \cos t| = a \cos t $$</div></div>
-                  <p>כמו כן, הדיפרנציאל הוא:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ dx = a \cos t \, dt $$</div></div>
-                  <p>כך האינטגרל הופך להיות:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(x, \sqrt{a^2-x^2}) dx = \int R(a\sin t, a\cos t) \cdot (a\cos t) dt $$</div></div>
-                   <p>וזהו אינטגרל מהסוג הקודם (סוג 1: אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(\sin t, \cos t\)</span>), איתו אנחנו יודעים להתמודד (למשל, באמצעות ההצבה האוניברסלית <span class="math" dir="ltr">\(u = \tan(t/2)\)</span>).</p>
-                   <p>(הערה: אפשר גם להציב <span class="math" dir="ltr">\(x=a\cos t\)</span> עם <span class="math" dir="ltr">\(0 \le t \le \pi\)</span>, ואז <span class="math" dir="ltr">\(\sqrt{a^2-x^2} = a\sin t\)</span> ו-<span class="math" dir="ltr">\(dx = -a\sin t dt\)</span>).</p>
-             </section>
-
-             <section id="type3-integrals">
-                  <h2>7. סוג 3: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{a^2+x^2}) dx\)</span></h2>
-                  <p>כאן הביטוי <span class="math" dir="ltr">\(\sqrt{a^2+x^2}\)</span> מוגדר לכל <span class="math" dir="ltr">\(x \in \mathbb{R}\)</span>.</p>
-                  <p>בהסתמך על הזהות <span class="math" dir="ltr">\(1+\tan^2 t = \sec^2 t = \frac{1}{\cos^2 t}\)</span>, ההצבה המתאימה היא:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ x = a \tan t $$</div></div>
+<p>על כן, המלבן שבסיסו <span class="math" dir="ltr">\(\Delta x\)</span> וגובהו <span class="math" dir="ltr">\(m\)</span> מוכל ב-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>, ואילו המלבן שבסיסו <span class="math" dir="ltr">\(\Delta x\)</span> וגובהו <span class="math" dir="ltr">\(M\)</span> מכיל את <span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>.</p>
+<p>אז לפי תכונה ב' (מונוטוניות), שטח המלבן הנמוך אינו גדול מ-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span>, ו-<span class="math" dir="ltr">\(\hat{A}_{\Delta S}\)</span> אינו גדול משטח המלבן הגבוה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ m \cdot \Delta x \le \Delta S \le M \cdot \Delta x $$</div></div>
+<p>(שוויון ממש באחד מהם אם ורק אם <span class="math" dir="ltr">\(f\)</span> קבועה בקטע <span class="math" dir="ltr">\([x_0, x_0+\Delta x]\)</span>).</p>
+<p>נחלק ב-<span class="math" dir="ltr">\(\Delta x &gt; 0\)</span> ונקבל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ m \le \frac{\Delta S}{\Delta x} \le M $$</div></div>
+<p>כאשר <span class="math" dir="ltr">\(\Delta x \to 0^+\)</span>, מכיוון ש-<span class="math" dir="ltr">\(f\)</span> רציפה ב-<span class="math" dir="ltr">\(x_0\)</span>, גם <span class="math" dir="ltr">\(m\)</span> וגם <span class="math" dir="ltr">\(M\)</span> (שהם ערכים של <span class="math" dir="ltr">\(f\)</span> בקטע <span class="math" dir="ltr">\([x_0, x_0+\Delta x]\)</span>) שואפים ל-<span class="math" dir="ltr">\(f(x_0)\)</span>. כלומר:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\Delta x \to 0^+} m = \lim_{\Delta x \to 0^+} M = f(x_0) $$</div></div>
+<p>לכן, לפי משפט הסנדוויץ', נקבל מ-<span class="math" dir="ltr">\(m \le \frac{\Delta S}{\Delta x} \le M\)</span> ש:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \lim_{\Delta x \to 0^+} \frac{\Delta S}{\Delta x} = \lim_{\Delta x \to 0^+} \frac{S(x_0+\Delta x) - S(x_0)}{\Delta x} = f(x_0) $$</div></div>
+<p>כלומר, פונקציית השטח <span class="math" dir="ltr">\(S(x)\)</span> גזירה מימין ב-<span class="math" dir="ltr">\(x_0\)</span> ומתקיים ש-<span class="math" dir="ltr">\(S'_+(x_0) = f(x_0)\)</span>.</p>
+<p>באופן דומה, אם ניקח <span class="math" dir="ltr">\(\Delta x &lt; 0\)</span>, נחלק ב-<span class="math" dir="ltr">\(-\Delta x &gt; 0\)</span> ונגיע לאותה מסקנה עבור הגבול משמאל, <span class="math" dir="ltr">\(\lim_{\Delta x \to 0^-} \frac{S(x_0+\Delta x) - S(x_0)}{\Delta x} = f(x_0)\)</span>, כלומר <span class="math" dir="ltr">\(S'_-(x_0) = f(x_0)\)</span>.</p>
+<p>סה"כ <span class="math" dir="ltr">\(S(x)\)</span> גזירה ב-<span class="math" dir="ltr">\(x_0\)</span> ו-<span class="math" dir="ltr">\(S'(x_0) = f(x_0)\)</span>.</p>
+<p>טיעון זה נכון לכל <span class="math" dir="ltr">\(x_0 \in (a,b)\)</span>. בקצוות, <span class="math" dir="ltr">\(x_0=a\)</span> ו-<span class="math" dir="ltr">\(x_0=b\)</span>, הוא נכון באופן חד-צדדי: <span class="math" dir="ltr">\(S'_+(a)=f(a)\)</span> ו-<span class="math" dir="ltr">\(S'_-(b)=f(b)\)</span>.</p>
+<p>נכתוב כעת <span class="math" dir="ltr">\(x\)</span> במקום <span class="math" dir="ltr">\(x_0\)</span>. קיבלנו בסה"כ ש-<span class="math" dir="ltr">\(S(x)\)</span> היא <strong>פונקציה קדומה</strong> ל-<span class="math" dir="ltr">\(f(x)\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span>. השטח של <span class="math" dir="ltr">\(A_x\)</span> (השטח מ-<span class="math" dir="ltr">\(a\)</span> עד <span class="math" dir="ltr">\(x\)</span>) הוא <span class="math" dir="ltr">\(S(x) = S(x)-S(a)\)</span> (כי <span class="math" dir="ltr">\(S(a)=0\)</span>). בפרט, עבור <span class="math" dir="ltr">\(x=b\)</span>, השטח שרצינו לחשב הוא <span class="math" dir="ltr">\(S(b) = S(b)-S(a)\)</span>.</p>
+<p><span class="math" dir="ltr">\(S(x)\)</span> היא פונקציה קדומה מיוחדת שבנינו והוגדרה כפונקצית שטח. אם <span class="math" dir="ltr">\(F(x)\)</span> היא איזושהי פונקציה קדומה אחרת של <span class="math" dir="ltr">\(f(x)\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span>, אז יש קבוע <span class="math" dir="ltr">\(C\)</span> כך ש-<span class="math" dir="ltr">\(F(x) = S(x) + C\)</span> בקטע זה. לכן, לכל <span class="math" dir="ltr">\(x_0 \in [a,b]\)</span> מתקיים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ F(x_0) - F(a) = (S(x_0) + C) - (S(a) + C) = S(x_0) - S(a) = S(x_0) $$</div></div>
+<p>כלומר, הפרש הערכים של <strong>כל</strong> פונקציה קדומה בין <span class="math" dir="ltr">\(x=a\)</span> ל-<span class="math" dir="ltr">\(x=x_0\)</span> נותן את השטח <span class="math" dir="ltr">\(S(x_0)\)</span> (השטח בין ציר <span class="math" dir="ltr">\(x\)</span>, הישרים <span class="math" dir="ltr">\(x=a, x=x_0\)</span> והגרף של <span class="math" dir="ltr">\(f\)</span>).</p>
+<p>בפרט, <span class="math" dir="ltr">\(F(b)-F(a)\)</span> הוא השטח הרצוי מתחת לגרף של <span class="math" dir="ltr">\(f\)</span> מעל הקטע <span class="math" dir="ltr">\([a,b]\)</span>.</p>
+<div class="definition">
+<h4>המשפט היסודי של החשבון הדיפרנציאלי והאינטגרלי (חלק 1)</h4>
+<p>אם <span class="math" dir="ltr">\(f\)</span> רציפה בקטע <span class="math" dir="ltr">\([a,b]\)</span> ו-<span class="math" dir="ltr">\(F\)</span> היא פונקציה קדומה כלשהי של <span class="math" dir="ltr">\(f\)</span> בקטע זה (<span class="math" dir="ltr">\(F'(x)=f(x)\)</span>), אז השטח המכוון בין גרף הפונקציה <span class="math" dir="ltr">\(f\)</span> לבין ציר ה-<span class="math" dir="ltr">\(x\)</span> בקטע <span class="math" dir="ltr">\([a,b]\)</span> נתון על ידי:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \text{Area} = \int_a^b f(x) \, dx = F(b) - F(a) $$</div></div>
+<p>(הסימון <span class="math" dir="ltr">\(\int_a^b f(x) dx\)</span> נקרא <strong>אינטגרל מסוים</strong> ויוגדר בהמשך).</p>
+</div>
+</section>
+<section id="negative-area">
+<h2>שטח שלילי וקיזוז</h2>
+<p>מה לגבי <span class="math" dir="ltr">\(f\)</span> שלילית?</p>
+<p>אזי <span class="math" dir="ltr">\(-f\)</span> חיובית. אם <span class="math" dir="ltr">\(F\)</span> קדומה של <span class="math" dir="ltr">\(f\)</span>, אזי <span class="math" dir="ltr">\(-F\)</span> קדומה של <span class="math" dir="ltr">\(-f\)</span>. השטח שבין ציר ה-<span class="math" dir="ltr">\(x\)</span> לגרף של <span class="math" dir="ltr">\(-f\)</span> (שנמצא מעל הציר) הוא <span class="math" dir="ltr">\((-F)(b) - (-F)(a) = -(F(b) - F(a))\)</span>.</p>
+<p>זהו השטח הגאומטרי שבין גרף <span class="math" dir="ltr">\(f\)</span> (שנמצא מתחת לציר <span class="math" dir="ltr">\(x\)</span>) לבין ציר <span class="math" dir="ltr">\(x\)</span>. מכאן שהביטוי <span class="math" dir="ltr">\(F(b)-F(a)\)</span> עבור <span class="math" dir="ltr">\(f\)</span> שלילית הוא מספר שלילי שערכו המוחלט שווה לשטח הגאומטרי. כלומר, הפרש הערכים של פונקציה קדומה של <span class="math" dir="ltr">\(f\)</span> שלילית מודד את השטח כשטח שלילי (שטח מכוון).</p>
+<p>אם <span class="math" dir="ltr">\(f\)</span> משנה סימן בקטע <span class="math" dir="ltr">\([a,b]\)</span>, ניתן לחלק את הקטע לקטעי משנה שבהם הסימן קבוע. למשל, אם <span class="math" dir="ltr">\(f\)</span> שלילית ב-<span class="math" dir="ltr">\([a,c]\)</span> וחיובית ב-<span class="math" dir="ltr">\([c,b]\)</span>, אז:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ F(b)-F(a) = (F(b)-F(c)) + (F(c)-F(a)) $$</div></div>
+<p>כאשר <span class="math" dir="ltr">\(F(b)-F(c)\)</span> הוא השטח החיובי מעל <span class="math" dir="ltr">\([c,b]\)</span>, ו-<span class="math" dir="ltr">\(F(c)-F(a)\)</span> הוא השטח השלילי מתחת ל-<span class="math" dir="ltr">\([a,c]\)</span>. הביטוי הכולל <span class="math" dir="ltr">\(F(b)-F(a)\)</span> מודד את השטח המכוון הכולל, כך שהשטח שמתחת לציר מתקזז עם השטח שמעל הציר.</p>
+<div class="example">
+<h4>דוגמה: קיזוז שטחים</h4>
+<p>ניקח <span class="math" dir="ltr">\(f(x)=2x\)</span> בקטע <span class="math" dir="ltr">\([-1,1]\)</span>.</p>
+<p>הפונקציה הקדומה שלה היא <span class="math" dir="ltr">\(F(x)=x^2\)</span>.</p>
+<p>השטח המכוון הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ F(1)-F(-1) = (1)^2 - (-1)^2 = 1-1 = 0 $$</div></div>
+<div class="chart-container">
+<div class="chart-wrapper">
+<h5>גרף <span class="math" dir="ltr">\(f(x)=2x\)</span> בקטע <span class="math" dir="ltr">\([-1,1]\)</span></h5>
+<canvas id="chart_fx_2x"></canvas>
+</div>
+</div>
+<p>הגרף מראה משולש שווה שטח מתחת לציר בקטע <span class="math" dir="ltr">\([-1,0]\)</span> (שטח מכוון <span class="math" dir="ltr">\(-1\)</span>) ומשולש שווה שטח מעל הציר בקטע <span class="math" dir="ltr">\([0,1]\)</span> (שטח מכוון <span class="math" dir="ltr">\(+1\)</span>). השטח המכוון הכולל הוא <span class="math" dir="ltr">\(-1 + 1 = 0\)</span>, כפי שחישבנו. השטח הגאומטרי הכולל הוא כמובן <span class="math" dir="ltr">\(|-1| + |1| = 1+1=2\)</span>.</p>
+<p>בהמשך נלמד על האינטגרל המסוים <span class="math" dir="ltr">\(\int_a^b f(x) dx\)</span>, ונראה שגם הוא מחשב את השטח המכוון עם קיזוזים.</p>
+</div>
+</section>
+<section id="substitution-methods">
+<h2>שיטות הצבה לאינטגרלים</h2>
+<p>נביא כעת מספר שיטות לפתרון סוגים שונים של אינטגרלים על ידי הצבה.</p>
+<p>הבסיס לשיטות אלו הוא שבסוף נגיע לאינטגרל של פונקציה רציונלית, אשר איתו אנו יודעים להתמודד (כזכור, בתנאי שניתן לפרק את המכנה למכפלת חזקות טבעיות של גורמים פולינומיאליים לינאריים או ריבועיים אי-פריקים הזרים זה לזה).</p>
+<h3 id="rational-functions">פונקציה רציונלית של שני משתנים</h3>
+<div class="definition">
+<h4>הגדרה</h4>
+<p>פונקציה <span class="math" dir="ltr">\(R(s,t)\)</span> נקראת <strong>פונקציה רציונלית של שני משתנים</strong> <span class="math" dir="ltr">\(s, t\)</span> אם היא מנה של שני פולינומים במשתנים <span class="math" dir="ltr">\(s\)</span> ו-<span class="math" dir="ltr">\(t\)</span>. באופן שקול, כאשר מתייחסים לאחד המשתנים כאל קבוע, היא פונקציה רציונלית במשתנה השני.</p>
+<p>למשל: <span class="math" dir="ltr">\(R(s,t) = \frac{2st}{2s-t}\)</span>.</p>
+</div>
+<p>השימוש בפונקציות רציונליות כאלו הוא פשוט דרך נוחה להציג את סוגי האינטגרלים שנטפל בהם, אשר האינטגרנדים שלהם הם פונקציות של משתנה אחד <span class="math" dir="ltr">\(x\)</span>.</p>
+</section>
+<section id="type1-integrals">
+<h2>סוג 1: אינטגרלים של פונקציות רציונליות ב-<span class="math" dir="ltr">\(\sin x, \cos x\)</span></h2>
+<p>הסוג הראשון של אינטגרלים יהיה מהצורה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int R(\sin x, \cos x) \, dx $$</div></div>
+<p>כאשר <span class="math" dir="ltr">\(R(s,t)\)</span> היא פונקציה רציונלית של שני משתנים.</p>
+<p>למשל, עבור הפונקציה של משתנה אחד:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{2\sin x \cos x}{\sin x - 5\cos x} $$</div></div>
+<p>כאן הפונקציה הרציונלית המתאימה היא <span class="math" dir="ltr">\(R(s,t) = \frac{2st}{s-5t}\)</span>, והאינטגרל הוא <span class="math" dir="ltr">\(\int f(x) dx = \int R(\sin x, \cos x) dx\)</span>.</p>
+<p>כדאי לרענן את הידע לגבי התנהגות הפונקציות הטריגונומטריות הבסיסיות <span class="math" dir="ltr">\(\sin x, \cos x, \tan x, \cot x\)</span>: המחזוריות שלהן, היכן הן חיוביות/שליליות/מתאפסות/מקבלות <span class="math" dir="ltr">\(\pm 1\)</span>, והיכן הן עולות/יורדות.</p>
+<h3>ההצבה האוניברסלית (ויירשטראס)</h3>
+<p>כפי שנווכח, דרכנו תהיה למצוא הצבה מתאימה שתהפוך כל אינטגרל לאינטגרל מסוג שאותו אנו יודעים לפתור (אינטגרל של פונקציה רציונלית).</p>
+<p>נשתמש בנוסחאות של חצי זווית:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sin x = \frac{2\tan(x/2)}{1+\tan^2(x/2)}, \quad \cos x = \frac{1-\tan^2(x/2)}{1+\tan^2(x/2)} $$</div></div>
+<p>נבצע את ההצבה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ t = \tan\left(\frac{x}{2}\right) $$</div></div>
+<p>"תרגום" הנוסחאות לאנטגרל שלנו באמצעות <span class="math" dir="ltr">\(t\)</span> הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sin x = \frac{2t}{1+t^2}, \quad \cos x = \frac{1-t^2}{1+t^2} $$</div></div>
+<p>כעת נמצא את <span class="math" dir="ltr">\(dx\)</span> במונחי <span class="math" dir="ltr">\(dt\)</span>. מ-<span class="math" dir="ltr">\(t = \tan(x/2)\)</span> נובע <span class="math" dir="ltr">\(x/2 = \arctan(t)\)</span>, ולכן <span class="math" dir="ltr">\(x = 2 \arctan(t)\)</span>.</p>
+<p>נגזור לפי <span class="math" dir="ltr">\(t\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{dx}{dt} = \frac{d}{dt}(2 \arctan t) = 2 \cdot \frac{1}{1+t^2} = \frac{2}{1+t^2} $$</div></div>
+<p>ולכן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{2}{1+t^2} dt $$</div></div>
+<p><strong>דרך חלופית למציאת <span class="math" dir="ltr">\(dx\)</span>:</strong></p>
+<p>מ-<span class="math" dir="ltr">\(t = \tan(x/2)\)</span>, נגזור לפי <span class="math" dir="ltr">\(x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{d}{dx}\left(\tan\left(\frac{x}{2}\right)\right) = \sec^2\left(\frac{x}{2}\right) \cdot \frac{1}{2} = \frac{1}{2\cos^2(x/2)} $$</div></div>
+<p>נשתמש בזהות <span class="math" dir="ltr">\(\cos^2(\alpha) = \frac{1+\cos(2\alpha)}{2}\)</span> עם <span class="math" dir="ltr">\(\alpha = x/2\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{1}{1+\cos x} $$</div></div>
+<p>נביע את <span class="math" dir="ltr">\(\cos x\)</span> באמצעות <span class="math" dir="ltr">\(t\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{dt}{dx} = \frac{1}{1 + \frac{1-t^2}{1+t^2}} = \frac{1}{\frac{(1+t^2)+(1-t^2)}{1+t^2}} = \frac{1}{\frac{2}{1+t^2}} = \frac{1+t^2}{2} $$</div></div>
+<p>ומכאן שוב:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{2}{1+t^2} dt $$</div></div>
+<p>בסה"כ, הצבה זו הופכת אינטגרל מסוג <span class="math" dir="ltr">\(\int R(\sin x, \cos x) dx\)</span> ל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int R\left(\frac{2t}{1+t^2}, \frac{1-t^2}{1+t^2}\right) \frac{2}{1+t^2} dt $$</div></div>
+<p>האינטגרנד החדש הוא פונקציה רציונלית של <span class="math" dir="ltr">\(t\)</span>, ואחרי סידור אלגברי מקבלים אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>, שאותו אנו יודעים לפתור (עקרונית).</p>
+</section>
+<section id="example-sin">
+<h2>5. דוגמה: <span class="math" dir="ltr">\(\int \frac{dx}{\sin x}\)</span></h2>
+<p>זהו אינטגרל מסוג (1) (כאן <span class="math" dir="ltr">\(R(s,t) = 1/s\)</span>). נשתמש בהצבה האוניברסלית <span class="math" dir="ltr">\(t = \tan(x/2)\)</span>.</p>
+<p>ידוע ש-<span class="math" dir="ltr">\(\sin x = \frac{2t}{1+t^2}\)</span> ו-<span class="math" dir="ltr">\(dx = \frac{2}{1+t^2} dt\)</span>. נציב:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{\frac{2t}{1+t^2}} \cdot \frac{2}{1+t^2} dt = \int \frac{1+t^2}{2t} \cdot \frac{2}{1+t^2} dt = \int \frac{1}{t} dt $$</div></div>
+<p>זהו אינטגרל מיידי:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \ln|t| + C $$</div></div>
+<p>נחזור למשתנה <span class="math" dir="ltr">\(x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \ln\left|\tan\left(\frac{x}{2}\right)\right| + C $$</div></div>
+<p>(כמובן, הפתרון אינו מוגדר כאשר <span class="math" dir="ltr">\(\tan(x/2) = 0\)</span> או אינו מוגדר, כלומר <span class="math" dir="ltr">\(x/2 = k\pi\)</span> או <span class="math" dir="ltr">\(x/2 = \pi/2 + k\pi\)</span>, שזה <span class="math" dir="ltr">\(x = n\pi\)</span> עבור <span class="math" dir="ltr">\(n\)</span> שלם. זה לא מפתיע, מכיוון שאלו בדיוק הנקודות בהן <span class="math" dir="ltr">\(\sin x = 0\)</span>, והאינטגרנד המקורי אינו מוגדר).</p>
+<p>אומנם ההצבה האוניברסלית הביאה לפתרון קל מאוד, אך ניתן גם אחרת (כפי שראינו בשיעור קודם או באופן דומה):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int \frac{1}{\sin x} dx = \int \frac{\sin x}{\sin^2 x} dx = \int \frac{\sin x}{1-\cos^2 x} dx \\ &amp; \text{Let } u = \cos x, \quad du = -\sin x dx \\ &amp;= \int \frac{-du}{1-u^2} = \int \frac{du}{u^2-1} = \int \frac{1}{(u-1)(u+1)} du \\ &amp;= \int \frac{1}{2} \left( \frac{1}{u-1} - \frac{1}{u+1} \right) du \\ &amp;= \frac{1}{2} (\ln|u-1| - \ln|u+1|) + C = \frac{1}{2} \ln\left|\frac{u-1}{u+1}\right| + C \\ &amp;= \frac{1}{2} \ln\left|\frac{\cos x - 1}{\cos x + 1}\right| + C \\ &amp;= \frac{1}{2} \ln\left|\frac{-2\sin^2(x/2)}{2\cos^2(x/2)}\right| + C = \frac{1}{2} \ln|\tan^2(x/2)| + C \\ &amp;= \ln|\tan(x/2)| + C \end{aligned} $$</div></div>
+<p>אכן, לא תמיד ההצבות שנלמד הן הדרך היחידה או הקלה ביותר.</p>
+</section>
+<section id="type2-integrals">
+<h2>6. סוג 2: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{a^2-x^2}) dx\)</span></h2>
+<p>כאן <span class="math" dir="ltr">\(a &gt; 0\)</span> הוא קבוע, ו-<span class="math" dir="ltr">\(R(s,t)\)</span> היא פונקציה רציונלית.</p>
+<p>למשל, אם האינטגרנד הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ f(x) = \frac{x^3 (\sqrt{7-x^2})^3 + 5x}{x + \sqrt{7-x^2} - 5x^3 + 4} $$</div></div>
+<p>כאן <span class="math" dir="ltr">\(a = \sqrt{7}\)</span>, והפונקציה הרציונלית המתאימה היא <span class="math" dir="ltr">\(R(s,t) = \frac{s^3 t^3 + 5s}{s + t - 5s^3 + 4}\)</span>.</p>
+<p>גם בשיעור הקודם נתקלנו באינטגרל <span class="math" dir="ltr">\(\int \sqrt{a^2-x^2} dx\)</span>. שם <span class="math" dir="ltr">\(R(s,t)=t\)</span>.</p>
+<p>הביטוי <span class="math" dir="ltr">\(\sqrt{a^2-x^2}\)</span> מוגדר עבור <span class="math" dir="ltr">\(-a \le x \le a\)</span>.</p>
+<p>ההצבה הטריגונומטרית המתאימה כאן היא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x = a \sin t $$</div></div>
+<p>נבחר את התחום של <span class="math" dir="ltr">\(t\)</span> כך שיכסה את כל הערכים האפשריים של <span class="math" dir="ltr">\(x\)</span> בדיוק פעם אחת, וגם יפשט את השורש. הבחירה המקובלת היא <span class="math" dir="ltr">\(-\frac{\pi}{2} \le t \le \frac{\pi}{2}\)</span>.</p>
+<p>בתחום זה מתקיים <span class="math" dir="ltr">\(\cos t \ge 0\)</span>, ולכן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{a^2-x^2} = \sqrt{a^2 - (a\sin t)^2} = \sqrt{a^2(1-\sin^2 t)} = \sqrt{a^2 \cos^2 t} = |a \cos t| = a \cos t $$</div></div>
+<p>כמו כן, הדיפרנציאל הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ dx = a \cos t \, dt $$</div></div>
+<p>כך האינטגרל הופך להיות:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(x, \sqrt{a^2-x^2}) dx = \int R(a\sin t, a\cos t) \cdot (a\cos t) dt $$</div></div>
+<p>וזהו אינטגרל מהסוג הקודם (סוג 1: אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(\sin t, \cos t\)</span>), איתו אנחנו יודעים להתמודד (למשל, באמצעות ההצבה האוניברסלית <span class="math" dir="ltr">\(u = \tan(t/2)\)</span>).</p>
+<p>(הערה: אפשר גם להציב <span class="math" dir="ltr">\(x=a\cos t\)</span> עם <span class="math" dir="ltr">\(0 \le t \le \pi\)</span>, ואז <span class="math" dir="ltr">\(\sqrt{a^2-x^2} = a\sin t\)</span> ו-<span class="math" dir="ltr">\(dx = -a\sin t dt\)</span>).</p>
+</section>
+<section id="type3-integrals">
+<h2>7. סוג 3: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{a^2+x^2}) dx\)</span></h2>
+<p>כאן הביטוי <span class="math" dir="ltr">\(\sqrt{a^2+x^2}\)</span> מוגדר לכל <span class="math" dir="ltr">\(x \in \mathbb{R}\)</span>.</p>
+<p>בהסתמך על הזהות <span class="math" dir="ltr">\(1+\tan^2 t = \sec^2 t = \frac{1}{\cos^2 t}\)</span>, ההצבה המתאימה היא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x = a \tan t $$</div></div>
 <p>
 נבחר את התחום של 
 <span class="math" dir="ltr">\( t \)</span> 
 כך שיכסה את כל הערכים האפשריים של 
 <span class="math" dir="ltr">\( x \in (-\infty, \infty) \)</span> 
 בדיוק פעם אחת ויפשט את הביטוי שבתוך השורש. הבחירה המקובלת היא:
-<span class="math" dir="ltr">\( -\frac{\pi}{2} < t < \frac{\pi}{2} \)</span>.
+<span class="math" dir="ltr">\( -\frac{\pi}{2} &lt; t &lt; \frac{\pi}{2} \)</span>.
 בתחום זה מתקיים 
-<span class="math" dir="ltr">\( \cos t > 0 \)</span> 
+<span class="math" dir="ltr">\( \cos t &gt; 0 \)</span> 
 (ולכן גם 
-<span class="math" dir="ltr">\( \sec t > 0 \)</span>).
+<span class="math" dir="ltr">\( \sec t &gt; 0 \)</span>).
 </p>
-
-                  <p>בתחום זה מתקיים <span class="math" dir="ltr">\(\cos t > 0\)</span> (ולכן <span class="math" dir="ltr">\(\sec t > 0\)</span>).</p>
-                  <div class="chart-container">
-                    <div class="chart-wrapper">
-                         <h5>גרף <span class="math" dir="ltr">\(x = a \tan t\)</span> עבור <span class="math" dir="ltr">\(t \in (-\pi/2, \pi/2)\)</span> (עם <span class="math" dir="ltr">\(a=1\)</span>)</h5>
+<p>בתחום זה מתקיים <span class="math" dir="ltr">\(\cos t &gt; 0\)</span> (ולכן <span class="math" dir="ltr">\(\sec t &gt; 0\)</span>).</p>
+<div class="chart-container">
+<div class="chart-wrapper">
+<h5>גרף <span class="math" dir="ltr">\(x = a \tan t\)</span> עבור <span class="math" dir="ltr">\(t \in (-\pi/2, \pi/2)\)</span> (עם <span class="math" dir="ltr">\(a=1\)</span>)</h5>
 <div class="chart-container">
 <div class="charts">
-  <canvas id="tanChart"></canvas>
+<canvas id="tanChart"></canvas>
 </div>
-
 </div>
-                    </div>
-                  </div>
-                  <p>נחשב את השורש:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{a^2+x^2} = \sqrt{a^2 + (a\tan t)^2} = \sqrt{a^2(1+\tan^2 t)} = \sqrt{a^2 \sec^2 t} = |a \sec t| = a \sec t = \frac{a}{\cos t} $$</div></div>
-                  <p>הדיפרנציאל הוא:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ dx = a \sec^2 t \, dt = \frac{a}{\cos^2 t} dt $$</div></div>
-                  <p>והאינטגרל הופך להיות:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(a\tan t, a\sec t) \cdot (a\sec^2 t) dt $$</div></div>
-                  <p>גם זה אינטגרל של פונקציה רציונלית במונחי פונקציות טריגונומטריות (ניתן להביע <span class="math" dir="ltr">\(\tan t = \sin t / \cos t\)</span> ו-<span class="math" dir="ltr">\(\sec t = 1/\cos t\)</span>), כלומר אינטגרל מסוג 1.</p>
-             </section>
-
-             <section id="type4-integrals">
-                  <h2>8. סוג 4: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{x^2-a^2}) dx\)</span></h2>
-                  <p>כאן הביטוי <span class="math" dir="ltr">\(\sqrt{x^2-a^2}\)</span> מוגדר עבור <span class="math" dir="ltr">\(x \ge a\)</span> או <span class="math" dir="ltr">\(x \le -a\)</span>.</p>
-                  <p>נשתמש שוב בזהות <span class="math" dir="ltr">\(1+\tan^2 t = \sec^2 t\)</span>, או <span class="math" dir="ltr">\(\sec^2 t - 1 = \tan^2 t\)</span>. ההצבה המתאימה היא:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ x = a \sec t = \frac{a}{\cos t} $$</div></div>
-                  <p>נבחר את התחום של <span class="math" dir="ltr">\(t\)</span>.
+</div>
+</div>
+<p>נחשב את השורש:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{a^2+x^2} = \sqrt{a^2 + (a\tan t)^2} = \sqrt{a^2(1+\tan^2 t)} = \sqrt{a^2 \sec^2 t} = |a \sec t| = a \sec t = \frac{a}{\cos t} $$</div></div>
+<p>הדיפרנציאל הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ dx = a \sec^2 t \, dt = \frac{a}{\cos^2 t} dt $$</div></div>
+<p>והאינטגרל הופך להיות:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(a\tan t, a\sec t) \cdot (a\sec^2 t) dt $$</div></div>
+<p>גם זה אינטגרל של פונקציה רציונלית במונחי פונקציות טריגונומטריות (ניתן להביע <span class="math" dir="ltr">\(\tan t = \sin t / \cos t\)</span> ו-<span class="math" dir="ltr">\(\sec t = 1/\cos t\)</span>), כלומר אינטגרל מסוג 1.</p>
+</section>
+<section id="type4-integrals">
+<h2>8. סוג 4: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(x, \sqrt{x^2-a^2}) dx\)</span></h2>
+<p>כאן הביטוי <span class="math" dir="ltr">\(\sqrt{x^2-a^2}\)</span> מוגדר עבור <span class="math" dir="ltr">\(x \ge a\)</span> או <span class="math" dir="ltr">\(x \le -a\)</span>.</p>
+<p>נשתמש שוב בזהות <span class="math" dir="ltr">\(1+\tan^2 t = \sec^2 t\)</span>, או <span class="math" dir="ltr">\(\sec^2 t - 1 = \tan^2 t\)</span>. ההצבה המתאימה היא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x = a \sec t = \frac{a}{\cos t} $$</div></div>
+<p>נבחר את התחום של <span class="math" dir="ltr">\(t\)</span>.
                   <ul>
-                    <li>כדי לכסות <span class="math" dir="ltr">\(x \ge a\)</span>, מתאים <span class="math" dir="ltr">\(t \in [0, \pi/2)\)</span>. בתחום זה <span class="math" dir="ltr">\(\cos t > 0\)</span>, <span class="math" dir="ltr">\(\sin t \ge 0\)</span>, <span class="math" dir="ltr">\(\tan t \ge 0\)</span>.</li>
-                    <li>כדי לכסות <span class="math" dir="ltr">\(x \le -a\)</span>, מתאים <span class="math" dir="ltr">\(t \in (\pi/2, \pi]\)</span>. בתחום זה <span class="math" dir="ltr">\(\cos t < 0\)</span>, <span class="math" dir="ltr">\(\sin t \ge 0\)</span>, <span class="math" dir="ltr">\(\tan t \le 0\)</span>.</li>
-                 </ul>
-                 </p>
-                  <div class="chart-container">
-                        <div class="chart-wrapper">
-                             <h5>גרף <span class="math" dir="ltr">\(x = a / \cos t\)</span> עבור <span class="math" dir="ltr">\(t \in [0, \pi/2) \cup (\pi/2, \pi]\)</span> (עם <span class="math" dir="ltr">\(a=1\)</span>)</h5>
-  <canvas id="secChart" width="600" height="400"></canvas>
-                        </div>
-                  </div>
-                  <p>נחשב את השורש:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2-a^2} = \sqrt{(a\sec t)^2 - a^2} = \sqrt{a^2(\sec^2 t - 1)} = \sqrt{a^2 \tan^2 t} = |a \tan t| $$</div></div>
-                   <p>לכן:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2-a^2} = \begin{cases} a \tan t & \text{if } x \ge a \quad (t \in [0, \pi/2)) \\ -a \tan t & \text{if } x \le -a \quad (t \in (\pi/2, \pi]) \end{cases} $$</div></div>
-                   <p>הדיפרנציאל הוא:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ dx = a \sec t \tan t \, dt = \frac{a \sin t}{\cos^2 t} dt $$</div></div>
-                   <p>האינטגרל הופך ל:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(a\sec t, |a\tan t|) \cdot (a \sec t \tan t) dt $$</div></div>
-                   <p>שוב, זהו אינטגרל מסוג 1.</p>
-             </section>
-
-              <section id="example-sqrt">
-                 <h2>9. דוגמה: <span class="math" dir="ltr">\(I = \int \frac{dx}{x^2\sqrt{x^2-1}}\)</span></h2>
-                 <p>זהו אינטגרל מסוג 4 עם <span class="math" dir="ltr">\(a=1\)</span>. נשתמש בהצבה <span class="math" dir="ltr">\(x = \sec t = \frac{1}{\cos t}\)</span>.</p>
-                 <p>הדיפרנציאל: <span class="math" dir="ltr">\(dx = \sec t \tan t \, dt\)</span>.</p>
-                 <p>השורש: <span class="math" dir="ltr">\(\sqrt{x^2-1} = |\tan t|\)</span>.</p>
-                 <p>נציב באינטגרל:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{\sec t \tan t \, dt}{(\sec t)^2 |\tan t|} = \int \frac{\tan t}{\sec t |\tan t|} dt $$</div></div>
-                 <p>נפריד למקרים:</p>
-                 <ul>
-                    <li><strong>מקרה 1: <span class="math" dir="ltr">\(x \ge 1\)</span></strong> (<span class="math" dir="ltr">\(t \in [0, \pi/2)\)</span>. כאן <span class="math" dir="ltr">\(\tan t \ge 0\)</span>, <span class="math" dir="ltr">\(\sec t \ge 1\)</span>, ולכן <span class="math" dir="ltr">\(|\tan t| = \tan t\)</span> (נניח <span class="math" dir="ltr">\(t \ne 0\)</span>).
+<li>כדי לכסות <span class="math" dir="ltr">\(x \ge a\)</span>, מתאים <span class="math" dir="ltr">\(t \in [0, \pi/2)\)</span>. בתחום זה <span class="math" dir="ltr">\(\cos t &gt; 0\)</span>, <span class="math" dir="ltr">\(\sin t \ge 0\)</span>, <span class="math" dir="ltr">\(\tan t \ge 0\)</span>.</li>
+<li>כדי לכסות <span class="math" dir="ltr">\(x \le -a\)</span>, מתאים <span class="math" dir="ltr">\(t \in (\pi/2, \pi]\)</span>. בתחום זה <span class="math" dir="ltr">\(\cos t &lt; 0\)</span>, <span class="math" dir="ltr">\(\sin t \ge 0\)</span>, <span class="math" dir="ltr">\(\tan t \le 0\)</span>.</li>
+</ul>
+</p>
+<div class="chart-container">
+<div class="chart-wrapper">
+<h5>גרף <span class="math" dir="ltr">\(x = a / \cos t\)</span> עבור <span class="math" dir="ltr">\(t \in [0, \pi/2) \cup (\pi/2, \pi]\)</span> (עם <span class="math" dir="ltr">\(a=1\)</span>)</h5>
+<canvas height="400" id="secChart" width="600"></canvas>
+</div>
+</div>
+<p>נחשב את השורש:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2-a^2} = \sqrt{(a\sec t)^2 - a^2} = \sqrt{a^2(\sec^2 t - 1)} = \sqrt{a^2 \tan^2 t} = |a \tan t| $$</div></div>
+<p>לכן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2-a^2} = \begin{cases} a \tan t &amp; \text{if } x \ge a \quad (t \in [0, \pi/2)) \\ -a \tan t &amp; \text{if } x \le -a \quad (t \in (\pi/2, \pi]) \end{cases} $$</div></div>
+<p>הדיפרנציאל הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ dx = a \sec t \tan t \, dt = \frac{a \sin t}{\cos^2 t} dt $$</div></div>
+<p>האינטגרל הופך ל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(a\sec t, |a\tan t|) \cdot (a \sec t \tan t) dt $$</div></div>
+<p>שוב, זהו אינטגרל מסוג 1.</p>
+</section>
+<section id="example-sqrt">
+<h2>9. דוגמה: <span class="math" dir="ltr">\(I = \int \frac{dx}{x^2\sqrt{x^2-1}}\)</span></h2>
+<p>זהו אינטגרל מסוג 4 עם <span class="math" dir="ltr">\(a=1\)</span>. נשתמש בהצבה <span class="math" dir="ltr">\(x = \sec t = \frac{1}{\cos t}\)</span>.</p>
+<p>הדיפרנציאל: <span class="math" dir="ltr">\(dx = \sec t \tan t \, dt\)</span>.</p>
+<p>השורש: <span class="math" dir="ltr">\(\sqrt{x^2-1} = |\tan t|\)</span>.</p>
+<p>נציב באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{\sec t \tan t \, dt}{(\sec t)^2 |\tan t|} = \int \frac{\tan t}{\sec t |\tan t|} dt $$</div></div>
+<p>נפריד למקרים:</p>
+<ul>
+<li><strong>מקרה 1: <span class="math" dir="ltr">\(x \ge 1\)</span></strong> (<span class="math" dir="ltr">\(t \in [0, \pi/2)\)</span>. כאן <span class="math" dir="ltr">\(\tan t \ge 0\)</span>, <span class="math" dir="ltr">\(\sec t \ge 1\)</span>, ולכן <span class="math" dir="ltr">\(|\tan t| = \tan t\)</span> (נניח <span class="math" dir="ltr">\(t \ne 0\)</span>).
                         <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{\tan t}{\sec t \tan t} dt = \int \frac{1}{\sec t} dt = \int \cos t \, dt = \sin t + C $$</div></div>
                         צריך לחזור ל-<span class="math" dir="ltr">\(x\)</span>. אם <span class="math" dir="ltr">\(x = \sec t = 1/\cos t\)</span>, אז <span class="math" dir="ltr">\(\cos t = 1/x\)</span>. מכיוון ש-<span class="math" dir="ltr">\(t \in [0, \pi/2)\)</span>, <span class="math" dir="ltr">\(\sin t \ge 0\)</span>. לכן <span class="math" dir="ltr">\(\sin t = \sqrt{1-\cos^2 t} = \sqrt{1 - (1/x)^2} = \sqrt{\frac{x^2-1}{x^2}} = \frac{\sqrt{x^2-1}}{|x|}\)</span>. מאחר ש-<span class="math" dir="ltr">\(x \ge 1\)</span>, <span class="math" dir="ltr">\(|x|=x\)</span>.
                         <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{\sqrt{x^2-1}}{x} + C \quad (\text{for } x \ge 1) $$</div></div>
-                    </li>
-                     <li><strong>מקרה 2: <span class="math" dir="ltr">\(x \le -1\)</span></strong> (<span class="math" dir="ltr">\(t \in (\pi/2, \pi]\)</span>. כאן <span class="math" dir="ltr">\(\tan t \le 0\)</span>, <span class="math" dir="ltr">\(\sec t \le -1\)</span>, ולכן <span class="math" dir="ltr">\(|\tan t| = -\tan t\)</span> (נניח <span class="math" dir="ltr">\(t \ne \pi\)</span>).
+</li>
+<li><strong>מקרה 2: <span class="math" dir="ltr">\(x \le -1\)</span></strong> (<span class="math" dir="ltr">\(t \in (\pi/2, \pi]\)</span>. כאן <span class="math" dir="ltr">\(\tan t \le 0\)</span>, <span class="math" dir="ltr">\(\sec t \le -1\)</span>, ולכן <span class="math" dir="ltr">\(|\tan t| = -\tan t\)</span> (נניח <span class="math" dir="ltr">\(t \ne \pi\)</span>).
                         <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{\tan t}{\sec t (-\tan t)} dt = \int \frac{-1}{\sec t} dt = \int -\cos t \, dt = -\sin t + C $$</div></div>
                          כאן <span class="math" dir="ltr">\(t \in (\pi/2, \pi]\)</span>, אז <span class="math" dir="ltr">\(\sin t \ge 0\)</span>. כמו קודם, <span class="math" dir="ltr">\(\sin t = \frac{\sqrt{x^2-1}}{|x|}\)</span>. מאחר ש-<span class="math" dir="ltr">\(x \le -1\)</span>, <span class="math" dir="ltr">\(|x|=-x\)</span>.
                          <div class="formula-block"><div class="math" dir="ltr">$$ I = -\frac{\sqrt{x^2-1}}{-x} + C = \frac{\sqrt{x^2-1}}{x} + C \quad (\text{for } x \le -1) $$</div></div>
-                     </li>
-                 </ul>
-                 <p>בשני המקרים קיבלנו את אותה התוצאה:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{x^2\sqrt{x^2-1}} = \frac{\sqrt{x^2-1}}{x} + C $$</div></div>
-                 <p>נשים לב שהאינטגרנד הוא פונקציה זוגית (<span class="math" dir="ltr">\(f(-x) = \frac{1}{(-x)^2 \sqrt{(-x)^2-1}} = f(x)\)</span>), והפונקציה הקדומה שמצאנו היא פונקציה אי-זוגית (<span class="math" dir="ltr">\(F(-x) = \frac{\sqrt{(-x)^2-1}}{-x} = -F(x)\)</span>). זה הגיוני, שכן נגזרת של פונקציה אי-זוגית היא פונקציה זוגית.</p>
-             </section>
-
-             <section id="special-cases">
-                 <h2>10. הצבות יעילות יותר במקרים מסוימים</h2>
-                 <p>ישנם מקרים בהם יש הצבות יעילות יותר מאשר ההצבה האוניברסלית או ההצבות הטריגונומטריות הכלליות.</p>
-
-                 <h3 id="special-case1"> מקרה 1: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(\cos^2 x, \sin x) \cos x \, dx\)</span></h3>
-                  <p>או באופן כללי יותר, אינטגרלים שבהם <span class="math" dir="ltr">\(\cos x\)</span> מופיע רק בחזקות זוגיות (או בתוך פונקציה רציונלית של <span class="math" dir="ltr">\(\cos^2 x\)</span>), <span class="math" dir="ltr">\(\sin x\)</span> יכול להופיע בחזקות כלשהן, והאינטגרנד מוכפל ב-<span class="math" dir="ltr">\(\cos x \, dx\)</span>.</p>
-                 <p>מכיוון ש-<span class="math" dir="ltr">\(\cos^2 x = 1 - \sin^2 x\)</span>, ומכיוון ש-<span class="math" dir="ltr">\((\sin x)' = \cos x\)</span>, ההצבה המתבקשת היא:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ t = \sin x $$</div></div>
-                 <p>ואז <span class="math" dir="ltr">\(dt = \cos x \, dx\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x = 1 - t^2\)</span>.</p>
-                 <p>האינטגרל הופך ל:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(1-t^2, t) \, dt $$</div></div>
-                 <p>וזהו אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>, שלרוב פשוט יותר לחישוב מאשר זה המתקבל מההצבה האוניברסלית.</p>
-                 <p>(באופן דומה, אם <span class="math" dir="ltr">\(\sin x\)</span> מופיע רק בחזקות זוגיות, <span class="math" dir="ltr">\(\cos x\)</span> בחזקות כלשהן, והאינטגרנד מוכפל ב-<span class="math" dir="ltr">\(\sin x dx\)</span>, ההצבה <span class="math" dir="ltr">\(t = \cos x\)</span> (ואז <span class="math" dir="ltr">\(dt = -\sin x dx\)</span>) תהיה יעילה).</p>
-             </section>
-
-            <section id="example-cos3">
-                <h2>11. דוגמה למקרה 1</h2>
-                <p>חשב <span class="math" dir="ltr">\(I = \int \frac{\cos^3 x + \sin(2x)}{2 - \cos^2 x} dx\)</span>.</p>
-                <p>נפשט את האינטגרנד וננסה להביא אותו לצורה של מקרה 1:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{\cos^3 x + 2\sin x \cos x}{2 - \cos^2 x} dx \\ &= \int \frac{(\cos^2 x + 2\sin x)\cos x}{2 - \cos^2 x} dx \\ &= \int \frac{(1-\sin^2 x + 2\sin x)}{2 - (1-\sin^2 x)} \cos x \, dx \\ &= \int \frac{1-\sin^2 x + 2\sin x}{1 + \sin^2 x} \cos x \, dx \end{aligned} $$</div></div>
-                 <p>האינטגרנד הוא כעת מהצורה <span class="math" dir="ltr">\(R'(\sin x) \cos x dx\)</span> (השתמשתי ב- <span class="math" dir="ltr">\(R'\)</span> כדי למנוע בלבול עם הגדרת המקרה הכללית <span class="math" dir="ltr">\(R\)</span>). לכן נציב <span class="math" dir="ltr">\(t = \sin x\)</span>, <span class="math" dir="ltr">\(dt = \cos x dx\)</span>.</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1-t^2+2t}{1+t^2} dt $$</div></div>
-                 <p>זהו אינטגרל של פונקציה רציונלית. נבצע חילוק פולינומים או פירוק:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \frac{-t^2+2t+1}{t^2+1} &= \frac{-(t^2+1) + 2t + 2}{t^2+1} \\ &= -1 + \frac{2t+2}{t^2+1} \\ &= -1 + \frac{2t}{t^2+1} + \frac{2}{t^2+1} \end{aligned} $$</div></div>
-                 <p>לכן:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \left( -1 + \frac{2t}{t^2+1} + \frac{2}{t^2+1} \right) dt \\ &= -t + \ln|t^2+1| + 2 \arctan(t) + C \\ &= -\sin x + \ln(1+\sin^2 x) + 2 \arctan(\sin x) + C \end{aligned} $$</div></div>
-                   <p>(הערך המוחלט ב-<span class="math" dir="ltr">\(\ln\)</span> מיותר כי <span class="math" dir="ltr">\(1+t^2 > 0\)</span>).</p>
-            </section>
-
-             <section id="example-sin5">
-                 <h2>12. דוגמה נוספת (הצבה <span class="math" dir="ltr">\(t=\cos x\)</span>)</h2>
-                 <p>חשב <span class="math" dir="ltr">\(I = \int \sin^5 x \, dx\)</span>.</p>
-                 <p>כאן <span class="math" dir="ltr">\(\sin x\)</span> מופיע בחזקה אי-זוגית. נוכל לבודד גורם <span class="math" dir="ltr">\(\sin x dx\)</span> ולהביע את השאר (<span class="math" dir="ltr">\(\sin^4 x\)</span>) באמצעות <span class="math" dir="ltr">\(\cos x\)</span>, וזה מתאים למקרה הדומה למקרה 1:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \sin^4 x \cdot \sin x \, dx \\ &= \int (\sin^2 x)^2 \sin x \, dx \\ &= \int (1-\cos^2 x)^2 \sin x \, dx \end{aligned} $$</div></div>
-                 <p>כעת נציב <span class="math" dir="ltr">\(t = \cos x\)</span>, ואז <span class="math" dir="ltr">\(dt = -\sin x \, dx\)</span>, כלומר <span class="math" dir="ltr">\(\sin x \, dx = -dt\)</span>.</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int (1-t^2)^2 (-dt) \\ &= -\int (1 - 2t^2 + t^4) dt \\ &= -\left( t - \frac{2t^3}{3} + \frac{t^5}{5} \right) + C \\ &= -t + \frac{2}{3}t^3 - \frac{1}{5}t^5 + C \\ &= -\cos x + \frac{2}{3}\cos^3 x - \frac{1}{5}\cos^5 x + C \end{aligned} $$</div></div>
-                  <p>נשים לב שוב: האינטגרנד <span class="math" dir="ltr">\(\sin^5 x\)</span> הוא פונקציה אי-זוגית, והקדומה שקיבלנו היא פונקציה זוגית (כי <span class="math" dir="ltr">\(\cos(-x)=\cos x\)</span>), וזה הגיוני (נגזרת של זוגית היא אי-זוגית).</p>
-             </section>
-
-             <section id="special-case2">
-                 <h3 id="special-case2-heading">13. מקרה 2: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(\sin^2 x, \cos^2 x) dx\)</span></h3>
-                 <p>כאן גם <span class="math" dir="ltr">\(\sin x\)</span> וגם <span class="math" dir="ltr">\(\cos x\)</span> מופיעים רק בחזקות זוגיות (או בתוך פונקציה רציונלית של <span class="math" dir="ltr">\(\sin^2 x\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x\)</span>).</p>
-                 <p>במקרה זה, טובה ההצבה:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ t = \tan x $$</div></div>
-                 <p>אז <span class="math" dir="ltr">\(x = \arctan t\)</span>, ולכן <span class="math" dir="ltr">\(dx = \frac{dt}{1+t^2}\)</span>.</p>
-                 <p>ניתן להביע את <span class="math" dir="ltr">\(\sin^2 x\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x\)</span> באמצעות <span class="math" dir="ltr">\(t=\tan x\)</span>:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \cos^2 x = \frac{1}{\sec^2 x} = \frac{1}{1+\tan^2 x} = \frac{1}{1+t^2} $$</div></div>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \sin^2 x = 1 - \cos^2 x = 1 - \frac{1}{1+t^2} = \frac{1+t^2-1}{1+t^2} = \frac{t^2}{1+t^2} $$</div></div>
-                 <p>ההצבה הופכת את האינטגרל ל:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \int R\left(\frac{t^2}{1+t^2}, \frac{1}{1+t^2}\right) \frac{1}{1+t^2} dt $$</div></div>
-                  <p>שוב, זהו אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>.</p>
-             </section>
-
-             <section id="example-tan">
-                 <h2>14. דוגמה למקרה 2</h2>
-                 <p>חשב <span class="math" dir="ltr">\(I = \int \frac{1+\sin^2 x}{1+\cos^2 x} dx\)</span>.</p>
-                  <p>האינטגרנד הוא מהצורה <span class="math" dir="ltr">\(R(\sin^2 x, \cos^2 x)\)</span>. נציב <span class="math" dir="ltr">\(t=\tan x\)</span>. ידוע:</p>
-                  <p><span class="math" dir="ltr">\(\sin^2 x = \frac{t^2}{1+t^2}\)</span>, <span class="math" dir="ltr">\(\cos^2 x = \frac{1}{1+t^2}\)</span>, <span class="math" dir="ltr">\(dx = \frac{dt}{1+t^2}\)</span>.</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{1 + \frac{t^2}{1+t^2}}{1 + \frac{1}{1+t^2}} \cdot \frac{dt}{1+t^2} \\ &= \int \frac{\frac{1+t^2+t^2}{1+t^2}}{\frac{1+t^2+1}{1+t^2}} \cdot \frac{dt}{1+t^2} \\ &= \int \frac{1+2t^2}{2+t^2} \cdot \frac{dt}{1+t^2} \\ &= \int \frac{1+2t^2}{(t^2+2)(t^2+1)} dt \end{aligned} $$</div></div>
-                 <p>זהו אינטגרל של פונקציה רציונלית. מעלת המונה (2) קטנה ממעלת המכנה (4). המכנה הוא מכפלה של שני פולינומים ריבועיים אי-פריקים וזרים (<span class="math" dir="ltr">\(t^2+2\)</span> ו-<span class="math" dir="ltr">\(t^2+1\)</span>).</p>
-                 <p>נשתמש בפירוק לשברים חלקיים. מאחר שמופיעות רק חזקות זוגיות של <span class="math" dir="ltr">\(t\)</span> (כלומר, זו פונקציה רציונלית של <span class="math" dir="ltr">\(t^2\)</span>), הפירוק יהיה מהצורה:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1+2u}{(u+2)(u+1)} = \frac{A}{u+2} + \frac{B}{u+1} $$</div></div>
-                  <p>(כאשר <span class="math" dir="ltr">\(u=t^2\)</span> לצורך הפירוק).</p>
-                  <p>נכפיל במכנה המשותף <span class="math" dir="ltr">\((u+2)(u+1)\)</span>:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ 1+2u = A(u+1) + B(u+2) $$</div></div>
-                  <p>נציב ערכים נוחים ל-<span class="math" dir="ltr">\(u\)</span>:
+</li>
+</ul>
+<p>בשני המקרים קיבלנו את אותה התוצאה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{x^2\sqrt{x^2-1}} = \frac{\sqrt{x^2-1}}{x} + C $$</div></div>
+<p>נשים לב שהאינטגרנד הוא פונקציה זוגית (<span class="math" dir="ltr">\(f(-x) = \frac{1}{(-x)^2 \sqrt{(-x)^2-1}} = f(x)\)</span>), והפונקציה הקדומה שמצאנו היא פונקציה אי-זוגית (<span class="math" dir="ltr">\(F(-x) = \frac{\sqrt{(-x)^2-1}}{-x} = -F(x)\)</span>). זה הגיוני, שכן נגזרת של פונקציה אי-זוגית היא פונקציה זוגית.</p>
+</section>
+<section id="special-cases">
+<h2>10. הצבות יעילות יותר במקרים מסוימים</h2>
+<p>ישנם מקרים בהם יש הצבות יעילות יותר מאשר ההצבה האוניברסלית או ההצבות הטריגונומטריות הכלליות.</p>
+<h3 id="special-case1"> מקרה 1: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(\cos^2 x, \sin x) \cos x \, dx\)</span></h3>
+<p>או באופן כללי יותר, אינטגרלים שבהם <span class="math" dir="ltr">\(\cos x\)</span> מופיע רק בחזקות זוגיות (או בתוך פונקציה רציונלית של <span class="math" dir="ltr">\(\cos^2 x\)</span>), <span class="math" dir="ltr">\(\sin x\)</span> יכול להופיע בחזקות כלשהן, והאינטגרנד מוכפל ב-<span class="math" dir="ltr">\(\cos x \, dx\)</span>.</p>
+<p>מכיוון ש-<span class="math" dir="ltr">\(\cos^2 x = 1 - \sin^2 x\)</span>, ומכיוון ש-<span class="math" dir="ltr">\((\sin x)' = \cos x\)</span>, ההצבה המתבקשת היא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ t = \sin x $$</div></div>
+<p>ואז <span class="math" dir="ltr">\(dt = \cos x \, dx\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x = 1 - t^2\)</span>.</p>
+<p>האינטגרל הופך ל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int R(1-t^2, t) \, dt $$</div></div>
+<p>וזהו אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>, שלרוב פשוט יותר לחישוב מאשר זה המתקבל מההצבה האוניברסלית.</p>
+<p>(באופן דומה, אם <span class="math" dir="ltr">\(\sin x\)</span> מופיע רק בחזקות זוגיות, <span class="math" dir="ltr">\(\cos x\)</span> בחזקות כלשהן, והאינטגרנד מוכפל ב-<span class="math" dir="ltr">\(\sin x dx\)</span>, ההצבה <span class="math" dir="ltr">\(t = \cos x\)</span> (ואז <span class="math" dir="ltr">\(dt = -\sin x dx\)</span>) תהיה יעילה).</p>
+</section>
+<section id="example-cos3">
+<h2>11. דוגמה למקרה 1</h2>
+<p>חשב <span class="math" dir="ltr">\(I = \int \frac{\cos^3 x + \sin(2x)}{2 - \cos^2 x} dx\)</span>.</p>
+<p>נפשט את האינטגרנד וננסה להביא אותו לצורה של מקרה 1:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int \frac{\cos^3 x + 2\sin x \cos x}{2 - \cos^2 x} dx \\ &amp;= \int \frac{(\cos^2 x + 2\sin x)\cos x}{2 - \cos^2 x} dx \\ &amp;= \int \frac{(1-\sin^2 x + 2\sin x)}{2 - (1-\sin^2 x)} \cos x \, dx \\ &amp;= \int \frac{1-\sin^2 x + 2\sin x}{1 + \sin^2 x} \cos x \, dx \end{aligned} $$</div></div>
+<p>האינטגרנד הוא כעת מהצורה <span class="math" dir="ltr">\(R'(\sin x) \cos x dx\)</span> (השתמשתי ב- <span class="math" dir="ltr">\(R'\)</span> כדי למנוע בלבול עם הגדרת המקרה הכללית <span class="math" dir="ltr">\(R\)</span>). לכן נציב <span class="math" dir="ltr">\(t = \sin x\)</span>, <span class="math" dir="ltr">\(dt = \cos x dx\)</span>.</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1-t^2+2t}{1+t^2} dt $$</div></div>
+<p>זהו אינטגרל של פונקציה רציונלית. נבצע חילוק פולינומים או פירוק:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \frac{-t^2+2t+1}{t^2+1} &amp;= \frac{-(t^2+1) + 2t + 2}{t^2+1} \\ &amp;= -1 + \frac{2t+2}{t^2+1} \\ &amp;= -1 + \frac{2t}{t^2+1} + \frac{2}{t^2+1} \end{aligned} $$</div></div>
+<p>לכן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int \left( -1 + \frac{2t}{t^2+1} + \frac{2}{t^2+1} \right) dt \\ &amp;= -t + \ln|t^2+1| + 2 \arctan(t) + C \\ &amp;= -\sin x + \ln(1+\sin^2 x) + 2 \arctan(\sin x) + C \end{aligned} $$</div></div>
+<p>(הערך המוחלט ב-<span class="math" dir="ltr">\(\ln\)</span> מיותר כי <span class="math" dir="ltr">\(1+t^2 &gt; 0\)</span>).</p>
+</section>
+<section id="example-sin5">
+<h2>12. דוגמה נוספת (הצבה <span class="math" dir="ltr">\(t=\cos x\)</span>)</h2>
+<p>חשב <span class="math" dir="ltr">\(I = \int \sin^5 x \, dx\)</span>.</p>
+<p>כאן <span class="math" dir="ltr">\(\sin x\)</span> מופיע בחזקה אי-זוגית. נוכל לבודד גורם <span class="math" dir="ltr">\(\sin x dx\)</span> ולהביע את השאר (<span class="math" dir="ltr">\(\sin^4 x\)</span>) באמצעות <span class="math" dir="ltr">\(\cos x\)</span>, וזה מתאים למקרה הדומה למקרה 1:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int \sin^4 x \cdot \sin x \, dx \\ &amp;= \int (\sin^2 x)^2 \sin x \, dx \\ &amp;= \int (1-\cos^2 x)^2 \sin x \, dx \end{aligned} $$</div></div>
+<p>כעת נציב <span class="math" dir="ltr">\(t = \cos x\)</span>, ואז <span class="math" dir="ltr">\(dt = -\sin x \, dx\)</span>, כלומר <span class="math" dir="ltr">\(\sin x \, dx = -dt\)</span>.</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int (1-t^2)^2 (-dt) \\ &amp;= -\int (1 - 2t^2 + t^4) dt \\ &amp;= -\left( t - \frac{2t^3}{3} + \frac{t^5}{5} \right) + C \\ &amp;= -t + \frac{2}{3}t^3 - \frac{1}{5}t^5 + C \\ &amp;= -\cos x + \frac{2}{3}\cos^3 x - \frac{1}{5}\cos^5 x + C \end{aligned} $$</div></div>
+<p>נשים לב שוב: האינטגרנד <span class="math" dir="ltr">\(\sin^5 x\)</span> הוא פונקציה אי-זוגית, והקדומה שקיבלנו היא פונקציה זוגית (כי <span class="math" dir="ltr">\(\cos(-x)=\cos x\)</span>), וזה הגיוני (נגזרת של זוגית היא אי-זוגית).</p>
+</section>
+<section id="special-case2">
+<h3 id="special-case2-heading">13. מקרה 2: אינטגרלים מהצורה <span class="math" dir="ltr">\(\int R(\sin^2 x, \cos^2 x) dx\)</span></h3>
+<p>כאן גם <span class="math" dir="ltr">\(\sin x\)</span> וגם <span class="math" dir="ltr">\(\cos x\)</span> מופיעים רק בחזקות זוגיות (או בתוך פונקציה רציונלית של <span class="math" dir="ltr">\(\sin^2 x\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x\)</span>).</p>
+<p>במקרה זה, טובה ההצבה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ t = \tan x $$</div></div>
+<p>אז <span class="math" dir="ltr">\(x = \arctan t\)</span>, ולכן <span class="math" dir="ltr">\(dx = \frac{dt}{1+t^2}\)</span>.</p>
+<p>ניתן להביע את <span class="math" dir="ltr">\(\sin^2 x\)</span> ו-<span class="math" dir="ltr">\(\cos^2 x\)</span> באמצעות <span class="math" dir="ltr">\(t=\tan x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \cos^2 x = \frac{1}{\sec^2 x} = \frac{1}{1+\tan^2 x} = \frac{1}{1+t^2} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sin^2 x = 1 - \cos^2 x = 1 - \frac{1}{1+t^2} = \frac{1+t^2-1}{1+t^2} = \frac{t^2}{1+t^2} $$</div></div>
+<p>ההצבה הופכת את האינטגרל ל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int R\left(\frac{t^2}{1+t^2}, \frac{1}{1+t^2}\right) \frac{1}{1+t^2} dt $$</div></div>
+<p>שוב, זהו אינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>.</p>
+</section>
+<section id="example-tan">
+<h2>14. דוגמה למקרה 2</h2>
+<p>חשב <span class="math" dir="ltr">\(I = \int \frac{1+\sin^2 x}{1+\cos^2 x} dx\)</span>.</p>
+<p>האינטגרנד הוא מהצורה <span class="math" dir="ltr">\(R(\sin^2 x, \cos^2 x)\)</span>. נציב <span class="math" dir="ltr">\(t=\tan x\)</span>. ידוע:</p>
+<p><span class="math" dir="ltr">\(\sin^2 x = \frac{t^2}{1+t^2}\)</span>, <span class="math" dir="ltr">\(\cos^2 x = \frac{1}{1+t^2}\)</span>, <span class="math" dir="ltr">\(dx = \frac{dt}{1+t^2}\)</span>.</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int \frac{1 + \frac{t^2}{1+t^2}}{1 + \frac{1}{1+t^2}} \cdot \frac{dt}{1+t^2} \\ &amp;= \int \frac{\frac{1+t^2+t^2}{1+t^2}}{\frac{1+t^2+1}{1+t^2}} \cdot \frac{dt}{1+t^2} \\ &amp;= \int \frac{1+2t^2}{2+t^2} \cdot \frac{dt}{1+t^2} \\ &amp;= \int \frac{1+2t^2}{(t^2+2)(t^2+1)} dt \end{aligned} $$</div></div>
+<p>זהו אינטגרל של פונקציה רציונלית. מעלת המונה (2) קטנה ממעלת המכנה (4). המכנה הוא מכפלה של שני פולינומים ריבועיים אי-פריקים וזרים (<span class="math" dir="ltr">\(t^2+2\)</span> ו-<span class="math" dir="ltr">\(t^2+1\)</span>).</p>
+<p>נשתמש בפירוק לשברים חלקיים. מאחר שמופיעות רק חזקות זוגיות של <span class="math" dir="ltr">\(t\)</span> (כלומר, זו פונקציה רציונלית של <span class="math" dir="ltr">\(t^2\)</span>), הפירוק יהיה מהצורה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{1+2u}{(u+2)(u+1)} = \frac{A}{u+2} + \frac{B}{u+1} $$</div></div>
+<p>(כאשר <span class="math" dir="ltr">\(u=t^2\)</span> לצורך הפירוק).</p>
+<p>נכפיל במכנה המשותף <span class="math" dir="ltr">\((u+2)(u+1)\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ 1+2u = A(u+1) + B(u+2) $$</div></div>
+<p>נציב ערכים נוחים ל-<span class="math" dir="ltr">\(u\)</span>:
                   <ul>
-                     <li>אם <span class="math" dir="ltr">\(u=-1\)</span>: <span class="math" dir="ltr">\(1+2(-1) = A(0) + B(-1+2) \implies -1 = B\)</span></li>
-                     <li>אם <span class="math" dir="ltr">\(u=-2\)</span>: <span class="math" dir="ltr">\(1+2(-2) = A(-2+1) + B(0) \implies -3 = -A \implies A=3\)</span></li>
-                  </ul>
-                 </p>
-                  <p>לכן הפירוק הוא:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1+2t^2}{(t^2+2)(t^2+1)} = \frac{3}{t^2+2} - \frac{1}{t^2+1} $$</div></div>
-                  <p>נחזור לאינטגרל:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \left( \frac{3}{t^2+2} - \frac{1}{t^2+1} \right) dt $$</div></div>
-                   <p>נשתמש בנוסחה <span class="math" dir="ltr">\(\int \frac{1}{t^2+a^2} dt = \frac{1}{a} \arctan(\frac{t}{a}) + C\)</span>:</p>
-                   <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= 3 \int \frac{1}{t^2+(\sqrt{2})^2} dt - \int \frac{1}{t^2+1^2} dt \\ &= 3 \cdot \frac{1}{\sqrt{2}} \arctan\left(\frac{t}{\sqrt{2}}\right) - \arctan(t) + C \\ &= \frac{3}{\sqrt{2}} \arctan\left(\frac{\tan x}{\sqrt{2}}\right) - \arctan(\tan x) + C \\ &= \frac{3\sqrt{2}}{2} \arctan\left(\frac{\tan x}{\sqrt{2}}\right) - x + C \end{aligned} $$</div></div>
-                   <p>(הערה: <span class="math" dir="ltr">\(\arctan(\tan x) = x\)</span> בתחום <span class="math" dir="ltr">\(-\pi/2 < x < \pi/2\)</span>. באופן כללי, <span class="math" dir="ltr">\(\arctan(\tan x) = x - k\pi\)</span> כאשר <span class="math" dir="ltr">\(k\)</span> שלם. ההפרש הקבוע נבלע ב-<span class="math" dir="ltr">\(C\)</span>).</p>
-             </section>
-
-        </main>
-    </div>
-
-    <!-- KaTeX JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <!-- Global Dark Mode -->
-    <script src="../js/dark-mode.js"></script>
-
-    <!-- Custom Script for Rendering, Enhancements, and Charts -->
-     <script>
+<li>אם <span class="math" dir="ltr">\(u=-1\)</span>: <span class="math" dir="ltr">\(1+2(-1) = A(0) + B(-1+2) \implies -1 = B\)</span></li>
+<li>אם <span class="math" dir="ltr">\(u=-2\)</span>: <span class="math" dir="ltr">\(1+2(-2) = A(-2+1) + B(0) \implies -3 = -A \implies A=3\)</span></li>
+</ul>
+</p>
+<p>לכן הפירוק הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{1+2t^2}{(t^2+2)(t^2+1)} = \frac{3}{t^2+2} - \frac{1}{t^2+1} $$</div></div>
+<p>נחזור לאינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \left( \frac{3}{t^2+2} - \frac{1}{t^2+1} \right) dt $$</div></div>
+<p>נשתמש בנוסחה <span class="math" dir="ltr">\(\int \frac{1}{t^2+a^2} dt = \frac{1}{a} \arctan(\frac{t}{a}) + C\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= 3 \int \frac{1}{t^2+(\sqrt{2})^2} dt - \int \frac{1}{t^2+1^2} dt \\ &amp;= 3 \cdot \frac{1}{\sqrt{2}} \arctan\left(\frac{t}{\sqrt{2}}\right) - \arctan(t) + C \\ &amp;= \frac{3}{\sqrt{2}} \arctan\left(\frac{\tan x}{\sqrt{2}}\right) - \arctan(\tan x) + C \\ &amp;= \frac{3\sqrt{2}}{2} \arctan\left(\frac{\tan x}{\sqrt{2}}\right) - x + C \end{aligned} $$</div></div>
+<p>(הערה: <span class="math" dir="ltr">\(\arctan(\tan x) = x\)</span> בתחום <span class="math" dir="ltr">\(-\pi/2 &lt; x &lt; \pi/2\)</span>. באופן כללי, <span class="math" dir="ltr">\(\arctan(\tan x) = x - k\pi\)</span> כאשר <span class="math" dir="ltr">\(k\)</span> שלם. ההפרש הקבוע נבלע ב-<span class="math" dir="ltr">\(C\)</span>).</p>
+</section>
+</main>
+</div>
+<!-- KaTeX JS -->
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- Global Dark Mode -->
+<script src="../js/dark-mode.js"></script>
+<!-- Custom Script for Rendering, Enhancements, and Charts -->
+<script>
          // --- Global Chart Variables ---
          let lineChartInstance = null;
          let parabolaChartInstance = null;
@@ -1240,15 +1268,12 @@
              renderCharts();
          });
      </script>
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Init Charts -->
-    <!-- טען את Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Init Charts -->
+<!-- טען את Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
       const ctx = document.getElementById('chart_fx_2x').getContext('2d');
 
       // צור את ערכי ה-x וה-y
@@ -1309,8 +1334,7 @@
         }
       });
     </script>
-
-    <script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
       const tValues = [];
       const cosValues = [];
@@ -1411,8 +1435,8 @@
       });
     });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
       const tValues = [];
       const fValues = [];
@@ -1470,12 +1494,8 @@
       });
     });
     </script>
-
-
-
-
-    <!-- כפתור חזרה לדף הראשי -->
-    <a href="../index.html" style="
+<!-- כפתור חזרה לדף הראשי -->
+<a href="../index.html" style="
       position: fixed;
       top: 20px;
       right: 20px;
@@ -1490,6 +1510,5 @@
     ">
       🏠 חזרה למסך הראשי
     </a>
-
 </body>
 </html>

@@ -1,26 +1,22 @@
 <!-- filename: infi2_lesson5.html -->
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+
+<html dir="rtl" lang="he">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אינפי 2 - שיעור 5</title>
-
-    <!-- KaTeX CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Shared Dark Mode CSS -->
-    <link rel="stylesheet" href="../styles/dark-mode.css">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>אינפי 2 - שיעור 5</title>
+<!-- KaTeX CSS -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&amp;family=Orbitron:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome for Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<!-- Shared Dark Mode CSS -->
+<link href="../styles/dark-mode.css" rel="stylesheet"/>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
         :root {
@@ -567,335 +563,377 @@
         .katex { vertical-align: baseline; }
         p .math, li .math { line-height: 1; } /* Prevent inline math from increasing line height too much */
 
-    </style>
+    
+/* Back Button */
+.back-nav {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    text-decoration: none;
+}
+
+.back-nav:hover {
+    transform: translateX(-5px);
+    box-shadow: var(--card-hover-shadow);
+    color: var(--accent-color);
+}
+
+.back-nav i {
+    margin-left: 8px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: var(--header-text);
+    font-size: 0.85rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+}
+
+.breadcrumb a {
+    color: var(--header-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.breadcrumb .separator {
+    margin: 0 5px;
+}
+
+/* Adjust existing header padding */
+header {
+    padding-top: 50px;
+}
+</style>
 </head>
 <body>
-
-    <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <header>
-        <h1>אינפי 2 - שיעור 5</h1>
-        <div class="credits">קרדיטים לניב סורק ולהלל</div>
-    </header>
-
-    <div class="container">
-        <nav id="main-nav">
-            <ul>
-                <li><a href="#intro" class="nav-link" dir="rtl">הקדמה</a></li>
-                <li><a href="#integrals-review" class="nav-link" dir="rtl">חזרה ואינטגרלים מיידיים</a></li>
-                <li><a href="#rational-sqrt-integrals" class="nav-link" dir="rtl">אינטגרלים של פונ' רציונליות של שורשים</a></li>
-                <li><a href="#euler-substitutions" class="nav-link" dir="rtl">הצבות אוילר</a></li>
-                <li><a href="#more-substitutions" class="nav-link" dir="rtl">עוד סוגי הצבות</a></li>
-                <li><a href="#definite-integral" class="nav-link" dir="rtl">האינטגרל המסויים</a></li>
-            </ul>
-        </nav>
-
-        <main>
-            <section id="intro">
-                <h2>הקדמה</h2>
-                <p>עד כה ראינו מספר הצבות יסודיות. נשלים בעת את לוח האינטגרלים המיידיים 'שלנו' וגם נלמד עוד כמה סוגי הצבות. נעיר כי ההגדרה של אינטגרל 'מיידי' גמישה וקשורה מן הסתם בקושי למצוא את האינטגרל (ואולי אף באיכות הזיכרון של האדם). מי שיעזר בספרים או באינטרנט ימצא שם לוחות אינטגרלים מפורטים הרבה יותר ממה שנביא כאן. עם זאת השיטות שנציג כאן אמורות לתת גישה לחישוב האינטגרלים הנוספים הנ"ל. לפני שנתחיל בחישובים נדגיש את העניין הבא: אם למשל <span class="math" dir="ltr">\(\int x^2 dx = \frac{x^3}{3} + c\)</span>, פירוש הדבר גם <span class="math" dir="ltr">\(\int v^2 dv = \frac{v^3}{3} + c\)</span> כאשר <span class="math" dir="ltr">\(v\)</span> היא פונקציה של <span class="math" dir="ltr">\(x\)</span>. נשתמש לעיתים בכתיב דיפרנציאלי זה בשיטת ההצבה וגם בשיטת הא"ב (אינטגרציה בחלקים). ניגש למלאכה:</p>
-            </section>
-
-            <section id="integrals-review">
-                <h2>חזרה ואינטגרלים מיידיים</h2>
-                <p>ראינו בשיעור הראשון כי <span class="math" dir="ltr">\(\int \frac{dv}{\sin v} = \ln\left|\tan\left(\frac{v}{2}\right)\right| + c\)</span>. מה לגבי <span class="math" dir="ltr">\(I = \int \frac{dv}{\cos v}\)</span>?</p>
-                <p>נשתמש בזהות <span class="math" dir="ltr">\(\cos v = \sin\left(\frac{\pi}{2} - v\right)\)</span> ואז נקבל:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{dv}{\cos v} = \int \frac{dv}{\sin\left(\frac{\pi}{2} - v\right)} \\ &\xrightarrow{\text{הצבה ליניארית}} \frac{\ln\left|\tan\left(\frac{\frac{\pi}{2} - v}{2}\right)\right|}{-1} + c \\ &= -\ln\left|\tan\left(\frac{\pi}{4} - \frac{v}{2}\right)\right| + c \\ &= \ln\left|\tan\left(\frac{\pi}{4} - \frac{v}{2}\right)\right|^{-1} + c \\ &= \ln\left|\cot\left(\frac{\pi}{4} - \frac{v}{2}\right)\right| + c \\ &\overset{(\text{מדוע?})}{=} \ln\left|\tan\left(\frac{\pi}{2} - \left(\frac{\pi}{4} - \frac{v}{2}\right)\right)\right| + c \\ &= \ln\left|\tan\left(\frac{\pi}{4} + \frac{v}{2}\right)\right| + c \end{aligned} $$</div></div>
-
-                <p><span class="math" dir="ltr">\(I = \int \frac{dv}{v^2 + a^2}\)</span> (כשמופיע <span class="math" dir="ltr">\(a^2\)</span> תמיד ניתן להניח <span class="math" dir="ltr">\(a > 0\)</span>)</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{a^2} \int \frac{dv}{\left(\frac{v}{a}\right)^2 + 1} \xrightarrow{\text{ליניארית}} \frac{1}{a^2} \frac{\arctan\left(\frac{v}{a}\right)}{\frac{1}{a}} + c = \frac{1}{a} \arctan\left(\frac{v}{a}\right) + c $$</div></div>
-
-                 <p><span class="math" dir="ltr">\(I = \int \frac{dv}{v^2 - a^2}\)</span> (ראינו משהו דומה בשיעור הראשון)</p>
-                 <p>נשתמש בפירוק לשברים חלקיים:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{v^2 - a^2} = \frac{1}{(v-a)(v+a)} = \frac{1}{2a}\left(\frac{1}{v-a} - \frac{1}{v+a}\right) $$</div></div>
-                 <p>ולכן</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{v^2 - a^2} dv = \frac{1}{2a} \int \left(\frac{1}{v-a} - \frac{1}{v+a}\right) dv = \frac{1}{2a} (\ln|v-a| - \ln|v+a|) + c = \frac{1}{2a} \ln\left|\frac{v-a}{v+a}\right| + c $$</div></div>
-
-                <p><span class="math" dir="ltr">\(I = \int \frac{dv}{\sqrt{a^2 - v^2}}\)</span></p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{a} \int \frac{dv}{\sqrt{1 - \left(\frac{v}{a}\right)^2}} \xrightarrow{\text{ליניארית}} \frac{1}{a} \frac{\arcsin\left(\frac{v}{a}\right)}{\frac{1}{a}} + c = \arcsin\left(\frac{v}{a}\right) + c $$</div></div>
-             </section>
-
-            <section id="rational-sqrt-integrals">
-                 <h2>אינטגרלים של פונקציות רציונליות של שורשים</h2>
-                 <p>נעשיר כעת מעט את ידיעותינו על אינטגרלים של פונקציות רציונליות של שורשים. שני סוגים:</p>
-                 <ol type="א">
-                    <li><span class="math" dir="ltr">\(\int R(x, \sqrt{x^2+px+q}) dx\)</span></li>
-                     <li><span class="math" dir="ltr">\(\int R(x, \sqrt{-x^2+px+q}) dx\)</span></li>
-                 </ol>
-                 <p>נניח כי <span class="math" dir="ltr">\((p,q) \in \mathbb{R}^2\)</span> ו-<span class="math" dir="ltr">\((p,q) \neq (0,0)\)</span>.</p>
-                 <p>יש הבדל מהותי בין הסוגים. בסוג א' פנים השורש הוא פרבולת מינימום ובסוג ב' מקסימום.</p>
-
-                 <h3>סוג א': <span class="math" dir="ltr">\(\sqrt{x^2+px+q}\)</span></h3>
-                 <p>לסוג א' האפשרויות הן (תקטינו את הגרפים על ידי גלגול העכבר מעל הגרפים כדי לראות כמו שצריך) :</p>
-                 <div class="chart-container multi-chart" id="picture7">
-                     <div class="chart-wrapper">
-                         <h5>(i) חותכת (<span class="math" dir="ltr">\(\Delta > 0\)</span>)</h5>
-                         <canvas id="parabola_pos_intersect"></canvas>
-                     </div>
-                     <div class="chart-wrapper">
-                         <h5>(ii) משיקה (<span class="math" dir="ltr">\(\Delta = 0\)</span>)</h5>
-                         <canvas id="parabola_pos_tangent"></canvas>
-                     </div>
-                     <div class="chart-wrapper">
-                         <h5>(iii) מעל הציר (<span class="math" dir="ltr">\(\Delta < 0\)</span>)</h5>
-                         <canvas id="parabola_pos_above"></canvas>
-                     </div>
-                 </div>
-
-                <p>סוג (ii) (כאשר <span class="math" dir="ltr">\(\Delta = p^2-4q = 0\)</span>) לא 'מעניין' במיוחד בהקשר של <span class="math" dir="ltr">\(R(x, \sqrt{\dots})\)</span>, כי אז <span class="math" dir="ltr">\(\sqrt{x^2+px+q} = \sqrt{\left(x+\frac{p}{2}\right)^2} = \left|x+\frac{p}{2}\right|\)</span>, ואז <span class="math" dir="ltr">\(R\)</span> היא פונקציה רציונלית ב-<span class="math" dir="ltr">\(x\)</span> וב-<span class="math" dir="ltr">\(|x+p/2|\)</span>, שלרוב מטפלים בה על ידי פיצול לתחומים.</p>
-                 <p>עבור סוג (i) (<span class="math" dir="ltr">\(\Delta > 0\)</span>) או (iii) (<span class="math" dir="ltr">\(\Delta < 0\)</span>) ניתן לעשות השלמה לריבוע:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ x^2+px+q = \left(x+\frac{p}{2}\right)^2 + \left(q-\frac{p^2}{4}\right) $$</div></div>
-                 <p>עבור סוג (iii) (<span class="math" dir="ltr">\(\Delta < 0\)</span>): כאן <span class="math" dir="ltr">\(q-\frac{p^2}{4} > 0\)</span>. נסמן <span class="math" dir="ltr">\(q-\frac{p^2}{4} = a^2\)</span> (עם <span class="math" dir="ltr">\(a>0\)</span>). הביטוי הוא <span class="math" dir="ltr">\(\left(x+\frac{p}{2}\right)^2 + a^2\)</span>. הצבה מתאימה אז היא <span class="math" dir="ltr">\(x+\frac{p}{2} = a \tan t\)</span> (או <span class="math" dir="ltr">\(a \cot t\)</span>), שמובילה לאינטגרל טריגונומטרי מסוג 3 (כפי שנלמד בשיעור קודם).</p>
-                 <p>עבור סוג (i) (<span class="math" dir="ltr">\(\Delta > 0\)</span>): כאן <span class="math" dir="ltr">\(q-\frac{p^2}{4} < 0\)</span>. נסמן <span class="math" dir="ltr">\(q-\frac{p^2}{4} = -a^2\)</span> (עם <span class="math" dir="ltr">\(a>0\)</span>). הביטוי הוא <span class="math" dir="ltr">\(\left(x+\frac{p}{2}\right)^2 - a^2\)</span>. הצבה מתאימה אז היא <span class="math" dir="ltr">\(x+\frac{p}{2} = a \sec t\)</span> (או <span class="math" dir="ltr">\(a \csc t\)</span>), שמובילה לאינטגרל טריגונומטרי מסוג 4.</p>
-
-                 <h3>סוג ב': <span class="math" dir="ltr">\(\sqrt{-x^2+px+q}\)</span></h3>
-                 <p>עבור סוג (ב) סוגי הציורים המתאימים הם:</p>
-                <div class="chart-container multi-chart" id="picture8">
-                    <div class="chart-wrapper">
-                         <h5>(i) חותכת (<span class="math" dir="ltr">\(\Delta > 0\)</span>)</h5>
-                         <canvas id="parabola_neg_intersect"></canvas>
-                     </div>
-                    <div class="chart-wrapper">
-                         <h5>(ii) מתחת לציר (<span class="math" dir="ltr">\(\Delta < 0\)</span>)</h5>
-                         <canvas id="parabola_neg_below"></canvas>
-                     </div>
-                     <div class="chart-wrapper">
-                         <h5>(iii) משיקה (<span class="math" dir="ltr">\(\Delta = 0\)</span>)</h5>
-                         <canvas id="parabola_neg_tangent"></canvas>
-                    </div>
-                </div>
-
-                <p>בסוג (ii) (<span class="math" dir="ltr">\(\Delta' = p^2+4q < 0\)</span>) פנים השורש שלילי לכל <span class="math" dir="ltr">\(x\)</span> ולכן הביטוי <span class="math" dir="ltr">\(\sqrt{-x^2+px+q}\)</span> אינו מוגדר (כפונקציה ממשית).</p>
-                 <p>בסוג (iii) (<span class="math" dir="ltr">\(\Delta' = 0\)</span>) השורש מוגדר רק בנקודה אחת <span class="math" dir="ltr">\(x = p/2\)</span> (ושם הוא 0), ולכן אינו רלוונטי לאינטגרציה על קטע.</p>
-                 <p>המקרה היחיד המעניין הוא (i) (<span class="math" dir="ltr">\(\Delta' > 0\)</span>), ובו תחום ההגדרה של השורש הוא קטע סגור <span class="math" dir="ltr">\(x \in [\alpha, \beta]\)</span>, כאשר <span class="math" dir="ltr">\(\alpha, \beta\)</span> הם שורשי הפולינום <span class="math" dir="ltr">\(-x^2+px+q\)</span>.</p>
-                 <p>במצב זה, נעשה השלמה לריבוע:</p>
-                <div class="formula-block"><div class="math" dir="ltr">$$ -x^2+px+q = -\left(x^2-px-q\right) = -\left[\left(x-\frac{p}{2}\right)^2 - \left(\frac{p^2}{4}+q\right)\right] = \left(\frac{p^2}{4}+q\right) - \left(x-\frac{p}{2}\right)^2 $$</div></div>
-                <p>מכיוון ש-<span class="math" dir="ltr">\(\Delta' = p^2+4q > 0\)</span>, הביטוי <span class="math" dir="ltr">\(\frac{p^2}{4}+q\)</span> חיובי. נסמן <span class="math" dir="ltr">\(\frac{p^2}{4}+q = a^2\)</span> (עם <span class="math" dir="ltr">\(a>0\)</span>). אז פנים השורש הוא <span class="math" dir="ltr">\(a^2 - \left(x-\frac{p}{2}\right)^2\)</span>. ההצבה המתאימה כאן היא <span class="math" dir="ltr">\(x-\frac{p}{2} = a \sin t\)</span> (או <span class="math" dir="ltr">\(a \cos t\)</span>), שמובילה לאינטגרל טריגונומטרי מסוג 2.</p>
-
-                <div class="example">
-                     <h4>דוגמה</h4>
-                     <p>חשב <span class="math" dir="ltr">\(I = \int \frac{dx}{\sqrt{8-6x-x^2}}\)</span>.</p>
-                     <p>נשלים לריבוע את הביטוי בתוך השורש:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ 8-6x-x^2 = -(x^2+6x-8) = -[(x+3)^2 - 9 - 8] = -[(x+3)^2 - 17] = 17 - (x+3)^2 $$</div></div>
-                     <p>לכן האינטגרל הוא:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{dx}{\sqrt{17-(x+3)^2}} $$</div></div>
-                     <p>זהו אינטגרל מהצורה <span class="math" dir="ltr">\(\int \frac{dv}{\sqrt{a^2-v^2}}\)</span> עם <span class="math" dir="ltr">\(v = x+3\)</span> ו-<span class="math" dir="ltr">\(a = \sqrt{17}\)</span>. לפי הנוסחה שפיתחנו למעלה (מס' 5 ברשימה שם):</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I = \arcsin\left(\frac{x+3}{\sqrt{17}}\right) + c $$</div></div>
-                </div>
-            </section>
-
-            <section id="euler-substitutions">
-                <h2>הצבות אוילר</h2>
-                 <p>אפשרות אחרת לשינוי משתנה עבור סוגים (א) ו-(ב) שהוזכרו קודם (<span class="math" dir="ltr">\(R(x, \sqrt{\pm x^2+px+q})\)</span>).</p>
-
-                 <h3>עבור סוג (א): <span class="math" dir="ltr">\(\int R(x, \sqrt{x^2+px+q}) dx\)</span></h3>
-                 <p>הצבה אפשרית היא:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ u = \sqrt{x^2+px+q} + x \quad \text{ או } \quad u = \sqrt{x^2+px+q} - x $$</div></div>
-                 <p>אם <span class="math" dir="ltr">\(u = \sqrt{x^2+px+q} + x\)</span>, אז <span class="math" dir="ltr">\(\sqrt{x^2+px+q} = u-x\)</span>. נעלה בריבוע:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ x^2+px+q = (u-x)^2 = u^2 - 2ux + x^2 $$</div></div>
-                 <p><span class="math" dir="ltr">\(x^2\)</span> מצטמצם:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ px+q = u^2 - 2ux $$</div></div>
-                 <p>נחלץ את <span class="math" dir="ltr">\(x\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ x(p+2u) = u^2-q \implies x = \frac{u^2-q}{2u+p} $$</div></div>
-                 <p>מצאנו את <span class="math" dir="ltr">\(x\)</span> כפונקציה רציונלית של <span class="math" dir="ltr">\(u\)</span>. כעת נמצא את <span class="math" dir="ltr">\(dx\)</span> ואת השורש במונחי <span class="math" dir="ltr">\(u\)</span>.</p>
-                 <p><span class="math" dir="ltr">\(\sqrt{x^2+px+q} = u-x\)</span>. נציב את <span class="math" dir="ltr">\(x\)</span> שמצאנו:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2+px+q} = u - \frac{u^2-q}{2u+p} = \frac{u(2u+p) - (u^2-q)}{2u+p} = \frac{2u^2+up - u^2+q}{2u+p} = \frac{u^2+up+q}{2u+p} $$</div></div>
-                 <p>וגם את <span class="math" dir="ltr">\(dx\)</span> נמצא על ידי גזירת <span class="math" dir="ltr">\(x(u)\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{d}{du}\left(\frac{u^2-q}{2u+p}\right) du = \frac{2u(2u+p) - (u^2-q)2}{(2u+p)^2} du = \frac{4u^2+2up - 2u^2+2q}{(2u+p)^2} du = \frac{2u^2+2up+2q}{(2u+p)^2} du = \frac{2(u^2+up+q)}{(2u+p)^2} du $$</div></div>
-                <p>כל המרכיבים (<span class="math" dir="ltr">\(x, \sqrt{\dots}, dx\)</span>) הם פונקציות רציונליות של <span class="math" dir="ltr">\(u\)</span>, ולכן האינטגרל <span class="math" dir="ltr">\(\int R(\dots) dx\)</span> הופך לאינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(u\)</span>.</p>
+<a class="back-nav" href="../index.html">
+<i class="fas fa-chevron-right"></i>
+    חזרה לסיכומי אינפי 2
+</a>
+<!-- Dark Mode Toggle Button -->
+<button aria-label="Toggle dark mode" aria-pressed="false" class="dark-mode-toggle" id="darkModeToggle">
+<i class="fas fa-sun"></i>
+<i class="fas fa-moon"></i>
+</button>
+<header>
+<div class="breadcrumb">
+<a href="../courses.html">סיכומי קורסים</a>
+<span class="separator">/</span>
+<a href="../index.html">אינפי 2</a>
+<span class="separator">/</span>
+<span>שיעור 5</span>
+</div>
+<h1>אינפי 2 - שיעור 5</h1>
+<div class="credits">קרדיטים לניב סורק ולהלל</div>
+</header>
+<div class="container">
+<nav id="main-nav">
+<ul>
+<li><a class="nav-link" dir="rtl" href="#intro">הקדמה</a></li>
+<li><a class="nav-link" dir="rtl" href="#integrals-review">חזרה ואינטגרלים מיידיים</a></li>
+<li><a class="nav-link" dir="rtl" href="#rational-sqrt-integrals">אינטגרלים של פונ' רציונליות של שורשים</a></li>
+<li><a class="nav-link" dir="rtl" href="#euler-substitutions">הצבות אוילר</a></li>
+<li><a class="nav-link" dir="rtl" href="#more-substitutions">עוד סוגי הצבות</a></li>
+<li><a class="nav-link" dir="rtl" href="#definite-integral">האינטגרל המסויים</a></li>
+</ul>
+</nav>
+<main>
+<section id="intro">
+<h2>הקדמה</h2>
+<p>עד כה ראינו מספר הצבות יסודיות. נשלים בעת את לוח האינטגרלים המיידיים 'שלנו' וגם נלמד עוד כמה סוגי הצבות. נעיר כי ההגדרה של אינטגרל 'מיידי' גמישה וקשורה מן הסתם בקושי למצוא את האינטגרל (ואולי אף באיכות הזיכרון של האדם). מי שיעזר בספרים או באינטרנט ימצא שם לוחות אינטגרלים מפורטים הרבה יותר ממה שנביא כאן. עם זאת השיטות שנציג כאן אמורות לתת גישה לחישוב האינטגרלים הנוספים הנ"ל. לפני שנתחיל בחישובים נדגיש את העניין הבא: אם למשל <span class="math" dir="ltr">\(\int x^2 dx = \frac{x^3}{3} + c\)</span>, פירוש הדבר גם <span class="math" dir="ltr">\(\int v^2 dv = \frac{v^3}{3} + c\)</span> כאשר <span class="math" dir="ltr">\(v\)</span> היא פונקציה של <span class="math" dir="ltr">\(x\)</span>. נשתמש לעיתים בכתיב דיפרנציאלי זה בשיטת ההצבה וגם בשיטת הא"ב (אינטגרציה בחלקים). ניגש למלאכה:</p>
+</section>
+<section id="integrals-review">
+<h2>חזרה ואינטגרלים מיידיים</h2>
+<p>ראינו בשיעור הראשון כי <span class="math" dir="ltr">\(\int \frac{dv}{\sin v} = \ln\left|\tan\left(\frac{v}{2}\right)\right| + c\)</span>. מה לגבי <span class="math" dir="ltr">\(I = \int \frac{dv}{\cos v}\)</span>?</p>
+<p>נשתמש בזהות <span class="math" dir="ltr">\(\cos v = \sin\left(\frac{\pi}{2} - v\right)\)</span> ואז נקבל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int \frac{dv}{\cos v} = \int \frac{dv}{\sin\left(\frac{\pi}{2} - v\right)} \\ &amp;\xrightarrow{\text{הצבה ליניארית}} \frac{\ln\left|\tan\left(\frac{\frac{\pi}{2} - v}{2}\right)\right|}{-1} + c \\ &amp;= -\ln\left|\tan\left(\frac{\pi}{4} - \frac{v}{2}\right)\right| + c \\ &amp;= \ln\left|\tan\left(\frac{\pi}{4} - \frac{v}{2}\right)\right|^{-1} + c \\ &amp;= \ln\left|\cot\left(\frac{\pi}{4} - \frac{v}{2}\right)\right| + c \\ &amp;\overset{(\text{מדוע?})}{=} \ln\left|\tan\left(\frac{\pi}{2} - \left(\frac{\pi}{4} - \frac{v}{2}\right)\right)\right| + c \\ &amp;= \ln\left|\tan\left(\frac{\pi}{4} + \frac{v}{2}\right)\right| + c \end{aligned} $$</div></div>
+<p><span class="math" dir="ltr">\(I = \int \frac{dv}{v^2 + a^2}\)</span> (כשמופיע <span class="math" dir="ltr">\(a^2\)</span> תמיד ניתן להניח <span class="math" dir="ltr">\(a &gt; 0\)</span>)</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{a^2} \int \frac{dv}{\left(\frac{v}{a}\right)^2 + 1} \xrightarrow{\text{ליניארית}} \frac{1}{a^2} \frac{\arctan\left(\frac{v}{a}\right)}{\frac{1}{a}} + c = \frac{1}{a} \arctan\left(\frac{v}{a}\right) + c $$</div></div>
+<p><span class="math" dir="ltr">\(I = \int \frac{dv}{v^2 - a^2}\)</span> (ראינו משהו דומה בשיעור הראשון)</p>
+<p>נשתמש בפירוק לשברים חלקיים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{1}{v^2 - a^2} = \frac{1}{(v-a)(v+a)} = \frac{1}{2a}\left(\frac{1}{v-a} - \frac{1}{v+a}\right) $$</div></div>
+<p>ולכן</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{v^2 - a^2} dv = \frac{1}{2a} \int \left(\frac{1}{v-a} - \frac{1}{v+a}\right) dv = \frac{1}{2a} (\ln|v-a| - \ln|v+a|) + c = \frac{1}{2a} \ln\left|\frac{v-a}{v+a}\right| + c $$</div></div>
+<p><span class="math" dir="ltr">\(I = \int \frac{dv}{\sqrt{a^2 - v^2}}\)</span></p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{1}{a} \int \frac{dv}{\sqrt{1 - \left(\frac{v}{a}\right)^2}} \xrightarrow{\text{ליניארית}} \frac{1}{a} \frac{\arcsin\left(\frac{v}{a}\right)}{\frac{1}{a}} + c = \arcsin\left(\frac{v}{a}\right) + c $$</div></div>
+</section>
+<section id="rational-sqrt-integrals">
+<h2>אינטגרלים של פונקציות רציונליות של שורשים</h2>
+<p>נעשיר כעת מעט את ידיעותינו על אינטגרלים של פונקציות רציונליות של שורשים. שני סוגים:</p>
+<ol type="א">
+<li><span class="math" dir="ltr">\(\int R(x, \sqrt{x^2+px+q}) dx\)</span></li>
+<li><span class="math" dir="ltr">\(\int R(x, \sqrt{-x^2+px+q}) dx\)</span></li>
+</ol>
+<p>נניח כי <span class="math" dir="ltr">\((p,q) \in \mathbb{R}^2\)</span> ו-<span class="math" dir="ltr">\((p,q) \neq (0,0)\)</span>.</p>
+<p>יש הבדל מהותי בין הסוגים. בסוג א' פנים השורש הוא פרבולת מינימום ובסוג ב' מקסימום.</p>
+<h3>סוג א': <span class="math" dir="ltr">\(\sqrt{x^2+px+q}\)</span></h3>
+<p>לסוג א' האפשרויות הן (תקטינו את הגרפים על ידי גלגול העכבר מעל הגרפים כדי לראות כמו שצריך) :</p>
+<div class="chart-container multi-chart" id="picture7">
+<div class="chart-wrapper">
+<h5>(i) חותכת (<span class="math" dir="ltr">\(\Delta &gt; 0\)</span>)</h5>
+<canvas id="parabola_pos_intersect"></canvas>
+</div>
+<div class="chart-wrapper">
+<h5>(ii) משיקה (<span class="math" dir="ltr">\(\Delta = 0\)</span>)</h5>
+<canvas id="parabola_pos_tangent"></canvas>
+</div>
+<div class="chart-wrapper">
+<h5>(iii) מעל הציר (<span class="math" dir="ltr">\(\Delta &lt; 0\)</span>)</h5>
+<canvas id="parabola_pos_above"></canvas>
+</div>
+</div>
+<p>סוג (ii) (כאשר <span class="math" dir="ltr">\(\Delta = p^2-4q = 0\)</span>) לא 'מעניין' במיוחד בהקשר של <span class="math" dir="ltr">\(R(x, \sqrt{\dots})\)</span>, כי אז <span class="math" dir="ltr">\(\sqrt{x^2+px+q} = \sqrt{\left(x+\frac{p}{2}\right)^2} = \left|x+\frac{p}{2}\right|\)</span>, ואז <span class="math" dir="ltr">\(R\)</span> היא פונקציה רציונלית ב-<span class="math" dir="ltr">\(x\)</span> וב-<span class="math" dir="ltr">\(|x+p/2|\)</span>, שלרוב מטפלים בה על ידי פיצול לתחומים.</p>
+<p>עבור סוג (i) (<span class="math" dir="ltr">\(\Delta &gt; 0\)</span>) או (iii) (<span class="math" dir="ltr">\(\Delta &lt; 0\)</span>) ניתן לעשות השלמה לריבוע:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x^2+px+q = \left(x+\frac{p}{2}\right)^2 + \left(q-\frac{p^2}{4}\right) $$</div></div>
+<p>עבור סוג (iii) (<span class="math" dir="ltr">\(\Delta &lt; 0\)</span>): כאן <span class="math" dir="ltr">\(q-\frac{p^2}{4} &gt; 0\)</span>. נסמן <span class="math" dir="ltr">\(q-\frac{p^2}{4} = a^2\)</span> (עם <span class="math" dir="ltr">\(a&gt;0\)</span>). הביטוי הוא <span class="math" dir="ltr">\(\left(x+\frac{p}{2}\right)^2 + a^2\)</span>. הצבה מתאימה אז היא <span class="math" dir="ltr">\(x+\frac{p}{2} = a \tan t\)</span> (או <span class="math" dir="ltr">\(a \cot t\)</span>), שמובילה לאינטגרל טריגונומטרי מסוג 3 (כפי שנלמד בשיעור קודם).</p>
+<p>עבור סוג (i) (<span class="math" dir="ltr">\(\Delta &gt; 0\)</span>): כאן <span class="math" dir="ltr">\(q-\frac{p^2}{4} &lt; 0\)</span>. נסמן <span class="math" dir="ltr">\(q-\frac{p^2}{4} = -a^2\)</span> (עם <span class="math" dir="ltr">\(a&gt;0\)</span>). הביטוי הוא <span class="math" dir="ltr">\(\left(x+\frac{p}{2}\right)^2 - a^2\)</span>. הצבה מתאימה אז היא <span class="math" dir="ltr">\(x+\frac{p}{2} = a \sec t\)</span> (או <span class="math" dir="ltr">\(a \csc t\)</span>), שמובילה לאינטגרל טריגונומטרי מסוג 4.</p>
+<h3>סוג ב': <span class="math" dir="ltr">\(\sqrt{-x^2+px+q}\)</span></h3>
+<p>עבור סוג (ב) סוגי הציורים המתאימים הם:</p>
+<div class="chart-container multi-chart" id="picture8">
+<div class="chart-wrapper">
+<h5>(i) חותכת (<span class="math" dir="ltr">\(\Delta &gt; 0\)</span>)</h5>
+<canvas id="parabola_neg_intersect"></canvas>
+</div>
+<div class="chart-wrapper">
+<h5>(ii) מתחת לציר (<span class="math" dir="ltr">\(\Delta &lt; 0\)</span>)</h5>
+<canvas id="parabola_neg_below"></canvas>
+</div>
+<div class="chart-wrapper">
+<h5>(iii) משיקה (<span class="math" dir="ltr">\(\Delta = 0\)</span>)</h5>
+<canvas id="parabola_neg_tangent"></canvas>
+</div>
+</div>
+<p>בסוג (ii) (<span class="math" dir="ltr">\(\Delta' = p^2+4q &lt; 0\)</span>) פנים השורש שלילי לכל <span class="math" dir="ltr">\(x\)</span> ולכן הביטוי <span class="math" dir="ltr">\(\sqrt{-x^2+px+q}\)</span> אינו מוגדר (כפונקציה ממשית).</p>
+<p>בסוג (iii) (<span class="math" dir="ltr">\(\Delta' = 0\)</span>) השורש מוגדר רק בנקודה אחת <span class="math" dir="ltr">\(x = p/2\)</span> (ושם הוא 0), ולכן אינו רלוונטי לאינטגרציה על קטע.</p>
+<p>המקרה היחיד המעניין הוא (i) (<span class="math" dir="ltr">\(\Delta' &gt; 0\)</span>), ובו תחום ההגדרה של השורש הוא קטע סגור <span class="math" dir="ltr">\(x \in [\alpha, \beta]\)</span>, כאשר <span class="math" dir="ltr">\(\alpha, \beta\)</span> הם שורשי הפולינום <span class="math" dir="ltr">\(-x^2+px+q\)</span>.</p>
+<p>במצב זה, נעשה השלמה לריבוע:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ -x^2+px+q = -\left(x^2-px-q\right) = -\left[\left(x-\frac{p}{2}\right)^2 - \left(\frac{p^2}{4}+q\right)\right] = \left(\frac{p^2}{4}+q\right) - \left(x-\frac{p}{2}\right)^2 $$</div></div>
+<p>מכיוון ש-<span class="math" dir="ltr">\(\Delta' = p^2+4q &gt; 0\)</span>, הביטוי <span class="math" dir="ltr">\(\frac{p^2}{4}+q\)</span> חיובי. נסמן <span class="math" dir="ltr">\(\frac{p^2}{4}+q = a^2\)</span> (עם <span class="math" dir="ltr">\(a&gt;0\)</span>). אז פנים השורש הוא <span class="math" dir="ltr">\(a^2 - \left(x-\frac{p}{2}\right)^2\)</span>. ההצבה המתאימה כאן היא <span class="math" dir="ltr">\(x-\frac{p}{2} = a \sin t\)</span> (או <span class="math" dir="ltr">\(a \cos t\)</span>), שמובילה לאינטגרל טריגונומטרי מסוג 2.</p>
+<div class="example">
+<h4>דוגמה</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int \frac{dx}{\sqrt{8-6x-x^2}}\)</span>.</p>
+<p>נשלים לריבוע את הביטוי בתוך השורש:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ 8-6x-x^2 = -(x^2+6x-8) = -[(x+3)^2 - 9 - 8] = -[(x+3)^2 - 17] = 17 - (x+3)^2 $$</div></div>
+<p>לכן האינטגרל הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{dx}{\sqrt{17-(x+3)^2}} $$</div></div>
+<p>זהו אינטגרל מהצורה <span class="math" dir="ltr">\(\int \frac{dv}{\sqrt{a^2-v^2}}\)</span> עם <span class="math" dir="ltr">\(v = x+3\)</span> ו-<span class="math" dir="ltr">\(a = \sqrt{17}\)</span>. לפי הנוסחה שפיתחנו למעלה (מס' 5 ברשימה שם):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \arcsin\left(\frac{x+3}{\sqrt{17}}\right) + c $$</div></div>
+</div>
+</section>
+<section id="euler-substitutions">
+<h2>הצבות אוילר</h2>
+<p>אפשרות אחרת לשינוי משתנה עבור סוגים (א) ו-(ב) שהוזכרו קודם (<span class="math" dir="ltr">\(R(x, \sqrt{\pm x^2+px+q})\)</span>).</p>
+<h3>עבור סוג (א): <span class="math" dir="ltr">\(\int R(x, \sqrt{x^2+px+q}) dx\)</span></h3>
+<p>הצבה אפשרית היא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ u = \sqrt{x^2+px+q} + x \quad \text{ או } \quad u = \sqrt{x^2+px+q} - x $$</div></div>
+<p>אם <span class="math" dir="ltr">\(u = \sqrt{x^2+px+q} + x\)</span>, אז <span class="math" dir="ltr">\(\sqrt{x^2+px+q} = u-x\)</span>. נעלה בריבוע:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x^2+px+q = (u-x)^2 = u^2 - 2ux + x^2 $$</div></div>
+<p><span class="math" dir="ltr">\(x^2\)</span> מצטמצם:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ px+q = u^2 - 2ux $$</div></div>
+<p>נחלץ את <span class="math" dir="ltr">\(x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x(p+2u) = u^2-q \implies x = \frac{u^2-q}{2u+p} $$</div></div>
+<p>מצאנו את <span class="math" dir="ltr">\(x\)</span> כפונקציה רציונלית של <span class="math" dir="ltr">\(u\)</span>. כעת נמצא את <span class="math" dir="ltr">\(dx\)</span> ואת השורש במונחי <span class="math" dir="ltr">\(u\)</span>.</p>
+<p><span class="math" dir="ltr">\(\sqrt{x^2+px+q} = u-x\)</span>. נציב את <span class="math" dir="ltr">\(x\)</span> שמצאנו:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2+px+q} = u - \frac{u^2-q}{2u+p} = \frac{u(2u+p) - (u^2-q)}{2u+p} = \frac{2u^2+up - u^2+q}{2u+p} = \frac{u^2+up+q}{2u+p} $$</div></div>
+<p>וגם את <span class="math" dir="ltr">\(dx\)</span> נמצא על ידי גזירת <span class="math" dir="ltr">\(x(u)\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{d}{du}\left(\frac{u^2-q}{2u+p}\right) du = \frac{2u(2u+p) - (u^2-q)2}{(2u+p)^2} du = \frac{4u^2+2up - 2u^2+2q}{(2u+p)^2} du = \frac{2u^2+2up+2q}{(2u+p)^2} du = \frac{2(u^2+up+q)}{(2u+p)^2} du $$</div></div>
+<p>כל המרכיבים (<span class="math" dir="ltr">\(x, \sqrt{\dots}, dx\)</span>) הם פונקציות רציונליות של <span class="math" dir="ltr">\(u\)</span>, ולכן האינטגרל <span class="math" dir="ltr">\(\int R(\dots) dx\)</span> הופך לאינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(u\)</span>.</p>
 <p>
 הערה: הצבה זו אינה טובה עבור סוג (ב)
 (<span class="math" dir="ltr">\( \sqrt{-x^2 + px + q} \)</span>)
 שכן אז אחרי העלאה בריבוע:
 </p>
-
 <div class="math" dir="ltr" style="text-align: center;">
   \( (u - x)^2 = -x^2 + px + q \)
 </div>
-
 <p>
 ה־<span class="math" dir="ltr">\( x^2 \)</span> לא מצטמצם.
 </p>
-
-                 <h3>עבור סוג (ב): <span class="math" dir="ltr">\(\int R(x, \sqrt{-x^2+px+q}) dx\)</span> (במקרה המעניין <span class="math" dir="ltr">\(\Delta' > 0\)</span>)</h3>
-                 <p>כזכור, <span class="math" dir="ltr">\(-x^2+px+q = -(x-\alpha)(x-\beta) = (x-\alpha)(\beta-x)\)</span> כאשר <span class="math" dir="ltr">\(\alpha < \beta\)</span> הם השורשים, ותחום ההגדרה הוא <span class="math" dir="ltr">\(x \in [\alpha, \beta]\)</span>.</p>
-                 <p>הצבה מתאימה היא:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ u = \sqrt{\frac{\beta-x}{x-\alpha}} \quad \left(\text{או } u = \sqrt{\frac{x-\alpha}{\beta-x}}\right) $$</div></div>
-                 <p>נעלה בריבוע: <span class="math" dir="ltr">\(u^2 = \frac{\beta-x}{x-\alpha}\)</span>.</p>
-                 <p>נחלץ את <span class="math" dir="ltr">\(x\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ u^2(x-\alpha) = \beta-x \implies u^2x - u^2\alpha = \beta - x \implies x(u^2+1) = \beta + u^2\alpha \implies x = \frac{\beta + \alpha u^2}{u^2+1} $$</div></div>
-                 <p>מצאנו את <span class="math" dir="ltr">\(x\)</span> כפונקציה רציונלית של <span class="math" dir="ltr">\(u\)</span>.</p>
-                 <p>נמצא את השורש:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \sqrt{-x^2+px+q} &= \sqrt{(x-\alpha)(\beta-x)} = \sqrt{(x-\alpha)^2 \frac{\beta-x}{x-\alpha}} = |x-\alpha| \sqrt{\frac{\beta-x}{x-\alpha}} \\ &= (x-\alpha) u \quad (\text{כי } x \ge \alpha) \end{aligned} $$</div></div>
-                 <p>נציב את <span class="math" dir="ltr">\(x\)</span> בביטוי <span class="math" dir="ltr">\(x-\alpha\)</span>:</p>
-                 <div class="formula-block"><div class="math" dir="ltr">$$ x-\alpha = \frac{\beta + \alpha u^2}{u^2+1} - \alpha = \frac{\beta + \alpha u^2 - \alpha(u^2+1)}{u^2+1} = \frac{\beta - \alpha}{u^2+1} $$</div></div>
-                 <p>ולכן השורש הוא:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{-x^2+px+q} = \frac{\beta - \alpha}{u^2+1} u = \frac{(\beta - \alpha)u}{u^2+1} $$</div></div>
-                 <p>ונמצא את <span class="math" dir="ltr">\(dx\)</span> על ידי גזירת <span class="math" dir="ltr">\(x(u)\)</span>:</p>
-                  <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} dx &= \frac{d}{du}\left(\frac{\beta + \alpha u^2}{u^2+1}\right) du = \frac{2\alpha u(u^2+1) - (\beta + \alpha u^2)2u}{(u^2+1)^2} du \\ &= \frac{2\alpha u^3 + 2\alpha u - 2\beta u - 2\alpha u^3}{(u^2+1)^2} du \\ &= \frac{2(\alpha - \beta)u}{(u^2+1)^2} du \end{aligned} $$</div></div>
-                <p>שוב, כל המרכיבים הם פונקציות רציונליות של <span class="math" dir="ltr">\(u\)</span>.</p>
-
-                <div class="example">
-                    <h4>דוגמה</h4>
-                    <p>חשב <span class="math" dir="ltr">\(I = \int \frac{dx}{(x-1)\sqrt{5-4x-x^2}}\)</span>.</p>
-                     <p>פנים השורש הוא <span class="math" dir="ltr">\(-x^2-4x+5 = -(x^2+4x-5) = -(x+5)(x-1)\)</span>. כאן <span class="math" dir="ltr">\(\alpha=-5, \beta=1\)</span>. תחום ההגדרה <span class="math" dir="ltr">\([-5, 1)\)</span> (לא כולל 1 בגלל המכנה).</p>
-                     <p>נשתמש בהצבה (השנייה מהשתיים שהוצעו):</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ u = \sqrt{\frac{x-\alpha}{\beta-x}} = \sqrt{\frac{x+5}{1-x}} $$</div></div>
-                     <p>נעלה בריבוע: <span class="math" dir="ltr">\(u^2 = \frac{x+5}{1-x}\)</span>.</p>
-                     <p>נחלץ את <span class="math" dir="ltr">\(x\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ u^2(1-x) = x+5 \implies u^2-u^2x = x+5 \implies x(1+u^2) = u^2-5 \implies x = \frac{u^2-5}{u^2+1} $$</div></div>
-                     <p>נמצא את השורש:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{5-4x-x^2} = \sqrt{(\beta-x)(x-\alpha)} = \sqrt{(\beta-x)^2 \frac{x-\alpha}{\beta-x}} = |\beta-x| u = (1-x) u \quad (\text{כי } x<1) $$</div></div>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ 1-x = 1 - \frac{u^2-5}{u^2+1} = \frac{u^2+1 - (u^2-5)}{u^2+1} = \frac{6}{u^2+1} $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{5-4x-x^2} = \frac{6u}{u^2+1} $$</div></div>
-                     <p>נמצא את <span class="math" dir="ltr">\(x-1\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ x-1 = \frac{u^2-5}{u^2+1} - 1 = \frac{u^2-5 - (u^2+1)}{u^2+1} = \frac{-6}{u^2+1} $$</div></div>
-                     <p>נמצא את <span class="math" dir="ltr">\(dx\)</span>:</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{d}{du}\left(\frac{u^2-5}{u^2+1}\right) du = \frac{2u(u^2+1) - (u^2-5)2u}{(u^2+1)^2} du = \frac{2u^3+2u - 2u^3+10u}{(u^2+1)^2} du = \frac{12u}{(u^2+1)^2} du $$</div></div>
-                     <p>נציב הכל באינטגרל:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{1}{\left(\frac{-6}{u^2+1}\right) \left(\frac{6u}{u^2+1}\right)} \cdot \frac{12u}{(u^2+1)^2} du \\ &= \int \frac{(u^2+1)^2}{-36u} \cdot \frac{12u}{(u^2+1)^2} du \\ &= \int \frac{12u}{-36u} du = \int -\frac{1}{3} du \\ &= -\frac{1}{3} u + c \end{aligned} $$</div></div>
-                     <p>נחזור ל-<span class="math" dir="ltr">\(x\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = -\frac{1}{3} \sqrt{\frac{x+5}{1-x}} + c $$</div></div>
-                 </div>
-
-                <div class="example">
-                    <h4>דוגמה נוספת: אינטגרל "מיידי" באמצעות הצבת אוילר</h4>
-                    <p>נפתור את <span class="math" dir="ltr">\(I = \int \frac{dx}{\sqrt{x^2+a^2}}\)</span> שנחשב מיידי, ע"י הצבת אוילר.</p>
-                     <p>זהו אינטגרל מסוג (א) עם <span class="math" dir="ltr">\(p=0, q=a^2\)</span>. נציב <span class="math" dir="ltr">\(u = \sqrt{x^2+a^2} + x\)</span>.</p>
-                     <p>לפי הפיתוח הכללי (עם <span class="math" dir="ltr">\(p=0, q=a^2\)</span>):</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ x = \frac{u^2-a^2}{2u} $$</div></div>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2+a^2} = \frac{u^2+a^2}{2u} $$</div></div>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{2(u^2+a^2)}{(2u)^2} du = \frac{u^2+a^2}{2u^2} du $$</div></div>
-                    <p>נציב באינטגרל:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{\frac{u^2+a^2}{2u}} \cdot \frac{u^2+a^2}{2u^2} du = \int \frac{2u}{u^2+a^2} \cdot \frac{u^2+a^2}{2u^2} du = \int \frac{1}{u} du $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \ln|u| + c = \ln|\sqrt{x^2+a^2}+x| + c $$</div></div>
-                     <p>(אין צורך בערך מוחלט כי <span class="math" dir="ltr">\(\sqrt{x^2+a^2}+x > \sqrt{x^2}+x = |x|+x \ge 0\)</span>, והשוויון ל-0 לא אפשרי כי <span class="math" dir="ltr">\(a \neq 0\)</span>). לכן:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{\sqrt{x^2+a^2}} = \ln(x+\sqrt{x^2+a^2}) + c $$</div></div>
-                     <p>ובדומה מקבלים:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{\sqrt{x^2-a^2}} = \ln|x+\sqrt{x^2-a^2}| + c $$</div></div>
-                     <p>(כאן נדרש ערך מוחלט כי <span class="math" dir="ltr">\(x+\sqrt{x^2-a^2}\)</span> יכול להיות שלילי אם <span class="math" dir="ltr">\(x \le -a\)</span>).</p>
-                 </div>
-
-                <div class="example">
-                    <h4>חישוב <span class="math" dir="ltr">\(I = \int \sqrt{x^2+a^2} dx\)</span></h4>
-                     <p>אפשר לפי הצבה טריגונומטרית <span class="math" dir="ltr">\(x=a\tan t\)</span> או לפי הצבת אוילר, אבל ננקוט בדרך אחרת: אינטגרציה בחלקים.</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I = \int \sqrt{x^2+a^2} dx &= \begin{cases} u = \sqrt{x^2+a^2} & dv = dx \\ du = \frac{x}{\sqrt{x^2+a^2}} dx & v = x \end{cases} \\ &= x\sqrt{x^2+a^2} - \int \frac{x^2}{\sqrt{x^2+a^2}} dx \quad (*) \end{aligned} $$</div></div>
-                    <p>כעת נטפל באינטגרל שקיבלנו:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \int \frac{x^2}{\sqrt{x^2+a^2}} dx &= \int \frac{x^2+a^2-a^2}{\sqrt{x^2+a^2}} dx \\ &= \int \frac{x^2+a^2}{\sqrt{x^2+a^2}} dx - \int \frac{a^2}{\sqrt{x^2+a^2}} dx \\ &= \int \sqrt{x^2+a^2} dx - a^2 \int \frac{dx}{\sqrt{x^2+a^2}} \\ &= I - a^2 \ln(x+\sqrt{x^2+a^2}) \end{aligned} $$</div></div>
-                     <p>נציב בחזרה ב-<span class="math" dir="ltr">\((*)\)</span>:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I = x\sqrt{x^2+a^2} - \left( I - a^2 \ln(x+\sqrt{x^2+a^2}) \right) $$</div></div>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I = x\sqrt{x^2+a^2} - I + a^2 \ln(x+\sqrt{x^2+a^2}) $$</div></div>
-                    <p>נעביר אגפים:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ 2I = x\sqrt{x^2+a^2} + a^2 \ln(x+\sqrt{x^2+a^2}) $$</div></div>
-                     <p>ומכאן:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int \sqrt{x^2+a^2} dx = \frac{1}{2} \left( x\sqrt{x^2+a^2} + a^2 \ln(x+\sqrt{x^2+a^2}) \right) + C $$</div></div>
-                     <p>באופן דומה ניתן לחשב <span class="math" dir="ltr">\(\int \sqrt{x^2-a^2} dx\)</span> על סמך <span class="math" dir="ltr">\(\int \frac{dx}{\sqrt{x^2-a^2}}\)</span> ומקבלים:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \int \sqrt{x^2-a^2} dx = \frac{1}{2} \left( x\sqrt{x^2-a^2} - a^2 \ln|x+\sqrt{x^2-a^2}| \right) + C $$</div></div>
-                 </div>
-            </section>
-
-            <section id="more-substitutions">
-                 <h2>עוד כמה סוגי הצבות</h2>
-
-                 <h3>סוג 1: <span class="math" dir="ltr">\(I = \int R\left(x, \sqrt[n]{\frac{ax+b}{cx+d}}\right) dx\)</span></h3>
-                 <p>(נניח <span class="math" dir="ltr">\(ad-bc \neq 0\)</span>, אחרת <span class="math" dir="ltr">\(\frac{ax+b}{cx+d}\)</span> קבוע או לא מוגדר, וההצבה <span class="math" dir="ltr">\(t = \sqrt[n]{\dots}\)</span> לא הפיכה או שפנים השורש מצטמצם).</p>
-                 <p>כאן ההצבה <span class="math" dir="ltr">\(t = \sqrt[n]{\frac{ax+b}{cx+d}}\)</span> הופכת את <span class="math" dir="ltr">\(I\)</span> לאינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>. אכן, מקבלים <span class="math" dir="ltr">\(\frac{ax+b}{cx+d} = t^n\)</span>, ומכאן מחלצים את <span class="math" dir="ltr">\(x\)</span> כפונקציה רציונלית של <span class="math" dir="ltr">\(t\)</span>. גוזרים לקבל <span class="math" dir="ltr">\(dx\)</span> כ-<span class="math" dir="ltr">\(dt\)</span> מוכפל בפונקציה רציונלית של <span class="math" dir="ltr">\(t\)</span>.</p>
-
-                <h3>סוג 2: <span class="math" dir="ltr">\(I = \int R(x, x^{m/s_1}, (ax^n+b)^{p/s_2}) dx\)</span> (כאשר <span class="math" dir="ltr">\(m, n \in \mathbb{Q}, p \in \mathbb{Q}\)</span>)</h3>
-                 <p>נכתוב את כל המעריכים השבריים עם מכנה משותף <span class="math" dir="ltr">\(s\)</span>. כלומר, האינטגרנד הוא פונקציה רציונלית של <span class="math" dir="ltr">\(x\)</span>, <span class="math" dir="ltr">\(x^{1/s}\)</span>, וייתכן גם של <span class="math" dir="ltr">\((ax^n+b)^{1/s}\)</span> (צורה קצת יותר כללית ממה שכתוב במקור). כאן טוב להציב <span class="math" dir="ltr">\(x=t^s\)</span>, כאשר <span class="math" dir="ltr">\(s\)</span> הוא המכנה המשותף של כל המעריכים השבריים (של <span class="math" dir="ltr">\(x\)</span> ושל <span class="math" dir="ltr">\(ax^n+b\)</span>). ניתן לבדוק שזה הופך את <span class="math" dir="ltr">\(I\)</span> לאינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>.</p>
-
-                 <div class="example">
-                     <h4>דוגמה לסוג 2</h4>
-                     <p>חשב <span class="math" dir="ltr">\(I = \int \frac{\sqrt[6]{x}+1}{\sqrt[6]{x^7}+\sqrt[4]{x^5}} dx\)</span>.</p>
-                     <p>נכתוב את המעריכים: <span class="math" dir="ltr">\(x^{1/6}, x^{7/6}, x^{5/4}\)</span>. המכנים הם 6, 6, 4. המכנה המשותף הקטן ביותר הוא <span class="math" dir="ltr">\(s=12\)</span>.</p>
-                     <p>נציב <span class="math" dir="ltr">\(x = t^{12}\)</span>, ואז <span class="math" dir="ltr">\(dx = 12t^{11} dt\)</span>.</p>
-                     <p>נביע את החזקות באמצעות <span class="math" dir="ltr">\(t\)</span>:</p>
-                     <ul>
-                         <li><span class="math" dir="ltr">\(x^{1/6} = (t^{12})^{1/6} = t^2\)</span></li>
-                         <li><span class="math" dir="ltr">\(x^{7/6} = (t^{12})^{7/6} = t^{14}\)</span></li>
-                         <li><span class="math" dir="ltr">\(x^{5/4} = (t^{12})^{5/4} = t^{15}\)</span></li>
-                     </ul>
-                     <p>נציב באינטגרל:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &= \int \frac{t^2+1}{t^{14}+t^{15}} \cdot (12t^{11}) dt \\ &= \int \frac{t^2+1}{t^{14}(1+t)} \cdot 12t^{11} dt \\ &= 12 \int \frac{t^2+1}{t^3(1+t)} dt \end{aligned} $$</div></div>
-                     <p>קיבלנו אינטגרל של פונקציה רציונלית, שאותו פותרים על ידי פירוק לשברים חלקיים.</p>
-                 </div>
-
-                <div class="example">
+<h3>עבור סוג (ב): <span class="math" dir="ltr">\(\int R(x, \sqrt{-x^2+px+q}) dx\)</span> (במקרה המעניין <span class="math" dir="ltr">\(\Delta' &gt; 0\)</span>)</h3>
+<p>כזכור, <span class="math" dir="ltr">\(-x^2+px+q = -(x-\alpha)(x-\beta) = (x-\alpha)(\beta-x)\)</span> כאשר <span class="math" dir="ltr">\(\alpha &lt; \beta\)</span> הם השורשים, ותחום ההגדרה הוא <span class="math" dir="ltr">\(x \in [\alpha, \beta]\)</span>.</p>
+<p>הצבה מתאימה היא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ u = \sqrt{\frac{\beta-x}{x-\alpha}} \quad \left(\text{או } u = \sqrt{\frac{x-\alpha}{\beta-x}}\right) $$</div></div>
+<p>נעלה בריבוע: <span class="math" dir="ltr">\(u^2 = \frac{\beta-x}{x-\alpha}\)</span>.</p>
+<p>נחלץ את <span class="math" dir="ltr">\(x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ u^2(x-\alpha) = \beta-x \implies u^2x - u^2\alpha = \beta - x \implies x(u^2+1) = \beta + u^2\alpha \implies x = \frac{\beta + \alpha u^2}{u^2+1} $$</div></div>
+<p>מצאנו את <span class="math" dir="ltr">\(x\)</span> כפונקציה רציונלית של <span class="math" dir="ltr">\(u\)</span>.</p>
+<p>נמצא את השורש:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \sqrt{-x^2+px+q} &amp;= \sqrt{(x-\alpha)(\beta-x)} = \sqrt{(x-\alpha)^2 \frac{\beta-x}{x-\alpha}} = |x-\alpha| \sqrt{\frac{\beta-x}{x-\alpha}} \\ &amp;= (x-\alpha) u \quad (\text{כי } x \ge \alpha) \end{aligned} $$</div></div>
+<p>נציב את <span class="math" dir="ltr">\(x\)</span> בביטוי <span class="math" dir="ltr">\(x-\alpha\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x-\alpha = \frac{\beta + \alpha u^2}{u^2+1} - \alpha = \frac{\beta + \alpha u^2 - \alpha(u^2+1)}{u^2+1} = \frac{\beta - \alpha}{u^2+1} $$</div></div>
+<p>ולכן השורש הוא:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{-x^2+px+q} = \frac{\beta - \alpha}{u^2+1} u = \frac{(\beta - \alpha)u}{u^2+1} $$</div></div>
+<p>ונמצא את <span class="math" dir="ltr">\(dx\)</span> על ידי גזירת <span class="math" dir="ltr">\(x(u)\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} dx &amp;= \frac{d}{du}\left(\frac{\beta + \alpha u^2}{u^2+1}\right) du = \frac{2\alpha u(u^2+1) - (\beta + \alpha u^2)2u}{(u^2+1)^2} du \\ &amp;= \frac{2\alpha u^3 + 2\alpha u - 2\beta u - 2\alpha u^3}{(u^2+1)^2} du \\ &amp;= \frac{2(\alpha - \beta)u}{(u^2+1)^2} du \end{aligned} $$</div></div>
+<p>שוב, כל המרכיבים הם פונקציות רציונליות של <span class="math" dir="ltr">\(u\)</span>.</p>
+<div class="example">
+<h4>דוגמה</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int \frac{dx}{(x-1)\sqrt{5-4x-x^2}}\)</span>.</p>
+<p>פנים השורש הוא <span class="math" dir="ltr">\(-x^2-4x+5 = -(x^2+4x-5) = -(x+5)(x-1)\)</span>. כאן <span class="math" dir="ltr">\(\alpha=-5, \beta=1\)</span>. תחום ההגדרה <span class="math" dir="ltr">\([-5, 1)\)</span> (לא כולל 1 בגלל המכנה).</p>
+<p>נשתמש בהצבה (השנייה מהשתיים שהוצעו):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ u = \sqrt{\frac{x-\alpha}{\beta-x}} = \sqrt{\frac{x+5}{1-x}} $$</div></div>
+<p>נעלה בריבוע: <span class="math" dir="ltr">\(u^2 = \frac{x+5}{1-x}\)</span>.</p>
+<p>נחלץ את <span class="math" dir="ltr">\(x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ u^2(1-x) = x+5 \implies u^2-u^2x = x+5 \implies x(1+u^2) = u^2-5 \implies x = \frac{u^2-5}{u^2+1} $$</div></div>
+<p>נמצא את השורש:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{5-4x-x^2} = \sqrt{(\beta-x)(x-\alpha)} = \sqrt{(\beta-x)^2 \frac{x-\alpha}{\beta-x}} = |\beta-x| u = (1-x) u \quad (\text{כי } x&lt;1) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ 1-x = 1 - \frac{u^2-5}{u^2+1} = \frac{u^2+1 - (u^2-5)}{u^2+1} = \frac{6}{u^2+1} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{5-4x-x^2} = \frac{6u}{u^2+1} $$</div></div>
+<p>נמצא את <span class="math" dir="ltr">\(x-1\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x-1 = \frac{u^2-5}{u^2+1} - 1 = \frac{u^2-5 - (u^2+1)}{u^2+1} = \frac{-6}{u^2+1} $$</div></div>
+<p>נמצא את <span class="math" dir="ltr">\(dx\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{d}{du}\left(\frac{u^2-5}{u^2+1}\right) du = \frac{2u(u^2+1) - (u^2-5)2u}{(u^2+1)^2} du = \frac{2u^3+2u - 2u^3+10u}{(u^2+1)^2} du = \frac{12u}{(u^2+1)^2} du $$</div></div>
+<p>נציב הכל באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int \frac{1}{\left(\frac{-6}{u^2+1}\right) \left(\frac{6u}{u^2+1}\right)} \cdot \frac{12u}{(u^2+1)^2} du \\ &amp;= \int \frac{(u^2+1)^2}{-36u} \cdot \frac{12u}{(u^2+1)^2} du \\ &amp;= \int \frac{12u}{-36u} du = \int -\frac{1}{3} du \\ &amp;= -\frac{1}{3} u + c \end{aligned} $$</div></div>
+<p>נחזור ל-<span class="math" dir="ltr">\(x\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = -\frac{1}{3} \sqrt{\frac{x+5}{1-x}} + c $$</div></div>
+</div>
+<div class="example">
+<h4>דוגמה נוספת: אינטגרל "מיידי" באמצעות הצבת אוילר</h4>
+<p>נפתור את <span class="math" dir="ltr">\(I = \int \frac{dx}{\sqrt{x^2+a^2}}\)</span> שנחשב מיידי, ע"י הצבת אוילר.</p>
+<p>זהו אינטגרל מסוג (א) עם <span class="math" dir="ltr">\(p=0, q=a^2\)</span>. נציב <span class="math" dir="ltr">\(u = \sqrt{x^2+a^2} + x\)</span>.</p>
+<p>לפי הפיתוח הכללי (עם <span class="math" dir="ltr">\(p=0, q=a^2\)</span>):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ x = \frac{u^2-a^2}{2u} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \sqrt{x^2+a^2} = \frac{u^2+a^2}{2u} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ dx = \frac{2(u^2+a^2)}{(2u)^2} du = \frac{u^2+a^2}{2u^2} du $$</div></div>
+<p>נציב באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \frac{1}{\frac{u^2+a^2}{2u}} \cdot \frac{u^2+a^2}{2u^2} du = \int \frac{2u}{u^2+a^2} \cdot \frac{u^2+a^2}{2u^2} du = \int \frac{1}{u} du $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \ln|u| + c = \ln|\sqrt{x^2+a^2}+x| + c $$</div></div>
+<p>(אין צורך בערך מוחלט כי <span class="math" dir="ltr">\(\sqrt{x^2+a^2}+x &gt; \sqrt{x^2}+x = |x|+x \ge 0\)</span>, והשוויון ל-0 לא אפשרי כי <span class="math" dir="ltr">\(a \neq 0\)</span>). לכן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{\sqrt{x^2+a^2}} = \ln(x+\sqrt{x^2+a^2}) + c $$</div></div>
+<p>ובדומה מקבלים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int \frac{dx}{\sqrt{x^2-a^2}} = \ln|x+\sqrt{x^2-a^2}| + c $$</div></div>
+<p>(כאן נדרש ערך מוחלט כי <span class="math" dir="ltr">\(x+\sqrt{x^2-a^2}\)</span> יכול להיות שלילי אם <span class="math" dir="ltr">\(x \le -a\)</span>).</p>
+</div>
+<div class="example">
+<h4>חישוב <span class="math" dir="ltr">\(I = \int \sqrt{x^2+a^2} dx\)</span></h4>
+<p>אפשר לפי הצבה טריגונומטרית <span class="math" dir="ltr">\(x=a\tan t\)</span> או לפי הצבת אוילר, אבל ננקוט בדרך אחרת: אינטגרציה בחלקים.</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I = \int \sqrt{x^2+a^2} dx &amp;= \begin{cases} u = \sqrt{x^2+a^2} &amp; dv = dx \\ du = \frac{x}{\sqrt{x^2+a^2}} dx &amp; v = x \end{cases} \\ &amp;= x\sqrt{x^2+a^2} - \int \frac{x^2}{\sqrt{x^2+a^2}} dx \quad (*) \end{aligned} $$</div></div>
+<p>כעת נטפל באינטגרל שקיבלנו:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \int \frac{x^2}{\sqrt{x^2+a^2}} dx &amp;= \int \frac{x^2+a^2-a^2}{\sqrt{x^2+a^2}} dx \\ &amp;= \int \frac{x^2+a^2}{\sqrt{x^2+a^2}} dx - \int \frac{a^2}{\sqrt{x^2+a^2}} dx \\ &amp;= \int \sqrt{x^2+a^2} dx - a^2 \int \frac{dx}{\sqrt{x^2+a^2}} \\ &amp;= I - a^2 \ln(x+\sqrt{x^2+a^2}) \end{aligned} $$</div></div>
+<p>נציב בחזרה ב-<span class="math" dir="ltr">\((*)\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x\sqrt{x^2+a^2} - \left( I - a^2 \ln(x+\sqrt{x^2+a^2}) \right) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x\sqrt{x^2+a^2} - I + a^2 \ln(x+\sqrt{x^2+a^2}) $$</div></div>
+<p>נעביר אגפים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ 2I = x\sqrt{x^2+a^2} + a^2 \ln(x+\sqrt{x^2+a^2}) $$</div></div>
+<p>ומכאן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int \sqrt{x^2+a^2} dx = \frac{1}{2} \left( x\sqrt{x^2+a^2} + a^2 \ln(x+\sqrt{x^2+a^2}) \right) + C $$</div></div>
+<p>באופן דומה ניתן לחשב <span class="math" dir="ltr">\(\int \sqrt{x^2-a^2} dx\)</span> על סמך <span class="math" dir="ltr">\(\int \frac{dx}{\sqrt{x^2-a^2}}\)</span> ומקבלים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int \sqrt{x^2-a^2} dx = \frac{1}{2} \left( x\sqrt{x^2-a^2} - a^2 \ln|x+\sqrt{x^2-a^2}| \right) + C $$</div></div>
+</div>
+</section>
+<section id="more-substitutions">
+<h2>עוד כמה סוגי הצבות</h2>
+<h3>סוג 1: <span class="math" dir="ltr">\(I = \int R\left(x, \sqrt[n]{\frac{ax+b}{cx+d}}\right) dx\)</span></h3>
+<p>(נניח <span class="math" dir="ltr">\(ad-bc \neq 0\)</span>, אחרת <span class="math" dir="ltr">\(\frac{ax+b}{cx+d}\)</span> קבוע או לא מוגדר, וההצבה <span class="math" dir="ltr">\(t = \sqrt[n]{\dots}\)</span> לא הפיכה או שפנים השורש מצטמצם).</p>
+<p>כאן ההצבה <span class="math" dir="ltr">\(t = \sqrt[n]{\frac{ax+b}{cx+d}}\)</span> הופכת את <span class="math" dir="ltr">\(I\)</span> לאינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>. אכן, מקבלים <span class="math" dir="ltr">\(\frac{ax+b}{cx+d} = t^n\)</span>, ומכאן מחלצים את <span class="math" dir="ltr">\(x\)</span> כפונקציה רציונלית של <span class="math" dir="ltr">\(t\)</span>. גוזרים לקבל <span class="math" dir="ltr">\(dx\)</span> כ-<span class="math" dir="ltr">\(dt\)</span> מוכפל בפונקציה רציונלית של <span class="math" dir="ltr">\(t\)</span>.</p>
+<h3>סוג 2: <span class="math" dir="ltr">\(I = \int R(x, x^{m/s_1}, (ax^n+b)^{p/s_2}) dx\)</span> (כאשר <span class="math" dir="ltr">\(m, n \in \mathbb{Q}, p \in \mathbb{Q}\)</span>)</h3>
+<p>נכתוב את כל המעריכים השבריים עם מכנה משותף <span class="math" dir="ltr">\(s\)</span>. כלומר, האינטגרנד הוא פונקציה רציונלית של <span class="math" dir="ltr">\(x\)</span>, <span class="math" dir="ltr">\(x^{1/s}\)</span>, וייתכן גם של <span class="math" dir="ltr">\((ax^n+b)^{1/s}\)</span> (צורה קצת יותר כללית ממה שכתוב במקור). כאן טוב להציב <span class="math" dir="ltr">\(x=t^s\)</span>, כאשר <span class="math" dir="ltr">\(s\)</span> הוא המכנה המשותף של כל המעריכים השבריים (של <span class="math" dir="ltr">\(x\)</span> ושל <span class="math" dir="ltr">\(ax^n+b\)</span>). ניתן לבדוק שזה הופך את <span class="math" dir="ltr">\(I\)</span> לאינטגרל של פונקציה רציונלית ב-<span class="math" dir="ltr">\(t\)</span>.</p>
+<div class="example">
+<h4>דוגמה לסוג 2</h4>
+<p>חשב <span class="math" dir="ltr">\(I = \int \frac{\sqrt[6]{x}+1}{\sqrt[6]{x^7}+\sqrt[4]{x^5}} dx\)</span>.</p>
+<p>נכתוב את המעריכים: <span class="math" dir="ltr">\(x^{1/6}, x^{7/6}, x^{5/4}\)</span>. המכנים הם 6, 6, 4. המכנה המשותף הקטן ביותר הוא <span class="math" dir="ltr">\(s=12\)</span>.</p>
+<p>נציב <span class="math" dir="ltr">\(x = t^{12}\)</span>, ואז <span class="math" dir="ltr">\(dx = 12t^{11} dt\)</span>.</p>
+<p>נביע את החזקות באמצעות <span class="math" dir="ltr">\(t\)</span>:</p>
+<ul>
+<li><span class="math" dir="ltr">\(x^{1/6} = (t^{12})^{1/6} = t^2\)</span></li>
+<li><span class="math" dir="ltr">\(x^{7/6} = (t^{12})^{7/6} = t^{14}\)</span></li>
+<li><span class="math" dir="ltr">\(x^{5/4} = (t^{12})^{5/4} = t^{15}\)</span></li>
+</ul>
+<p>נציב באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I &amp;= \int \frac{t^2+1}{t^{14}+t^{15}} \cdot (12t^{11}) dt \\ &amp;= \int \frac{t^2+1}{t^{14}(1+t)} \cdot 12t^{11} dt \\ &amp;= 12 \int \frac{t^2+1}{t^3(1+t)} dt \end{aligned} $$</div></div>
+<p>קיבלנו אינטגרל של פונקציה רציונלית, שאותו פותרים על ידי פירוק לשברים חלקיים.</p>
+</div>
+<div class="example">
 <h4 dir="rtl">
   דוגמה:
   <span class="math" dir="ltr">\( I_n = \int x^n \sqrt{a + bx} \, dx \)</span>
-  &nbsp;
+   
   <span class="math" dir="ltr">\( a, b \ne 0, \; n \in \mathbb{N} \cup \{0\} \)</span>
 </h4>
-                    <p>נפתור בשתי דרכים:</p>
-                    <p><strong>דרך 1: הצבה</strong></p>
-                     <p>נציב <span class="math" dir="ltr">\(t = \sqrt{a+bx}\)</span>. אז <span class="math" dir="ltr">\(t^2 = a+bx\)</span>, ומכאן <span class="math" dir="ltr">\(x = \frac{t^2-a}{b}\)</span>.</p>
-                     <p>נגזור לקבל <span class="math" dir="ltr">\(dx = \frac{2t}{b} dt\)</span>.</p>
-                     <p>נציב באינטגרל:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = \int \left(\frac{t^2-a}{b}\right)^n \cdot t \cdot \left(\frac{2t}{b}\right) dt = \frac{2}{b^{n+1}} \int (t^2-a)^n t^2 dt $$</div></div>
-                     <p>כעת נפתח את <span class="math" dir="ltr">\((t^2-a)^n\)</span> לפי הבינום של ניוטון:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ (t^2-a)^n = \sum_{k=0}^{n} \binom{n}{k} (t^2)^k (-a)^{n-k} = \sum_{k=0}^{n} \binom{n}{k} (-a)^{n-k} t^{2k} $$</div></div>
-                    <p>נציב חזרה:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I_n &= \frac{2}{b^{n+1}} \int \left( \sum_{k=0}^{n} \binom{n}{k} (-a)^{n-k} t^{2k} \right) t^2 dt \\ &= \frac{2}{b^{n+1}} \sum_{k=0}^{n} \binom{n}{k} (-a)^{n-k} \int t^{2k+2} dt \\ &= \frac{2}{b^{n+1}} \sum_{k=0}^{n} \binom{n}{k} (-a)^{n-k} \frac{t^{2k+3}}{2k+3} + C \end{aligned} $$</div></div>
-                     <p>לבסוף, נציב חזרה <span class="math" dir="ltr">\(t = \sqrt{a+bx}\)</span>.</p>
-
-                     <p><strong>דרך 2: נוסחת נסיגה (אינטגרציה בחלקים)</strong></p>
-                     <p>נסמן <span class="math" dir="ltr">\(I_n = \int x^n \sqrt{a+bx} dx\)</span>.</p>
-                     <p>עבור <span class="math" dir="ltr">\(n=0\)</span>:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_0 = \int (a+bx)^{1/2} dx = \frac{(a+bx)^{3/2}}{3/2 \cdot b} + C = \frac{2}{3b}(a+bx)^{3/2} + C $$</div></div>
-                     <p>עבור <span class="math" dir="ltr">\(n \ge 1\)</span>, נבצע אינטגרציה בחלקים:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I_n &= \int x^n \sqrt{a+bx} dx \\ &= \begin{cases} u = x^n & dv = (a+bx)^{1/2} dx \\ du = nx^{n-1} dx & v = \frac{2}{3b}(a+bx)^{3/2} \end{cases} \\ &= x^n \cdot \frac{2}{3b}(a+bx)^{3/2} - \int \frac{2}{3b}(a+bx)^{3/2} \cdot nx^{n-1} dx \\ &= \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2n}{3b} \int x^{n-1}(a+bx)(a+bx)^{1/2} dx \\ &= \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2n}{3b} \int (ax^{n-1}+bx^n)\sqrt{a+bx} dx \\ &= \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} \int x^{n-1}\sqrt{a+bx} dx - \frac{2nb}{3b} \int x^n\sqrt{a+bx} dx \\ &= \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} - \frac{2n}{3} I_n \end{aligned} $$</div></div>
-                    <p>קיבלנו משוואה עבור <span class="math" dir="ltr">\(I_n\)</span>:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n = \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} - \frac{2n}{3} I_n $$</div></div>
-                    <p>נעביר אגפים ונבודד את <span class="math" dir="ltr">\(I_n\)</span>:</p>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n \left(1 + \frac{2n}{3}\right) = \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} $$</div></div>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n \left(\frac{3+2n}{3}\right) = \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} $$</div></div>
-                     <p>נכפיל ב-<span class="math" dir="ltr">\(\frac{3}{3+2n}\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I_n = \frac{3}{3+2n} \left( \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} \right) $$</div></div>
-                    <div class="formula-block"><div class="math" dir="ltr">$$ I_n = \frac{2x^n(a+bx)^{3/2}}{b(2n+3)} - \frac{2na}{b(2n+3)} I_{n-1} $$</div></div>
-                    <p>זוהי נוסחת נסיגה המאפשרת לחשב את <span class="math" dir="ltr">\(I_n\)</span> על סמך <span class="math" dir="ltr">\(I_{n-1}\)</span>, עד שמגיעים ל-<span class="math" dir="ltr">\(I_0\)</span> הידוע.</p>
-                 </div>
-
-                 <div class="example">
-                     <h4>דוגמה אחרונה: <span class="math" dir="ltr">\(I = \int x e^{-x} \cos(2x) dx\)</span></h4>
-                     <p>כאן אינטגרציה בחלקים פעם אחת אינה מספיקה. ראשית נבצע אינטגרציה בחלקים כך:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int x (e^{-x} \cos(2x)) dx = \begin{cases} v = x & du = e^{-x}\cos(2x) dx \\ dv = dx & u = \int e^{-x}\cos(2x) dx \end{cases} $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x u - \int u dx \quad (\star) $$</div></div>
-                     <p>את <span class="math" dir="ltr">\(u = \int e^{-x}\cos(2x) dx\)</span> עצמו מוצאים ע"י אינטגרציה בחלקים פעמיים (או בשיטה הטבלית):</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} u &= \int e^{-x} \cos(2x) dx = \begin{cases} f = e^{-x} & dh = \cos(2x) dx \\ df = -e^{-x} dx & h = \frac{\sin(2x)}{2} \end{cases} \\ &= e^{-x} \frac{\sin(2x)}{2} - \int \frac{\sin(2x)}{2} (-e^{-x}) dx \\ &= \frac{e^{-x}\sin(2x)}{2} + \frac{1}{2} \int e^{-x} \sin(2x) dx \quad (**) \end{aligned} $$</div></div>
-                     <p>ועוד אינטגרציה בחלקים לאינטגרל שנותר:</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \int e^{-x} \sin(2x) dx &= \begin{cases} f = e^{-x} & dh = \sin(2x) dx \\ df = -e^{-x} dx & h = -\frac{\cos(2x)}{2} \end{cases} \\ &= e^{-x} \left(-\frac{\cos(2x)}{2}\right) - \int \left(-\frac{\cos(2x)}{2}\right) (-e^{-x}) dx \\ &= -\frac{e^{-x}\cos(2x)}{2} - \frac{1}{2} \int e^{-x} \cos(2x) dx \\ &= -\frac{e^{-x}\cos(2x)}{2} - \frac{1}{2} u \quad (\infty) \end{aligned} $$</div></div>
-                     <p>נציב את <span class="math" dir="ltr">\((\infty)\)</span> ב-<span class="math" dir="ltr">\((**)\)</span>:</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ u = \frac{e^{-x}\sin(2x)}{2} + \frac{1}{2} \left( -\frac{e^{-x}\cos(2x)}{2} - \frac{1}{2} u \right) $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ u = \frac{e^{-x}\sin(2x)}{2} - \frac{e^{-x}\cos(2x)}{4} - \frac{1}{4} u $$</div></div>
-                     <p>נעביר אגפים:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ u \left(1 + \frac{1}{4}\right) = \frac{e^{-x}}{4} (2\sin(2x) - \cos(2x)) $$</div></div>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ \frac{5}{4} u = \frac{e^{-x}}{4} (2\sin(2x) - \cos(2x)) $$</div></div>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ u = \frac{e^{-x}}{5} (2\sin(2x) - \cos(2x)) $$</div></div>
-                     <p>כעת נציב את <span class="math" dir="ltr">\(u\)</span> שמצאנו חזרה ב-<span class="math" dir="ltr">\((\star)\)</span>:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = x \left[ \frac{e^{-x}}{5} (2\sin(2x) - \cos(2x)) \right] - \int \left[ \frac{e^{-x}}{5} (2\sin(2x) - \cos(2x)) \right] dx $$</div></div>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{x e^{-x}}{5} (2\sin(2x) - \cos(2x)) - \frac{2}{5} \int e^{-x}\sin(2x) dx + \frac{1}{5} \int e^{-x}\cos(2x) dx $$</div></div>
-                     <p>את שני האינטגרלים מימין כבר פגשנו. נשתמש ב-<span class="math" dir="ltr">\((\infty)\)</span> וב-<span class="math" dir="ltr">\(u\)</span> שמצאנו:</p>
-                      <div class="formula-block"><div class="math" dir="ltr">$$ \int e^{-x}\sin(2x) dx = -\frac{e^{-x}\cos(2x)}{2} - \frac{1}{2} u = -\frac{e^{-x}\cos(2x)}{2} - \frac{e^{-x}}{10} (2\sin(2x) - \cos(2x)) = \frac{e^{-x}}{10} (-5\cos(2x) - 2\sin(2x) + \cos(2x)) = \frac{e^{-x}}{10} (-2\sin(2x) - 4\cos(2x)) $$</div></div>
-                     <p>לכן:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I = & \frac{x e^{-x}}{5} (2\sin(2x) - \cos(2x)) \\ & - \frac{2}{5} \left[ \frac{e^{-x}}{10} (-2\sin(2x) - 4\cos(2x)) \right] \\ & + \frac{1}{5} \left[ \frac{e^{-x}}{5} (2\sin(2x) - \cos(2x)) \right] + C \end{aligned} $$</div></div>
-                     <p>נפשט:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I = & \frac{x e^{-x}}{5} (2\sin(2x) - \cos(2x)) \\ & + \frac{e^{-x}}{25} (2\sin(2x) + 4\cos(2x)) \\ & + \frac{e^{-x}}{25} (2\sin(2x) - \cos(2x)) + C \\ = & \frac{x e^{-x}}{5} (2\sin(2x) - \cos(2x)) + \frac{e^{-x}}{25} (4\sin(2x) + 3\cos(2x)) + C \end{aligned} $$</div></div>
-                     <p>ישנן עוד שיטות לאינטגרציה, הצבות ותתי הצבות שונות ועוד מיני טריקים המותאמים למקרה (שיטות אד-הוק). הלוא הם רשומים על ספר דברי הימים, אנחנו נעצור כאן. וכעת:</p>
-                 </div>
-            </section>
-
-             <section id="definite-integral">
-                 <h2>האינטגרל המסויים</h2>
-                 <h3>הקדמה</h3>
-                 <p>האינטגרל המסויים של פונקציה ממשית של משתנה אחד (ממשי) הוא הבסיס לעיקר השימושים של תורת האינטגרציה – בהנדסה, חקלאות ובעצם בכל תחום מדעי שיש בו מדידה. הוא בעיקר (ולא האינטגרל הלא מסויים) זה אשר זוכה להכללה במימדים גבוהים יותר כפי שנראה בהמשך הקורס. ב'עולם הגיאומטרי' המוכר לנו מחשבים בעזרתו שטחים (לאו דווקא של קבוצות מישוריות), אורכי קווים, נפחים. קיים קשר הדוק בין האינטגרル המסויים לבין לא מסויים. קשר זה הוצג כבר (אם כי לא בצורה פורמלית) בשיעור הקודם, בסעיף הנוגע לשטח מתחת גרף פונקציה.</p>
-
-                <div class="definition">
-                    <h4>הגדרה: חלוקה (Partition)</h4>
+<p>נפתור בשתי דרכים:</p>
+<p><strong>דרך 1: הצבה</strong></p>
+<p>נציב <span class="math" dir="ltr">\(t = \sqrt{a+bx}\)</span>. אז <span class="math" dir="ltr">\(t^2 = a+bx\)</span>, ומכאן <span class="math" dir="ltr">\(x = \frac{t^2-a}{b}\)</span>.</p>
+<p>נגזור לקבל <span class="math" dir="ltr">\(dx = \frac{2t}{b} dt\)</span>.</p>
+<p>נציב באינטגרל:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = \int \left(\frac{t^2-a}{b}\right)^n \cdot t \cdot \left(\frac{2t}{b}\right) dt = \frac{2}{b^{n+1}} \int (t^2-a)^n t^2 dt $$</div></div>
+<p>כעת נפתח את <span class="math" dir="ltr">\((t^2-a)^n\)</span> לפי הבינום של ניוטון:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ (t^2-a)^n = \sum_{k=0}^{n} \binom{n}{k} (t^2)^k (-a)^{n-k} = \sum_{k=0}^{n} \binom{n}{k} (-a)^{n-k} t^{2k} $$</div></div>
+<p>נציב חזרה:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I_n &amp;= \frac{2}{b^{n+1}} \int \left( \sum_{k=0}^{n} \binom{n}{k} (-a)^{n-k} t^{2k} \right) t^2 dt \\ &amp;= \frac{2}{b^{n+1}} \sum_{k=0}^{n} \binom{n}{k} (-a)^{n-k} \int t^{2k+2} dt \\ &amp;= \frac{2}{b^{n+1}} \sum_{k=0}^{n} \binom{n}{k} (-a)^{n-k} \frac{t^{2k+3}}{2k+3} + C \end{aligned} $$</div></div>
+<p>לבסוף, נציב חזרה <span class="math" dir="ltr">\(t = \sqrt{a+bx}\)</span>.</p>
+<p><strong>דרך 2: נוסחת נסיגה (אינטגרציה בחלקים)</strong></p>
+<p>נסמן <span class="math" dir="ltr">\(I_n = \int x^n \sqrt{a+bx} dx\)</span>.</p>
+<p>עבור <span class="math" dir="ltr">\(n=0\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_0 = \int (a+bx)^{1/2} dx = \frac{(a+bx)^{3/2}}{3/2 \cdot b} + C = \frac{2}{3b}(a+bx)^{3/2} + C $$</div></div>
+<p>עבור <span class="math" dir="ltr">\(n \ge 1\)</span>, נבצע אינטגרציה בחלקים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I_n &amp;= \int x^n \sqrt{a+bx} dx \\ &amp;= \begin{cases} u = x^n &amp; dv = (a+bx)^{1/2} dx \\ du = nx^{n-1} dx &amp; v = \frac{2}{3b}(a+bx)^{3/2} \end{cases} \\ &amp;= x^n \cdot \frac{2}{3b}(a+bx)^{3/2} - \int \frac{2}{3b}(a+bx)^{3/2} \cdot nx^{n-1} dx \\ &amp;= \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2n}{3b} \int x^{n-1}(a+bx)(a+bx)^{1/2} dx \\ &amp;= \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2n}{3b} \int (ax^{n-1}+bx^n)\sqrt{a+bx} dx \\ &amp;= \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} \int x^{n-1}\sqrt{a+bx} dx - \frac{2nb}{3b} \int x^n\sqrt{a+bx} dx \\ &amp;= \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} - \frac{2n}{3} I_n \end{aligned} $$</div></div>
+<p>קיבלנו משוואה עבור <span class="math" dir="ltr">\(I_n\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} - \frac{2n}{3} I_n $$</div></div>
+<p>נעביר אגפים ונבודד את <span class="math" dir="ltr">\(I_n\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n \left(1 + \frac{2n}{3}\right) = \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n \left(\frac{3+2n}{3}\right) = \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} $$</div></div>
+<p>נכפיל ב-<span class="math" dir="ltr">\(\frac{3}{3+2n}\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = \frac{3}{3+2n} \left( \frac{2x^n(a+bx)^{3/2}}{3b} - \frac{2na}{3b} I_{n-1} \right) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I_n = \frac{2x^n(a+bx)^{3/2}}{b(2n+3)} - \frac{2na}{b(2n+3)} I_{n-1} $$</div></div>
+<p>זוהי נוסחת נסיגה המאפשרת לחשב את <span class="math" dir="ltr">\(I_n\)</span> על סמך <span class="math" dir="ltr">\(I_{n-1}\)</span>, עד שמגיעים ל-<span class="math" dir="ltr">\(I_0\)</span> הידוע.</p>
+</div>
+<div class="example">
+<h4>דוגמה אחרונה: <span class="math" dir="ltr">\(I = \int x e^{-x} \cos(2x) dx\)</span></h4>
+<p>כאן אינטגרציה בחלקים פעם אחת אינה מספיקה. ראשית נבצע אינטגרציה בחלקים כך:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int x (e^{-x} \cos(2x)) dx = \begin{cases} v = x &amp; du = e^{-x}\cos(2x) dx \\ dv = dx &amp; u = \int e^{-x}\cos(2x) dx \end{cases} $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x u - \int u dx \quad (\star) $$</div></div>
+<p>את <span class="math" dir="ltr">\(u = \int e^{-x}\cos(2x) dx\)</span> עצמו מוצאים ע"י אינטגרציה בחלקים פעמיים (או בשיטה הטבלית):</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} u &amp;= \int e^{-x} \cos(2x) dx = \begin{cases} f = e^{-x} &amp; dh = \cos(2x) dx \\ df = -e^{-x} dx &amp; h = \frac{\sin(2x)}{2} \end{cases} \\ &amp;= e^{-x} \frac{\sin(2x)}{2} - \int \frac{\sin(2x)}{2} (-e^{-x}) dx \\ &amp;= \frac{e^{-x}\sin(2x)}{2} + \frac{1}{2} \int e^{-x} \sin(2x) dx \quad (**) \end{aligned} $$</div></div>
+<p>ועוד אינטגרציה בחלקים לאינטגרל שנותר:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} \int e^{-x} \sin(2x) dx &amp;= \begin{cases} f = e^{-x} &amp; dh = \sin(2x) dx \\ df = -e^{-x} dx &amp; h = -\frac{\cos(2x)}{2} \end{cases} \\ &amp;= e^{-x} \left(-\frac{\cos(2x)}{2}\right) - \int \left(-\frac{\cos(2x)}{2}\right) (-e^{-x}) dx \\ &amp;= -\frac{e^{-x}\cos(2x)}{2} - \frac{1}{2} \int e^{-x} \cos(2x) dx \\ &amp;= -\frac{e^{-x}\cos(2x)}{2} - \frac{1}{2} u \quad (\infty) \end{aligned} $$</div></div>
+<p>נציב את <span class="math" dir="ltr">\((\infty)\)</span> ב-<span class="math" dir="ltr">\((**)\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ u = \frac{e^{-x}\sin(2x)}{2} + \frac{1}{2} \left( -\frac{e^{-x}\cos(2x)}{2} - \frac{1}{2} u \right) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ u = \frac{e^{-x}\sin(2x)}{2} - \frac{e^{-x}\cos(2x)}{4} - \frac{1}{4} u $$</div></div>
+<p>נעביר אגפים:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ u \left(1 + \frac{1}{4}\right) = \frac{e^{-x}}{4} (2\sin(2x) - \cos(2x)) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ \frac{5}{4} u = \frac{e^{-x}}{4} (2\sin(2x) - \cos(2x)) $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ u = \frac{e^{-x}}{5} (2\sin(2x) - \cos(2x)) $$</div></div>
+<p>כעת נציב את <span class="math" dir="ltr">\(u\)</span> שמצאנו חזרה ב-<span class="math" dir="ltr">\((\star)\)</span>:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = x \left[ \frac{e^{-x}}{5} (2\sin(2x) - \cos(2x)) \right] - \int \left[ \frac{e^{-x}}{5} (2\sin(2x) - \cos(2x)) \right] dx $$</div></div>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \frac{x e^{-x}}{5} (2\sin(2x) - \cos(2x)) - \frac{2}{5} \int e^{-x}\sin(2x) dx + \frac{1}{5} \int e^{-x}\cos(2x) dx $$</div></div>
+<p>את שני האינטגרלים מימין כבר פגשנו. נשתמש ב-<span class="math" dir="ltr">\((\infty)\)</span> וב-<span class="math" dir="ltr">\(u\)</span> שמצאנו:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \int e^{-x}\sin(2x) dx = -\frac{e^{-x}\cos(2x)}{2} - \frac{1}{2} u = -\frac{e^{-x}\cos(2x)}{2} - \frac{e^{-x}}{10} (2\sin(2x) - \cos(2x)) = \frac{e^{-x}}{10} (-5\cos(2x) - 2\sin(2x) + \cos(2x)) = \frac{e^{-x}}{10} (-2\sin(2x) - 4\cos(2x)) $$</div></div>
+<p>לכן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I = &amp; \frac{x e^{-x}}{5} (2\sin(2x) - \cos(2x)) \\ &amp; - \frac{2}{5} \left[ \frac{e^{-x}}{10} (-2\sin(2x) - 4\cos(2x)) \right] \\ &amp; + \frac{1}{5} \left[ \frac{e^{-x}}{5} (2\sin(2x) - \cos(2x)) \right] + C \end{aligned} $$</div></div>
+<p>נפשט:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \begin{aligned} I = &amp; \frac{x e^{-x}}{5} (2\sin(2x) - \cos(2x)) \\ &amp; + \frac{e^{-x}}{25} (2\sin(2x) + 4\cos(2x)) \\ &amp; + \frac{e^{-x}}{25} (2\sin(2x) - \cos(2x)) + C \\ = &amp; \frac{x e^{-x}}{5} (2\sin(2x) - \cos(2x)) + \frac{e^{-x}}{25} (4\sin(2x) + 3\cos(2x)) + C \end{aligned} $$</div></div>
+<p>ישנן עוד שיטות לאינטגרציה, הצבות ותתי הצבות שונות ועוד מיני טריקים המותאמים למקרה (שיטות אד-הוק). הלוא הם רשומים על ספר דברי הימים, אנחנו נעצור כאן. וכעת:</p>
+</div>
+</section>
+<section id="definite-integral">
+<h2>האינטגרל המסויים</h2>
+<h3>הקדמה</h3>
+<p>האינטגרל המסויים של פונקציה ממשית של משתנה אחד (ממשי) הוא הבסיס לעיקר השימושים של תורת האינטגרציה – בהנדסה, חקלאות ובעצם בכל תחום מדעי שיש בו מדידה. הוא בעיקר (ולא האינטגרל הלא מסויים) זה אשר זוכה להכללה במימדים גבוהים יותר כפי שנראה בהמשך הקורס. ב'עולם הגיאומטרי' המוכר לנו מחשבים בעזרתו שטחים (לאו דווקא של קבוצות מישוריות), אורכי קווים, נפחים. קיים קשר הדוק בין האינטגרル המסויים לבין לא מסויים. קשר זה הוצג כבר (אם כי לא בצורה פורמלית) בשיעור הקודם, בסעיף הנוגע לשטח מתחת גרף פונקציה.</p>
+<div class="definition">
+<h4>הגדרה: חלוקה (Partition)</h4>
 <p>
 חלוקה <span class="math" dir="ltr">\( T \)</span> של הקטע
 <span class="math" dir="ltr">\( [a, b] \)</span>
@@ -907,447 +945,57 @@
 <span class="math" dir="ltr">\( i = 0, \dots, k \)</span>,
 כך ש:
 </p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ a = x_0 < x_1 < \dots < x_{i-1} < x_i < \dots < x_{k-1} < x_k = b $$</div></div>
-                    <p>הנקודות <span class="math" dir="ltr">\(x_i\)</span> נקראות <strong>נקודות החלוקה</strong>. הן מחלקות את <span class="math" dir="ltr">\([a,b]\)</span> ל-<span class="math" dir="ltr">\(k\)</span> תת-קטעים (לאו דווקא שווים באורכם). הקטע ה-<span class="math" dir="ltr">\(i\)</span> של החלוקה הוא <span class="math" dir="ltr">\([x_{i-1}, x_i]\)</span>, מסומן גם כ-<span class="math" dir="ltr">\(\Delta x_i\)</span>.</p>
-                     <p>אורך הקטע ה-<span class="math" dir="ltr">\(i\)</span> מסומן גם הוא לעיתים כ-<span class="math" dir="ltr">\(\Delta x_i\)</span> (תלוי בהקשר): <span class="math" dir="ltr">\(\Delta x_i = x_i - x_{i-1}\)</span>.</p>
-                 </div>
-
-                 <div class="definition">
-                     <h4>הגדרה: פרמטר החלוקה (Norm/Mesh)</h4>
-                     <p>הפרמטר של החלוקה <span class="math" dir="ltr">\(T\)</span>, מסומן <span class="math" dir="ltr">\(\lambda(T)\)</span>, מוגדר להיות אורך תת-הקטע המקסימלי:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \lambda(T) = \max_{1 \le i \le k} \Delta x_i $$</div></div>
-                 </div>
-
-                <div class="definition">
-                    <h4>הגדרה: אינטגרביליות רימן</h4>
+<div class="formula-block"><div class="math" dir="ltr">$$ a = x_0 &lt; x_1 &lt; \dots &lt; x_{i-1} &lt; x_i &lt; \dots &lt; x_{k-1} &lt; x_k = b $$</div></div>
+<p>הנקודות <span class="math" dir="ltr">\(x_i\)</span> נקראות <strong>נקודות החלוקה</strong>. הן מחלקות את <span class="math" dir="ltr">\([a,b]\)</span> ל-<span class="math" dir="ltr">\(k\)</span> תת-קטעים (לאו דווקא שווים באורכם). הקטע ה-<span class="math" dir="ltr">\(i\)</span> של החלוקה הוא <span class="math" dir="ltr">\([x_{i-1}, x_i]\)</span>, מסומן גם כ-<span class="math" dir="ltr">\(\Delta x_i\)</span>.</p>
+<p>אורך הקטע ה-<span class="math" dir="ltr">\(i\)</span> מסומן גם הוא לעיתים כ-<span class="math" dir="ltr">\(\Delta x_i\)</span> (תלוי בהקשר): <span class="math" dir="ltr">\(\Delta x_i = x_i - x_{i-1}\)</span>.</p>
+</div>
+<div class="definition">
+<h4>הגדרה: פרמטר החלוקה (Norm/Mesh)</h4>
+<p>הפרמטר של החלוקה <span class="math" dir="ltr">\(T\)</span>, מסומן <span class="math" dir="ltr">\(\lambda(T)\)</span>, מוגדר להיות אורך תת-הקטע המקסימלי:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ \lambda(T) = \max_{1 \le i \le k} \Delta x_i $$</div></div>
+</div>
+<div class="definition">
+<h4>הגדרה: אינטגרביליות רימן</h4>
 <p dir="rtl">
 תהי <span class="math" dir="ltr">\( f(x) \)</span> פונקציה ממשית המוגדרת בקטע 
 <span class="math" dir="ltr">\([a, b]\)</span>.  
 אומרים ש־<span class="math" dir="ltr">\( f \)</span> <strong>אינטגרבילית</strong> (במובן של רימן) בקטע  
 <span class="math" dir="ltr">\([a, b]\)</span> אם קיים מספר ממשי 
 <span class="math" dir="ltr">\( I \)</span> כך שלכל 
-<span class="math" dir="ltr">\( \varepsilon > 0 \)</span> קיים 
-<span class="math" dir="ltr">\( \delta > 0 \)</span> כך שאם  
+<span class="math" dir="ltr">\( \varepsilon &gt; 0 \)</span> קיים 
+<span class="math" dir="ltr">\( \delta &gt; 0 \)</span> כך שאם  
 <span class="math" dir="ltr">\( T = \{x_0, \dots, x_k\} \)</span> היא חלוקה כלשהי של  
 <span class="math" dir="ltr">\([a, b]\)</span> המקיימת  
-<span class="math" dir="ltr">\( \lambda(T) < \delta \)</span>,  
+<span class="math" dir="ltr">\( \lambda(T) &lt; \delta \)</span>,  
 אז לכל בחירה של נקודות 
 <span class="math" dir="ltr">\( \zeta_i \)</span>  
 כך ש־<span class="math" dir="ltr">\( \zeta_i \in [x_{i-1}, x_i] \)</span>  
 )<span class="math" dir="ltr">\( \zeta_i \in \Delta x_i \)</span>),  
 מתקיים:
 </p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ \left| \sum_{i=1}^{k} f(\zeta_i) \Delta x_i - I \right| < \varepsilon $$</div></div>
-                    <p>המספר <span class="math" dir="ltr">\(I\)</span> נקרא <strong>האינטגרל המסויים</strong> של <span class="math" dir="ltr">\(f\)</span> על <span class="math" dir="ltr">\([a,b]\)</span> ומסומן:</p>
-                     <div class="formula-block"><div class="math" dir="ltr">$$ I = \int_a^b f(x) dx $$</div></div>
-                    <p>הסכום <span class="math" dir="ltr">\(\sum_{i=1}^{k} f(\zeta_i) \Delta x_i\)</span> נקרא <strong>סכום רימן</strong> של <span class="math" dir="ltr">\(f\)</span> (עבור החלוקה <span class="math" dir="ltr">\(T\)</span> ובחירת הנקודות <span class="math" dir="ltr">\(\{\zeta_i\}\)</span>), מסומן (בקיצור) <span class="math" dir="ltr">\(\sigma(f)\)</span>.</p>
-                    <p>מדוע 'בקיצור'? זאת כי <span class="math" dir="ltr">\(\sigma\)</span> תלוי בחלוקה <span class="math" dir="ltr">\(T\)</span> ובבחירת נקודות הביניים <span class="math" dir="ltr">\(\{\zeta_i\}\)</span> (וכמובן ב-<span class="math" dir="ltr">\(f\)</span>). אם נידרש נסמן <span class="math" dir="ltr">\(\sigma(T, \{\zeta_i\}, f)\)</span>, <span class="math" dir="ltr">\(\sigma(T)\)</span> או <span class="math" dir="ltr">\(\sigma(T,f)\)</span> כדי להבהיר את כוונותינו.</p>
-                 </div>
-
-                 <h4>הערות</h4>
-                 <ol>
-                     <li>האינטגרל המסויים הוא בסופו של דבר מספר, בניגוד לאינטגרל הלא מסויים שהוא קבוצת פונקציות (או פונקציה עד כדי קבוע).</li>
-                     <li>המילה 'מסויים' בשימוש כאן, כיוון (כנראה) שכאשר יש פונקציה קדומה <span class="math" dir="ltr">\(F\)</span> בקטע, אז <span class="math" dir="ltr">\(\int_a^b f(x) dx = F(b)-F(a)\)</span>, שהוא ערך מסויים המחושב מהפונקציה הקדומה. (בדוגמת השטח מהשיעור הקודם, ערך זה הוא <span class="math" dir="ltr">\(S(b)\)</span>).</li>
-                     <li>כמו בהגדרות גבול אחרות, ניתן בקלות להראות ש-<span class="math" dir="ltr">\(I\)</span>, אם קיים, הוא יחיד.</li>
-                    <li>'נחשפת' כאן סיבה לסימון <span class="math" dir="ltr">\(dx\)</span> המסתורי. הוא בא לייצג גבול של <span class="math" dir="ltr">\(\Delta x_i\)</span> כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>. הסימון <span class="math" dir="ltr">\( \int \)</span> מייצג את האות הלועזית S (בצורתה המוארכת) שמייצגת summation (סכימה).</li>
-                 </ol>
-             </section>
-         </main>
-    </div>
-
-    <!-- KaTeX JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
-
-
-     <!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
-     <script>
-         // --- Global Chart References ---
-         let parabola_pos_intersect_chart = null;
-         let parabola_pos_tangent_chart = null;
-         let parabola_pos_above_chart = null;
-         let parabola_neg_intersect_chart = null;
-         let parabola_neg_below_chart = null;
-         let parabola_neg_tangent_chart = null;
-
-
-        // --- Function to get current theme colors from CSS Variables ---
-        function getChartColors() {
-            const style = getComputedStyle(document.documentElement);
-            const getColor = (varName, fallback) => style.getPropertyValue(varName).trim() || fallback;
-
-            return {
-                axisColor: getColor('--chart-axis-color', '#333333'),
-                gridColor: getColor('--chart-grid-color', 'rgba(128, 128, 128, 0.2)'),
-                textColor: getColor('--text-color', '#343a40'),
-                primaryColor: getColor('--primary-color', '#0a5a8d'),
-                accentColor: getColor('--accent-color', '#f0ad4e'),
-                fillColor: getColor('--chart-fill-color', 'rgba(10, 90, 141, 0.2)'),
-                darkerFillColor: getColor('--primary-color', 'rgba(10, 90, 141, 0.4)'),
-                bgColor: getColor('--card-bg', '#ffffff')
-            };
-        }
-
-        // --- Helper function to generate parabola points ---
-        function generateParabolaData(a, b, c, xMin, xMax, steps = 50) {
-            const data = [];
-            const stepSize = (xMax - xMin) / steps;
-            for (let i = 0; i <= steps; i++) {
-                const x = xMin + i * stepSize;
-                const y = a * x * x + b * x + c;
-                 // Basic coordinate tooltip format
-                 const tooltip = `(${x.toFixed(1)}, ${y.toFixed(1)})`;
-                 data.push({ x: x, y: y, tooltip: tooltip });
-             }
-            return data;
-         }
-
-        // --- Generic Parabola Rendering Function ---
-         function renderParabolaChart(canvasId, chartInstanceRef, data, title, colors, yMin = -5, yMax = 10) {
-            const ctx = document.getElementById(canvasId)?.getContext('2d');
-             if (!ctx) return;
-
-             const chartData = {
-                 datasets: [{
-                     label: title,
-                     data: data,
-                     borderColor: colors.primaryColor,
-                     backgroundColor: colors.fillColor,
-                     borderWidth: 2,
-                     pointRadius: 0,
-                     tension: 0.1,
-                     fill: false // No fill for simple parabola line
-                 }]
-             };
-
-             const options = {
-                 responsive: true,
-                 maintainAspectRatio: true,
-                 aspectRatio: 1.2, // Adjust aspect ratio for better parabola look
-                 plugins: {
-                    tooltip: {
-                        enabled: true,
-                        callbacks: {
-                            label: function(context) {
-                                // Use pre-formatted tooltip from data point if available
-                                return context.raw.tooltip || `(${context.parsed.x.toFixed(1)}, ${context.parsed.y.toFixed(1)})`;
-                            },
-                             title: () => null // No title for tooltip items
-                        }
-                    },
-                    legend: { display: false }, // Hide legend for cleaner look
-                     zoom: {
-                         pan: { enabled: true, mode: 'xy' },
-                         zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'xy' }
-                     }
-                 },
-                 scales: {
-                     x: {
-                         type: 'linear',
-                         min: data[0]?.x, // Use actual data range
-                         max: data[data.length - 1]?.x,
-                         title: { display: true, text: 'x', color: colors.textColor },
-                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
-                         ticks: { color: colors.textColor }
-                     },
-                     y: {
-                         min: yMin, max: yMax,
-                         title: { display: false }, // Remove y-axis title for cleaner look
-                         grid: { color: context => context.tick.value === 0 ? colors.axisColor : colors.gridColor, lineWidth: context => context.tick.value === 0 ? 1.5 : 1 },
-                         ticks: { color: colors.textColor }
-                     }
-                 },
-                 interaction: {
-                     intersect: false,
-                     mode: 'nearest',
-                     axis: 'x'
-                 }
-             };
-
-             // Destroy previous instance if exists
-             if (window[chartInstanceRef]) {
-                 window[chartInstanceRef].destroy();
-             }
-             // Create new chart instance and store globally
-             window[chartInstanceRef] = new Chart(ctx, { type: 'line', data: chartData, options: options });
-         }
-
-
-        // --- Functions to Render Specific Parabolas ---
-         function renderParabolaPosIntersect() {
-             const colors = getChartColors();
-             // Example: y = x^2 - 4 (Δ > 0)
-             const data = generateParabolaData(1, 0, -4, -3, 3);
-             renderParabolaChart('parabola_pos_intersect', 'parabola_pos_intersect_chart', data, 'Δ > 0', colors, -5, 5);
-         }
-        function renderParabolaPosTangent() {
-             const colors = getChartColors();
-             // Example: y = x^2 (Δ = 0)
-             const data = generateParabolaData(1, 0, 0, -3, 3);
-            renderParabolaChart('parabola_pos_tangent', 'parabola_pos_tangent_chart', data, 'Δ = 0', colors, -1, 9);
-        }
-        function renderParabolaPosAbove() {
-             const colors = getChartColors();
-             // Example: y = x^2 + 1 (Δ < 0)
-            const data = generateParabolaData(1, 0, 1, -3, 3);
-             renderParabolaChart('parabola_pos_above', 'parabola_pos_above_chart', data, 'Δ < 0', colors, 0, 10);
-         }
-
-        function renderParabolaNegIntersect() {
-             const colors = getChartColors();
-             // Example: y = -x^2 + 4 (Δ' > 0)
-             const data = generateParabolaData(-1, 0, 4, -3, 3);
-             renderParabolaChart('parabola_neg_intersect', 'parabola_neg_intersect_chart', data, 'Δ > 0', colors, -5, 5);
-         }
-        function renderParabolaNegBelow() {
-            const colors = getChartColors();
-            // Example: y = -x^2 - 1 (Δ' < 0)
-            const data = generateParabolaData(-1, 0, -1, -3, 3);
-            renderParabolaChart('parabola_neg_below', 'parabola_neg_below_chart', data, 'Δ < 0', colors, -10, 0);
-         }
-        function renderParabolaNegTangent() {
-             const colors = getChartColors();
-            // Example: y = -x^2 (Δ' = 0)
-            const data = generateParabolaData(-1, 0, 0, -3, 3);
-            renderParabolaChart('parabola_neg_tangent', 'parabola_neg_tangent_chart', data, 'Δ = 0', colors, -9, 1);
-         }
-
-
-        // --- Function to render all charts and drawings ---
-        function renderAllChartsAndDrawings() {
-             renderParabolaPosIntersect();
-             renderParabolaPosTangent();
-             renderParabolaPosAbove();
-             renderParabolaNegIntersect();
-             renderParabolaNegBelow();
-             renderParabolaNegTangent();
-             // Add calls to other chart/drawing functions if they existed from previous step
-        }
-
-
-        // --- Scroll nav to show active link ---
-        function scrollToActiveLink() {
-            const navList = document.querySelector('#main-nav ul');
-            const activeLink = navList?.querySelector('a.active');
-            if (!activeLink || !navList) return;
-
-            const navListRect = navList.getBoundingClientRect();
-            const activeLinkRect = activeLink.getBoundingClientRect();
-
-            // Check if active link is outside the visible area of the navList
-             const scrollOffset = activeLinkRect.left - navListRect.left;
-             const linkWidth = activeLinkRect.width;
-             const navListWidth = navList.clientWidth; // Use clientWidth for visible width
-
-             // Check if link start is not visible or link end is not visible
-             if (scrollOffset < 0 || scrollOffset + linkWidth > navListWidth) {
-                  // Calculate scroll position to center the link
-                 const scrollLeftTarget = navList.scrollLeft + scrollOffset - (navListWidth / 2) + (linkWidth / 2);
-
-                  navList.scrollTo({
-                     left: scrollLeftTarget,
-                     behavior: 'smooth'
-                 });
-              }
-        }
-
-        // --- General Setup on DOMContentLoaded ---
-         document.addEventListener('DOMContentLoaded', function() {
-             // --- 1. KaTeX Rendering ---
-              try {
-                   renderMathInElement(document.body, {
-                      delimiters: [
-                          {left: '$$', right: '$$', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '\\[', right: '\\]', display: true, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '\\(', right: '\\)', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')},
-                          {left: '$', right: '$', display: false, preProcess: (math) => math.replace(/\\\\/g, '\\')} // Allow single $
-                      ],
-                       output: 'htmlAndMathml', // Use recommended output for accessibility
-                       trust: true, // Allow certain HTML tags within KaTeX
-                       strict: false, // Be less strict about errors
-                       throwOnError: false, // Don't stop rendering on error
-                       ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'canvas', 'option'] // Ignore these tags
-                   });
-
-                  // Post-rendering cleanup/ensure structure
-                  document.querySelectorAll('.katex-display').forEach(displayMath => {
-                      // Check if the direct parent is already div.math
-                      let mathParent = displayMath.parentElement;
-                       if (!mathParent || !mathParent.classList.contains('math')) {
-                           // If not, check if the KaTeX span itself is the child (auto-render sometimes does this)
-                           if (displayMath.children.length === 1 && displayMath.children[0].classList.contains('katex')) {
-                                mathParent = displayMath; // The wrapper is the .katex-display div
-                           } else {
-                                // Need to wrap
-                               const divMath = document.createElement('div');
-                               divMath.className = 'math';
-                                divMath.setAttribute('dir', 'ltr');
-                               displayMath.parentNode.insertBefore(divMath, displayMath);
-                               divMath.appendChild(displayMath);
-                               mathParent = divMath;
-                           }
-                       }
-                       // Ensure dir="ltr" on the div.math
-                      mathParent.setAttribute('dir', 'ltr');
-
-                      // Ensure the div.math parent is inside a formula-block
-                       let formulaBlock = mathParent.closest('.formula-block');
-                       if (!formulaBlock) {
-                           // If not inside a formula block, check if parent is main/section etc.
-                           let parentNeedsBlock = !['P', 'LI', 'DIV', 'BLOCKQUOTE', 'TD'].includes(mathParent.parentElement.tagName);
-                            if (parentNeedsBlock) {
-                                const newFormulaBlock = document.createElement('div');
-                                newFormulaBlock.className = 'formula-block';
-                                mathParent.parentNode.insertBefore(newFormulaBlock, mathParent);
-                                newFormulaBlock.appendChild(mathParent);
-                             }
-                       }
-                  });
-                  // Ensure inline math has the right class and dir
-                   document.querySelectorAll('span.katex').forEach(inlineMath => {
-                      if (!inlineMath.classList.contains('math')) {
-                         inlineMath.classList.add('math');
-                      }
-                      inlineMath.setAttribute('dir', 'ltr');
-                  });
-
-              } catch (error) {
-                  console.error("KaTeX auto-rendering failed:", error);
-              }
-
-
-             // --- 2. Active Navigation Link Highlighting ---
-              const navLinks = document.querySelectorAll('#main-nav a.nav-link');
-              const sections = document.querySelectorAll('main section');
-              const navElement = document.querySelector('nav');
-              const navHeight = navElement ? navElement.offsetHeight : 60; // Use dynamic height or fallback
-
-              function changeActiveLink() {
-                  let currentSectionId = '';
-                  const scrollPosition = window.scrollY;
-
-                  // Find the section currently in view or the last one passed
-                  for (let i = sections.length - 1; i >= 0; i--) {
-                      const section = sections[i];
-                      // Adjust offset: consider nav height and some breathing room below nav
-                      const sectionTop = section.offsetTop - navHeight - 30;
-
-                       if (scrollPosition >= sectionTop) {
-                          currentSectionId = section.getAttribute('id');
-                          break; // Found the current or last passed section
-                      }
-                  }
-
-                  // If scrolled near the top, activate the first link
-                   if (scrollPosition < sections[0].offsetTop - navHeight - 30) {
-                       currentSectionId = sections[0].getAttribute('id');
-                  }
-
-                  // Activate the correct link
-                  let activeLinkFound = false;
-                  navLinks.forEach(link => {
-                       link.classList.remove('active');
-                        // Handle potential leading '#' in href
-                       const linkHrefId = link.getAttribute('href').substring(1);
-                       if (linkHrefId === currentSectionId) {
-                            link.classList.add('active');
-                            activeLinkFound = true;
-                        }
-                    });
-
-                  // Fallback if no exact match found (e.g., scrolled between sections)
-                  // Keep the previous one active or default to first if completely scrolled up
-                   if (!activeLinkFound && navLinks.length > 0) {
-                      // Check if a link was previously active, keep it if so, otherwise default to first
-                      const previouslyActive = document.querySelector('#main-nav a.nav-link.active');
-                       if (!previouslyActive) {
-                            navLinks[0].classList.add('active');
-                       } else {
-                           // Keep the existing active one until a new section is clearly reached
-                           previouslyActive.classList.add('active'); // Re-add active class
-                           currentSectionId = previouslyActive.getAttribute('href').substring(1); // Update ID for scroll check
-                       }
-                  }
-
-                  // Scroll the nav bar to show the active link if needed
-                   scrollToActiveLink();
-              }
-
-               window.addEventListener('scroll', changeActiveLink, { passive: true });
-               changeActiveLink(); // Initial check on load
-
-             // --- 3. Section Fade-in Animation on Scroll ---
-               const observerOptions = {
-                   root: null, // Use viewport as root
-                   rootMargin: '0px 0px -10% 0px', // Trigger when 10% from bottom enters viewport
-                   threshold: 0.1 // Trigger when 10% of the element is visible
-              };
-
-               const observerCallback = (entries, observer) => {
-                  entries.forEach(entry => {
-                      if (entry.isIntersecting) {
-                          entry.target.classList.add('visible');
-                          observer.unobserve(entry.target); // Stop observing once visible
-                      }
-                  });
-              };
-
-              const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
-              sections.forEach(section => {
-                  scrollObserver.observe(section);
-               });
-
-
-             // --- 4. Dark Mode ---
-             const darkModeToggle = document.getElementById('darkModeToggle');
-             const htmlElement = document.documentElement;
-
-             const applyTheme = (theme) => {
-                 htmlElement.setAttribute('data-theme', theme);
-                 darkModeToggle.setAttribute('aria-pressed', theme === 'dark');
-                 localStorage.setItem('theme', theme);
-                  // Re-render charts and drawings with new colors
-                  // Add a slight delay to allow CSS transitions to start
-                   setTimeout(renderAllChartsAndDrawings, 50); // Re-render charts on theme change
-              };
-
-              // Determine initial theme: 1. Local storage, 2. System preference, 3. Default to light
-              const savedTheme = localStorage.getItem('theme');
-              const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-              let initialTheme = 'light'; // Default
-              if (savedTheme) {
-                  initialTheme = savedTheme;
-              } else if (prefersDark) {
-                 initialTheme = 'dark';
-              }
-
-              applyTheme(initialTheme); // Apply initial theme *before* rendering charts
-
-              darkModeToggle.addEventListener('click', () => {
-                  const currentTheme = htmlElement.getAttribute('data-theme');
-                  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                  applyTheme(newTheme);
-              });
-
-              // Listen for system theme changes ONLY if the user hasn't manually set a theme
-              window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                  if (!localStorage.getItem('theme')) { // Only respect system preference if no manual choice
-                      const newTheme = e.matches ? 'dark' : 'light';
-                      applyTheme(newTheme);
-                  }
-              });
-
-             // --- 5. Initial Chart and Drawing Rendering ---
-             // Render only after DOM is ready and initial theme is set
-             renderAllChartsAndDrawings();
-
-           });
-
-       </script>
-
+<div class="formula-block"><div class="math" dir="ltr">$$ \left| \sum_{i=1}^{k} f(\zeta_i) \Delta x_i - I \right| &lt; \varepsilon $$</div></div>
+<p>המספר <span class="math" dir="ltr">\(I\)</span> נקרא <strong>האינטגרל המסויים</strong> של <span class="math" dir="ltr">\(f\)</span> על <span class="math" dir="ltr">\([a,b]\)</span> ומסומן:</p>
+<div class="formula-block"><div class="math" dir="ltr">$$ I = \int_a^b f(x) dx $$</div></div>
+<p>הסכום <span class="math" dir="ltr">\(\sum_{i=1}^{k} f(\zeta_i) \Delta x_i\)</span> נקרא <strong>סכום רימן</strong> של <span class="math" dir="ltr">\(f\)</span> (עבור החלוקה <span class="math" dir="ltr">\(T\)</span> ובחירת הנקודות <span class="math" dir="ltr">\(\{\zeta_i\}\)</span>), מסומן (בקיצור) <span class="math" dir="ltr">\(\sigma(f)\)</span>.</p>
+<p>מדוע 'בקיצור'? זאת כי <span class="math" dir="ltr">\(\sigma\)</span> תלוי בחלוקה <span class="math" dir="ltr">\(T\)</span> ובבחירת נקודות הביניים <span class="math" dir="ltr">\(\{\zeta_i\}\)</span> (וכמובן ב-<span class="math" dir="ltr">\(f\)</span>). אם נידרש נסמן <span class="math" dir="ltr">\(\sigma(T, \{\zeta_i\}, f)\)</span>, <span class="math" dir="ltr">\(\sigma(T)\)</span> או <span class="math" dir="ltr">\(\sigma(T,f)\)</span> כדי להבהיר את כוונותינו.</p>
+</div>
+<h4>הערות</h4>
+<ol>
+<li>האינטגרל המסויים הוא בסופו של דבר מספר, בניגוד לאינטגרל הלא מסויים שהוא קבוצת פונקציות (או פונקציה עד כדי קבוע).</li>
+<li>המילה 'מסויים' בשימוש כאן, כיוון (כנראה) שכאשר יש פונקציה קדומה <span class="math" dir="ltr">\(F\)</span> בקטע, אז <span class="math" dir="ltr">\(\int_a^b f(x) dx = F(b)-F(a)\)</span>, שהוא ערך מסויים המחושב מהפונקציה הקדומה. (בדוגמת השטח מהשיעור הקודם, ערך זה הוא <span class="math" dir="ltr">\(S(b)\)</span>).</li>
+<li>כמו בהגדרות גבול אחרות, ניתן בקלות להראות ש-<span class="math" dir="ltr">\(I\)</span>, אם קיים, הוא יחיד.</li>
+<li>'נחשפת' כאן סיבה לסימון <span class="math" dir="ltr">\(dx\)</span> המסתורי. הוא בא לייצג גבול של <span class="math" dir="ltr">\(\Delta x_i\)</span> כאשר <span class="math" dir="ltr">\(\lambda(T) \to 0\)</span>. הסימון <span class="math" dir="ltr">\( \int \)</span> מייצג את האות הלועזית S (בצורתה המוארכת) שמייצגת summation (סכימה).</li>
+</ol>
+</section>
+</main>
+</div>
+<!-- KaTeX JS -->
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+<!-- Custom Script for Rendering, Enhancements, Dark Mode, and Charts -->
 
 <!-- כפתור חזרה לדף הראשי -->
 <a href="../index.html" style="
@@ -1365,6 +1013,5 @@
 ">
   🏠 חזרה למסך הראשי
 </a>
-
-</body>
+<script src="../js/dark-mode.js"></script></body>
 </html>
