@@ -1,4 +1,5 @@
 const { Octokit } = require("@octokit/rest");
+// path is a built-in Node.js module, no need to install it
 const path = require("path");
 
 exports.handler = async function(event, context) {
@@ -62,7 +63,8 @@ exports.handler = async function(event, context) {
     });
 
     // The path where lecture files are stored
-    const filePath = path.join("lectures", fileName);
+    // Using simple string concatenation instead of path.join for compatibility
+    const filePath = `lectures/${fileName}`;
 
     // Check if file already exists
     try {

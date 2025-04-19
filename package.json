@@ -1,0 +1,14 @@
+{
+  "name": "infi-notes",
+  "version": "1.0.0",
+  "description": "Notes for Infinitesimal Calculus 2",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@octokit/rest": "^19.0.13"
+  },
+  "devDependencies": {
+    "@netlify/plugin-functions-install-core": "^1.0.0"
+  }
+} 

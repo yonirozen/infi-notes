@@ -361,75 +361,48 @@ function showAddLectureForm() {
     // Create the filename
     const fileName = `lecture${number}.html`;
     
-    // For Netlify sites, we need to use Netlify Functions to create files
-    // This would normally be an API call to a Netlify Function
+    // Get the current user's token for authentication
+    const user = netlifyIdentity.currentUser();
     
-    // Example of how this would work with a real Netlify Function:
-    fetch('/.netlify/functions/create-lecture', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        fileName: fileName,
-        content: content,
-        title: title,
-        number: number
+    if (!user) {
+      alert('שגיאה: המשתמש אינו מחובר');
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+      return;
+    }
+    
+    // Get the JWT token
+    user.jwt().then(token => {
+      // For Netlify sites, we need to use Netlify Functions to create files
+      fetch('/.netlify/functions/create-lecture', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          fileName: fileName,
+          content: content,
+          title: title,
+          number: number
+        })
       })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Server responded with ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Success:', data);
-      
-      // Add the new lecture card to the UI if we're on the index page
-      const lecturesContainer = document.getElementById('lectures-container');
-      if (lecturesContainer) {
-        const card = document.createElement('a');
-        card.href = `lectures/${fileName}`;
-        card.className = 'lecture-card';
-        
-        card.innerHTML = `
-          <div class="card-content">
-            <div>
-              <h2 class="card-title">שיעור ${number}</h2>
-            </div>
-            <div class="card-footer">
-              <span class="view-button">
-                <i class="fas fa-arrow-left"></i>
-                צפייה בשיעור
-              </span>
-            </div>
-          </div>
-        `;
-        
-        lecturesContainer.appendChild(card);
-      }
-      
-      // Success message
-      alert(`השיעור נוסף בהצלחה: שיעור ${number} - ${title}`);
-      
-      // Close the modal
-      const adminModal = document.getElementById('admin-modal');
-      if (adminModal) adminModal.style.display = 'none';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      
-      // For demonstration purposes only - since we don't have the actual Netlify Function set up
-      // This simulates a successful file creation in development
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.log('Development mode - simulating successful lecture creation');
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(data => {
+            throw new Error(data.error || `Server responded with ${response.status}`);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Success:', data);
         
         // Add the new lecture card to the UI if we're on the index page
         const lecturesContainer = document.getElementById('lectures-container');
         if (lecturesContainer) {
           const card = document.createElement('a');
-          card.href = `lectures/lecture${number}.html`;
+          card.href = `lectures/${fileName}`;
           card.className = 'lecture-card';
           
           card.innerHTML = `
@@ -450,26 +423,71 @@ function showAddLectureForm() {
         }
         
         // Success message
-        alert(`השיעור נוסף בהצלחה (מצב פיתוח): שיעור ${number} - ${title}`);
+        alert(`השיעור נוסף בהצלחה: שיעור ${number} - ${title}`);
         
         // Close the modal
         const adminModal = document.getElementById('admin-modal');
         if (adminModal) adminModal.style.display = 'none';
-      } else {
-        // Show error message in production
-        alert(`שגיאה בהוספת השיעור: ${error.message}`);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        
+        // For demonstration purposes only - since we don't have the actual Netlify Function set up
+        // This simulates a successful file creation in development
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          console.log('Development mode - simulating successful lecture creation');
+          
+          // Add the new lecture card to the UI if we're on the index page
+          const lecturesContainer = document.getElementById('lectures-container');
+          if (lecturesContainer) {
+            const card = document.createElement('a');
+            card.href = `lectures/lecture${number}.html`;
+            card.className = 'lecture-card';
+            
+            card.innerHTML = `
+              <div class="card-content">
+                <div>
+                  <h2 class="card-title">שיעור ${number}</h2>
+                </div>
+                <div class="card-footer">
+                  <span class="view-button">
+                    <i class="fas fa-arrow-left"></i>
+                    צפייה בשיעור
+                  </span>
+                </div>
+              </div>
+            `;
+            
+            lecturesContainer.appendChild(card);
+          }
+          
+          // Success message
+          alert(`השיעור נוסף בהצלחה (מצב פיתוח): שיעור ${number} - ${title}`);
+          
+          // Close the modal
+          const adminModal = document.getElementById('admin-modal');
+          if (adminModal) adminModal.style.display = 'none';
+        } else {
+          // Show error message in production
+          alert(`שגיאה בהוספת השיעור: ${error.message}`);
+        }
         
         // Reset button
         submitButton.disabled = false;
         submitButton.textContent = originalButtonText;
-      }
-    })
-    .finally(() => {
-      // Reset button in production environments
-      if (!(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-        submitButton.disabled = false;
-        submitButton.textContent = originalButtonText;
-      }
+      })
+      .finally(() => {
+        // Reset button in production environments
+        if (!(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
+      });
+    }).catch(error => {
+      console.error('Error getting JWT token:', error);
+      alert('שגיאה בקבלת אימות משתמש');
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
     });
   }
   
