@@ -116,6 +116,235 @@ function checkForAdditionalLectures(knownLectures) {
 }
 
 // ----------------
+// Admin Functionality
+// ----------------
+function initAdminPanel() {
+  // Get admin control elements
+  const adminControls = document.getElementById('admin-controls');
+  const addLectureBtn = document.getElementById('add-lecture-btn');
+  const editStaffBtn = document.getElementById('edit-staff-btn');
+  const adminModal = document.getElementById('admin-modal');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  
+  if (!adminControls) return;
+  
+  // Only show admin controls if user has admin role
+  const currentUser = getCurrentUser();
+  if (!currentUser || !hasRole(currentUser, 'admin')) {
+    adminControls.style.display = 'none';
+    return;
+  }
+  
+  // Add lecture button event listener
+  if (addLectureBtn) {
+    addLectureBtn.addEventListener('click', showAddLectureForm);
+  }
+  
+  // Edit staff button event listener
+  if (editStaffBtn) {
+    editStaffBtn.addEventListener('click', showEditStaffForm);
+  }
+  
+  // Close modal button event listener
+  if (closeModalBtn && adminModal) {
+    closeModalBtn.addEventListener('click', () => {
+      adminModal.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target === adminModal) {
+        adminModal.style.display = 'none';
+      }
+    });
+  }
+}
+
+function showAddLectureForm() {
+  const adminModal = document.getElementById('admin-modal');
+  const modalContent = document.getElementById('modal-content');
+  
+  if (!adminModal || !modalContent) return;
+  
+  // Set modal title and content
+  const modalTitle = adminModal.querySelector('h2');
+  if (modalTitle) modalTitle.textContent = 'הוספת שיעור חדש';
+  
+  // Create form for adding a new lecture
+  modalContent.innerHTML = `
+    <form id="add-lecture-form">
+      <div class="form-group">
+        <label for="lecture-number">מספר שיעור</label>
+        <input type="number" id="lecture-number" min="1" required>
+      </div>
+      <div class="form-group">
+        <label for="lecture-title">כותרת השיעור</label>
+        <input type="text" id="lecture-title" required>
+      </div>
+      <div class="form-group">
+        <label for="lecture-content">תוכן השיעור (HTML)</label>
+        <textarea id="lecture-content" rows="10" required></textarea>
+      </div>
+      <button type="submit" class="button">הוסף שיעור</button>
+    </form>
+  `;
+  
+  // Add event listener to form submission
+  const form = document.getElementById('add-lecture-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const lectureNumber = document.getElementById('lecture-number').value;
+      const lectureTitle = document.getElementById('lecture-title').value;
+      const lectureContent = document.getElementById('lecture-content').value;
+      
+      // Here you would normally send this data to your server
+      // For now, we'll just show a success message
+      alert(`השיעור נוסף בהצלחה: שיעור ${lectureNumber} - ${lectureTitle}`);
+      
+      // Close the modal
+      adminModal.style.display = 'none';
+      
+      // TODO: In a real implementation, this would create a new lecture file
+      // and update the list of available lectures
+    });
+  }
+  
+  // Show the modal
+  adminModal.style.display = 'flex';
+}
+
+function showEditStaffForm() {
+  const adminModal = document.getElementById('admin-modal');
+  const modalContent = document.getElementById('modal-content');
+  
+  if (!adminModal || !modalContent) return;
+  
+  // Set modal title and content
+  const modalTitle = adminModal.querySelector('h2');
+  if (modalTitle) modalTitle.textContent = 'עריכת צוות';
+  
+  // Create form for editing staff
+  modalContent.innerHTML = `
+    <form id="edit-staff-form">
+      <div id="staff-list">
+        <!-- Staff members will be loaded dynamically -->
+        <div class="staff-member">
+          <div class="form-group">
+            <label for="staff-name-1">שם</label>
+            <input type="text" id="staff-name-1" value="ישראל ישראלי" required>
+          </div>
+          <div class="form-group">
+            <label for="staff-role-1">תפקיד</label>
+            <input type="text" id="staff-role-1" value="מרצה">
+          </div>
+          <div class="form-group">
+            <label for="staff-email-1">אימייל</label>
+            <input type="email" id="staff-email-1" value="israel@example.com">
+          </div>
+          <button type="button" class="delete-staff-btn" data-id="1">מחק</button>
+        </div>
+      </div>
+      
+      <button type="button" id="add-staff-member-btn" class="button secondary">הוסף איש צוות</button>
+      <button type="submit" class="button">שמור שינויים</button>
+    </form>
+  `;
+  
+  // Add event listener to add staff button
+  const addStaffBtn = document.getElementById('add-staff-member-btn');
+  if (addStaffBtn) {
+    addStaffBtn.addEventListener('click', () => {
+      const staffList = document.getElementById('staff-list');
+      const staffCount = staffList.children.length + 1;
+      
+      const newStaffMember = document.createElement('div');
+      newStaffMember.className = 'staff-member';
+      newStaffMember.innerHTML = `
+        <div class="form-group">
+          <label for="staff-name-${staffCount}">שם</label>
+          <input type="text" id="staff-name-${staffCount}" required>
+        </div>
+        <div class="form-group">
+          <label for="staff-role-${staffCount}">תפקיד</label>
+          <input type="text" id="staff-role-${staffCount}">
+        </div>
+        <div class="form-group">
+          <label for="staff-email-${staffCount}">אימייל</label>
+          <input type="email" id="staff-email-${staffCount}">
+        </div>
+        <button type="button" class="delete-staff-btn" data-id="${staffCount}">מחק</button>
+      `;
+      
+      staffList.appendChild(newStaffMember);
+      
+      // Add event listener to delete button
+      const deleteBtn = newStaffMember.querySelector('.delete-staff-btn');
+      if (deleteBtn) {
+        deleteBtn.addEventListener('click', (e) => {
+          const staffId = e.target.dataset.id;
+          const staffMember = document.querySelector(`.staff-member:nth-child(${staffId})`);
+          if (staffMember) {
+            staffMember.remove();
+          }
+        });
+      }
+    });
+  }
+  
+  // Add event listener to form submission
+  const form = document.getElementById('edit-staff-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Collect staff data
+      const staffMembers = [];
+      const staffElements = document.querySelectorAll('.staff-member');
+      
+      staffElements.forEach((el, index) => {
+        const nameInput = el.querySelector(`input[id^="staff-name-"]`);
+        const roleInput = el.querySelector(`input[id^="staff-role-"]`);
+        const emailInput = el.querySelector(`input[id^="staff-email-"]`);
+        
+        if (nameInput && nameInput.value) {
+          staffMembers.push({
+            name: nameInput.value,
+            role: roleInput ? roleInput.value : '',
+            email: emailInput ? emailInput.value : ''
+          });
+        }
+      });
+      
+      // Here you would normally send this data to your server
+      // For now, we'll just show a success message
+      alert(`הצוות עודכן בהצלחה! נשמרו ${staffMembers.length} אנשי צוות.`);
+      
+      // Close the modal
+      adminModal.style.display = 'none';
+      
+      // TODO: In a real implementation, this would update the staff list in your database
+    });
+  }
+  
+  // Initialize delete buttons
+  const deleteButtons = document.querySelectorAll('.delete-staff-btn');
+  deleteButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const staffId = e.target.dataset.id;
+      const staffMember = document.querySelector(`.staff-member:nth-child(${staffId})`);
+      if (staffMember) {
+        staffMember.remove();
+      }
+    });
+  });
+  
+  // Show the modal
+  adminModal.style.display = 'flex';
+}
+
+// ----------------
 // Authentication Functionality
 // ----------------
 function initAuth() {
@@ -191,47 +420,30 @@ function initAuth() {
   }
 }
 
-// Update UI based on authentication state
-function updateAuthUI(user, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn) {
-  if (user) {
-    // User is logged in
-    if (loginButton) loginButton.style.display = 'none';
-    if (signupButton) signupButton.style.display = 'none';
-    if (logoutButton) logoutButton.style.display = 'flex';
-    if (userGreeting) userGreeting.style.display = 'flex';
-    
-    // Login page specific
-    if (notLoggedIn) notLoggedIn.style.display = 'none';
-    if (loggedIn) loggedIn.classList.add('visible');
-    
-    // Set user name
-    if (userName) {
-      if (user.user_metadata && user.user_metadata.full_name) {
-        userName.textContent = user.user_metadata.full_name;
-      } else {
-        userName.textContent = user.email;
-      }
+// Get current user info from localStorage
+function getCurrentUser() {
+  const userData = localStorage.getItem('netlifyUser');
+  if (userData) {
+    try {
+      return JSON.parse(userData);
+    } catch (e) {
+      console.error('Error parsing user data', e);
+      return null;
     }
-    
-    // Store user info in localStorage
-    localStorage.setItem('netlifyUser', JSON.stringify({
-      email: user.email,
-      name: user.user_metadata?.full_name || user.email
-    }));
-  } else {
-    // User is logged out
-    if (loginButton) loginButton.style.display = 'flex';
-    if (signupButton) signupButton.style.display = 'flex';
-    if (logoutButton) logoutButton.style.display = 'none';
-    if (userGreeting) userGreeting.style.display = 'none';
-    
-    // Login page specific
-    if (notLoggedIn) notLoggedIn.style.display = 'block';
-    if (loggedIn) loggedIn.classList.remove('visible');
-    
-    // Remove user info from localStorage
-    localStorage.removeItem('netlifyUser');
   }
+  return null;
+}
+
+// Check if user has a specific role
+function hasRole(user, role) {
+  if (!user) return false;
+  
+  // Check if the user object has roles directly
+  if (user.roles && Array.isArray(user.roles)) {
+    return user.roles.includes(role);
+  }
+  
+  return false;
 }
 
 // Check if user is authenticated
@@ -249,4 +461,7 @@ window.addEventListener('load', function() {
   
   // Initialize auth with a small delay to ensure Netlify Identity has loaded
   setTimeout(initAuth, 100);
+  
+  // Initialize admin panel (depends on auth being initialized)
+  setTimeout(initAdminPanel, 200);
 }); 
