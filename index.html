@@ -321,157 +321,7 @@
       <p>סיכומי השיעורים במבנה נוח ללמידה, הכוללים את כל הנושאים המרכזיים בקורס חשבון אינפיניטסימלי 2</p>
     </header>
 
-    <div class="lectures-grid">
-      <a href="lectures/lecture1.html" class="lecture-card">
-        <div class="card-number">01</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 1</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture2.html" class="lecture-card">
-        <div class="card-number">02</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 2</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture3.html" class="lecture-card">
-        <div class="card-number">03</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 3</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture4.html" class="lecture-card">
-        <div class="card-number">04</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 4</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture5.html" class="lecture-card">
-        <div class="card-number">05</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 5</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture6.html" class="lecture-card">
-        <div class="card-number">06</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 6</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture7.html" class="lecture-card">
-        <div class="card-number">07</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 7</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture8.html" class="lecture-card">
-        <div class="card-number">08</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 8</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture9.html" class="lecture-card">
-        <div class="card-number">09</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 9</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-      
-      <a href="lectures/lecture10.html" class="lecture-card">
-        <div class="card-number">10</div>
-        <div class="card-content">
-          <div>
-            <h2 class="card-title">שיעור 10</h2>
-          </div>
-          <div class="card-footer">
-            <span class="view-button">
-              <i class="fas fa-arrow-left"></i>
-              צפייה בשיעור
-            </span>
-          </div>
-        </div>
-      </a>
-    </div>
+    <div class="lectures-grid" id="lectures-container"></div>
 
     <footer class="footer">
       <p>כל הזכויות שמורות &copy; 2024 | סיכומי אינפי 2</p>
@@ -481,6 +331,89 @@
   <!-- Dark Mode JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Function to load available lectures
+      function loadLectures() {
+        const lecturesContainer = document.getElementById('lectures-container');
+        
+        // Array of confirmed lectures (currently 7)
+        const availableLectures = [1, 2, 3, 4, 5, 6, 7];
+        
+        // Create a card for each available lecture
+        availableLectures.forEach(num => {
+          // Format the lecture number with leading zero if needed
+          const paddedNum = num.toString().padStart(2, '0');
+          
+          // Create lecture card
+          const card = document.createElement('a');
+          card.href = `lectures/lecture${num}.html`;
+          card.className = 'lecture-card';
+          
+          // Card content
+          card.innerHTML = `
+            <div class="card-content">
+              <div>
+                <h2 class="card-title">שיעור ${num}</h2>
+              </div>
+              <div class="card-footer">
+                <span class="view-button">
+                  <i class="fas fa-arrow-left"></i>
+                  צפייה בשיעור
+                </span>
+              </div>
+            </div>
+          `;
+          
+          // Add card to container
+          lecturesContainer.appendChild(card);
+        });
+        
+        // Check for additional lectures using fetch
+        checkForAdditionalLectures(availableLectures);
+      }
+      
+      // Function to check if there are additional lectures beyond the known ones
+      function checkForAdditionalLectures(knownLectures) {
+        const maxToCheck = 20; // Reasonable upper limit to check
+        const lecturesContainer = document.getElementById('lectures-container');
+        
+        // Check for lecture files beyond our known list
+        for (let i = Math.max(...knownLectures) + 1; i <= maxToCheck; i++) {
+          fetch(`lectures/lecture${i}.html`, { method: 'HEAD' })
+            .then(response => {
+              if (response.ok) {
+                // File exists, create a card for it
+                const paddedNum = i.toString().padStart(2, '0');
+                
+                const card = document.createElement('a');
+                card.href = `lectures/lecture${i}.html`;
+                card.className = 'lecture-card';
+                
+                card.innerHTML = `
+                  <div class="card-content">
+                    <div>
+                      <h2 class="card-title">שיעור ${i}</h2>
+                    </div>
+                    <div class="card-footer">
+                      <span class="view-button">
+                        <i class="fas fa-arrow-left"></i>
+                        צפייה בשיעור
+                      </span>
+                    </div>
+                  </div>
+                `;
+                
+                lecturesContainer.appendChild(card);
+              }
+            })
+            .catch(() => {
+              // File doesn't exist, do nothing
+            });
+        }
+      }
+      
+      // Load lectures when the page loads
+      loadLectures();
+
       const darkModeToggle = document.getElementById('darkModeToggle');
       const htmlElement = document.documentElement;
       
