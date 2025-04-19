@@ -420,6 +420,67 @@ function initAuth() {
   }
 }
 
+// Update UI based on authentication state
+function updateAuthUI(user, loginButton, signupButton, logoutButton, userGreeting, userName, notLoggedIn, loggedIn) {
+  if (user) {
+    // User is logged in
+    if (loginButton) loginButton.style.display = 'none';
+    if (signupButton) signupButton.style.display = 'none';
+    if (logoutButton) logoutButton.style.display = 'flex';
+    if (userGreeting) userGreeting.style.display = 'flex';
+    
+    // Login page specific
+    if (notLoggedIn) notLoggedIn.style.display = 'none';
+    if (loggedIn) loggedIn.classList.add('visible');
+    
+    // Set user name
+    if (userName) {
+      if (user.user_metadata && user.user_metadata.full_name) {
+        userName.textContent = user.user_metadata.full_name;
+      } else {
+        userName.textContent = user.email;
+      }
+    }
+    
+    // Get user roles
+    const roles = user.app_metadata && user.app_metadata.roles ? user.app_metadata.roles : [];
+    
+    // Show admin controls if user has admin role
+    const adminControls = document.getElementById('admin-controls');
+    if (adminControls) {
+      if (hasRole(user, 'admin')) {
+        adminControls.style.display = 'flex';
+      } else {
+        adminControls.style.display = 'none';
+      }
+    }
+    
+    // Store user info in localStorage
+    localStorage.setItem('netlifyUser', JSON.stringify({
+      email: user.email,
+      name: user.user_metadata?.full_name || user.email,
+      roles: roles
+    }));
+  } else {
+    // User is logged out
+    if (loginButton) loginButton.style.display = 'flex';
+    if (signupButton) signupButton.style.display = 'flex';
+    if (logoutButton) logoutButton.style.display = 'none';
+    if (userGreeting) userGreeting.style.display = 'none';
+    
+    // Login page specific
+    if (notLoggedIn) notLoggedIn.style.display = 'block';
+    if (loggedIn) loggedIn.classList.remove('visible');
+    
+    // Hide admin controls
+    const adminControls = document.getElementById('admin-controls');
+    if (adminControls) adminControls.style.display = 'none';
+    
+    // Remove user info from localStorage
+    localStorage.removeItem('netlifyUser');
+  }
+}
+
 // Get current user info from localStorage
 function getCurrentUser() {
   const userData = localStorage.getItem('netlifyUser');
