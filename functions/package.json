@@ -1,0 +1,9 @@
+{
+  "name": "infi-notes-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for Infi Notes",
+  "main": "index.js",
+  "dependencies": {
+    "@octokit/rest": "^19.0.13"
+  }
+} 
