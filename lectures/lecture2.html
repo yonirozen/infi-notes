@@ -978,24 +978,32 @@ header {
          // --- Global Chart Variables ---
          let lineChartInstance = null;
          let parabolaChartInstance = null;
+         let stepChartInstance = null;
 
          // --- Function to Render Charts ---
          function renderCharts() {
              // Destroy previous charts if they exist
              if (lineChartInstance) lineChartInstance.destroy();
              if (parabolaChartInstance) parabolaChartInstance.destroy();
+             if (stepChartInstance) stepChartInstance.destroy();
 
              const lineCtx = document.getElementById('lineChart')?.getContext('2d');
              const parabolaCtx = document.getElementById('parabolaChart')?.getContext('2d');
+             const stepCtx = document.getElementById('stepChart')?.getContext('2d');
 
-             if (!lineCtx || !parabolaCtx) {
-                 console.warn("One or both chart canvas elements not found or lack context.");
+             if (!lineCtx || !parabolaCtx || !stepCtx) {
+                 console.warn("One or more chart canvas elements not found or lack context.");
                  return;
              }
 
              const rangeMin = -4;
              const rangeMax = 4;
              const step = 0.25;
+
+             // For stepChart (floor function)
+             const stepRangeMin = 0;
+             const stepRangeMax = 2;
+             const stepStep = 0.01;
 
              const generateData = (func, min, max, step) => {
                  const points = [];
@@ -1126,6 +1134,45 @@ header {
                      ]
                  },
                  options: commonChartOptions
+             });
+
+             const stepData = generateData(x => Math.floor(x), stepRangeMin, stepRangeMax, stepStep);
+             stepChartInstance = new Chart(stepCtx, {
+                 type: 'line',
+                 data: {
+                     datasets: [{
+                         label: 'y = floor(x)',
+                         data: stepData,
+                         borderColor: '#28a745',
+                         backgroundColor: 'transparent',
+                         borderWidth: 2.5,
+                         pointRadius: 0,
+                         tension: 0.1
+                     }]
+                 },
+                 options: {
+                     ...commonChartOptions,
+                     scales: {
+                         x: {
+                             ...commonChartOptions.scales.x,
+                             min: stepRangeMin,
+                             max: stepRangeMax,
+                             ticks: {
+                                 ...commonChartOptions.scales.x.ticks,
+                                 stepSize: stepStep
+                             }
+                         },
+                         y: {
+                             ...commonChartOptions.scales.y,
+                             min: 0,
+                             max: 2,
+                             ticks: {
+                                 ...commonChartOptions.scales.y.ticks,
+                                 stepSize: 1
+                             }
+                         }
+                     }
+                 }
              });
          }
 
